@@ -148,8 +148,7 @@
     height: 250px;
     border-radius: 6px;
     border: 2px solid #999;
-    margin: 0 5px;
-    background: #f18585;    
+    margin: 0 5px;   
   }
   
   .orgchart .node>.hazy {
@@ -165,15 +164,8 @@
     color: rgba(68, 157, 68, 0.8);
   }
   
-  .orgchart .node:hover {
-    background-color: rgba(238, 217, 54, 0.5);
-    transition: .5s;
-    cursor: default;
-    z-index: 20;
-  }
-  
   .orgchart .node.focused {
-    background-color: rgba(238, 217, 54, 0.5);
+    //background-color: rgba(238, 217, 54, 0.5);
   }
   
   .orgchart .ghost-node {
@@ -431,7 +423,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding:5px 18px 0 5px;
+  padding:5px 8px 0 5px;
 }
 .orgchart .node .second-menu .node-avatar {
   width: 60px;
@@ -461,7 +453,7 @@
 .orgchart .node .second-menu .node-footer{
   display: flex;
   flex-direction: row;
-  margin-top: 2px;
+  margin-top: 5px;
   align-items: center;
   justify-content: space-between;
   padding: 0 5px
@@ -477,32 +469,37 @@
   font-size: 0.78rem;
   text-decoration: underline;
 }
-.orgchart.l2r:hover {
-    background: #f5f5f5;
+
+.orgchart .purReceipt {
+  background-color: #b3f5f5;
+}
+.orgchart .purReturn {
+  background-color: #ffdfbc;
+}
+.orgchart .purInvoice {
+  background-color: #e5bd8c;
+}
+.orgchart .prodReceipt {
+  background-color: #f8e6b7;
+}
+.orgchart .prodIssue {
+  background-color: #ffebe7;
+}
+.orgchart .matReturn {
+  background-color:#f7ee8f;
+}
+.orgchart .creditMemo {
+  background-color:#1eb7ae;
+}
+.orgchart .salesReturn {
+  background-color:#ffbac6;
+}
+.orgchart .goodsIssue {
+  background-color:#83ffda;
 }
 
-.orgchart.l2r {
-    cursor: move !important;
-}
 
-.orgchart .top-level .title {
-    background-color: #006699;
-  }
-  .orgchart .top-level .content {
-    border-color: #006699;
-  }
-  .orgchart .middle-level .title {
-    background-color: #009933;
-  }
-  .orgchart .middle-level .content {
-    border-color: #009933;
-  }
-  .orgchart .bottom-level .title {
-    background-color: #993366;
-  }
-  .orgchart .bottom-level .content {
-    border-color: #993366;
-  }
+
 
   .chart-arrow-up{
     font-style: normal;

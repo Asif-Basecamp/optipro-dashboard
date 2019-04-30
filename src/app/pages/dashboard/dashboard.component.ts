@@ -6,26 +6,22 @@ import OrgChart from '../../@core/org-chart/orgchart.js';
 const datascource = {
   'id': '1',
     'name': 'Lao Lao',
-    'className': 'top-level',
+    'className': 'purReceipt',
     'children': [
-      { 'id': '2', 'name': 'Bo Miao', 'className': 'middle-level' },
-      { 'id': '3', 'name': 'Su Miao', 'className': 'middle-level',
+      { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
+      { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice',
         'children': [
-          { 'id': '4', 'name': 'Tie Hua', 'className': 'bottom-level' },
-          { 'id': '5', 'name': 'Hei Hei', 'className': 'bottom-level',
+          { 'id': '4', 'name': 'Tie Hua', 'className': 'prodReceipt' },
+          { 'id': '5', 'name': 'Hei Hei', 'className': 'prodIssue',
             'children': [
-              { 'id': '6', 'name': 'Pang Pang', 'className': 'bottom-level'},
-              { 'id': '7', 'name': 'Xiang Xiang', 'className': 'bottom-level'}
+              { 'id': '6', 'name': 'Pang Pang', 'className': 'matReturn'},
+              { 'id': '7', 'name': 'Xiang Xiang', 'className': 'creditMemo'}
             ]
           }
         ]
       },
-      { 'id': '8', 'name': 'Yu Jie', 'className': 'middle-level' },
-      { 'id': '9', 'name': 'Yu Li', 'className': 'middle-level' },
-      { 'id': '10', 'name': 'Hong Miao','className': 'middle-level'},
-      { 'id': '11', 'name': 'Yu Wei', 'className': 'middle-level'},
-      { 'id': '12', 'name': 'Chun Miao','className': 'middle-level' },
-      { 'id': '13', 'name': 'Yu Tie', 'className': 'middle-level' }
+      { 'id': '8', 'name': 'Yu Jie', 'className': 'salesReturn' },
+      { 'id': '9', 'name': 'Yu Li', 'className': 'goodsIssue' },
     ]
   }
 const actionMapping:IActionMapping = {
