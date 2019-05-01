@@ -1,3 +1,11 @@
+<style>
+  .opti_error-msg {
+      color: red !important;
+      font-size: 12px;
+      
+  }
+</style>
+
 <div id="opti_signinID" class="opti_account-submodule-wrapper">
 
   <div class="float-left opti_account-banner-section">
@@ -20,13 +28,14 @@
                   <form class="k-form">
                       <label class="k-form-field">
                         <span class="opti_form-label">Username</span>
-
-                        <input type="text"  name = "email" required class="k-textbox" value="" nbInput placeholder="Enter Username" />  
+                        <span *ngIf="email.errors?.required && email.touched" class="float-right opti_error-msg">Username required</span>
+                        <input type="text" class="k-textbox" id="email" required #email = ngModel name="email"  placeholder="Enter Username" [(ngModel)]="loginId"  value="" nbInput (blur)="OnUserIdBlur()"/>  
                       </label>
 
                       <label class="k-form-field">
                           <span class="opti_form-label">Password</span>
-                        <input name = "password" required type="password" class="k-textbox" value="" nbInput placeholder="Enter Password" />
+                          <span *ngIf="PasswordBlank.errors?.required && PasswordBlank.touched" class="float-right opti_error-msg">Password required</span>
+                        <input type="password" class="k-textbox" id="password" required #PasswordBlank = ngModel  name = "password" nbInput placeholder="Enter Password" [(ngModel)]="password" value=""  (blur)="OnPasswordBlur()"/>
                       </label>
 
                       <!-- start if condition -->
@@ -53,7 +62,7 @@
                           </div>
                       </label>
                       <div class="text-right">
-                          <button type="submit" id=connectbtn class="k-button k-primary opti_fullwidth" nbButton>Login</button>
+                          <button type="submit" id=connectbtn class="k-button k-primary opti_fullwidth" nbButton [disabled]="clickSignIn" (click)="OnSignIn()">Login</button>
                       </div>
                   </form>
               </div>
