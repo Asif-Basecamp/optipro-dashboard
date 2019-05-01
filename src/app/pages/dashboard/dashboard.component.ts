@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { TreeNode, TreeModel, TREE_ACTIONS, KEYS, IActionMapping, ITreeOptions } from 'angular-tree-component';
 import OrgChart from '../../@core/org-chart/orgchart.js';
+import { NbDialogService } from '@nebular/theme';
+import { products } from 'src/app/sampleData/products.js';
 
 
 const datascource = {
@@ -56,10 +58,14 @@ const actionMapping:IActionMapping = {
 export class DashboardComponent implements OnInit{
   public orgchart: any;
   public nextElementSibling: any;
+  public gridData: any[] = products;
   
   selectedItem = '2';
+
+  constructor(private dialogService: NbDialogService) {
+  }
+
   
-  constructor() { }
   ngOnInit() {
     // this.orgchart = new OrgChart({
     //   'chartContainer': '#chart-container',
@@ -179,7 +185,10 @@ export class DashboardComponent implements OnInit{
     // });
   }
 
- 
+  open(dialog: TemplateRef<any>) {
+    this.dialogService.open(dialog);
+  }
+
   nodes = [
     {
       name: 'root1',
@@ -309,6 +318,7 @@ export class DashboardComponent implements OnInit{
     actionMapping
   };
 
+ 
 
   
 

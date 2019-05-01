@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { GridModule } from '@progress/kendo-angular-grid';
+
 import {
   NbActionsModule,
   NbCardModule,
@@ -101,6 +103,7 @@ const NB_MODULES = [
   NbSpinnerModule,
   NbRadioModule,
   NbSelectModule,
+  GridModule
   //NbTooltipModule,
 ];
 

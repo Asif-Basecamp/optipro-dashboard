@@ -9,6 +9,8 @@ import { APP_BASE_HREF } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ThemeModule } from './@theme/theme.module';
 import { CoreModule } from './@core/core.module';
+import { GridModule } from '@progress/kendo-angular-grid';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +25,7 @@ import { CoreModule } from './@core/core.module';
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
-    
+    GridModule    
   ],
   bootstrap: [AppComponent],
   providers: [
