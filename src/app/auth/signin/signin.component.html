@@ -44,23 +44,29 @@
                               Company                            
                           </label>
 
-                          <select class="form-control">
+                          <!-- <select class="form-control">
                             <option>Minsk</option>
                             <option>Gomel</option>
                             <option>Brest</option>
                             <option>Grodno</option>
                             <option>Mogilev</option>
-                          </select>
+                          </select> -->
+
+                        <select type="company" name="form-company" [(ngModel)]="selectedValue" class="form-username form-control" id="form-company" [disabled]="disableDropDown"
+                        (change)="OnDropDownBlur($event)">
+                          <option *ngFor="let cmp of listItems" name="selcompany" [ngValue]="cmp">{{cmp.cmpName}}
+                            ({{cmp.OPTM_COMPID}})</option> 
+                       </select> 
                           
 
                       </ng-container>
                       <!-- end if condition -->
 
-                      <label class="k-form-field">
+                      <!-- <label class="k-form-field">
                           <div class="opti_checkbox-container">
                               <nb-checkbox>Remember Me</nb-checkbox>
                           </div>
-                      </label>
+                      </label> -->
                       <div class="text-right">
                           <button type="submit" id=connectbtn class="k-button k-primary opti_fullwidth" nbButton [disabled]="clickSignIn" (click)="OnSignIn()">Login</button>
                       </div>
