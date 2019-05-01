@@ -20,6 +20,9 @@ export class SigninComponent implements OnInit {
   public modelSource: any = [];
   public assignedCompanies: any = [];
   public clickSignIn: boolean = true;
+  public defaultCompnyComboValue: any = [];
+  public listItems: any = [] = this.defaultCompnyComboValue;
+  public selectedValue: any = [];
 
   constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,) { }
 
@@ -46,8 +49,11 @@ export class SigninComponent implements OnInit {
     this.auth.getPSURL(this.arrConfigData[0].optiProDashboardAPIURL,this.adminDBName).subscribe(
       data => {
         if (data != null) {
-          //this.psURL = data;
-          this.psURL = "http://172.16.6.140/OptiAdmin";         
+          this.psURL = data;
+          //this.psURL = "http://172.16.6.140/OptiAdmin";   
+          this.defaultCompnyComboValue = [{ OPTM_COMPID: 'Select Company' }];
+          this.listItems = this.defaultCompnyComboValue;
+          this.selectedValue = this.listItems[0];      
         }
       },
       error => {
@@ -78,30 +84,30 @@ export class SigninComponent implements OnInit {
       
       else{
 
-      // this.auth.login(this.loginId, this.password, this.psURL).subscribe(
-      //   data => {
-      //     this.modelSource = data;
-      //     console.log(data);
+      this.auth.login(this.loginId, this.password, this.psURL).subscribe(
+        data => {
+          this.modelSource = data;
+          console.log(data);
 
-      //     if (this.modelSource != null && this.modelSource.Table.length > 0 && this.modelSource.Table[0].OPTM_ACTIVE == 1) {
-      //       this.getCompanies();
+          if (this.modelSource != null && this.modelSource.Table.length > 0 && this.modelSource.Table[0].OPTM_ACTIVE == 1) {
+            this.getCompanies();
             
-      //     }
-      //     else{
-      //       // this.listItems = this.defaultCompnyComboValue;
-      //       // this.selectedValue = this.listItems[0];
-      //       // this.toastr.error('', this.language.alert_incorrect_useridpassword, this.Commonser.messageConfig.iconClasses.error);
-      //       //this.OnDropDownBlur(0);
-      //       alert("Incorrect User Name or Password");
-      //     }       
+          }
+          else{
+            this.listItems = this.defaultCompnyComboValue;
+            this.selectedValue = this.listItems[0];
+            // this.toastr.error('', this.language.alert_incorrect_useridpassword, this.Commonser.messageConfig.iconClasses.error);
+            //this.OnDropDownBlur(0);
+            alert("Incorrect User Name or Password");
+          }       
 
-      //   // this.disableDropDown = false;         
-      //   },
-      //   error => {
-      //    // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
-      //    // this.showLoader = false;
-      //   }       
-      // );   
+        //this.disableDropDown = false;         
+        },
+        error => {
+         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
+         // this.showLoader = false;
+        }       
+      );   
       }
     }
 
@@ -114,7 +120,9 @@ export class SigninComponent implements OnInit {
           if (this.modelSource != undefined && this.modelSource != null && this.modelSource.Table.length > 0)
           {
             this.assignedCompanies = data.Table; 
-            this.clickSignIn = false;             
+            this.clickSignIn = false;            
+            this.listItems = this.assignedCompanies;
+            this.listItems.unshift({ OPTM_COMPID: 'Select Company' }) 
           }
           else {
             alert("No Company is assigned to user");
@@ -122,6 +130,9 @@ export class SigninComponent implements OnInit {
           
           }
       )
+    }
+
+    OnDropDownBlur(event){
     }
 
     OnSignIn(){
