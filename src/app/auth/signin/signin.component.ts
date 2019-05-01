@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -21,7 +22,7 @@ export class SigninComponent implements OnInit {
   public assignedCompanies: any = [];
   public clickSignIn: boolean = true;
 
-  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient) { }
+  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,) { }
 
   ngOnInit() {
     const element = document.getElementsByTagName("body")[0];
@@ -124,5 +125,9 @@ export class SigninComponent implements OnInit {
           
           }
       )
+    }
+
+    OnSignIn(){
+      this.router.navigateByUrl('/pages');
     }
 }
