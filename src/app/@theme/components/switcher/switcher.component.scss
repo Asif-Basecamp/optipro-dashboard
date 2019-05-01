@@ -1,7 +1,7 @@
 @import '../../styles/themes';
-@import '~@nebular/bootstrap/styles/hero-buttons';
+@import '../../../../assets/style/styles/hero-buttons';
 @import '~bootstrap/scss/mixins/breakpoints';
-@import '~@nebular/theme/styles/global/breakpoints';
+@import '../../../../assets/style/global/breakpoints';
 
 @include nb-install-component() {
   .switch-label {

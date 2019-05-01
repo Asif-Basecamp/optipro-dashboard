@@ -2,9 +2,9 @@
 @import 'themes';
 
 // framework component themes (styles tied to theme variables)
-@import '~@nebular/theme/styles/globals';
+@import '../../../assets/style/globals';
 // @import '~@nebular/auth/styles/all';
-@import '~@nebular/bootstrap/styles/globals';
+@import '../../../assets/style/styles/globals';
 // ...
 
 // global app font size

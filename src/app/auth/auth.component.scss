@@ -1,16 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-
-@Component({
-  selector: 'app-auth',
-  template: `
-  <router-outlet></router-outlet>
-  `
-})
-export class AuthComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+ngx-one-column-layout{
+    & nb-layout.plan-layout{
+        display: none;
+    }
+    & nb-layout.plan-layout .layout{
+        background: transparent;
+        min-height: initial;
+    }
 }

@@ -18,6 +18,7 @@ export class PagesComponent implements OnInit{
   ngOnInit(){  
     // Remove account related class from body
     const element = document.getElementsByTagName("body")[0];
-    element.className = "nb-theme-corporate";
+    element.classList.remove("opti_body-login");
+    element.classList.remove("opti_account-module");
   }
 }

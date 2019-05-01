@@ -1,56 +1,154 @@
+<div class="dashboard-container" *ngIf="true">
+    <nb-card accent="info">
+      <nb-card-header>Selection Criteria</nb-card-header>
+      <nb-card-body>
+          <div class="row">
+            <div class="col-sm-6 col-xl-4">
+              <form>
+                <div class="form-group row">
+                  <label for="inputPassword3" class="col-sm-2 col-form-label">Item</label>
+                  <div class="col-sm-10">
+                    <div class="input-group">                  
+                      <input nbInput type="text" class="form-control" placeholder="">
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"><i class="nb-menu"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputPassword3" class="col-sm-2 col-form-label">Desc.</label>
+                  <div class="col-sm-10">
+                    <div class="input-group">                  
+                      <input nbInput type="text" class="form-control" placeholder="">
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"><i class="nb-menu"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputPassword3" class="col-sm-2 col-form-label">Warehouse</label>
+                  <div class="col-sm-10">
+                    <div class="input-group">                  
+                      <input nbInput type="text" class="form-control" placeholder="">
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"><i class="nb-menu"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputPassword3" class="col-sm-2 col-form-label">Lot From</label>
+                  <div class="col-sm-10">
+                    <div class="input-group">                  
+                      <input nbInput type="text" class="form-control" placeholder="">
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"><i class="nb-menu"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="inputPassword3" class="col-sm-2 col-form-label">Lot To</label>
+                  <div class="col-sm-10">
+                    <div class="input-group">                  
+                      <input nbInput type="text" class="form-control" placeholder="">
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"><i class="nb-menu"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <fieldset class="form-group">
+                  <div class="row">
+                    <legend class="col-form-label col-sm-2 pt-0"></legend>
+                    <div class="col-sm-10">
+                      <nb-radio-group class="d-flex">
+                        <nb-radio>Single Level</nb-radio>
+                        <nb-radio>Multi Level</nb-radio>
+                      </nb-radio-group>
+                    </div>
+                  </div>
+                </fieldset>
 
-  <div class="dashboard-container">
-    <nb-accordion multi>
-      <nb-accordion-item expanded>
-        <nb-accordion-item-header>
-          Grid View
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <div class="col-sm-4">
-            <div class="tree-wrapper pt-3">
-              <tree-root
+
+                <div class="form-group row">
+
+                  <div class="col-sm-6">
+                    <nb-select placeholder="Select Showcase" size="xsmall" [(selected)]="selectedItem">
+                      <nb-option value="1">Option 1</nb-option>
+                      <nb-option value="2">Option 2</nb-option>
+                      <nb-option value="3">Option 3</nb-option>
+                      <nb-option value="4">Option 4</nb-option>
+                    </nb-select>
+                  </div>
+                  <div class="col-sm-6">
+                    <button type="submit" nbButton class="btn btn-primary" size="xsmall">Process</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+      </nb-card-body>
+      <!-- <nb-card-footer>
+
+      </nb-card-footer> -->
+    </nb-card>
+</div>
+
+<!-- <div class="dashboard-container" *ngIf="false">
+  <nb-accordion multi>
+    <nb-accordion-item expanded>
+      <nb-accordion-item-header>
+        Grid View
+      </nb-accordion-item-header>
+      <nb-accordion-item-body>
+        <div class="col-sm-4">
+          <div class="tree-wrapper pt-3">
+            <tree-root
+              #tree
+              [nodes]="nodes"
+              [options]="options"
+              [focused]="true"
+            >
+            </tree-root>
+          </div>
+        </div>
+        <div class="col-sm-8 pt-3">
+          <nb-card>
+            <nb-card-body>
+                <nb-radio-group class="d-flex" >
+                  <nb-radio>Show Data of all type of lots</nb-radio>
+                  <nb-radio>Show Data of all immediate of lots</nb-radio>
+                </nb-radio-group>
+            </nb-card-body>
+          </nb-card>
+
+          <nb-card>
+            <nb-card-header>Transaction Type</nb-card-header>
+            <nb-card-body>
+                <tree-root
                 #tree
                 [nodes]="nodes"
                 [options]="options"
                 [focused]="true"
               >
               </tree-root>
-            </div>
-          </div>
-          <div class="col-sm-8 pt-3">
-            <nb-card>
-              <nb-card-body>
-                  <nb-radio-group class="d-flex" [(ngModel)]="selectedOption">
-                    <nb-radio>Show Data of all type of lots</nb-radio>
-                    <nb-radio>Show Data of all immediate of lots</nb-radio>
-                  </nb-radio-group>
-              </nb-card-body>
-            </nb-card>
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
 
-            <nb-card>
-              <nb-card-header>Transaction Type</nb-card-header>
-              <nb-card-body>
-                  <tree-root
-                  #tree
-                  [nodes]="nodes"
-                  [options]="options"
-                  [focused]="true"
-                >
-                </tree-root>
-              </nb-card-body>
-            </nb-card>
-          </div>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-  
-      <nb-accordion-item expanded>
-        <nb-accordion-item-header>
-          Analysis View
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          <div id="chart-container"></div>
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-    </nb-accordion>
-  </div>
+    <nb-accordion-item expanded>
+      <nb-accordion-item-header>
+        Analysis View
+      </nb-accordion-item-header>
+      <nb-accordion-item-body>
+        <div id="chart-container"></div>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+  </nb-accordion>
+</div> -->
 

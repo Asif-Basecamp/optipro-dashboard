@@ -15,7 +15,7 @@ import {
   NbThemeModule,
   NbUserModule,
   NbCheckboxModule,
-  //NbPopoverModule,
+  NbPopoverModule,
   NbContextMenuModule,
   //NbProgressBarModule,
   //NbCalendarModule,
@@ -25,7 +25,7 @@ import {
   NbInputModule,
   NbAccordionModule,
   NbDialogModule,
-  NbWindowModule,
+  // NbWindowModule,
   //NbListModule,
   NbToastrModule,
   NbAlertModule,
@@ -42,13 +42,14 @@ import {
   //FooterComponent,
   HeaderComponent,
   //SearchInputComponent,
-  //ThemeSettingsComponent,
-  //SwitcherComponent,
+  ThemeSettingsComponent,
+  SwitcherComponent,
   //LayoutDirectionSwitcherComponent,
-  //ThemeSwitcherComponent,
-  //ThemeSwitcherListComponent,
-  ToggleSettingsButtonComponent,
+  ThemeSwitcherComponent,
+  ThemeSwitcherListComponent,
+  //ToggleSettingsButtonComponent,
 } from './components';
+
 import {
   CapitalizePipe,
   PluralPipe,
@@ -81,7 +82,7 @@ const NB_MODULES = [
   //NbSearchModule,
   NbSidebarModule,
   NbCheckboxModule,
-  //NbPopoverModule,
+  NbPopoverModule,
   NbContextMenuModule,
   NgbModule,
   //NbSecurityModule, // *nbIsGranted directive,
@@ -95,7 +96,7 @@ const NB_MODULES = [
   NbInputModule,
   NbAccordionModule,
   NbDialogModule,
-  NbWindowModule,
+  // NbWindowModule,
   NbAlertModule,
   NbSpinnerModule,
   NbRadioModule,
@@ -104,23 +105,23 @@ const NB_MODULES = [
 ];
 
 const COMPONENTS = [
-  //SwitcherComponent,
+  SwitcherComponent,
   //LayoutDirectionSwitcherComponent,
-  //ThemeSwitcherComponent,
-  //ThemeSwitcherListComponent,
+  ThemeSwitcherComponent,
+  ThemeSwitcherListComponent,
   HeaderComponent,
   //FooterComponent,
   //SearchInputComponent,
-  //ThemeSettingsComponent,
+  ThemeSettingsComponent,
   OneColumnLayoutComponent,
   SampleLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
-  ToggleSettingsButtonComponent,
+  //ToggleSettingsButtonComponent,
 ];
 
 const ENTRY_COMPONENTS = [
-  //ThemeSwitcherListComponent,
+  ThemeSwitcherListComponent,
 ];
 
 const PIPES = [
@@ -142,7 +143,7 @@ const NB_THEME_PROVIDERS = [
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,
   ...NbDialogModule.forRoot().providers,
-  ...NbWindowModule.forRoot().providers,
+  // ...NbWindowModule.forRoot().providers,
   ...NbToastrModule.forRoot().providers,
 ];
 

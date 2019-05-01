@@ -54,7 +54,12 @@
             margin-top: 10px;
         }
     }
-
+    & > nb-card{
+        width:100%;
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
 
 }
 .tree-wrapper{

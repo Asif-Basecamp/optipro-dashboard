@@ -1,9 +1,9 @@
 //Tree View
 @import '~angular-tree-component/dist/angular-tree-component.css';
 // @nebular theming framework
-@import '~@nebular/theme/styles/theming';
+@import '../../../assets/style/theming';
 // @nebular out of the box themes
-@import '~@nebular/theme/styles/themes';
+@import '../../../assets/style/themes';
 
 // which themes you what to enable (empty to enable all)
 $nb-enabled-themes: (default, cosmic, corporate);
