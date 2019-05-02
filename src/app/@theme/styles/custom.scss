@@ -1,4 +1,1216 @@
+//Kendow grid css
+.k-window-content {
+  border-color: inherit;
+  background: none;
+  padding: 1rem;
+  outline: 0;
+  overflow: auto;
+  position: relative;
+  flex: 1 1 auto;
+}
 
+.k-content {
+  outline: 0;
+  color: #212529;
+  background-color: #fff;
+  border-color: rgba(33,37,41,.125);
+}
+
+.k-grid {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.k-grid ::-webkit-scrollbar {
+  width: auto !important;
+  height: 5px;
+}
+
+.k-grid.k-display-block {
+  display: block
+}
+
+.k-grid .k-grid-container {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  overflow: hidden;
+  position: relative
+}
+
+.k-grid .k-grid-aria-root {
+  border-color: inherit;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  overflow: hidden
+}
+
+.k-grid table {
+  margin: 0;
+  width: 100%;
+  max-width: none;
+  border-width: 0;
+  border-color: inherit;
+  border-collapse: separate;
+  border-spacing: 0;
+  empty-cells: show;
+  outline: 0
+}
+
+.k-grid thead,.k-grid tbody,.k-grid tfoot {
+  text-align: left;
+  border-color: inherit
+}
+
+.k-grid tr {
+  border-color: inherit
+}
+
+.k-grid th,.k-grid td {
+  padding: 8px 12px;
+  border-style: solid;
+  border-color: inherit;
+  outline: 0;
+  font-weight: inherit;
+  text-align: inherit;
+  overflow: hidden;
+  text-overflow: ellipsis
+}
+
+.k-grid th:first-child,.k-grid td:first-child {
+  border-left-width: 0
+}
+
+.k-grid th:focus,.k-grid td:focus {
+  outline: none
+}
+
+.k-grid th {
+  padding: 8px 12px;
+  border-width: 0 0 1px 1px;
+  white-space: nowrap
+}
+
+.k-grid td {
+  border-width: 0 0 0 1px;
+  vertical-align: middle
+}
+
+.k-grid a {
+  color: inherit;
+  text-decoration: none
+}
+
+.k-grid a:hover {
+  text-decoration: none
+}
+
+.k-grid table,.k-grid .k-grid-header-wrap {
+  box-sizing: content-box
+}
+
+.k-grid .k-group-col,.k-grid .k-hierarchy-col {
+  padding: 0;
+  width: 32px
+}
+
+.k-grid .k-grouping-row p {
+  margin: 0;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: center;
+  align-content: center
+}
+
+.k-grid .k-grouping-row td {
+  overflow: visible
+}
+
+.k-grid .k-grouping-row+tr td {
+  border-top-width: 1px
+}
+
+.k-grid .k-grouping-row .k-group-cell,.k-grid .k-grouping-row+tr .k-group-cell {
+  border-top-width: 0;
+  text-overflow: none
+}
+
+.k-grid .k-grouping-row .k-icon {
+  margin-left: -4px;
+  margin-right: 8px
+}
+
+.k-grid .k-group-footer td {
+  border-style: solid;
+  border-width: 1px 0
+}
+
+.k-grid .k-group-footer .k-group-cell+td {
+  border-left-width: 1px
+}
+
+.k-grid .k-hierarchy-cell {
+  text-align: center;
+  padding: 0;
+  overflow: visible
+}
+
+.k-grid .k-hierarchy-cell>.k-icon {
+  padding: 8px 0;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  outline: 0
+}
+
+.k-grid .k-hierarchy-cell+td {
+  border-left-width: 0
+}
+
+.k-grid[dir="rtl"] thead,.k-grid[dir="rtl"] tbody,.k-grid[dir="rtl"] tfoot,.k-rtl .k-grid thead,.k-rtl .k-grid tbody,.k-rtl .k-grid tfoot {
+  text-align: right
+}
+
+.k-grid[dir="rtl"] th,.k-rtl .k-grid th {
+  white-space: nowrap
+}
+
+.k-grid[dir="rtl"] .k-grid-header-wrap,.k-rtl .k-grid .k-grid-header-wrap {
+  border-width: 0 0 0 1px
+}
+
+.k-grid[dir="rtl"] .k-group-indicator .k-button.k-bare,.k-grid[dir="rtl"] .k-group-indicator .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-button,.k-grid[dir="rtl"] .k-group-indicator .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-button,.k-grid[dir="rtl"] .k-drag-clue .k-button.k-bare,.k-grid[dir="rtl"] .k-drag-clue .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-button,.k-grid[dir="rtl"] .k-drag-clue .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-button,.k-rtl .k-grid .k-group-indicator .k-button.k-bare,.k-rtl .k-grid .k-group-indicator .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-button,.k-rtl .k-grid .k-group-indicator .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-button,.k-rtl .k-grid .k-drag-clue .k-button.k-bare,.k-rtl .k-grid .k-drag-clue .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-button,.k-rtl .k-grid .k-drag-clue .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-button {
+  margin-left: -2px;
+  margin-right: 8px
+}
+
+.k-grid[dir="rtl"] .k-group-indicator .k-link .k-icon,.k-grid[dir="rtl"] .k-drag-clue .k-link .k-icon,.k-rtl .k-grid .k-group-indicator .k-link .k-icon,.k-rtl .k-grid .k-drag-clue .k-link .k-icon {
+  margin-left: 4px;
+  margin-right: -2px
+}
+
+.k-grid[dir="rtl"] .k-group-indicator,.k-rtl .k-grid .k-group-indicator {
+  margin-right: 0;
+  margin-left: 4px
+}
+
+.k-grid[dir="rtl"] .k-group-indicator+.k-group-indicator,.k-rtl .k-grid .k-group-indicator+.k-group-indicator {
+  margin-right: 4px
+}
+
+.k-grid[dir="rtl"] .k-grid-content-locked,.k-grid[dir="rtl"] .k-grid-footer-locked,.k-grid[dir="rtl"] .k-grid-header-locked,.k-rtl .k-grid .k-grid-content-locked,.k-rtl .k-grid .k-grid-footer-locked,.k-rtl .k-grid .k-grid-header-locked {
+  border-left-width: 1px;
+  border-right-width: 0
+}
+
+.k-grid[dir="rtl"] th,.k-rtl .k-grid th {
+  border-width: 0 1px 1px 0
+}
+
+.k-grid[dir="rtl"] th:first-child,.k-rtl .k-grid th:first-child {
+  border-right-width: 0
+}
+
+.k-grid[dir="rtl"] td,.k-rtl .k-grid td {
+  border-width: 0 1px 0 0
+}
+
+.k-grid[dir="rtl"] td:first-child,.k-rtl .k-grid td:first-child {
+  border-right-width: 0
+}
+
+.k-grid[dir="rtl"] td.k-hierarchy-cell,.k-rtl .k-grid td.k-hierarchy-cell {
+  border-right-width: 0
+}
+
+.k-grid[dir="rtl"] .k-hierarchy-cell+td,.k-rtl .k-grid .k-hierarchy-cell+td {
+  border-right-width: 0
+}
+
+.k-grid[dir="rtl"] .k-grid-header,.k-grid[dir="rtl"] .k-grid-footer,.k-rtl .k-grid .k-grid-header,.k-rtl .k-grid .k-grid-footer {
+  padding-left: 17px;
+  padding-right: 0
+}
+
+.k-grid[dir="rtl"] .k-grid-header .k-header.k-first,.k-rtl .k-grid .k-grid-header .k-header.k-first {
+  border-left-width: 0;
+  border-right-width: 1px
+}
+
+.k-grid[dir="rtl"] .k-grid-header .k-with-icon,.k-grid[dir="rtl"] .k-grid-header .k-filterable,.k-rtl .k-grid .k-grid-header .k-with-icon,.k-rtl .k-grid .k-grid-header .k-filterable {
+  padding-left: calc(14px + 1.4285714286em);
+  padding-right: 12px
+}
+
+.k-grid[dir="rtl"] .k-grid-header .k-grid-filter,.k-grid[dir="rtl"] .k-grid-header .k-header-column-menu,.k-rtl .k-grid .k-grid-header .k-grid-filter,.k-rtl .k-grid .k-grid-header .k-header-column-menu {
+  right: auto;
+  left: 4px
+}
+
+.k-grid[dir="rtl"] .k-filtercell-operator,.k-rtl .k-grid .k-filtercell-operator {
+  margin-left: 0;
+  margin-right: 4px
+}
+
+.k-grid[dir="rtl"] .k-dirty,.k-rtl .k-grid .k-dirty {
+  border-color: currentColor currentColor transparent transparent;
+  left: auto;
+  right: 0
+}
+
+.k-grid[dir="rtl"] .k-edit-cell>.k-textbox,.k-grid[dir="rtl"] .k-edit-cell>.k-widget,.k-grid[dir="rtl"] .k-edit-cell>.text-box,.k-grid[dir="rtl"] .k-grid-edit-row>td>.k-textbox,.k-grid[dir="rtl"] .k-grid-edit-row>td>.k-widget,.k-grid[dir="rtl"] .k-grid-edit-row>td>.text-box,.k-rtl .k-grid .k-edit-cell>.k-textbox,.k-rtl .k-grid .k-edit-cell>.k-widget,.k-rtl .k-grid .k-edit-cell>.text-box,.k-rtl .k-grid .k-grid-edit-row>td>.k-textbox,.k-rtl .k-grid .k-grid-edit-row>td>.k-widget,.k-rtl .k-grid .k-grid-edit-row>td>.text-box {
+  margin-right: -9px
+}
+
+.k-grid[dir="rtl"] .k-grid-header-wrap.k-auto-scrollable,.k-rtl .k-grid .k-grid-header-wrap.k-auto-scrollable {
+  margin-left: -1px;
+  margin-right: 0
+}
+
+.k-grid[dir="rtl"] .k-grid-header-locked+.k-grid-header-wrap.k-auto-scrollable,.k-rtl .k-grid .k-grid-header-locked+.k-grid-header-wrap.k-auto-scrollable {
+  margin-left: 0
+}
+
+.k-grid[dir="rtl"] .k-group-footer td,.k-rtl .k-grid .k-group-footer td {
+  border-width: 1px 0
+}
+
+.k-grid[dir="rtl"] .k-group-footer .k-group-cell+td,.k-rtl .k-grid .k-group-footer .k-group-cell+td {
+  border-right-width: 1px
+}
+
+.k-grid[dir="rtl"] .k-grid-toolbar .k-button+.k-button,.k-rtl .k-grid .k-grid-toolbar .k-button+.k-button {
+  margin: 0 4px 0 0
+}
+
+.k-grid[dir="rtl"] .k-grouping-row .k-icon,.k-rtl .k-grid .k-grouping-row .k-icon {
+  margin-left: 8px;
+  margin-right: -4px
+}
+
+.k-grid .k-tooltip.k-tooltip-validation {
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  width: auto;
+  padding: 4px 8px
+}
+
+.k-grid .k-tooltip.k-tooltip-validation .k-callout {
+  display: block
+}
+
+.k-grid .k-animation-container-fixed .k-tooltip.k-tooltip-validation {
+  position: static
+}
+
+.k-grid .k-dirty-cell {
+  position: relative
+}
+
+.k-grid .k-dirty {
+  border-width: 5px;
+  border-color: currentColor transparent transparent currentColor;
+  left: 0;
+  right: auto
+}
+
+.k-grid .k-grid-content-locked+.k-grid-content {
+  box-sizing: content-box
+}
+
+.k-grid .k-grid-content-expander {
+  position: absolute;
+  visibility: hidden;
+  height: 1px
+}
+
+.k-grid-toolbar {
+  padding: 8px 8px;
+  border-width: 0 0 1px;
+  border-style: solid;
+  border-color: inherit;
+  text-overflow: clip;
+  cursor: default;
+  display: block
+}
+
+.k-grid-toolbar .k-button {
+  vertical-align: middle
+}
+
+.k-grid-toolbar .k-button+.k-button {
+  margin-left: 4px
+}
+
+.k-grouping-header {
+  display: block;
+  position: relative;
+  white-space: normal;
+  padding: 8px 8px;
+  border-width: 0 0 1px;
+  border-style: solid;
+  border-color: inherit;
+  line-height: calc(10px + 1.4285714286em)
+}
+
+.k-grouping-header-flex {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 4px 0
+}
+
+.k-grouping-header-flex>.k-indicator-container {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  margin: 0;
+  padding: 4px 0 4px 8px
+}
+
+.k-grouping-header-flex>.k-indicator-container:last-child {
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  line-height: calc(10px + 1.4285714286em)
+}
+
+.k-group-indicator,.k-drag-clue {
+  border-radius: 2px;
+  margin: 0;
+  padding: 4px 8px;
+  border-width: 1px;
+  border-style: solid;
+  line-height: 1.5;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  vertical-align: top;
+  opacity: 1;
+  box-sizing: border-box
+}
+
+.k-group-indicator .k-link,.k-group-indicator .k-button.k-bare,.k-group-indicator .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-button,.k-group-indicator .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-button,.k-drag-clue .k-link,.k-drag-clue .k-button.k-bare,.k-drag-clue .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-button,.k-drag-clue .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-button {
+  padding: 0;
+  border-width: 0;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-align: center;
+  align-items: center
+}
+
+.k-group-indicator .k-link .k-icon,.k-drag-clue .k-link .k-icon {
+  margin-left: -2px;
+  margin-right: 4px
+}
+
+.k-group-indicator .k-button.k-bare,.k-group-indicator .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-button,.k-group-indicator .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-button,.k-drag-clue .k-button.k-bare,.k-drag-clue .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-button,.k-drag-clue .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-button {
+  margin-left: 8px;
+  margin-right: -2px;
+  padding: 0;
+  width: auto;
+  height: auto;
+  opacity: .5
+}
+
+.k-group-indicator .k-button.k-bare::before,.k-group-indicator .k-toolbar .k-bare.k-picker-wrap::before,.k-toolbar .k-group-indicator .k-bare.k-picker-wrap::before,.k-group-indicator .k-toolbar .k-bare.k-dropdown-wrap::before,.k-toolbar .k-group-indicator .k-bare.k-dropdown-wrap::before,.k-group-indicator .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-button::before,.k-group-indicator .k-toolbar .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-picker-wrap::before,.k-toolbar .k-group-indicator .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-picker-wrap::before,.k-group-indicator .k-toolbar .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-dropdown-wrap::before,.k-toolbar .k-group-indicator .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-dropdown-wrap::before,.k-group-indicator .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-button::before,.k-group-indicator .k-toolbar .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-picker-wrap::before,.k-toolbar .k-group-indicator .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-picker-wrap::before,.k-group-indicator .k-toolbar .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-dropdown-wrap::before,.k-toolbar .k-group-indicator .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-dropdown-wrap::before,.k-group-indicator .k-button.k-bare::after,.k-group-indicator .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-button::after,.k-group-indicator .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-button::after,.k-drag-clue .k-button.k-bare::before,.k-drag-clue .k-toolbar .k-bare.k-picker-wrap::before,.k-toolbar .k-drag-clue .k-bare.k-picker-wrap::before,.k-drag-clue .k-toolbar .k-bare.k-dropdown-wrap::before,.k-toolbar .k-drag-clue .k-bare.k-dropdown-wrap::before,.k-drag-clue .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-button::before,.k-drag-clue .k-toolbar .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-picker-wrap::before,.k-toolbar .k-drag-clue .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-picker-wrap::before,.k-drag-clue .k-toolbar .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-dropdown-wrap::before,.k-toolbar .k-drag-clue .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-dropdown-wrap::before,.k-drag-clue .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-button::before,.k-drag-clue .k-toolbar .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-picker-wrap::before,.k-toolbar .k-drag-clue .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-picker-wrap::before,.k-drag-clue .k-toolbar .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-dropdown-wrap::before,.k-toolbar .k-drag-clue .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-dropdown-wrap::before,.k-drag-clue .k-button.k-bare::after,.k-drag-clue .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-button::after,.k-drag-clue .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-button::after {
+  display: none
+}
+
+.k-group-indicator .k-button.k-bare:hover,.k-group-indicator .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-button:hover,.k-group-indicator .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-button:hover,.k-drag-clue .k-button.k-bare:hover,.k-drag-clue .k-calendar.k-calendar-range.k-calendar-infinite:not(.k-calendar-minimal)>.k-button:hover,.k-drag-clue .k-calendar.k-calendar-minimal.k-calendar-infinite>.k-button:hover {
+  opacity: 1
+}
+
+.k-group-indicator {
+  margin-right: 4px
+}
+
+.k-group-indicator+.k-group-indicator {
+  margin-left: 4px
+}
+
+.k-grouping-dropclue {
+  width: 12px;
+  height: calc(10px + 1.4285714286em);
+  position: absolute;
+  top: 3px;
+  box-sizing: content-box
+}
+
+.k-grouping-dropclue::before,.k-grouping-dropclue::after {
+  display: inline-block;
+  content: '';
+  position: absolute
+}
+
+.k-grouping-dropclue::before {
+  border-width: 6px;
+  border-style: solid;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  top: 0
+}
+
+.k-grouping-dropclue::after {
+  width: 2px;
+  height: calc(100% - 6px);
+  top: 6px;
+  left: 5px
+}
+
+.k-grid-header-wrap,.k-grid-footer-wrap {
+  width: 100%;
+  border-width: 0 1px 0 0;
+  border-style: solid;
+  border-color: inherit;
+  position: relative;
+  overflow: hidden
+}
+
+.k-grid-header-wrap.k-auto-scrollable,.k-grid-footer-wrap {
+  margin-right: -1px
+}
+
+.k-grid-header-locked+.k-grid-header-wrap.k-auto-scrollable {
+  margin-right: 0
+}
+
+.k-ie .k-grid-header-locked+.k-grid-header-wrap.k-auto-scrollable {
+  display: inline-block
+}
+
+.k-grid-header,.k-grid-footer {
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  padding-right: 17px;
+  border-width: 0;
+  border-style: solid;
+  border-color: inherit
+}
+
+.k-grid-header table,.k-grid-footer table {
+  table-layout: fixed
+}
+
+div.k-grid-header,div.k-grid-footer {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-align: stretch;
+  align-items: stretch
+}
+
+.k-ie div.k-grid-header {
+  display: block
+}
+
+.k-grid-header {
+  border-bottom-width: 1px
+}
+
+.k-grid-header table {
+  margin-bottom: -1px
+}
+
+.k-grid-header.k-grid-draggable-header {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -ms-touch-action: none;
+  touch-action: none
+}
+
+.k-grid-header .k-header {
+  position: relative;
+  vertical-align: bottom
+}
+
+.k-grid-header .k-header:first-child {
+  border-left-width: 0
+}
+
+.k-grid-header .k-header.k-first {
+  border-left-width: 1px
+}
+
+.k-grid-header .k-header>.k-link {
+  margin: -8px -12px;
+  padding: 8px 12px;
+  line-height: inherit;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  outline: 0
+}
+
+.k-ie .k-grid-header .k-header>.k-link,.k-edge .k-grid-header .k-header>.k-link {
+  margin: 0;
+  padding: 0
+}
+
+.k-grid-header .k-with-icon,.k-grid-header .k-filterable {
+  padding-right: calc(14px + 1.4285714286em)
+}
+
+.k-ie .k-grid-header .k-with-icon,.k-edge .k-grid-header .k-with-icon,.k-ie .k-grid-header .k-filterable,.k-edge .k-grid-header .k-filterable {
+  padding-right: calc(14px + 1.4285714286em)
+}
+
+.k-grid-header .k-header>.k-link:focus {
+  text-decoration: none
+}
+
+.k-grid-header .k-grid-filter,.k-grid-header .k-header-column-menu {
+  padding: 4px;
+  width: calc(10px + 1.4285714286em);
+  height: calc(10px + 1.4285714286em);
+  box-sizing: border-box;
+  outline: 0;
+  line-height: 1.4285714286;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: absolute;
+  right: 4px;
+  bottom: calc(8px + 0.7142857143em + -4px + -0.7142857143em);
+  z-index: 1
+}
+
+.k-ie .k-grid-header .k-grid-filter,.k-edge .k-grid-header .k-grid-filter,.k-ie .k-grid-header .k-header-column-menu,.k-edge .k-grid-header .k-header-column-menu {
+  position: static;
+  float: right;
+  margin-top: -5px;
+  margin-bottom: -5px;
+  margin-right: calc(-10px + -1.4285714286em)
+}
+
+.k-grid-header .k-header>.k-link>.k-icon.k-i-sort-desc-sm,.k-grid-header .k-header>.k-link>.k-icon.k-i-sort-asc-sm {
+  vertical-align: text-top;
+  margin-left: 7px
+}
+
+.k-grid-header .k-sort-order {
+  display: inline-block;
+  vertical-align: top;
+  height: 16px;
+  font-size: 12px;
+  margin-top: 2px;
+  margin-left: -2px
+}
+
+.k-grid-footer {
+  border-width: 1px 0 0
+}
+
+.k-grid-footer td {
+  height: 1.4285714286em
+}
+
+.k-grid-filter-popup {
+  min-width: 200px
+}
+
+.k-grid-columnmenu-popup {
+  width: 230px
+}
+
+.k-filter-row {
+  line-height: 1.4285714286
+}
+
+.k-filter-row td,.k-filter-row th {
+  border-width: 0 0 1px 1px;
+  white-space: nowrap;
+  padding: 8px 8px
+}
+
+.k-filter-row td:first-child {
+  border-left-width: 0
+}
+
+.k-filter-row .k-multiselect {
+  height: auto
+}
+
+.k-filter-row .k-filtercell .k-widget.k-sized-input {
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto
+}
+
+.k-filtercell {
+  width: auto;
+  display: -ms-flexbox;
+  display: flex
+}
+
+.k-filtercell>span,.k-filtercell .k-filtercell-wrapper {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto
+}
+
+.k-filtercell>span>label,.k-filtercell .k-filtercell-wrapper>label {
+  vertical-align: middle
+}
+
+.k-filtercell .k-filtercell-wrapper>.k-widget {
+  width: 100%
+}
+
+.k-filtercell>span .k-button {
+  visibility: visible;
+  pointer-events: all
+}
+
+.k-filtercell>span .k-button,.k-filtercell>span .k-dropdown-operator {
+  margin-left: 4px
+}
+
+.k-filtercell>span .k-numerictextbox {
+  width: auto
+}
+
+.k-filtercell .k-filtercell-operator>.k-button.k-clear-button-visible {
+  visibility: visible;
+  height: calc(10px + 1.4285714286em)
+}
+
+.k-filtercell .k-filtercell-operator>.k-button:not(.k-clear-button-visible) {
+  visibility: hidden;
+  pointer-events: none
+}
+
+.k-filtercell .k-filtercell-operator {
+  margin-left: 4px
+}
+
+.k-filtercell .k-widget:not(.k-dropdown-operator),.k-filtercell .k-filtercell-wrapper>.k-textbox {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto
+}
+
+.k-filtercell .k-filtercell-wrapper>.k-textbox {
+  width: 100%;
+  min-width: 0
+}
+
+.k-grid-content,.k-grid-content-locked {
+  border-color: inherit;
+  outline: 0
+}
+
+.k-grid-content table,.k-grid-content-locked table {
+  table-layout: fixed
+}
+
+.k-grid-content tr:last-child td,.k-grid-content-locked tr:last-child td {
+  border-bottom-width: 0
+}
+
+.k-grid-content {
+  width: 100%;
+  min-height: 0;
+  overflow: auto;
+  overflow-x: auto;
+  overflow-y: scroll;
+  position: relative;
+  -ms-flex: 1;
+  flex: 1
+}
+
+.k-virtual-scrollable-wrap {
+  height: 100%;
+  overflow-y: hidden;
+  position: relative
+}
+
+.k-grid-edit-row td {
+  text-overflow: clip
+}
+
+.k-grid-edit-row .k-widget,.k-grid-edit-row .k-button,.k-grid-edit-row .k-textbox,.k-grid-edit-row .k-input.k-textbox {
+  height: auto
+}
+
+.k-grid-edit-row .k-edit-cell {
+  padding-top: 0;
+  padding-bottom: 0
+}
+
+.k-grid-edit-row .k-dirty-cell {
+  overflow: visible
+}
+
+.k-edit-cell>.k-textbox,.k-edit-cell>.k-widget,.k-edit-cell>.text-box,.k-grid-edit-row>td>.k-textbox,.k-grid-edit-row>td>.k-widget,.k-grid-edit-row>td>.text-box {
+  margin-left: -9px
+}
+
+.k-grid-edit-row td>.k-textbox,.k-grid-edit-row td>.k-widget,.k-edit-cell>.k-textbox,.k-edit-cell>.k-widget {
+  width: calc(100% + 18px)
+}
+
+.k-grid-edit-row td>.k-textbox,.k-grid-edit-row td>.k-widget,.k-command-cell>.k-button,.k-edit-cell>.k-textbox,.k-edit-cell>.k-widget {
+  margin-top: -5px;
+  margin-bottom: -5px;
+  vertical-align: middle
+}
+
+.k-command-cell>.k-button {
+  margin-left: .16em;
+  margin-right: .16em
+}
+
+.k-grid>.k-resize-handle,.k-grid-header .k-resize-handle {
+  height: 25px;
+  cursor: col-resize;
+  position: absolute;
+  z-index: 2
+}
+
+.k-grid-pager {
+  padding: 8px;
+  border-width: 1px 0 0;
+  border-color: inherit;
+  font-size: inherit
+}
+
+.k-grid-virtual .k-grid-content .k-grid-table-wrap {
+  float: left;
+  width: 100%
+}
+
+.k-grid-virtual .k-grid-content .k-grid-table {
+  position: relative;
+  float: left;
+  z-index: 1
+}
+
+.k-grid-virtual .k-grid-content>.k-height-container {
+  position: relative;
+  float: left
+}
+
+.k-grid-virtual .k-grid-content::after {
+  content: "";
+  display: block;
+  clear: both
+}
+
+.k-grid-virtual[dir="rtl"] .k-grid-content .k-grid-table,.k-grid-virtual.k-rtl .k-grid-content .k-grid-table {
+  float: right
+}
+
+.k-grid-add-row td {
+  border-bottom-style: solid;
+  border-bottom-width: 1px
+}
+
+.k-grid-lockedcolumns {
+  white-space: nowrap
+}
+
+.k-grid-content,.k-grid-content-locked,.k-pager-wrap {
+  white-space: normal
+}
+
+.k-grid-content-locked,.k-grid-footer-locked,.k-grid-header-locked {
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+  position: relative;
+  border-style: solid;
+  border-width: 0 1px 0 0
+}
+
+.k-grid-content-locked+.k-grid-content.k-auto-scrollable,.k-grid-footer-locked+.k-grid-content.k-auto-scrollable,.k-grid-header-locked+.k-grid-content.k-auto-scrollable {
+  display: inline-block
+}
+
+.k-grid-content,.k-grid-footer-wrap,.k-grid-header-wrap {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  display: inline-block;
+  vertical-align: top
+}
+
+.k-grid-content.k-auto-scrollable,.k-grid-footer-wrap.k-auto-scrollable,.k-grid-header-wrap.k-auto-scrollable {
+  display: block
+}
+
+.k-grid-header-locked>table,.k-grid-header-wrap>table {
+  margin-bottom: -1px
+}
+
+.k-header.k-drag-clue {
+  overflow: hidden
+}
+
+.k-grid.k-grid-no-scrollbar .k-grid-header {
+  padding: 0
+}
+
+.k-grid.k-grid-no-scrollbar .k-grid-header-wrap {
+  border-width: 0
+}
+
+.k-grid.k-grid-no-scrollbar .k-grid-content {
+  overflow-y: auto
+}
+
+.k-loading-pdf-mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100
+}
+
+.k-loading-pdf-mask>.k-i-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 64px
+}
+
+.k-loading-pdf-mask .k-loading-pdf-progress {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0
+}
+
+.k-pdf-export .k-loading-pdf-mask {
+  display: none
+}
+
+.k-grid-pdf-export-element {
+  position: absolute;
+  left: -10000px;
+  top: -10000px
+}
+
+.k-grid-pdf-export-element .k-filter-row {
+  display: none
+}
+
+.k-pdf-export-shadow .k-grid {
+  float: left;
+  width: auto !important
+}
+
+.k-pdf-export-shadow .k-grid,.k-pdf-export-shadow .k-grid-content,.k-pdf-export-shadow .k-grid-content-locked {
+  height: auto !important;
+  overflow: visible
+}
+
+.k-pdf-export-shadow .k-grid-header-locked+.k-grid-header-wrap,.k-pdf-export-shadow .k-grid-header-locked+.k-grid-content,.k-pdf-export-shadow .k-grid-header-locked+.k-grid-footer-wrap {
+  width: auto !important
+}
+
+.k-pdf-export-shadow .k-grid-header,.k-pdf-export-shadow .k-grid[data-role="grid"] .k-grid-footer {
+  padding: 0 !important
+}
+
+.k-filter-menu .k-filter-menu-container {
+  padding: .5em 1em
+}
+
+.k-filter-menu .k-filter-menu-container .k-action-buttons {
+  margin: 1em -1em -.5em
+}
+
+.k-filter-menu .k-widget,.k-filter-menu .k-radio-list,.k-filter-menu .k-textbox {
+  margin: .5em 0;
+  width: 100%;
+  display: block
+}
+
+.k-filter-menu .k-widget.k-filter-and {
+  width: 6em;
+  margin: 1em 0
+}
+
+.k-multicheck-wrap {
+  max-height: 300px;
+  overflow: auto;
+  overflow-x: hidden;
+  white-space: nowrap
+}
+
+.k-multicheck-wrap .k-item+.k-item {
+  margin-top: .5em
+}
+
+.k-multicheck-wrap .k-label {
+  margin: 0;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer
+}
+
+.k-multicheck-wrap .k-label input {
+  margin: 0 .25em
+}
+
+.k-filter-selected-items {
+  font-weight: bold;
+  line-height: normal;
+  white-space: nowrap;
+  margin: 1em 0 .5em
+}
+
+.k-autofitting {
+  width: auto !important;
+  table-layout: auto !important
+}
+
+.k-autofitting th.k-header,.k-autofitting td {
+  white-space: nowrap !important
+}
+
+.k-autofitting .k-detail-row {
+  display: none !important
+}
+
+.k-column-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  max-height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto
+}
+
+.k-column-chooser-title,.k-column-list-item {
+  padding: 4px 8px;
+  padding-right: 32px
+}
+
+.k-column-list-item {
+  display: block;
+  margin: 0;
+  cursor: pointer
+}
+
+.k-column-list-item .k-checkbox,.k-column-list-item .k-checkbox-label {
+  vertical-align: middle
+}
+
+.k-columnmenu-item {
+  padding: 6px 12px;
+  cursor: pointer
+}
+
+.k-columnmenu-item>.k-icon {
+  margin-right: 4px
+}
+
+.k-columnmenu-item-wrapper {
+  border-bottom: 1px solid;
+  border-bottom-color: inherit
+}
+
+.k-columnmenu-item-wrapper:last-child {
+  border-bottom-width: 0
+}
+
+.k-columnmenu-item-content {
+  overflow: hidden
+}
+
+.k-columnmenu-item-content .k-column-list-item {
+  padding-left: 32px
+}
+
+.k-columnmenu-item-content .k-filter-menu .k-filter-menu-container {
+  padding: 1em 1em
+}
+
+.k-columnmenu-item-content .k-filter-menu .k-filter-menu-container .k-columnmenu-actions {
+  padding: 1em 0 0
+}
+
+.k-columnmenu-item-content .k-columnmenu-actions {
+  display: -ms-flexbox;
+  display: flex;
+  padding: 1em 1em
+}
+
+.k-columnmenu-item-content .k-columnmenu-actions .k-button {
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  width: auto;
+  margin: 0 .5em
+}
+
+.k-columnmenu-item-content .k-columnmenu-actions .k-button:first-child {
+  margin-left: 0
+}
+
+.k-columnmenu-item-content .k-columnmenu-actions .k-button:last-child {
+  margin-right: 0
+}
+
+.k-grid-header,.k-header,.k-grid-header-wrap,.k-grouping-header,.k-grouping-header .k-group-indicator,.k-grid td,.k-grid-footer,.k-grid-footer-wrap,.k-grid-content-locked,.k-grid-footer-locked,.k-grid-header-locked,.k-filter-row>td,.k-filter-row>th {
+  border-color: rgba(0,0,0,0.08)
+}
+
+.k-grid-header,.k-grid-toolbar,.k-grouping-header,.k-grid-add-row,.k-grid-footer {
+  color: #656565;
+  background-color: #f6f6f6
+}
+
+.k-drag-clue {
+  color: #656565;
+  background-color: #f6f6f6
+}
+
+.k-grid-content {
+  background-color: #fff
+}
+
+.k-group-footer td,.k-grouping-row td,tbody .k-group-cell {
+  color: #656565;
+  background-color: #ededed
+}
+
+.k-grid-footer td,.k-group-footer td,.k-grouping-row td {
+  font-weight: bold
+}
+
+.k-grouping-dropclue::before {
+  border-color: #656565 transparent transparent
+}
+
+.k-grouping-dropclue::after {
+  background-color: #656565
+}
+
+.k-grid {
+  border-color: rgba(0,0,0,0.08);
+  color: #656565;
+  background-color: #fff;
+  background-clip: padding-box
+}
+
+.k-ie11 .k-grid,.k-edge12 .k-grid,.k-edge13 .k-grid {
+  background-clip: border-box
+}
+
+.k-grid tr.k-alt {
+  background-color: rgba(0,0,0,0.04)
+}
+
+.k-grid tbody tr:hover,.k-grid tbody tr.k-state-hover {
+  color: #656565;
+  background-color: #ededed
+}
+
+.k-grid td.k-state-selected,.k-grid tr.k-state-selected>td {
+  color: #656565;
+  background-color: rgba(255,99,88,0.25)
+}
+
+.k-grid td.k-state-focused,.k-grid th.k-state-focused {
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.13)
+}
+
+.k-grid .k-grid-filter,.k-grid .k-header-column-menu,.k-grid .k-hierarchy-cell .k-icon {
+  border-width: 0;
+  color: #656565
+}
+
+.k-grid .k-grouping-row {
+  background-color: #ededed
+}
+
+.k-grid .k-grouping-row .k-icon {
+  color: #656565;
+  text-decoration: none
+}
+
+.k-grid .k-tooltip.k-tooltip-validation {
+  color: #fff;
+  background-color: #ff6358
+}
+
+.k-grid .k-tooltip.k-tooltip-validation .k-callout-n {
+  border-bottom-color: #ff6358
+}
+
+.k-grid .k-tooltip.k-tooltip-validation .k-callout-e {
+  border-left-color: #ff6358
+}
+
+.k-grid .k-tooltip.k-tooltip-validation .k-callout-s {
+  border-top-color: #ff6358
+}
+
+.k-grid .k-tooltip.k-tooltip-validation .k-callout-w {
+  border-right-color: #ff6358
+}
+
+col.k-sorted,th.k-sorted {
+  background-color: rgba(0,0,0,0.02)
+}
+
+.k-grid-header .k-i-sort-asc-sm,.k-grid-header .k-i-sort-desc-sm,.k-grid-header .k-sort-order {
+  color: #ff6358
+}
+
+.k-grid-header .k-grid-filter:hover,.k-grid-header .k-header-column-menu:hover,.k-grid-header .k-hierarchy-cell .k-icon:hover {
+  color: #656565;
+  background-color: #ededed
+}
+
+.k-grid-header .k-grid-filter:focus,.k-grid-header .k-header-column-menu:focus,.k-grid-header .k-hierarchy-cell .k-icon:focus {
+  box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1)
+}
+
+.k-grid-header .k-grid-filter.k-state-active,.k-grid-header .k-header-column-menu.k-state-active,.k-grid-header .k-hierarchy-cell .k-icon.k-state-active {
+  color: #fff;
+  background-color: #ff6358
+}
+
+.k-column-menu .k-menu:not(.k-context-menu) {
+  font-weight: 400
+}
+//orgchart css
 .orgchart {
     display: inline-block;
     min-height: 202px;

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { UserData } from '../../../@core/data/users';
-import { AnalyticsService } from '../../../@core/utils';
+// import { AnalyticsService } from '../../../@core/utils';
 
 @Component({
   selector: 'opti-header',
@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private userService: UserData,
-              private analyticsService: AnalyticsService
+              // private analyticsService: AnalyticsService
               ) {
   }
 
