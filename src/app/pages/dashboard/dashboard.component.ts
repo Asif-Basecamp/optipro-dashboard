@@ -67,122 +67,122 @@ export class DashboardComponent implements OnInit{
 
   
   ngOnInit() {
-    // this.orgchart = new OrgChart({
-    //   'chartContainer': '#chart-container',
-    //   'data' : datascource,
-    //   'nodeContent': 'title',
-    //   'nodeID': 'id',
-    //   'depth': 1,
-    //   'direction': 'l2r',
-    //   'pan': false,
-    //   'zoom': false,
-    //   'toggleSiblingsResp': false,
-    //   'createNode': function(node, data) {
-    //     let secondMenu = document.createElement('div');
-    //     secondMenu.setAttribute('class', 'second-menu');
-    //     secondMenu.innerHTML = `
-    //       <div class="node-content">
-    //         <div class="node-img">
-    //           <img class="node-avatar" src="./assets/images/images.png">
-    //         </div>
-    //         <div class="node-data">
-    //           <div class="data-column">
-    //             <div class="data-heading">
-    //               Item
-    //             </div>
-    //             <div class="data-content">
-    //               INT
-    //             </div>
-    //           </div>
+    this.orgchart = new OrgChart({
+      'chartContainer': '#chart-container',
+      'data' : datascource,
+      'nodeContent': 'title',
+      'nodeID': 'id',
+      'depth': 1,
+      'direction': 'l2r',
+      'pan': false,
+      'zoom': false,
+      'toggleSiblingsResp': false,
+      'createNode': function(node, data) {
+        let secondMenu = document.createElement('div');
+        secondMenu.setAttribute('class', 'second-menu');
+        secondMenu.innerHTML = `
+          <div class="node-content">
+            <div class="node-img">
+              <img class="node-avatar" src="./assets/images/images.png">
+            </div>
+            <div class="node-data">
+              <div class="data-column">
+                <div class="data-heading">
+                  Item
+                </div>
+                <div class="data-content">
+                  INT
+                </div>
+              </div>
 
-    //           <div class="data-column">
-    //             <div class="data-heading">
-    //               Warehouse
-    //             </div>
-    //             <div class="data-content">
-    //               LOT 1
-    //             </div>
-    //           </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Warehouse
+                </div>
+                <div class="data-content">
+                  LOT 1
+                </div>
+              </div>
               
-    //           <div class="data-column">
-    //             <div class="data-heading">
-    //               Lot #
-    //             </div>
-    //             <div class="data-content">
-    //               LOT 1
-    //             </div>
-    //           </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Lot #
+                </div>
+                <div class="data-content">
+                  LOT 1
+                </div>
+              </div>
 
-    //           <div class="data-column">
-    //             <div class="data-heading">
-    //               Expiry Date
-    //             </div>
-    //             <div class="data-content">
-    //               01/01/01
-    //             </div>
-    //           </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Expiry Date
+                </div>
+                <div class="data-content">
+                  01/01/01
+                </div>
+              </div>
 
-    //           <div class="data-column">
-    //             <div class="data-heading">
-    //               Receipt Date
-    //             </div>
-    //             <div class="data-content">
-    //               01/01/01
-    //             </div>
-    //           </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Receipt Date
+                </div>
+                <div class="data-content">
+                  01/01/01
+                </div>
+              </div>
 
-    //           <div class="data-column">
-    //             <div class="data-heading">
-    //               Lot Status
-    //             </div>
-    //             <div class="data-content">
-    //               Release
-    //             </div>
-    //           </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Lot Status
+                </div>
+                <div class="data-content">
+                  Release
+                </div>
+              </div>
 
-    //           <div class="data-column">
-    //             <div class="data-heading">
-    //               Quantity
-    //             </div>
-    //             <div class="data-content">
-    //               10.000 KG
-    //             </div>
-    //           </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Quantity
+                </div>
+                <div class="data-content">
+                  10.000 KG
+                </div>
+              </div>
 
-    //         </div>
-    //       </div>
-    //       <div class="node-footer">
-    //         <div class="footer-column">
-    //           <div class="column-heading">
-    //             Total Received
-    //           </div>
-    //           <div class="column-content">
-    //             text
-    //           </div>
-    //         </div>
-    //         <div class="footer-column">
-    //           <div class="column-heading">
-    //             Total Issued
-    //           </div>
-    //           <div class="column-content">
-    //             text
-    //           </div>
-    //         </div>
-    //         <div class="footer-column">
-    //           <div class="column-heading">
-    //             Onhand
-    //           </div>
-    //           <div class="column-content">
-    //             text
-    //           </div>
-    //         </div>
-    //       </div>
+            </div>
+          </div>
+          <div class="node-footer">
+            <div class="footer-column">
+              <div class="column-heading">
+                Total Received
+              </div>
+              <div class="column-content">
+                text
+              </div>
+            </div>
+            <div class="footer-column">
+              <div class="column-heading">
+                Total Issued
+              </div>
+              <div class="column-content">
+                text
+              </div>
+            </div>
+            <div class="footer-column">
+              <div class="column-heading">
+                Onhand
+              </div>
+              <div class="column-content">
+                text
+              </div>
+            </div>
+          </div>
         
-    //     `;
-    //     // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
-    //     node.appendChild(secondMenu);
-    //   }
-    // });
+        `;
+        // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
+        node.appendChild(secondMenu);
+      }
+    });
   }
 
   open(dialog: TemplateRef<any>) {
