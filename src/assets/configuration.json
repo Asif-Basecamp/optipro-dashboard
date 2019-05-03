@@ -1,6 +1,6 @@
 [
     {
-        "optiProDashboardAPIURL": "http://localhost:41806",
+        "optiProDashboardAPIURL": "http://localhost:41888",
         "deployedFor": "handheld",
         "version":"",
         "language": "en",
