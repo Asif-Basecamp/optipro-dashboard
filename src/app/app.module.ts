@@ -10,11 +10,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ThemeModule } from './@theme/theme.module';
 import { CoreModule } from './@core/core.module';
 import { GridModule } from '@progress/kendo-angular-grid';
+import { ItemLookupComponent } from './lookup/item-lookup/item-lookup.component';
+import { WarehouseLookupComponent } from './lookup/warehouse-lookup/warehouse-lookup.component';
+import { LotNumberLookupComponent } from './lookup/lot-number-lookup/lot-number-lookup.component';
+import { ToastrModule } from 'ngx-toastr';
+import { NbOverlayModule, NbToastrModule } from '@nebular/theme';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ItemLookupComponent,
+    WarehouseLookupComponent,
+    LotNumberLookupComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +33,10 @@ import { GridModule } from '@progress/kendo-angular-grid';
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
-    GridModule    
+    GridModule,
+    NbOverlayModule,
+    NbToastrModule.forRoot(),
+    ToastrModule.forRoot() // ToastrModule added
   ],
   bootstrap: [AppComponent],
   providers: [

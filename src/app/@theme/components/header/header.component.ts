@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { UserData } from '../../../@core/data/users';
 // import { AnalyticsService } from '../../../@core/utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'opti-header',
@@ -15,12 +16,14 @@ export class HeaderComponent implements OnInit {
 
   user: any;
 
-  userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
+  //userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
+  userMenu = [{ title: 'Log out' }];
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private userService: UserData,
-              // private analyticsService: AnalyticsService
+              // private analyticsService: AnalyticsService,
+              private router: Router
               ) {
   }
 
@@ -37,6 +40,10 @@ export class HeaderComponent implements OnInit {
 
   goToHome() {
     this.menuService.navigateHome();
+  }
+
+  LogOut(){
+    this.router.navigateByUrl('/Login');
   }
 
   // startSearch() {

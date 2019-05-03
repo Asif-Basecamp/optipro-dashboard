@@ -17,19 +17,20 @@
                       <img src="assets/images/large-logo.png" alt="brandlogo" class="opti_account-logo">
                   </div>
 
-                  <form class="k-form">
+                  <form class="k-form" #signInForm="ngForm">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="text" name="email" class="form-control" required id="username" nbInput fieldSize="small" placeholder="Enter Username">
-                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" name="email" class="form-control" required id="password" nbInput fieldSize="small" placeholder="Enter Password">
-                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                        <input type="text" name="id" class="form-control" required #name = ngModel  [(ngModel)]="loginId" id="username" nbInput fieldSize="small" placeholder="Enter Username" autocomplete="off">
+                        <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="name.errors?.required && name.touched" class="float-right opti_error-msg">Username Required</small>
                     </div>
 
-                    <!-- <div class="form-group">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="pwd" required #PasswordBlank = ngModel [(ngModel)]="password" class="form-control" id="password" nbInput fieldSize="small" placeholder="Enter Password" (blur)="onPasswordBlur()">
+                        <small id="passwordHelp" class="form-text text-muted opti_error-msg" *ngIf="PasswordBlank.errors?.required && PasswordBlank.touched" class="float-right opti_error-msg">Password Required</small>
+                    </div>
+
+                    <div class="form-group">
                         <label for="">Company</label>
                         <nb-select placeholder="Select Showcase" size="small" shape="rectangle" outline [(selected)]="selectedItem">
                             <nb-option value="1">Option 1</nb-option>
@@ -37,7 +38,7 @@
                             <nb-option value="3">Option 3</nb-option>
                             <nb-option value="4">Option 4</nb-option>
                         </nb-select>
-                    </div> -->
+                    </div>
 
                     <!-- <div class="dropdown"
                         [ngClass]="{ 'ghost-dropdown': currentTheme === 'corporate' }"
@@ -77,8 +78,10 @@
                           </div>
                       </label> -->
                       <div class="text-right">
-                          <button type="submit" id=connectbtn class="btn btn-primary opti_fullwidth"  size="xsmall" nbButton>Login</button>
+                          <button type="submit" (click)="OnSignIn()" [disabled]="!signInForm.form.valid  || clickSignIn" id=connectbtn class="btn btn-primary opti_fullwidth"  size="xsmall" nbButton>Login</button>
                       </div>
+                      <button nbButton (click)="showToast('top-right', 'success')">Top Right</button>
+    <button nbButton (click)="showToast('bottom-left', 'info')">Bottom left</button>
                   </form>
               </div>
           </div>
@@ -97,4 +100,13 @@
 
   <!-- Full page loader loader end -->
 </div>
+
+
+<style>
+    .opti_error-msg {
+        color: red !important;
+        font-size: 12px;
+        
+    }
+</style>
 

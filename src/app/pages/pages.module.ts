@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NbSidebarModule, NbLayoutModule } from '@nebular/theme';
-
+import { FormsModule } from '@angular/forms';
 import { PagesRoutingModule } from './pages-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
 import { TreeModule } from 'angular-tree-component';
+
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -20,6 +21,7 @@ const PAGES_COMPONENTS = [
     NbLayoutModule,
     ThemeModule,
     NbSidebarModule,
+    FormsModule,
     TreeModule.forRoot() 
   ],
   providers: [...PAGES_COMPONENTS,]

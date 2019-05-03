@@ -5,6 +5,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
 import { SigninComponent } from './signin/signin.component';
 import { ThemeModule } from '../@theme/theme.module';
+import { GridModule } from '@progress/kendo-angular-grid';
 
 @NgModule({
   declarations: [AuthComponent, SigninComponent],
@@ -12,7 +13,8 @@ import { ThemeModule } from '../@theme/theme.module';
     CommonModule,
     FormsModule,
     AuthRoutingModule,
-    ThemeModule
+    ThemeModule,
+    GridModule
   ]
 })
 export class AuthModule { }

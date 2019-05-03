@@ -31,7 +31,10 @@ body.opti_account-module {
         opacity: 0.3;
     }
 }
-
+.nb-theme-default.opti_body-login nb-layout .layout{
+    background: transparent !important;
+    min-height: initial !important;
+}
 .plan-layout{  
     & .layout{
         background: transparent !important;
@@ -51,7 +54,6 @@ body.opti_account-module {
     justify-content: center;
 }
 
-//label
 label{
     margin-bottom: 1px;
     font-size: 12px;
