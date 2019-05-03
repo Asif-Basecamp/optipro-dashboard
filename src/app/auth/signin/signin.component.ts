@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signin',
@@ -24,8 +25,7 @@ export class SigninComponent implements OnInit {
   public listItems: any = [] = this.defaultCompnyComboValue;
   public selectedValue: any = [];
 
-  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router) { }
-
+  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastr: ToastrService) { }
   ngOnInit() {
     const element = document.getElementsByTagName("body")[0];
     element.classList.add("opti_body-login");
@@ -43,7 +43,7 @@ export class SigninComponent implements OnInit {
     );
   }
 
-  selectedItem = '1';
+
 
   getPSURL() {
     this.auth.getPSURL(this.arrConfigData[0].optiProDashboardAPIURL,this.adminDBName).subscribe(
@@ -73,8 +73,8 @@ export class SigninComponent implements OnInit {
     }
    }
 
-  OnPasswordBlur(){
-
+  onPasswordBlur(){
+    //if(this.password != null && this.password != undefined && this.password != ''){
       if (this.loginId == "" ||  this.loginId == undefined || this.password == "" || this.password == undefined) {
        // alert("User Id or Password is blank");
         return;
@@ -95,7 +95,9 @@ export class SigninComponent implements OnInit {
             this.listItems = this.defaultCompnyComboValue;
             this.selectedValue = this.listItems[0];
             // this.toastr.error('', this.language.alert_incorrect_useridpassword, this.Commonser.messageConfig.iconClasses.error);
-            alert("Incorrect User Name or Password");
+            //this.OnDropDownBlur(0);
+            //alert("Incorrect User Name or Password");
+            this.toastr.error('Incorrect username or password!');
           }       
         },
         error => {
@@ -115,9 +117,10 @@ export class SigninComponent implements OnInit {
           if (this.modelSource != undefined && this.modelSource != null && this.modelSource.Table.length > 0)
           {
             this.assignedCompanies = data.Table; 
-            this.clickSignIn = false;            
+            this.clickSignIn = false; 
             this.listItems = this.assignedCompanies;
-            this.listItems.unshift({ OPTM_COMPID: 'Select Company' }) 
+           // this.listItems.unshift({ OPTM_COMPID: 'Select Company' }) 
+           this.selectedValue = this.listItems[0];
           }
           else {
             alert("No Company is assigned to user");

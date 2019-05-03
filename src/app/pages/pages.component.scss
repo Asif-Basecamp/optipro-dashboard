@@ -1,4 +1,5 @@
-@import '../@theme/styles/themes';
+
+@import '../@theme/styles/themes.scss';
 
 @include nb-install-component() {
   /deep/ router-outlet + * {

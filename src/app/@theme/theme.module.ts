@@ -139,9 +139,9 @@ const PIPES = [
 const NB_THEME_PROVIDERS = [
   ...NbThemeModule.forRoot(
     {
-      name: 'corporate',
-    },
-    [ DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME ],
+      name: 'default',
+    }//,
+    // [ DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME ],
   ).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,

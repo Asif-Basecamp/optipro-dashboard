@@ -13,6 +13,8 @@ import { GridModule } from '@progress/kendo-angular-grid';
 import { ItemLookupComponent } from './lookup/item-lookup/item-lookup.component';
 import { WarehouseLookupComponent } from './lookup/warehouse-lookup/warehouse-lookup.component';
 import { LotNumberLookupComponent } from './lookup/lot-number-lookup/lot-number-lookup.component';
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { LotNumberLookupComponent } from './lookup/lot-number-lookup/lot-number-
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
-    GridModule    
+    GridModule,
+    ToastrModule.forRoot() // ToastrModule added
   ],
   bootstrap: [AppComponent],
   providers: [

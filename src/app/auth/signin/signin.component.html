@@ -17,37 +17,56 @@
                       <img src="assets/images/large-logo.png" alt="brandlogo" class="opti_account-logo">
                   </div>
 
-                  <form class="k-form">
-                      <label class="k-form-field">
-                        <span class="opti_form-label">Username</span>
+                  <form class="k-form" #signInForm="ngForm">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" name="id" class="form-control" required #name = ngModel  [(ngModel)]="loginId" id="username" nbInput fieldSize="small" placeholder="Enter Username" autocomplete="off">
+                        <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="name.errors?.required && name.touched" class="float-right opti_error-msg">Username Required</small>
+                    </div>
 
-                        <input type="text"  name = "email" required class="k-textbox" value="" nbInput placeholder="Enter Username" />  
-                      </label>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="pwd" required #PasswordBlank = ngModel [(ngModel)]="password" class="form-control" id="password" nbInput fieldSize="small" placeholder="Enter Password" (blur)="onPasswordBlur()">
+                        <small id="passwordHelp" class="form-text text-muted opti_error-msg" *ngIf="PasswordBlank.errors?.required && PasswordBlank.touched" class="float-right opti_error-msg">Password Required</small>
+                    </div>
 
-                      <label class="k-form-field">
-                          <span class="opti_form-label">Password</span>
-                        <input name = "password" required type="password" class="k-textbox" value="" nbInput placeholder="Enter Password" />
-                      </label>
+                    <!-- <div class="form-group">
+                        <label for="">Company</label>
+                        <nb-select placeholder="Select Showcase" size="small" shape="rectangle" outline [(selected)]="selectedItem">
+                            <nb-option value="1">Option 1</nb-option>
+                            <nb-option value="2">Option 2</nb-option>
+                            <nb-option value="3">Option 3</nb-option>
+                            <nb-option value="4">Option 4</nb-option>
+                        </nb-select>
+                    </div> -->
 
+                    <!-- <div class="dropdown"
+                        [ngClass]="{ 'ghost-dropdown': currentTheme === 'corporate' }"
+                        ngbDropdown>
+                        <button type="button" ngbDropdownToggle class="btn"
+                                [ngClass]="{ 'btn-outline-success': currentTheme == 'default', 'btn-primary': currentTheme != 'default'}">
+                        {{ type }}
+                        </button>
+                        <ul class="dropdown-menu" ngbDropdownMenu>
+                        <li class="dropdown-item" *ngFor="let t of types" (click)="type = t">{{ t }}</li>
+                        </ul>
+                    </div> -->
+
+
+                      
                       <!-- start if condition -->
                       <ng-container>
                           <label class="k-form-field">
                               Company                            
                           </label>
 
-                          <!-- <select class="form-control">
-                            <option>Minsk</option>
-                            <option>Gomel</option>
-                            <option>Brest</option>
-                            <option>Grodno</option>
-                            <option>Mogilev</option>
-                          </select> -->
-
                         <select type="company" name="form-company" [(ngModel)]="selectedValue" class="form-username form-control" id="form-company" [disabled]="disableDropDown"
                         (change)="OnDropDownBlur($event)">
                           <option *ngFor="let cmp of listItems" name="selcompany" [ngValue]="cmp">{{cmp.cmpName}}
                             ({{cmp.OPTM_COMPID}})</option> 
                        </select> 
+
+                       
                           
 
                       </ng-container>
@@ -59,7 +78,7 @@
                           </div>
                       </label> -->
                       <div class="text-right">
-                          <button type="submit" id=connectbtn class="k-button k-primary opti_fullwidth" nbButton>Login</button>
+                          <button type="submit" (click)="OnSignIn()" [disabled]="!signInForm.form.valid  || clickSignIn" id=connectbtn class="btn btn-primary opti_fullwidth"  size="xsmall" nbButton>Login</button>
                       </div>
                   </form>
               </div>
@@ -79,4 +98,13 @@
 
   <!-- Full page loader loader end -->
 </div>
+
+
+<style>
+    .opti_error-msg {
+        color: red !important;
+        font-size: 12px;
+        
+    }
+</style>
 
