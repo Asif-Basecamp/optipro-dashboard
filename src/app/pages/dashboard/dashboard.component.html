@@ -1,4 +1,4 @@
-<div class="dashboard-container" *ngIf="true">
+<div class="dashboard-container" *ngIf="gridStatus">
     <nb-card accent="primary">
       <nb-card-header class="border-bottom">Selection Criteria</nb-card-header>
       <nb-card-body>
@@ -88,7 +88,7 @@
                     </nb-select>
                   </div>
                   <div class="col-sm-6">
-                    <button type="submit" nbButton class="btn btn-primary" size="small">Process</button>
+                    <button type="submit" (click)="process()" nbButton class="btn btn-primary" size="small">Process</button>
                   </div>
                 </div>
               </form>
@@ -126,11 +126,11 @@
     </ng-template>
 </div>
 
-<!-- <div class="dashboard-container" *ngIf="false">
+ <div class="dashboard-container" *ngIf="!gridStatus">
   <nb-accordion multi>
     <nb-accordion-item expanded>
       <nb-accordion-item-header>
-        Grid View
+        Grid View &nbsp; <button nbButton size="xsmall" (click)="process()">Back</button>
       </nb-accordion-item-header>
       <nb-accordion-item-body>
         <div class="col-sm-4">
@@ -179,5 +179,5 @@
       </nb-accordion-item-body>
     </nb-accordion-item>
   </nb-accordion>
-</div> -->
+</div>
 

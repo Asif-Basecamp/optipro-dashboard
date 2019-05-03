@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit{
   public orgchart: any;
   public nextElementSibling: any;
   public gridData: any[] = products;
-  
+  public gridStatus: boolean = true;
   selectedItem = '2';
 
   constructor(private dialogService: NbDialogService) {
@@ -318,9 +318,7 @@ export class DashboardComponent implements OnInit{
     actionMapping
   };
 
- 
-
-  
-
-  
+  process(){
+    this.gridStatus = !this.gridStatus;
+  }
 }
