@@ -26,7 +26,6 @@ export class SigninComponent implements OnInit {
   public selectedValue: any = [];
 
   constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastr: ToastrService) { }
-
   ngOnInit() {
     const element = document.getElementsByTagName("body")[0];
     element.classList.add("opti_body-login");
@@ -59,7 +58,6 @@ export class SigninComponent implements OnInit {
       },
       error => {
         //this.toastr.error('', this.language.error_getting_psurl +error, this.Commonser.messageConfig.iconClasses.error);
-        //this.showLoader = false;
         alert('There is some error');
       }
     )
@@ -101,8 +99,6 @@ export class SigninComponent implements OnInit {
             //alert("Incorrect User Name or Password");
             this.toastr.error('Incorrect username or password!');
           }       
-
-        //this.disableDropDown = false;         
         },
         error => {
          // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);

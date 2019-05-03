@@ -11,8 +11,8 @@
 <div class="header-container">
   <nb-actions
     size="medium">
-    <nb-action >
-      <nb-user [nbContextMenu]="userMenu" [name]="user?.name" size="middle"></nb-user>
+    <nb-action class="control-item" style= "cursor:pointer" (click)="LogOut()">Log Out
+      <!-- <nb-user [nbContextMenu]="userMenu" [name]="user?.name" (click)="LogOut()" size="middle"></nb-user> -->
     </nb-action>
     <!-- <nb-action class="control-item" disabled icon="nb-notifications"></nb-action>
     <nb-action class="control-item" icon="nb-email"></nb-action> -->
