@@ -3,6 +3,12 @@ import { TreeNode, TreeModel, TREE_ACTIONS, KEYS, IActionMapping, ITreeOptions }
 import OrgChart from '../../@core/org-chart/orgchart.js';
 import { NbDialogService } from '@nebular/theme';
 import { products } from 'src/app/sampleData/products.js';
+import { DashboardService } from 'src/app/service/dashboard.service';
+import { AnalyticsService } from 'src/app/@core/utils/index.js';
+import { SelectableSettings } from '@progress/kendo-angular-grid/dist/es2015/main';
+import { ItemLookupComponent } from 'src/app/lookup/item-lookup/item-lookup.component.js';
+
+import {RecordModel}  from 'src/app/CommonData/Data';
 
 
 const datascource = {
@@ -58,15 +64,31 @@ const actionMapping:IActionMapping = {
 export class DashboardComponent implements OnInit{
   public orgchart: any;
   public nextElementSibling: any;
-  public gridData: any[] = products;
-  
+  //public gridData: any[] = products;
+  public gridData: any[];
+  public arrConfigData: any[];
+  dataGridSelectNum: number;  
+  public ItemValue: any;
+  public ItemDesc: any;
+  public DfltWarehouse: any;
   selectedItem = '2';
+  public recordModel: RecordModel[]; 
+  public Item:boolean = false;
+  public whse:boolean = false;
+  public Lot:boolean = false;
+  public LotFrom :boolean = false;
+  public LotTo :boolean = false;
+  public DistNumFrom:any;
+  public DistNumTo: any;
+  public mode: any;
+  public trackName: any;
 
-  constructor(private dialogService: NbDialogService) {
+  constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
   }
 
   
   ngOnInit() {
+
     // this.orgchart = new OrgChart({
     //   'chartContainer': '#chart-container',
     //   'data' : datascource,
@@ -185,8 +207,150 @@ export class DashboardComponent implements OnInit{
     // });
   }
 
+ 
+  openItemLookup(dialog: TemplateRef<any>){
+    
+    this.dash.GetItemList('http://localhost:41806','Build129IR4').subscribe(
+      data =>
+       {
+        console.log(data); 
+        this.Item = true; 
+        this.whse = false;
+        this.LotTo = false;
+        this.LotFrom = false;
+
+
+        this.gridData = data;
+        // for(let i=0 ;i<this.gridData.length;i++){
+        //     this.gridData[i].ItemCode = this.SAPDateFormat[0]; 
+        //     this.gridData[i].CurrentEntryDate = this.CurrentDateFormat;
+        //  }
+
+
+
+      //  this.recordModel = data;        
+
+        // for(let i=0 ;i<this.recordModel.length;i++){
+        //   this.recordModel[i].CurrentDateFormat = this.SAPDateFormat[0]; 
+        //   this.recordModel[i].CurrentEntryDate = this.CurrentDateFormat;
+        // }
+         this.dialogService.open(dialog);
+         
+        
+       },
+      error => {
+        // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
+        console.log(error);
+     } 
+    )
+  }
+
+  openWarehouseLookup(dialog: TemplateRef<any>){
+    
+    this.dash.GetWarehouseList('http://localhost:41806','Build129IR4').subscribe(
+      data =>
+       {
+        console.log(data);  
+        this.gridData = data;
+        this.Item = false; 
+        this.whse = true;
+        this.Lot = false;
+        this.dialogService.open(dialog);
+       },
+      error => {
+        // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
+        console.log(error);
+     } 
+    )
+  }
+
+  
+  openLotFromLookup(dialog: TemplateRef<any>){
+    
+    this.dash.GetLotNumber('http://localhost:41806','Build129IR4',this.ItemValue,this.trackName).subscribe(
+      data =>
+       {
+        console.log(data);  
+        this.gridData = data;
+        this.Item = false; 
+        this.whse = false;        
+        this.LotFrom = true;
+        this.LotTo = false;
+        
+        this.dialogService.open(dialog);
+       },
+      error => {
+        // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
+        console.log(error);
+     } 
+    )
+  }
+
+  openLotToLookup(dialog: TemplateRef<any>){
+    
+    this.dash.GetLotNumber('http://localhost:41806','Build129IR4',this.ItemValue,this.trackName).subscribe(
+      data =>
+       {
+        console.log(data);  
+        this.gridData = data;
+        this.gridData = data;
+        this.Item = false; 
+        this.whse = false;
+        this.LotFrom = false;
+        this.LotTo = true;
+        this.dialogService.open(dialog);
+       },
+      error => {
+        // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
+        console.log(error);
+     } 
+    )
+  }
+
+  gridRowSelectionChange(evt,ref){
+    if(this.Item){
+      this.dataGridSelectNum = evt.selectedRows[0].index;
+      this.ItemValue = evt.selectedRows[0].dataItem.ItemCode;
+      this.ItemDesc = evt.selectedRows[0].dataItem.ItemName;
+      this.DfltWarehouse = evt.selectedRows[0].dataItem.DfltWH;
+      if(evt.selectedRows[0].dataItem.ManBtchNum == 'Y')
+      {
+        this.trackName = 'Batch'
+      }
+      else{
+        this.trackName = 'Serial'
+      }
+    }
+    else if(this.LotFrom){
+      this.DistNumFrom = evt.selectedRows[0].dataItem.DistNumber;
+    }
+   
+    else if(this.LotTo){
+      this.DistNumTo = evt.selectedRows[0].dataItem.DistNumber;
+    }
+    else{
+      this.DfltWarehouse = evt.selectedRows[0].dataItem.WhsCode;
+    }
+
+    ref.close();
+ }
+
+   GetExplosion(){
+
+    this.dash.GetLotExplosionData('http://localhost:41806','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'Down').subscribe(
+      data =>
+       {
+        console.log(data);        
+       },
+      error => {
+        // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
+        console.log(error);
+     } 
+    )
+  }
+
   open(dialog: TemplateRef<any>) {
-    this.dialogService.open(dialog);
+    this.dialogService.open(dialog); 
   }
 
   nodes = [

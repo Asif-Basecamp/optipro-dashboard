@@ -18,9 +18,9 @@
                   <label for="inputPassword3" class="col-sm-2 col-form-label">Item</label>
                   <div class="col-sm-10">
                     <div class="input-group">                  
-                      <input nbInput type="text" class="form-control" placeholder="">
+                      <input nbInput type="text" name="ItemValue" id="ItemValue" class="form-control" placeholder="Select Item" #ItemVal = ngModel [(ngModel)]="ItemValue">
                       <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="open(dialog)"><i class="nb-menu"></i></button>
+                        <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemLookup(dialog)"><i class="nb-menu"></i></button>
                       </div>
                     </div>
                   </div>
@@ -29,10 +29,10 @@
                   <label for="inputPassword3" class="col-sm-2 col-form-label">Desc.</label>
                   <div class="col-sm-10">
                     <div class="input-group">                  
-                      <input nbInput type="text" class="form-control" placeholder="">
-                      <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="open(dialog)"><i class="nb-menu"></i></button>
-                      </div>
+                      <input nbInput type="text" name="ItemDesc" id="ItemDesc" class="form-control" placeholder="Description" #ItemDes = ngModel [(ngModel)]="ItemDesc">
+                      <!-- <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemLookup(dialog)"><i class="nb-menu"></i></button>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -40,9 +40,9 @@
                   <label for="inputPassword3" class="col-sm-2 col-form-label">Warehouse</label>
                   <div class="col-sm-10">
                     <div class="input-group">                  
-                      <input nbInput type="text" class="form-control" placeholder="">
+                      <input nbInput type="text" class="form-control" placeholder="Select Warehouse" name="DfltWarehouse" id="DfltWarehouse" #Whse = ngModel [(ngModel)]="DfltWarehouse">
                       <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="open(dialog)"><i class="nb-menu"></i></button>
+                        <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"  (click)="openWarehouseLookup(dialog)"><i class="nb-menu"></i></button>
                       </div>
                     </div>
                   </div>
@@ -51,9 +51,9 @@
                   <label for="inputPassword3" class="col-sm-2 col-form-label">Lot From</label>
                   <div class="col-sm-10">
                     <div class="input-group">                  
-                      <input nbInput type="text" class="form-control" placeholder="">
+                      <input nbInput type="text" class="form-control" placeholder="Select Lot From" name="DistNumFrom" id="DistNumFrom" #LotF = ngModel [(ngModel)]="DistNumFrom">
                       <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="open(dialog)"><i class="nb-menu"></i></button>
+                        <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openLotFromLookup(dialog)"><i class="nb-menu"></i></button>
                       </div>
                     </div>
                   </div>
@@ -62,9 +62,9 @@
                   <label for="inputPassword3" class="col-sm-2 col-form-label">Lot To</label>
                   <div class="col-sm-10">
                     <div class="input-group">                  
-                      <input nbInput type="text" class="form-control" placeholder="">
+                      <input nbInput type="text" class="form-control" placeholder="Select Lot To" name="DistNumTo" id="DistNumTo" #LotT = ngModel [(ngModel)]="DistNumTo">
                       <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="open(dialog)"><i class="nb-menu"></i></button>
+                        <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openLotToLookup(dialog)"><i class="nb-menu"></i></button>
                       </div>
                     </div>
                   </div>
@@ -88,7 +88,7 @@
                     </nb-select>
                   </div>
                   <div class="col-sm-6">
-                    <button type="submit" nbButton class="btn btn-primary" size="xsmall">Process</button>
+                    <button type="submit" nbButton class="btn btn-primary" size="xsmall" (click)="GetExplosion()">Process</button>
                   </div>
                 </div>
               </form>
@@ -96,34 +96,59 @@
           </div>
       </nb-card-body>
     </nb-card>
-
+    <div>
+    <!-- <app-item-lookup [gridData]="RecordModel"></app-item-lookup> -->
     <ng-template #dialog let-data let-ref="dialogRef">
-      <nb-card style="max-width:700px">
-        <nb-card-header>Template Dialog</nb-card-header>
-        <nb-card-body>
-          <kendo-grid [data]="gridData" style="max-height:300px">
-              <kendo-grid-column field="ProductID" title="ID" width="40">
-              </kendo-grid-column>
-              <kendo-grid-column field="ProductName" title="Name" width="250">
-              </kendo-grid-column>
-              <kendo-grid-column field="Category.CategoryName" title="Category">
-              </kendo-grid-column>
-              <kendo-grid-column field="UnitPrice" title="Price" width="80">
-              </kendo-grid-column>
-              <kendo-grid-column field="UnitsInStock" title="In stock" width="80">
-              </kendo-grid-column>
-              <kendo-grid-column field="Discontinued" title="Discontinued" width="120">
-                  <ng-template kendoGridCellTemplate let-dataItem>
-                      <input type="checkbox" [checked]="dataItem.Discontinued" disabled/>
-                  </ng-template>
-              </kendo-grid-column>
-          </kendo-grid>
-        </nb-card-body>
-        <nb-card-footer>
-          <button nbButton (click)="ref.close()" size="xsmall">Close</button>
-        </nb-card-footer>
-      </nb-card>
-    </ng-template>
+        <nb-card style="max-width:700px">
+          <nb-card-header>Template Dialog</nb-card-header>
+          <nb-card-body>
+            <div *ngIf="Item">
+            <kendo-grid [data]="gridData" 
+            [selectable]="selectableSettings"
+            (selectionChange)="gridRowSelectionChange($event,ref)"
+            [ngStyle]="{ cursor: 'pointer' }">
+                
+                <kendo-grid-column field="ItemCode" title="Item Code" width="80">
+                </kendo-grid-column>
+                <kendo-grid-column field="ItemName" title="Description" width="80">
+                </kendo-grid-column>
+            </kendo-grid>
+          </div>
+
+          <div *ngIf="whse">
+
+            <kendo-grid [data]="gridData" 
+            [selectable]="selectableSettings"
+            (selectionChange)="gridRowSelectionChange($event,ref)"
+            [ngStyle]="{ cursor: 'pointer' }">
+                
+                <kendo-grid-column field="WhsCode" title="Warehouse Code" width="80">
+                </kendo-grid-column>
+                <kendo-grid-column field="WhsName" title="Description" width="80">
+                </kendo-grid-column>
+            </kendo-grid>
+          </div>
+
+          <div *ngIf="LotFrom || LotTo">
+
+            <kendo-grid [data]="gridData" 
+            [selectable]="selectableSettings"
+            (selectionChange)="gridRowSelectionChange($event,ref)"
+            [ngStyle]="{ cursor: 'pointer' }">
+                
+                <kendo-grid-column field="DistNumber" title="Item Code" width="80">
+                </kendo-grid-column>
+                <kendo-grid-column field="ItemCode" title="Description" width="80">
+                </kendo-grid-column>
+            </kendo-grid>
+            </div>
+          </nb-card-body>
+          <nb-card-footer>
+            <button nbButton (click)="ref.close()" size="xsmall">Close</button>
+          </nb-card-footer>
+        </nb-card>
+      </ng-template>
+  </div>
 </div>
 
 <!-- <div class="dashboard-container" *ngIf="false">

@@ -24,23 +24,23 @@ export class SigninComponent implements OnInit {
   public listItems: any = [] = this.defaultCompnyComboValue;
   public selectedValue: any = [];
 
-  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,) { }
+  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router) { }
 
   ngOnInit() {
     const element = document.getElementsByTagName("body")[0];
     element.classList.add("opti_body-login");
     element.classList.add("opti_account-module");
 
-    // this.httpClientSer.get('/assets/configuration.json').subscribe(
-    //   data => {
-    //     this.arrConfigData = data as string[];
-    //     window.localStorage.setItem('arrConfigData', JSON.stringify(this.arrConfigData[0]));
-    //     this.getPSURL();
-    //   },
-    //   (err: HttpErrorResponse) => {
-    //     console.log(err.message);
-    //   }
-    // );
+    this.httpClientSer.get('/assets/configuration.json').subscribe(
+      data => {
+        this.arrConfigData = data as string[];
+        window.localStorage.setItem('arrConfigData', JSON.stringify(this.arrConfigData[0]));
+        this.getPSURL();
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err.message);
+      }
+    );
   }
 
   selectedItem = '1';
@@ -58,7 +58,6 @@ export class SigninComponent implements OnInit {
       },
       error => {
         //this.toastr.error('', this.language.error_getting_psurl +error, this.Commonser.messageConfig.iconClasses.error);
-        //this.showLoader = false;
         alert('There is some error');
       }
     )
@@ -76,7 +75,6 @@ export class SigninComponent implements OnInit {
 
   OnPasswordBlur(){
 
-    //if(this.password != null && this.password != undefined && this.password != ''){
       if (this.loginId == "" ||  this.loginId == undefined || this.password == "" || this.password == undefined) {
        // alert("User Id or Password is blank");
         return;
@@ -97,11 +95,8 @@ export class SigninComponent implements OnInit {
             this.listItems = this.defaultCompnyComboValue;
             this.selectedValue = this.listItems[0];
             // this.toastr.error('', this.language.alert_incorrect_useridpassword, this.Commonser.messageConfig.iconClasses.error);
-            //this.OnDropDownBlur(0);
             alert("Incorrect User Name or Password");
           }       
-
-        //this.disableDropDown = false;         
         },
         error => {
          // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
