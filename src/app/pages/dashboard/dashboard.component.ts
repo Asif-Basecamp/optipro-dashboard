@@ -83,7 +83,7 @@ export class DashboardComponent implements OnInit{
   public mode: any;
   public trackName: any;
   public gridStatus: boolean = true;
-
+  public nodes: any;
 
   constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
   }
@@ -338,10 +338,143 @@ export class DashboardComponent implements OnInit{
 
    GetExplosion(){
 
-    this.dash.GetLotExplosionData('http://localhost:41806','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'Down').subscribe(
+    this.dash.GetLotExplosionData('http://localhost:41806','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'DOWN').subscribe(
       data =>
        {
-        console.log(data); 
+        console.log(data);
+        this.nodes = [
+          {
+            name: 'c2',
+            children: [
+              {
+                name: 'str1'
+              }
+            ]
+          }];
+        /*this.nodes = [
+          {
+            name: 'root1',
+            children: [
+              {
+                name: 'child1'
+              }, {
+                name: 'child2'
+              }
+            ]
+          },
+          {
+            name: 'root2',
+            children: [
+              {
+                name: 'child2.1'
+              }, {
+                name: 'child2.2',
+                children: [
+                  {
+                    id: 1001,
+                    name: 'subsub'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            name: 'root3',
+            children: [
+              {
+                name: 'child3.1'
+              }, {
+                name: 'child3.2',
+                children: [
+                  {
+                    id: 1003,
+                    name: 'subsub'
+                  }
+                ]
+              }, {
+                name: 'child3.3',
+                children: [
+                  {
+                    id: 1004,
+                    name: 'subsub'
+                  }
+                ]
+              }, {
+                name: 'child3.4',
+                children: [
+                  {
+                    id: 1005,
+                    name: 'subsub'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            name: 'root4',
+            children: [
+              {
+                name: 'child4.1'
+              }, {
+                name: 'child4.2',
+                children: [
+                  {
+                    id: 1006,
+                    name: 'subsub'
+                  }
+                ]
+              }, {
+                name: 'child4.3',
+                children: [
+                  {
+                    id: 1007,
+                    name: 'subsub'
+                  }
+                ]
+              }, {
+                name: 'child4.4',
+                children: [
+                  {
+                    id: 1008,
+                    name: 'subsub'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            name: 'root5',
+            children: [
+              {
+                name: 'child5.1'
+              }, {
+                name: 'child5.2',
+                children: [
+                  {
+                    id: 1009,
+                    name: 'subsub'
+                  }
+                ]
+              }, {
+                name: 'child5.3',
+                children: [
+                  {
+                    id: 1010,
+                    name: 'subsub'
+                  }
+                ]
+              }, {
+                name: 'child5.4',
+                children: [
+                  {
+                    id: 1011,
+                    name: 'subsub'
+                  }
+                ]
+              }
+            ]
+          }
+        ]; */
         this.gridStatus = !this.gridStatus;       
        },
       error => {
@@ -355,7 +488,7 @@ export class DashboardComponent implements OnInit{
     this.dialogService.open(dialog); 
   }
 
-  nodes = [
+  /*nodes = [
     {
       name: 'root1',
       children: [
@@ -478,10 +611,14 @@ export class DashboardComponent implements OnInit{
         }
       ]
     }
-  ];
+  ];*/
 
   options: ITreeOptions = {
     actionMapping
   };
+
+  process(){
+    this.gridStatus = !this.gridStatus; 
+  }
 
 }

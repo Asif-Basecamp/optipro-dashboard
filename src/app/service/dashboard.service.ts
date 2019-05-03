@@ -35,6 +35,8 @@ export class DashboardService {
        CompanyDBID: CompanyDBID,
        ItemKey: ItemKey,
        TrackName: TrackName
+      //ItemKey: 'Battery',
+     // TrackName: 'Serial'
       }])};
       return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetLotNumber",jObject,this.httpOptions);
     }
@@ -48,6 +50,11 @@ export class DashboardService {
         LotFrom: LotFrom,
         LotTo: LotTo,
         Mode: Mode
+        // ItemKey: 'Car_B',
+        // Warehouse: '01',
+        // LotFrom: 'c2',
+        // LotTo: 'c3',
+        // Mode: 'DOWN'
     }]) };
     //Return the response form the API  
     return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetLotExplosionData",jObject,this.httpOptions);
