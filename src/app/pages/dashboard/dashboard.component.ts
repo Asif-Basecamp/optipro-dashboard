@@ -9,7 +9,7 @@ import { SelectableSettings } from '@progress/kendo-angular-grid/dist/es2015/mai
 import { ItemLookupComponent } from 'src/app/lookup/item-lookup/item-lookup.component.js';
 
 import {RecordModel}  from 'src/app/CommonData/Data';
-
+import * as eva from 'eva-icons';
 
 const datascource = {
   'id': '1',
@@ -89,11 +89,12 @@ export class DashboardComponent implements OnInit{
   public transactions: any = [];
  
 
-  constructor(private dialogService: NbDialogService,private dash:DashboardService,private actionMap:IActionMapping ) {
+  constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
   }
 
   
   ngOnInit() {
+    eva.replace();
     this.orgchart = new OrgChart({
       'chartContainer': '#chart-container',
       'data' : datascource,
@@ -121,7 +122,6 @@ export class DashboardComponent implements OnInit{
                   INT
                 </div>
               </div>
-
               <div class="data-column">
                 <div class="data-heading">
                   Warehouse
@@ -139,7 +139,6 @@ export class DashboardComponent implements OnInit{
                   LOT 1
                 </div>
               </div>
-
               <div class="data-column">
                 <div class="data-heading">
                   Expiry Date
@@ -148,7 +147,6 @@ export class DashboardComponent implements OnInit{
                   01/01/01
                 </div>
               </div>
-
               <div class="data-column">
                 <div class="data-heading">
                   Receipt Date
@@ -157,7 +155,6 @@ export class DashboardComponent implements OnInit{
                   01/01/01
                 </div>
               </div>
-
               <div class="data-column">
                 <div class="data-heading">
                   Lot Status
@@ -166,7 +163,6 @@ export class DashboardComponent implements OnInit{
                   Release
                 </div>
               </div>
-
               <div class="data-column">
                 <div class="data-heading">
                   Quantity
@@ -175,7 +171,6 @@ export class DashboardComponent implements OnInit{
                   10.000 KG
                 </div>
               </div>
-
             </div>
           </div>
           <div class="node-footer">
