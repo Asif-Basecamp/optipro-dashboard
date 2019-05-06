@@ -9,6 +9,7 @@ import { SelectableSettings } from '@progress/kendo-angular-grid/dist/es2015/mai
 import { ItemLookupComponent } from 'src/app/lookup/item-lookup/item-lookup.component.js';
 
 import {RecordModel}  from 'src/app/CommonData/Data';
+import * as eva from 'eva-icons';
 
 
 const datascource = {
@@ -86,10 +87,14 @@ export class DashboardComponent implements OnInit{
   public nodes: any;
 
   constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
+    
   }
 
   
+
+  
   ngOnInit() {
+    eva.replace();
     this.orgchart = new OrgChart({
       'chartContainer': '#chart-container',
       'data' : datascource,
