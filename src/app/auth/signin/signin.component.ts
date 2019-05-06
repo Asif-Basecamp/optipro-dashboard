@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NbToastrService } from '@nebular/theme';
 
 @Component({
   selector: 'app-signin',
@@ -13,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SigninComponent implements OnInit {
 
+  private index: number = 0;
   public psURL: string = "";
   public adminDBName: string = "OPTIPROADMIN";
   public arrConfigData: any[];
@@ -25,7 +27,7 @@ export class SigninComponent implements OnInit {
   public listItems: any = [] = this.defaultCompnyComboValue;
   public selectedValue: any = [];
 
-  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastr: ToastrService) { }
+  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastr: ToastrService, private toastrService: NbToastrService) { }
   ngOnInit() {
     const element = document.getElementsByTagName("body")[0];
     element.classList.add("opti_body-login");
@@ -135,5 +137,13 @@ export class SigninComponent implements OnInit {
 
     OnSignIn(){
       this.router.navigateByUrl('/pages');
+    }
+
+    showToast(position, status) {
+      this.index += 1;
+      this.toastrService.show(
+        status || 'Success',
+        `Toast ${this.index}`,
+        { position, status });
     }
 }

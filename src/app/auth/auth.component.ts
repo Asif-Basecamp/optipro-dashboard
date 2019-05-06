@@ -4,9 +4,12 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-auth',
   styleUrls: ['./auth.component.scss'],
   template: `
-  <ngx-one-column-layout>
-    <router-outlet></router-outlet>
-  <ngx-one-column-layout>
+  <nb-layout class="p-0">
+    <nb-layout-column class="p-0">
+    <router-outlet>
+    </router-outlet>
+    </nb-layout-column>
+  </nb-layout>
   `,
   
 })

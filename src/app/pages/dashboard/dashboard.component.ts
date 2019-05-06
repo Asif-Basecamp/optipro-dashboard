@@ -92,153 +92,124 @@ export class DashboardComponent implements OnInit{
   constructor(private dialogService: NbDialogService,private dash:DashboardService,private actionMap:IActionMapping ) {
   }
 
- // public actionMapping :IActionMapping ;
+  
+  ngOnInit() {
+    this.orgchart = new OrgChart({
+      'chartContainer': '#chart-container',
+      'data' : datascource,
+      'nodeContent': 'title',
+      'nodeID': 'id',
+      'depth': 1,
+      'direction': 'l2r',
+      'pan': false,
+      'zoom': false,
+      'toggleSiblingsResp': false,
+      'createNode': function(node, data) {
+        let secondMenu = document.createElement('div');
+        secondMenu.setAttribute('class', 'second-menu');
+        secondMenu.innerHTML = `
+          <div class="node-content">
+            <div class="node-img">
+              <img class="node-avatar" src="./assets/images/images.png">
+            </div>
+            <div class="node-data">
+              <div class="data-column">
+                <div class="data-heading">
+                  Item
+                </div>
+                <div class="data-content">
+                  INT
+                </div>
+              </div>
 
- //public actionMap1 = {
+              <div class="data-column">
+                <div class="data-heading">
+                  Warehouse
+                </div>
+                <div class="data-content">
+                  LOT 1
+                </div>
+              </div>
+              
+              <div class="data-column">
+                <div class="data-heading">
+                  Lot #
+                </div>
+                <div class="data-content">
+                  LOT 1
+                </div>
+              </div>
 
-  //actionMapping = {
-    //   mouse: {
-    //     contextMenu: (tree, node, $event) => {
-    //       $event.preventDefault();
-    //       alert(`context menu for ${node.data.name}`);
-    //     },
-    //     dblClick: (tree, node, $event) => {
-    //       if (node.hasChildren) {
-    //         TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
-    //       }
-    //     },
-    //     click: (tree, node, $event) => {
-    //       $event.shiftKey
-    //         ? TREE_ACTIONS.TOGGLE_ACTIVE_MULTI(tree, node, $event)
-    //         : TREE_ACTIONS.TOGGLE_ACTIVE(tree, node, $event);
-    //       alert(`context menu for ${node.data.name}`);
-    //      this.GetTransaction(node.data.name);
-    //     }
-    //   },
-    //   keys: {
-    //     [KEYS.ENTER]: (tree, node, $event) => alert(`This is ${node.data.name}`)
-    //   }
-    // };
+              <div class="data-column">
+                <div class="data-heading">
+                  Expiry Date
+                </div>
+                <div class="data-content">
+                  01/01/01
+                </div>
+              </div>
 
-  ngOnInit() {    
+              <div class="data-column">
+                <div class="data-heading">
+                  Receipt Date
+                </div>
+                <div class="data-content">
+                  01/01/01
+                </div>
+              </div>
 
-   
-    // this.orgchart = new OrgChart({
-    //   'chartContainer': '#chart-container',
-    //   'data' : datascource,
-    //   'nodeContent': 'title',
-    //   'nodeID': 'id',
-    //   'depth': 1,
-    //   'direction': 'l2r',
-    //   'pan': false,
-    //   'zoom': false,
-    //   'toggleSiblingsResp': false,
-    //   'createNode': function(node, data) {
-    //     let secondMenu = document.createElement('div');
-    //     secondMenu.setAttribute('class', 'second-menu');
-    //     secondMenu.innerHTML = `
-    //       <div class="node-content">
-    //         <div class="node-img">
-    //           <img class="node-avatar" src="./assets/images/images.png">
-    //         </div>
-    //         <div class="node-data">
-    //           <div class="data-column">
-    //             <div class="data-heading">
-    //               Item
-    //             </div>
-    //             <div class="data-content">
-    //               INT
-    //             </div>
-    //           </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Lot Status
+                </div>
+                <div class="data-content">
+                  Release
+                </div>
+              </div>
 
-    //           <div class="data-column">
-    //             <div class="data-heading">
-    //               Warehouse
-    //             </div>
-    //             <div class="data-content">
-    //               LOT 1
-    //             </div>
-    //           </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Quantity
+                </div>
+                <div class="data-content">
+                  10.000 KG
+                </div>
+              </div>
 
-    //           <div class="data-column">
-    //             <div class="data-heading">
-    //               Lot #
-    //             </div>
-    //             <div class="data-content">
-    //               LOT 1
-    //             </div>
-    //           </div>
-
-    //           <div class="data-column">
-    //             <div class="data-heading">
-    //               Expiry Date
-    //             </div>
-    //             <div class="data-content">
-    //               01/01/01
-    //             </div>
-    //           </div>
-
-    //           <div class="data-column">
-    //             <div class="data-heading">
-    //               Receipt Date
-    //             </div>
-    //             <div class="data-content">
-    //               01/01/01
-    //             </div>
-    //           </div>
-
-    //           <div class="data-column">
-    //             <div class="data-heading">
-    //               Lot Status
-    //             </div>
-    //             <div class="data-content">
-    //               Release
-    //             </div>
-    //           </div>
-
-    //           <div class="data-column">
-    //             <div class="data-heading">
-    //               Quantity
-    //             </div>
-    //             <div class="data-content">
-    //               10.000 KG
-    //             </div>
-    //           </div>
-
-    //         </div>
-    //       </div>
-    //       <div class="node-footer">
-    //         <div class="footer-column">
-    //           <div class="column-heading">
-    //             Total Received
-    //           </div>
-    //           <div class="column-content">
-    //             text
-    //           </div>
-    //         </div>
-    //         <div class="footer-column">
-    //           <div class="column-heading">
-    //             Total Issued
-    //           </div>
-    //           <div class="column-content">
-    //             text
-    //           </div>
-    //         </div>
-    //         <div class="footer-column">
-    //           <div class="column-heading">
-    //             Onhand
-    //           </div>
-    //           <div class="column-content">
-    //             text
-    //           </div>
-    //         </div>
-    //       </div>
-
-    //     `;
-    //     // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
-    //    // node.appendChild(secondMenu);
-    //   }
-    // });
+            </div>
+          </div>
+          <div class="node-footer">
+            <div class="footer-column">
+              <div class="column-heading">
+                Total Received
+              </div>
+              <div class="column-content">
+                text
+              </div>
+            </div>
+            <div class="footer-column">
+              <div class="column-heading">
+                Total Issued
+              </div>
+              <div class="column-content">
+                text
+              </div>
+            </div>
+            <div class="footer-column">
+              <div class="column-heading">
+                Onhand
+              </div>
+              <div class="column-content">
+                text
+              </div>
+            </div>
+          </div>
+        
+        `;
+        // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
+        node.appendChild(secondMenu);
+      }
+    });
   }
 
 
