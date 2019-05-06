@@ -32,28 +32,30 @@ const datascource = {
       { 'id': '9', 'name': 'Yu Li', 'className': 'goodsIssue' },
     ]
   }
-const actionMapping:IActionMapping = {
-  mouse: {
-    contextMenu: (tree, node, $event) => {
-      $event.preventDefault();
-      alert(`context menu for ${node.data.name}`);
-    },
-    dblClick: (tree, node, $event) => {
-      if (node.hasChildren) {
-        TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
+
+  const actionMapping:IActionMapping = {
+    mouse: {
+      contextMenu: (tree, node, $event) => {
+        $event.preventDefault();
+        alert(`context menu for ${node.data.name}`);
+      },
+      dblClick: (tree, node, $event) => {
+        if (node.hasChildren) {
+          TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
+        }
+      },
+      click: (tree, node, $event) => {
+        $event.shiftKey
+          ? TREE_ACTIONS.TOGGLE_ACTIVE_MULTI(tree, node, $event)
+          : TREE_ACTIONS.TOGGLE_ACTIVE(tree, node, $event);
+        alert(`context menu for ${node.data.name}`);
+       // this.GetTransaction(node.data.name);
       }
     },
-    click: (tree, node, $event) => {
-      $event.shiftKey
-        ? TREE_ACTIONS.TOGGLE_ACTIVE_MULTI(tree, node, $event)
-        : TREE_ACTIONS.TOGGLE_ACTIVE(tree, node, $event);
-      alert(`context menu for ${node.data.name}`);
+    keys: {
+      [KEYS.ENTER]: (tree, node, $event) => alert(`This is ${node.data.name}`)
     }
-  },
-  keys: {
-    [KEYS.ENTER]: (tree, node, $event) => alert(`This is ${node.data.name}`)
-  }
-};
+  };
 
 @Component({
   selector: 'ngx-dashboard',
@@ -67,12 +69,12 @@ export class DashboardComponent implements OnInit{
   //public gridData: any[] = products;
   public gridData: any[];
   public arrConfigData: any[];
-  dataGridSelectNum: number;  
+  dataGridSelectNum: number;
   public ItemValue: any;
   public ItemDesc: any;
   public DfltWarehouse: any;
   selectedItem = '2';
-  public recordModel: RecordModel[]; 
+  public recordModel: RecordModel[];
   public Item:boolean = false;
   public whse:boolean = false;
   public Lot:boolean = false;
@@ -83,14 +85,44 @@ export class DashboardComponent implements OnInit{
   public mode: any;
   public trackName: any;
   public gridStatus: boolean = true;
-  public nodes: any;
+  public nodes: any = [];
+  public transactions: any = [];
+ 
 
-  constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
+  constructor(private dialogService: NbDialogService,private dash:DashboardService,private actionMap:IActionMapping ) {
   }
 
-  
-  ngOnInit() {
+ // public actionMapping :IActionMapping ;
 
+ //public actionMap1 = {
+
+  //actionMapping = {
+    //   mouse: {
+    //     contextMenu: (tree, node, $event) => {
+    //       $event.preventDefault();
+    //       alert(`context menu for ${node.data.name}`);
+    //     },
+    //     dblClick: (tree, node, $event) => {
+    //       if (node.hasChildren) {
+    //         TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
+    //       }
+    //     },
+    //     click: (tree, node, $event) => {
+    //       $event.shiftKey
+    //         ? TREE_ACTIONS.TOGGLE_ACTIVE_MULTI(tree, node, $event)
+    //         : TREE_ACTIONS.TOGGLE_ACTIVE(tree, node, $event);
+    //       alert(`context menu for ${node.data.name}`);
+    //      this.GetTransaction(node.data.name);
+    //     }
+    //   },
+    //   keys: {
+    //     [KEYS.ENTER]: (tree, node, $event) => alert(`This is ${node.data.name}`)
+    //   }
+    // };
+
+  ngOnInit() {    
+
+   
     // this.orgchart = new OrgChart({
     //   'chartContainer': '#chart-container',
     //   'data' : datascource,
@@ -127,7 +159,7 @@ export class DashboardComponent implements OnInit{
     //               LOT 1
     //             </div>
     //           </div>
-              
+
     //           <div class="data-column">
     //             <div class="data-heading">
     //               Lot #
@@ -201,22 +233,22 @@ export class DashboardComponent implements OnInit{
     //           </div>
     //         </div>
     //       </div>
-        
+
     //     `;
     //     // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
-    //     node.appendChild(secondMenu);
+    //    // node.appendChild(secondMenu);
     //   }
     // });
   }
 
- 
+
   openItemLookup(dialog: TemplateRef<any>){
-    
-    this.dash.GetItemList('http://localhost:41806','Build129IR4').subscribe(
+
+    this.dash.GetItemList('http://localhost:41807','Build129IR4').subscribe(
       data =>
        {
-        console.log(data); 
-        this.Item = true; 
+        console.log(data);
+        this.Item = true;
         this.whse = false;
         this.LotTo = false;
         this.LotFrom = false;
@@ -224,37 +256,37 @@ export class DashboardComponent implements OnInit{
 
         this.gridData = data;
         // for(let i=0 ;i<this.gridData.length;i++){
-        //     this.gridData[i].ItemCode = this.SAPDateFormat[0]; 
+        //     this.gridData[i].ItemCode = this.SAPDateFormat[0];
         //     this.gridData[i].CurrentEntryDate = this.CurrentDateFormat;
         //  }
 
 
 
-      //  this.recordModel = data;        
+      //  this.recordModel = data;
 
         // for(let i=0 ;i<this.recordModel.length;i++){
-        //   this.recordModel[i].CurrentDateFormat = this.SAPDateFormat[0]; 
+        //   this.recordModel[i].CurrentDateFormat = this.SAPDateFormat[0];
         //   this.recordModel[i].CurrentEntryDate = this.CurrentDateFormat;
         // }
          this.dialogService.open(dialog);
-         
-        
+
+
        },
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
         console.log(error);
-     } 
+     }
     )
   }
 
   openWarehouseLookup(dialog: TemplateRef<any>){
-    
-    this.dash.GetWarehouseList('http://localhost:41806','Build129IR4').subscribe(
+
+    this.dash.GetWarehouseList('http://localhost:41807','Build129IR4').subscribe(
       data =>
        {
-        console.log(data);  
+        console.log(data);
         this.gridData = data;
-        this.Item = false; 
+        this.Item = false;
         this.whse = true;
         this.Lot = false;
         this.dialogService.open(dialog);
@@ -262,41 +294,41 @@ export class DashboardComponent implements OnInit{
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
         console.log(error);
-     } 
+     }
     )
   }
 
-  
+
   openLotFromLookup(dialog: TemplateRef<any>){
-    
-    this.dash.GetLotNumber('http://localhost:41806','Build129IR4',this.ItemValue,this.trackName).subscribe(
+
+    this.dash.GetLotNumber('http://localhost:41807','Build129IR4',this.ItemValue,this.trackName).subscribe(
       data =>
        {
-        console.log(data);  
+        console.log(data);
         this.gridData = data;
-        this.Item = false; 
-        this.whse = false;        
+        this.Item = false;
+        this.whse = false;
         this.LotFrom = true;
         this.LotTo = false;
-        
+
         this.dialogService.open(dialog);
        },
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
         console.log(error);
-     } 
+     }
     )
   }
 
   openLotToLookup(dialog: TemplateRef<any>){
-    
-    this.dash.GetLotNumber('http://localhost:41806','Build129IR4',this.ItemValue,this.trackName).subscribe(
+
+    this.dash.GetLotNumber('http://localhost:41807','Build129IR4',this.ItemValue,this.trackName).subscribe(
       data =>
        {
-        console.log(data);  
+        console.log(data);
         this.gridData = data;
         this.gridData = data;
-        this.Item = false; 
+        this.Item = false;
         this.whse = false;
         this.LotFrom = false;
         this.LotTo = true;
@@ -305,7 +337,7 @@ export class DashboardComponent implements OnInit{
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
         console.log(error);
-     } 
+     }
     )
   }
 
@@ -326,7 +358,7 @@ export class DashboardComponent implements OnInit{
     else if(this.LotFrom){
       this.DistNumFrom = evt.selectedRows[0].dataItem.DistNumber;
     }
-   
+
     else if(this.LotTo){
       this.DistNumTo = evt.selectedRows[0].dataItem.DistNumber;
     }
@@ -337,22 +369,311 @@ export class DashboardComponent implements OnInit{
     ref.close();
  }
 
-   GetExplosion(){
-
-    this.dash.GetLotExplosionData('http://localhost:41806','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'DOWN').subscribe(
+ GetTransaction(NodeName){
+  this.dash.GetTransaction('http://localhost:41807','Build129IR4',NodeName).subscribe(
       data =>
        {
+         this.transactions = data;
         console.log(data);
+       },
+       error => {
+        // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
+        console.log(error);
+     }
+    )
+ }
+
+ GetTransactionDetails(NodeName){
+  this.dash.GetTransaction('http://localhost:41807','Build129IR4',NodeName).subscribe(
+      data =>
+       {
+         this.transactions = data;
+        console.log(data);
+       },
+       error => {
+        // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
+        console.log(error);
+     }
+    )
+ }
+
+  Recurse(){
+
+  }
+
+   GetExplosion(){
+
+    this.dash.GetLotExplosionData('http://localhost:41807','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'DOWN').subscribe(
+      data =>
+       {
+        // Get an empty hash
+    //     let hash = {};
+
+    //     // Iterate each hash for clubbing values to single keys
+    //     data.forEach(function(r){
+    //       if (hash[r["OPTM_PARENTBTCHSERNO"]] == undefined){
+    //           hash[r["OPTM_PARENTBTCHSERNO"]] = []
+    //       }
+    //       hash[r["OPTM_PARENTBTCHSERNO"]].push(r["OPTM_BTCHSERNO"])
+    //     })
+
+    //     let keys = Object.keys(hash);
+    //     let parents = new Set(keys);
+    //     let temp = {};
+    //     let tree ;
+
+    //   keys.forEach(k => hash[k].forEach(t => {
+    //       parents.delete(t);
+    //       temp[k] = temp[k] || [];
+    //       temp[t] = temp[t] || [];
+    //       if (!temp[k].some(o => t in o)) temp[k].push({ [t]: temp[t] });
+    //   }));
+
+    // tree = Object.assign({}, ...Array.from(parents, k => ({ [k]: temp[k] })));
+
+    // console.log(tree);
+
+    //  this.nodes = tree;
+
+
+
+          // var testData = { name :"c3", children : [] };
+          // let seqAll = [];
+          // let ParId = [];
+          // let map = {};
+          // let childrens = [];
+          // this.nodes = [];
+          // let node = [];
+
+          // data.filter(function (obj) {
+          //   seqAll.push(obj.OPTM_SEQ);
+          // });
+
+          // for(let i=0; i <data.length;i++){
+
+          //   data.filter(function (obj) {
+
+          //     if(obj.ParantId == 0){
+          //       map["name"] = data[i].OPTM_PARENTBTCHSERNO;
+
+          //      // if(data[i].OPTM_SEQ == obj.OPTM_BTCHSERNO){
+          //         childrens.push({name: obj.OPTM_BTCHSERNO});
+          //         map["children"]  = childrens;
+          //         node.push(map);
+          //      // }
+
+          //     }
+
+          //     else if(data[i].OPTM_SEQ == obj.ParantId){
+          //         map["name"] = data[i].OPTM_BTCHSERNO;
+          //        // map["children"] = obj.OPTM_BTCHSERNO;
+          //        childrens.push({name: obj.OPTM_BTCHSERNO});
+          //        map["children"]  = childrens;
+          //        node.push(map);
+          //     }
+
+          //   });
+          // }
+
+          // this.nodes =  node;
+
+
+          //----------------------------------------------------
+
+
+    //     var newData = { name :"c3", children : [] },
+    //     levels = ["OPTM_BTCHSERNO","ParantId"];
+    //     var child =  '';
+
+    // data.forEach(function(d){
+    // var depthCursor = newData.children;
+    // levels.forEach(function( property, depth )
+    // {
+    //     var index;
+    //     depthCursor.forEach(function(child,i)
+    //     {
+    //         if ( d["OPTM_BTCHSERNO"] == child.name )
+    //             index = i;
+
+    //     });
+
+    //     if ( isNaN(index) )
+    //     {
+
+    //        data.filter(function (obj1) {
+    //         if(d["OPTM_SEQ"] == obj1.ParantId){
+    //            child = obj1.OPTM_BTCHSERNO;
+    //         }
+    //        });
+
+    //        depthCursor.push({name : d[property], children : [ {name: child }]});
+    //        index = depthCursor.length - 1;
+    //     }
+
+    //     depthCursor = depthCursor[index].children;
+
+    //     if ( depth === levels.length - 1 )
+    //     {
+    //         depthCursor.push({ name : d.name});
+    //     }
+    //     });
+    // });
+
+  //  this.nodes.push(newData);
+
+
+  //console.log(newData);
+
+
+        console.log(data);
+        let Root = [];
+        let parent1 = [];
+        let parent = '';
+        let parentseq = [];
+        let Level1 = [];
+        let Level2 = [];
+        let seq = '';
+      //   let Root1 = data.filter(function (obj) {
+      //     if(obj.Level == 0 && obj.ParantId == 0){
+      //       Root.push(obj.OPTM_BTCHSERNO); //[en10, str1]
+      //       parent1.push(obj.OPTM_PARENTBTCHSERNO); //c3
+      //       parent = obj.OPTM_PARENTBTCHSERNO;
+      //       parentseq.push(obj.OPTM_SEQ); //[28,33]
+
+      //     }
+
+
+      //    data.filter(function (obj1) {
+      //     for(let j=0; j< parentseq.length; j++){
+      //       if(parentseq[0] == obj1.ParantId){
+      //         Level1.push(obj1.OPTM_BTCHSERNO); // [cb7,cb7]
+      //       }
+      //       if(parentseq[1] == obj1.ParantId){
+      //         Level2.push(obj1.OPTM_BTCHSERNO);
+      //       }
+      //     }
+
+      //   });
+
+      //  });
+
+
+      // let childrens = [];
+       //this.nodes = [];
+      // for(let i=0; i < data.length; i++){
+      //   let name = '';
+      //  // let children = [];
+      //   let child = '';
+      //   var obj = {};
+      //   if(data[i].ParantId == 0){
+
+      //     obj["name"] = data[i].OPTM_PARENTBTCHSERNO;
+
+      //     let temp = data.filter(function (obj) {
+      //       if(obj.OPTM_PARENTBTCHSERNO == data[i].OPTM_PARENTBTCHSERNO){
+      //         childrens.push({name: data[i].OPTM_BTCHSERNO});
+      //       }
+      //     });
+
+      //     obj["children"] = childrens;
+
+
+      //     //  obj["children"] = [{name: data[i].OPTM_BTCHSERNO}];
+
+      //     this.nodes.push(obj);
+      //   }
+
+
+      // //  if(this.nodes != undefined){
+
+      // //   this.nodes = [
+      // //     {
+      // //       name,
+      // //       children
+      // //     }];
+
+
+      // //  }
+
+      //  }
+
+         console.log(parent);
+         console.log(Root);
+
+        // let counter_temp = 0;
+        // let temp_data = data.filter(function (obj) {
+        //   obj['tree_index'] = (counter_temp);
+        //   obj['live_row_id'] = (counter_temp++);
+        //   return obj;
+        // });
+        //this.tree_data_json = temp_data;
+       // console.log(temp_data);
+
+      //  for(let i=0; i < data.length; i++){
+
+      //   let count = 0;
+      //   data.filter(function (obj) {
+      //     if(obj.Level == count){
+
+      //     }
+      //   });
+
+
+
+
+      //     this.nodes = [
+      //     {
+      //       name: parent,
+      //       children: [
+      //         {
+      //           name: Root
+      //         }
+      //       ]
+      //     }];
+      //     count++;
+      //  }
+
+        //  for(let i=0; i < Root.length; i++){
+
+
+
+        //   this.nodes = [
+        //     {
+        //       name: parent,
+        //       children: [
+        //         {
+        //           name: Root
+        //         }
+        //       ]
+        //     }];
+        //  }
+
+        //  this.nodes = [
+        //   {
+        //     name: parent,
+        //     children: [
+        //       {
+        //         name: 'str1'
+        //       }
+        //     ]
+        //   }];
+
+
+
+
+         //OPTM_PARENTBTCHSERNO
+         //OPTM_BTCHSERNO
+
+        // this.nodes = [
+        //   {
+        //     name: 'c2',
+        //     children: [
+        //       {
+        //         name: 'str1'
+        //       }
+        //     ]
+        //   }];
         this.nodes = [
-          {
-            name: 'c2',
-            children: [
-              {
-                name: 'str1'
-              }
-            ]
-          }];
-        /*this.nodes = [
           {
             name: 'root1',
             children: [
@@ -475,18 +796,18 @@ export class DashboardComponent implements OnInit{
               }
             ]
           }
-        ]; */
-        this.gridStatus = !this.gridStatus;       
+        ];
+        this.gridStatus = !this.gridStatus;
        },
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
         console.log(error);
-     } 
+     }
     )
   }
 
   open(dialog: TemplateRef<any>) {
-    this.dialogService.open(dialog); 
+    this.dialogService.open(dialog);
   }
 
   /*nodes = [
@@ -616,10 +937,13 @@ export class DashboardComponent implements OnInit{
 
   options: ITreeOptions = {
     actionMapping
+  //this.actionMap1;
+    //IActionMapping
   };
 
+
   process(){
-    this.gridStatus = !this.gridStatus; 
+    this.gridStatus = !this.gridStatus;
   }
 
 }
