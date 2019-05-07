@@ -78,6 +78,9 @@
 
     .radio-description {
       color: nb-theme(radio-fg);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

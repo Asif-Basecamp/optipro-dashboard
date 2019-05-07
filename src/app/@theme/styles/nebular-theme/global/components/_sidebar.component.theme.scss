@@ -25,7 +25,7 @@
     }
 
     .scrollable {
-      padding: nb-theme(sidebar-padding);
+      padding: 0 nb-theme(sidebar-padding) nb-theme(sidebar-padding) nb-theme(sidebar-padding);
       position: relative;
 
       -webkit-transform: translate3d(0, 0, 0); // ios optimisation

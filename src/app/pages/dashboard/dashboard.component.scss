@@ -1,3 +1,40 @@
+.dashboard-left{
+    padding-right:5px;
+    height: calc(100vh - 65px); 
+    & > nb-card{
+        height:100%;
+    }
+}
+.dashboard-right{
+    flex:1;
+    padding-left:5px; 
+    height: calc(100vh - 65px);
+    & .custom-accordian {
+        flex-direction: column;
+        flex: 1;
+        display: flex;
+        height: calc(100vh - 65px);
+        & .grid-accordian, & .analysis-accordian {
+            flex: 1 1 50%;
+            flex-basis:50%;
+            display: flex;
+            & > nb-card{
+                width: 100%;
+                margin-bottom: 0;
+            }
+        }
+        & .grid-accordian{
+            & > nb-card{
+                margin-bottom: 5px;
+            }
+        }
+        & .analysis-accordian {
+            & > nb-card{
+                margin-top: 5px;
+            }
+        }
+    }
+}
 .dashboard-container{
     display: flex;
     height: 100%;
@@ -60,8 +97,9 @@
             margin-bottom: 0;
         }
     }
-
 }
+
+/*===== Org Chart css =====*/
 .tree-wrapper{
     
 }

@@ -9,7 +9,7 @@
     font-family: nb-theme(menu-font-family);
     font-size: nb-theme(menu-font-size);
     font-weight: nb-theme(menu-font-weight);
-    background: nb-theme(menu-bg);
+    // background: nb-theme(menu-bg);
     color: nb-theme(menu-fg);
 
     ul.menu-items {
@@ -32,7 +32,7 @@
 
       a:hover,
       a.active {
-        background-color: nb-theme(menu-active-bg);
+        //background-color: nb-theme(menu-active-bg);
         color: nb-theme(menu-active-fg);
         font-weight: nb-theme(menu-active-font-weight);
 
@@ -58,9 +58,9 @@
 
     .menu-items > .menu-item {
       border-bottom: 1px solid nb-theme(menu-item-separator);
-      &:first-child {
-        border-top: 1px solid nb-theme(menu-item-separator);
-      }
+      // &:first-child {
+      //   border-top: 1px solid nb-theme(menu-item-separator);
+      // }
     }
 
     .menu-item > .menu-items {

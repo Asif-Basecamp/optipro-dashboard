@@ -30,7 +30,7 @@
                         <small id="passwordHelp" class="form-text text-muted opti_error-msg" *ngIf="PasswordBlank.errors?.required && PasswordBlank.touched" class="float-right opti_error-msg">Password Required</small>
                     </div>
 
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <label for="">Company</label>
                         <nb-select placeholder="Select Showcase" size="small" shape="rectangle" outline [(selected)]="selectedItem">
                             <nb-option value="1">Option 1</nb-option>
@@ -38,7 +38,7 @@
                             <nb-option value="3">Option 3</nb-option>
                             <nb-option value="4">Option 4</nb-option>
                         </nb-select>
-                    </div> -->
+                    </div>
 
                     <!-- <div class="dropdown"
                         [ngClass]="{ 'ghost-dropdown': currentTheme === 'corporate' }"
@@ -80,6 +80,8 @@
                       <div class="text-right">
                           <button type="submit" (click)="OnSignIn()" [disabled]="!signInForm.form.valid  || clickSignIn" id=connectbtn class="btn btn-primary opti_fullwidth"  size="xsmall" nbButton>Login</button>
                       </div>
+                      <button nbButton (click)="showToast('top-right', 'success')">Top Right</button>
+    <button nbButton (click)="showToast('bottom-left', 'info')">Bottom left</button>
                   </form>
               </div>
           </div>
