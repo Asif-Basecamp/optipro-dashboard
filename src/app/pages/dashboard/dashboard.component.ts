@@ -84,6 +84,7 @@ export class DashboardComponent implements OnInit{
   public trackName: any;
   public gridStatus: boolean = true;
   public nodes: any;
+  public dataList: any;
 
   constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
   }
@@ -342,20 +343,16 @@ export class DashboardComponent implements OnInit{
     this.dash.GetLotExplosionData('http://localhost:41806','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'DOWN').subscribe(
       data =>
        {
-        console.log(data);
-        this.nodes = [
-          {
-            name: 'c2',
-            children: [
-              {
-                name: 'str1'
-              }
-            ]
-          }];
+       // this.dataList = JSON.stringify(data);
+          data.forEach(function (eachObj, i) {
+            console.log(eachObj);
+          }); 
+         
+       
         /*this.nodes = [
           {
             name: 'root1',
-            children: [
+            childrens: [
               {
                 name: 'child1'
               }, {
@@ -365,12 +362,12 @@ export class DashboardComponent implements OnInit{
           },
           {
             name: 'root2',
-            children: [
+            childrens: [
               {
                 name: 'child2.1'
               }, {
                 name: 'child2.2',
-                children: [
+                childrens: [
                   {
                     id: 1001,
                     name: 'subsub'
@@ -381,12 +378,12 @@ export class DashboardComponent implements OnInit{
           },
           {
             name: 'root3',
-            children: [
+            childrens: [
               {
                 name: 'child3.1'
               }, {
                 name: 'child3.2',
-                children: [
+                childrens: [
                   {
                     id: 1003,
                     name: 'subsub'
@@ -394,7 +391,7 @@ export class DashboardComponent implements OnInit{
                 ]
               }, {
                 name: 'child3.3',
-                children: [
+                childrens: [
                   {
                     id: 1004,
                     name: 'subsub'
@@ -402,7 +399,7 @@ export class DashboardComponent implements OnInit{
                 ]
               }, {
                 name: 'child3.4',
-                children: [
+                childrens: [
                   {
                     id: 1005,
                     name: 'subsub'
@@ -413,12 +410,12 @@ export class DashboardComponent implements OnInit{
           },
           {
             name: 'root4',
-            children: [
+            childrens: [
               {
                 name: 'child4.1'
               }, {
                 name: 'child4.2',
-                children: [
+                childrens: [
                   {
                     id: 1006,
                     name: 'subsub'
@@ -426,7 +423,7 @@ export class DashboardComponent implements OnInit{
                 ]
               }, {
                 name: 'child4.3',
-                children: [
+                childrens: [
                   {
                     id: 1007,
                     name: 'subsub'
@@ -434,7 +431,7 @@ export class DashboardComponent implements OnInit{
                 ]
               }, {
                 name: 'child4.4',
-                children: [
+                childrens: [
                   {
                     id: 1008,
                     name: 'subsub'
@@ -445,12 +442,12 @@ export class DashboardComponent implements OnInit{
           },
           {
             name: 'root5',
-            children: [
+            childrens: [
               {
                 name: 'child5.1'
               }, {
                 name: 'child5.2',
-                children: [
+                childrens: [
                   {
                     id: 1009,
                     name: 'subsub'
@@ -458,7 +455,7 @@ export class DashboardComponent implements OnInit{
                 ]
               }, {
                 name: 'child5.3',
-                children: [
+                childrens: [
                   {
                     id: 1010,
                     name: 'subsub'
@@ -466,7 +463,7 @@ export class DashboardComponent implements OnInit{
                 ]
               }, {
                 name: 'child5.4',
-                children: [
+                childrens: [
                   {
                     id: 1011,
                     name: 'subsub'
