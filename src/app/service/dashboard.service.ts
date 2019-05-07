@@ -44,15 +44,17 @@ export class DashboardService {
     GetTransaction(optiProDashboardAPIURL:string,CompanyDBID:string,ItemKey:string): Observable<any>{
       let jObject:any={ ItemList: JSON.stringify([{ 
        CompanyDBID: CompanyDBID,
-       ItemKey: ItemKey
+       ItemKey: 'c3'
       }])};
       return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetTransaction",jObject,this.httpOptions);
     }
 
-    GetTransactionDetails(optiProDashboardAPIURL:string,CompanyDBID:string,ItemKey:string): Observable<any>{
+    GetTransactionDetails(optiProDashboardAPIURL:string,CompanyDBID:string,DocEntry:string,Table:string,TrackName:string): Observable<any>{
       let jObject:any={ ItemList: JSON.stringify([{ 
        CompanyDBID: CompanyDBID,
-       ItemKey: ItemKey
+       DocEntry: DocEntry,
+       Table:Table,
+       TrackName:TrackName
       }])};
       return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetTransactionDetails",jObject,this.httpOptions);
     }

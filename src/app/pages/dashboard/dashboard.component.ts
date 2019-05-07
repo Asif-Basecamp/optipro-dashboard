@@ -33,6 +33,8 @@ const datascource = {
     ]
   }
 
+  var nodeName = '';
+
   const actionMapping:IActionMapping = {
     mouse: {
       contextMenu: (tree, node, $event) => {
@@ -44,18 +46,24 @@ const datascource = {
           TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
         }
       },
-      click: (tree, node, $event) => {
-        $event.shiftKey
-          ? TREE_ACTIONS.TOGGLE_ACTIVE_MULTI(tree, node, $event)
-          : TREE_ACTIONS.TOGGLE_ACTIVE(tree, node, $event);
-        alert(`context menu for ${node.data.name}`);
-       // this.GetTransaction(node.data.name);
-      }
+      // click: (tree, node, $event) => {
+      //   $event.shiftKey
+      //     ? TREE_ACTIONS.TOGGLE_ACTIVE_MULTI(tree, node, $event)
+      //     : TREE_ACTIONS.TOGGLE_ACTIVE(tree, node, $event);
+      //   alert(`context menu for ${node.data.name}`);
+      //  var name = node.data.name;
+      //   //this.GetTransaction(name);
+      //   //this.Transact(name);
+      // }
     },
     keys: {
       [KEYS.ENTER]: (tree, node, $event) => alert(`This is ${node.data.name}`)
     }
   };
+
+  //declare function Transact(nm):any;
+
+ 
 
 @Component({
   selector: 'ngx-dashboard',
@@ -86,14 +94,18 @@ export class DashboardComponent implements OnInit{
   public trackName: any;
   public gridStatus: boolean = true;
   public nodes: any = [];
+  public nodes1: any = [];
   public transactions: any = [];
+  public NodeName = '';
  
 
   constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
   }
 
   
+    
   ngOnInit() {
+    
     eva.replace();
     this.orgchart = new OrgChart({
       'chartContainer': '#chart-container',
@@ -336,11 +348,159 @@ export class DashboardComponent implements OnInit{
  }
 
  GetTransaction(NodeName){
+  //alert(nodeName);
   this.dash.GetTransaction('http://localhost:41807','Build129IR4',NodeName).subscribe(
       data =>
        {
-         this.transactions = data;
+
+        this.nodes1 = [];
+        this.transactions = data;
         console.log(data);
+
+        let name = NodeName;
+        let childrens = [];
+
+        let map = {};
+        map["name"] = name;
+
+        for(let i=0; i< this.transactions.Table.length; i++){
+          childrens.push({name: this.transactions.Table[i].ObjectTypeDesc});
+        }
+        map["children"] = childrens;
+
+        this.nodes1.push(map);
+
+        
+          //         map["children"]  = childrens;
+          //         node.push(map);
+
+        
+
+        // this.nodes1 = [
+        //   {
+        //     name: 'root1',
+        //     children: [
+        //       {
+        //         name: 'child1'
+        //       }, {
+        //         name: 'child2'
+        //       }
+        //     ]
+        //   },
+        //   {
+        //     name: 'root2',
+        //     children: [
+        //       {
+        //         name: 'child2.1'
+        //       }, {
+        //         name: 'child2.2',
+        //         children: [
+        //           {
+        //             id: 1001,
+        //             name: 'subsub'
+        //           }
+        //         ]
+        //       }
+        //     ]
+        //   },
+        //   {
+        //     name: 'root3',
+        //     children: [
+        //       {
+        //         name: 'child3.1'
+        //       }, {
+        //         name: 'child3.2',
+        //         children: [
+        //           {
+        //             id: 1003,
+        //             name: 'subsub'
+        //           }
+        //         ]
+        //       }, {
+        //         name: 'child3.3',
+        //         children: [
+        //           {
+        //             id: 1004,
+        //             name: 'subsub'
+        //           }
+        //         ]
+        //       }, {
+        //         name: 'child3.4',
+        //         children: [
+        //           {
+        //             id: 1005,
+        //             name: 'subsub'
+        //           }
+        //         ]
+        //       }
+        //     ]
+        //   },
+        //   {
+        //     name: 'root4',
+        //     children: [
+        //       {
+        //         name: 'child4.1'
+        //       }, {
+        //         name: 'child4.2',
+        //         children: [
+        //           {
+        //             id: 1006,
+        //             name: 'subsub'
+        //           }
+        //         ]
+        //       }, {
+        //         name: 'child4.3',
+        //         children: [
+        //           {
+        //             id: 1007,
+        //             name: 'subsub'
+        //           }
+        //         ]
+        //       }, {
+        //         name: 'child4.4',
+        //         children: [
+        //           {
+        //             id: 1008,
+        //             name: 'subsub'
+        //           }
+        //         ]
+        //       }
+        //     ]
+        //   },
+        //   {
+        //     name: 'root5',
+        //     children: [
+        //       {
+        //         name: 'child5.1'
+        //       }, {
+        //         name: 'child5.2',
+        //         children: [
+        //           {
+        //             id: 1009,
+        //             name: 'subsub'
+        //           }
+        //         ]
+        //       }, {
+        //         name: 'child5.3',
+        //         children: [
+        //           {
+        //             id: 1010,
+        //             name: 'subsub'
+        //           }
+        //         ]
+        //       }, {
+        //         name: 'child5.4',
+        //         children: [
+        //           {
+        //             id: 1011,
+        //             name: 'subsub'
+        //           }
+        //         ]
+        //       }
+        //     ]
+        //   }
+        // ];
+
        },
        error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
@@ -350,7 +510,7 @@ export class DashboardComponent implements OnInit{
  }
 
  GetTransactionDetails(NodeName){
-  this.dash.GetTransaction('http://localhost:41807','Build129IR4',NodeName).subscribe(
+  this.dash.GetTransactionDetails('http://localhost:41807','Build129IR4','','',this.trackName).subscribe(
       data =>
        {
          this.transactions = data;
@@ -362,16 +522,18 @@ export class DashboardComponent implements OnInit{
      }
     )
  }
+ 
+ Resurse(){
+   
+ }
 
-  Recurse(){
-
-  }
-
-   GetExplosion(){
+  GetExplosion(){
 
     this.dash.GetLotExplosionData('http://localhost:41807','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'DOWN').subscribe(
       data =>
        {
+
+
         // Get an empty hash
     //     let hash = {};
 
@@ -401,244 +563,6 @@ export class DashboardComponent implements OnInit{
 
     //  this.nodes = tree;
 
-
-
-          // var testData = { name :"c3", children : [] };
-          // let seqAll = [];
-          // let ParId = [];
-          // let map = {};
-          // let childrens = [];
-          // this.nodes = [];
-          // let node = [];
-
-          // data.filter(function (obj) {
-          //   seqAll.push(obj.OPTM_SEQ);
-          // });
-
-          // for(let i=0; i <data.length;i++){
-
-          //   data.filter(function (obj) {
-
-          //     if(obj.ParantId == 0){
-          //       map["name"] = data[i].OPTM_PARENTBTCHSERNO;
-
-          //      // if(data[i].OPTM_SEQ == obj.OPTM_BTCHSERNO){
-          //         childrens.push({name: obj.OPTM_BTCHSERNO});
-          //         map["children"]  = childrens;
-          //         node.push(map);
-          //      // }
-
-          //     }
-
-          //     else if(data[i].OPTM_SEQ == obj.ParantId){
-          //         map["name"] = data[i].OPTM_BTCHSERNO;
-          //        // map["children"] = obj.OPTM_BTCHSERNO;
-          //        childrens.push({name: obj.OPTM_BTCHSERNO});
-          //        map["children"]  = childrens;
-          //        node.push(map);
-          //     }
-
-          //   });
-          // }
-
-          // this.nodes =  node;
-
-
-          //----------------------------------------------------
-
-
-    //     var newData = { name :"c3", children : [] },
-    //     levels = ["OPTM_BTCHSERNO","ParantId"];
-    //     var child =  '';
-
-    // data.forEach(function(d){
-    // var depthCursor = newData.children;
-    // levels.forEach(function( property, depth )
-    // {
-    //     var index;
-    //     depthCursor.forEach(function(child,i)
-    //     {
-    //         if ( d["OPTM_BTCHSERNO"] == child.name )
-    //             index = i;
-
-    //     });
-
-    //     if ( isNaN(index) )
-    //     {
-
-    //        data.filter(function (obj1) {
-    //         if(d["OPTM_SEQ"] == obj1.ParantId){
-    //            child = obj1.OPTM_BTCHSERNO;
-    //         }
-    //        });
-
-    //        depthCursor.push({name : d[property], children : [ {name: child }]});
-    //        index = depthCursor.length - 1;
-    //     }
-
-    //     depthCursor = depthCursor[index].children;
-
-    //     if ( depth === levels.length - 1 )
-    //     {
-    //         depthCursor.push({ name : d.name});
-    //     }
-    //     });
-    // });
-
-  //  this.nodes.push(newData);
-
-
-  //console.log(newData);
-
-
-        console.log(data);
-        let Root = [];
-        let parent1 = [];
-        let parent = '';
-        let parentseq = [];
-        let Level1 = [];
-        let Level2 = [];
-        let seq = '';
-      //   let Root1 = data.filter(function (obj) {
-      //     if(obj.Level == 0 && obj.ParantId == 0){
-      //       Root.push(obj.OPTM_BTCHSERNO); //[en10, str1]
-      //       parent1.push(obj.OPTM_PARENTBTCHSERNO); //c3
-      //       parent = obj.OPTM_PARENTBTCHSERNO;
-      //       parentseq.push(obj.OPTM_SEQ); //[28,33]
-
-      //     }
-
-
-      //    data.filter(function (obj1) {
-      //     for(let j=0; j< parentseq.length; j++){
-      //       if(parentseq[0] == obj1.ParantId){
-      //         Level1.push(obj1.OPTM_BTCHSERNO); // [cb7,cb7]
-      //       }
-      //       if(parentseq[1] == obj1.ParantId){
-      //         Level2.push(obj1.OPTM_BTCHSERNO);
-      //       }
-      //     }
-
-      //   });
-
-      //  });
-
-
-      // let childrens = [];
-       //this.nodes = [];
-      // for(let i=0; i < data.length; i++){
-      //   let name = '';
-      //  // let children = [];
-      //   let child = '';
-      //   var obj = {};
-      //   if(data[i].ParantId == 0){
-
-      //     obj["name"] = data[i].OPTM_PARENTBTCHSERNO;
-
-      //     let temp = data.filter(function (obj) {
-      //       if(obj.OPTM_PARENTBTCHSERNO == data[i].OPTM_PARENTBTCHSERNO){
-      //         childrens.push({name: data[i].OPTM_BTCHSERNO});
-      //       }
-      //     });
-
-      //     obj["children"] = childrens;
-
-
-      //     //  obj["children"] = [{name: data[i].OPTM_BTCHSERNO}];
-
-      //     this.nodes.push(obj);
-      //   }
-
-
-      // //  if(this.nodes != undefined){
-
-      // //   this.nodes = [
-      // //     {
-      // //       name,
-      // //       children
-      // //     }];
-
-
-      // //  }
-
-      //  }
-
-         console.log(parent);
-         console.log(Root);
-
-        // let counter_temp = 0;
-        // let temp_data = data.filter(function (obj) {
-        //   obj['tree_index'] = (counter_temp);
-        //   obj['live_row_id'] = (counter_temp++);
-        //   return obj;
-        // });
-        //this.tree_data_json = temp_data;
-       // console.log(temp_data);
-
-      //  for(let i=0; i < data.length; i++){
-
-      //   let count = 0;
-      //   data.filter(function (obj) {
-      //     if(obj.Level == count){
-
-      //     }
-      //   });
-
-
-
-
-      //     this.nodes = [
-      //     {
-      //       name: parent,
-      //       children: [
-      //         {
-      //           name: Root
-      //         }
-      //       ]
-      //     }];
-      //     count++;
-      //  }
-
-        //  for(let i=0; i < Root.length; i++){
-
-
-
-        //   this.nodes = [
-        //     {
-        //       name: parent,
-        //       children: [
-        //         {
-        //           name: Root
-        //         }
-        //       ]
-        //     }];
-        //  }
-
-        //  this.nodes = [
-        //   {
-        //     name: parent,
-        //     children: [
-        //       {
-        //         name: 'str1'
-        //       }
-        //     ]
-        //   }];
-
-
-
-
-         //OPTM_PARENTBTCHSERNO
-         //OPTM_BTCHSERNO
-
-        // this.nodes = [
-        //   {
-        //     name: 'c2',
-        //     children: [
-        //       {
-        //         name: 'str1'
-        //       }
-        //     ]
-        //   }];
         this.nodes = [
           {
             name: 'root1',
@@ -901,15 +825,54 @@ export class DashboardComponent implements OnInit{
     }
   ];*/
 
-  options: ITreeOptions = {
-    actionMapping
-  //this.actionMap1;
-    //IActionMapping
-  };
+  // options: ITreeOptions = {
+    
+  //  // actionMapping
+  //  const actionMapping:IActionMapping = {
+  //   mouse: {
+  //     contextMenu: (tree, node, $event) => {
+  //       $event.preventDefault();
+  //       alert(`context menu for ${node.data.name}`);
+  //     },
+  //     dblClick: (tree, node, $event) => {
+  //       if (node.hasChildren) {
+  //         TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
+  //       }
+  //     },
+  //     click: (tree, node, $event) => {
+  //       $event.shiftKey
+  //         ? TREE_ACTIONS.TOGGLE_ACTIVE_MULTI(tree, node, $event)
+  //         : TREE_ACTIONS.TOGGLE_ACTIVE(tree, node, $event);
+  //       //alert(`context menu for ${node.data.name}`);
+  //       nodeName = node.data.name;
+  //       //this.clickTree(node.data.name);
+  //     }
+  //   },
+  //   keys: {
+  //     [KEYS.ENTER]: (tree, node, $event) => alert(`This is ${node.data.name}`)
+  //   }
+  // }
+  // };
 
+ 
+  options = {
+    actionMapping
+  }
 
   process(){
     this.gridStatus = !this.gridStatus;
+  }
+
+  clickTransaction(evt){
+  console.log(evt.srcElement.textContent);
+    let test = evt.srcElement.textContent;
+      this.GetTransaction(test);
+  }
+
+  clickTransactionDetails(evt){
+    console.log(evt.srcElement.textContent);
+    let dt = evt.srcElement.textContent;
+      this.GetTransactionDetails(dt);
   }
 
 }
