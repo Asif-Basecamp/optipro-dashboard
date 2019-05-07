@@ -86,6 +86,7 @@ export class DashboardComponent implements OnInit{
   public trackName: any;
   public gridStatus: boolean = true;
   public nodes: any = [];
+  public nodes2: any = [];
   public transactions: any = [];
  
 
@@ -210,10 +211,9 @@ export class DashboardComponent implements OnInit{
 
   openItemLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetItemList('http://localhost:41807','Build129IR4').subscribe(
+    this.dash.GetItemList('http://localhost:41806','Build129IR4').subscribe(
       data =>
        {
-        console.log(data);
         this.Item = true;
         this.whse = false;
         this.LotTo = false;
@@ -240,17 +240,15 @@ export class DashboardComponent implements OnInit{
        },
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
-        console.log(error);
      }
     )
   }
 
   openWarehouseLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetWarehouseList('http://localhost:41807','Build129IR4').subscribe(
+    this.dash.GetWarehouseList('http://localhost:41806','Build129IR4').subscribe(
       data =>
        {
-        console.log(data);
         this.gridData = data;
         this.Item = false;
         this.whse = true;
@@ -259,7 +257,6 @@ export class DashboardComponent implements OnInit{
        },
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
-        console.log(error);
      }
     )
   }
@@ -267,10 +264,9 @@ export class DashboardComponent implements OnInit{
 
   openLotFromLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetLotNumber('http://localhost:41807','Build129IR4',this.ItemValue,this.trackName).subscribe(
+    this.dash.GetLotNumber('http://localhost:41806','Build129IR4',this.ItemValue,this.trackName).subscribe(
       data =>
        {
-        console.log(data);
         this.gridData = data;
         this.Item = false;
         this.whse = false;
@@ -281,17 +277,15 @@ export class DashboardComponent implements OnInit{
        },
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
-        console.log(error);
      }
     )
   }
 
   openLotToLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetLotNumber('http://localhost:41807','Build129IR4',this.ItemValue,this.trackName).subscribe(
+    this.dash.GetLotNumber('http://localhost:41806','Build129IR4',this.ItemValue,this.trackName).subscribe(
       data =>
        {
-        console.log(data);
         this.gridData = data;
         this.gridData = data;
         this.Item = false;
@@ -302,7 +296,6 @@ export class DashboardComponent implements OnInit{
        },
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
-        console.log(error);
      }
     )
   }
@@ -336,29 +329,25 @@ export class DashboardComponent implements OnInit{
  }
 
  GetTransaction(NodeName){
-  this.dash.GetTransaction('http://localhost:41807','Build129IR4',NodeName).subscribe(
+  this.dash.GetTransaction('http://localhost:41806','Build129IR4',NodeName).subscribe(
       data =>
        {
          this.transactions = data;
-        console.log(data);
        },
        error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
-        console.log(error);
      }
     )
  }
 
  GetTransactionDetails(NodeName){
-  this.dash.GetTransaction('http://localhost:41807','Build129IR4',NodeName).subscribe(
+  this.dash.GetTransaction('http://localhost:41806','Build129IR4',NodeName).subscribe(
       data =>
        {
          this.transactions = data;
-        console.log(data);
        },
        error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
-        console.log(error);
      }
     )
  }
@@ -367,140 +356,30 @@ export class DashboardComponent implements OnInit{
 
   }
 
-   GetExplosion(){
+  getHierarchy(dataa, parent){
+    let node = [];
+    dataa.filter(function(d){ 
+        if(d.ParantId == parent){
+             return d.ParantId == parent  
+        }
+    }).forEach(function(d){
+     var cd = d;
+     cd.children = this.getHierarchy(dataa, d.OPTM_SEQ);
+     return node.push(cd);
+    }.bind(this))
+   return node;
+  }
 
-    this.dash.GetLotExplosionData('http://localhost:41807','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'DOWN').subscribe(
+   GetExplosion(){
+    this.dash.GetLotExplosionData('http://localhost:41806','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'DOWN').subscribe(
       data =>
        {
-        this.nodes = [
-          {
-            name: 'root1',
-            childrens: [
-              {
-                name: 'child1'
-              }, {
-                name: 'child2'
-              }
-            ]
-          },
-          {
-            name: 'root2',
-            childrens: [
-              {
-                name: 'child2.1'
-              }, {
-                name: 'child2.2',
-                childrens: [
-                  {
-                    id: 1001,
-                    name: 'subsub'
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            name: 'root3',
-            childrens: [
-              {
-                name: 'child3.1'
-              }, {
-                name: 'child3.2',
-                childrens: [
-                  {
-                    id: 1003,
-                    name: 'subsub'
-                  }
-                ]
-              }, {
-                name: 'child3.3',
-                childrens: [
-                  {
-                    id: 1004,
-                    name: 'subsub'
-                  }
-                ]
-              }, {
-                name: 'child3.4',
-                childrens: [
-                  {
-                    id: 1005,
-                    name: 'subsub'
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            name: 'root4',
-            childrens: [
-              {
-                name: 'child4.1'
-              }, {
-                name: 'child4.2',
-                childrens: [
-                  {
-                    id: 1006,
-                    name: 'subsub'
-                  }
-                ]
-              }, {
-                name: 'child4.3',
-                childrens: [
-                  {
-                    id: 1007,
-                    name: 'subsub'
-                  }
-                ]
-              }, {
-                name: 'child4.4',
-                childrens: [
-                  {
-                    id: 1008,
-                    name: 'subsub'
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            name: 'root5',
-            childrens: [
-              {
-                name: 'child5.1'
-              }, {
-                name: 'child5.2',
-                childrens: [
-                  {
-                    id: 1009,
-                    name: 'subsub'
-                  }
-                ]
-              }, {
-                name: 'child5.3',
-                childrens: [
-                  {
-                    id: 1010,
-                    name: 'subsub'
-                  }
-                ]
-              }, {
-                name: 'child5.4',
-                childrens: [
-                  {
-                    id: 1011,
-                    name: 'subsub'
-                  }
-                ]
-              }
-            ]
-          }
-        ];
+        this.nodes2 = this.getHierarchy(data, 0);
+        console.log(this.nodes2);
         this.gridStatus = !this.gridStatus;
        },
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
-        console.log(error);
      }
     )
   }
