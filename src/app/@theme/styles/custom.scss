@@ -1731,7 +1731,7 @@ col.k-sorted,th.k-sorted {
         mask: url('/assets/images/arrow-right-circle.svg') no-repeat 50% 50%;
         -webkit-mask-size: cover;
         mask-size: cover;
-        background-color: #0099ff;
+        background-color: nb-theme(color-primary);
         transform: rotateZ(-90deg);
     }
   }
@@ -1753,7 +1753,7 @@ col.k-sorted,th.k-sorted {
             mask: url(/assets/images/arrow-right-circle.svg) no-repeat 50% 50%;
             -webkit-mask-size: cover;
             mask-size: cover;
-            background-color: #0099ff;
+            background-color: nb-theme(color-primary);
             transform: rotateZ(90deg);
         }
   }
