@@ -235,12 +235,24 @@
                     <div class="tree-node">
                       <tree-node-expander [node]="node"></tree-node-expander>
                         <div class="node-content-wrapper">
-                          <span>{{node.data.ParantBatchSerItemCode}} - {{node.data.OPTM_PARENTBTCHSERNO }}</span>
+                          <span>{{node.data.OPTM_ITEMCODE}} - {{node.data.OPTM_BTCHSERNO }}</span>
                         </div>
                       <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
                     </div>
                   </ng-template>
                 </tree-root>
+
+                <!-- <tree-root id="tree2" [focused]="true" [nodes]="nodes2">
+                    <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
+                      <div class="tree-node">
+                        <tree-node-expander [node]="node"></tree-node-expander>
+                        <div class="node-content-wrapper">
+                          <span>{{ node.data.OPTM_BTCHSERNO }}</span>
+                        </div>
+                        <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
+                      </div>
+                    </ng-template>
+                  </tree-root> -->
 
               </div>
             </div>
