@@ -228,13 +228,14 @@
           <div class="row h-100 flex-100">
             <div class="col-sm-4 border-right">
               <div class="tree-wrapper pt-3">
-                
-                <tree-root id="tree2" [focused]="true" [nodes]="nodes2">
+               <!-- <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true" (click)="clickTransaction($event)">-->
+
+                <tree-root id="tree2" [focused]="true" [nodes]="nodes2" (click)="clickTransaction($event)">
                   <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
                     <div class="tree-node">
                       <tree-node-expander [node]="node"></tree-node-expander>
                         <div class="node-content-wrapper">
-                          <span>{{ node.data.OPTM_PARENTBTCHSERNO }}</span>
+                          <span>{{node.data.ParantBatchSerItemCode}} - {{node.data.OPTM_PARENTBTCHSERNO }}</span>
                         </div>
                       <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
                     </div>
@@ -256,13 +257,26 @@
               <nb-card class="mb-0">
                 <nb-card-header>Transaction Type</nb-card-header>
                 <nb-card-body>
-                  <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true">
+                  <!-- <tree-root #tree [nodes]="nodes1" [options]="options" [focused]="true" (click)="clickTransactionDetails($event)">
+                  </tree-root> -->
+
+                  <tree-root id="tree2" [focused]="true" [nodes]="nodes1" (click)="clickTransactionDetails($event)">
+                    <!-- <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
+                      <div class="tree-node">
+                        <tree-node-expander [node]="node"></tree-node-expander> 
+                          <div class="node-content-wrapper">
+                            <span> {{nodes1.ObjectTypeDesc }}</span>
+                          </div>
+                       <tree-node-children [node]="node" [templates]="templates"></tree-node-children> 
+                      </div>
+                    </ng-template> -->
                   </tree-root>
+
                 </nb-card-body>
               </nb-card>
             </div>
           </div>
-        </nb-card-body>
+        </nb-card-body>       
         <!-- <nb-card-footer class="text-center py-2">
           <button type="submit" nbButton class="btn btn-primary" size="small">Process</button>
         </nb-card-footer> -->
