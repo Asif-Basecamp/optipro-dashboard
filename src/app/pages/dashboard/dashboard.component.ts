@@ -95,8 +95,10 @@ export class DashboardComponent implements OnInit{
   public gridStatus: boolean = true;
   public nodes: any = [];
   public nodes1: any = [];
+  public nodes2: any = [];
   public transactions: any = [];
   public NodeName = '';
+  public DocEntryArr: any = [];
  
 
   constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
@@ -225,7 +227,6 @@ export class DashboardComponent implements OnInit{
     this.dash.GetItemList('http://localhost:41807','Build129IR4').subscribe(
       data =>
        {
-        console.log(data);
         this.Item = true;
         this.whse = false;
         this.LotTo = false;
@@ -252,7 +253,6 @@ export class DashboardComponent implements OnInit{
        },
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
-        console.log(error);
      }
     )
   }
@@ -262,7 +262,6 @@ export class DashboardComponent implements OnInit{
     this.dash.GetWarehouseList('http://localhost:41807','Build129IR4').subscribe(
       data =>
        {
-        console.log(data);
         this.gridData = data;
         this.Item = false;
         this.whse = true;
@@ -271,7 +270,6 @@ export class DashboardComponent implements OnInit{
        },
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
-        console.log(error);
      }
     )
   }
@@ -282,7 +280,6 @@ export class DashboardComponent implements OnInit{
     this.dash.GetLotNumber('http://localhost:41807','Build129IR4',this.ItemValue,this.trackName).subscribe(
       data =>
        {
-        console.log(data);
         this.gridData = data;
         this.Item = false;
         this.whse = false;
@@ -293,7 +290,6 @@ export class DashboardComponent implements OnInit{
        },
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
-        console.log(error);
      }
     )
   }
@@ -303,7 +299,6 @@ export class DashboardComponent implements OnInit{
     this.dash.GetLotNumber('http://localhost:41807','Build129IR4',this.ItemValue,this.trackName).subscribe(
       data =>
        {
-        console.log(data);
         this.gridData = data;
         this.gridData = data;
         this.Item = false;
@@ -314,7 +309,6 @@ export class DashboardComponent implements OnInit{
        },
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
-        console.log(error);
      }
     )
   }
@@ -352,7 +346,7 @@ export class DashboardComponent implements OnInit{
   this.dash.GetTransaction('http://localhost:41807','Build129IR4',NodeName).subscribe(
       data =>
        {
-
+        this.DocEntryArr = [];
         this.nodes1 = [];
         this.transactions = data;
         console.log(data);
@@ -364,17 +358,13 @@ export class DashboardComponent implements OnInit{
         map["name"] = name;
 
         for(let i=0; i< this.transactions.Table.length; i++){
-          childrens.push({name: this.transactions.Table[i].ObjectTypeDesc});
+          childrens.push({name: this.transactions.Table[i].DistNumber + ' - ' + this.transactions.Table[i].ObjectTypeDesc});
+          this.DocEntryArr.push({key: this.transactions.Table[i].DistNumber ,
+                                DocEntry: this.transactions.Table[i].DocEntry});
         }
         map["children"] = childrens;
 
         this.nodes1.push(map);
-
-        
-          //         map["children"]  = childrens;
-          //         node.push(map);
-
-        
 
         // this.nodes1 = [
         //   {
@@ -504,21 +494,32 @@ export class DashboardComponent implements OnInit{
        },
        error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
-        console.log(error);
      }
     )
  }
 
  GetTransactionDetails(NodeName){
-  this.dash.GetTransactionDetails('http://localhost:41807','Build129IR4','','',this.trackName).subscribe(
+   
+  let DC= '';
+  
+  if (NodeName.indexOf("-") > -1) {
+    NodeName = NodeName.split("-")[0].trim();
+  }
+   this.DocEntryArr.filter(function(d){ 
+     if(d.key == NodeName){
+        console.log(d.DocEntry);
+        DC = d.DocEntry;
+     }
+   });
+  console.log(this.DocEntryArr);
+
+  this.dash.GetTransactionDetails('http://localhost:41807','Build129IR4',DC,NodeName,this.DfltWarehouse).subscribe(
       data =>
        {
-         this.transactions = data;
-        console.log(data);
+         this.transactions.Table = data;
        },
        error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
-        console.log(error);
      }
     )
  }
@@ -527,171 +528,37 @@ export class DashboardComponent implements OnInit{
    
  }
 
-  GetExplosion(){
+ getHierarchy(dataa, parent){
+    let node = [];
+    dataa.filter(function(d){ 
+       
+        if(d.ParantId == parent){
+             return d.ParantId == parent  
+        }
+    }).forEach(function(d){
+     var cd = d;
+    //  if(parent == 0){
+    //   cd.title = this.ItemValue;
+    //  }
+    //  else{
+    //   cd.title = d.OPTM_ITEMCODE;
+    //  }
+     cd.children = this.getHierarchy(dataa, d.OPTM_SEQ);
+     return node.push(cd);
+    }.bind(this))
+   return node;
+  }
 
+   GetExplosion(){
     this.dash.GetLotExplosionData('http://localhost:41807','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'DOWN').subscribe(
       data =>
        {
-
-
-        // Get an empty hash
-    //     let hash = {};
-
-    //     // Iterate each hash for clubbing values to single keys
-    //     data.forEach(function(r){
-    //       if (hash[r["OPTM_PARENTBTCHSERNO"]] == undefined){
-    //           hash[r["OPTM_PARENTBTCHSERNO"]] = []
-    //       }
-    //       hash[r["OPTM_PARENTBTCHSERNO"]].push(r["OPTM_BTCHSERNO"])
-    //     })
-
-    //     let keys = Object.keys(hash);
-    //     let parents = new Set(keys);
-    //     let temp = {};
-    //     let tree ;
-
-    //   keys.forEach(k => hash[k].forEach(t => {
-    //       parents.delete(t);
-    //       temp[k] = temp[k] || [];
-    //       temp[t] = temp[t] || [];
-    //       if (!temp[k].some(o => t in o)) temp[k].push({ [t]: temp[t] });
-    //   }));
-
-    // tree = Object.assign({}, ...Array.from(parents, k => ({ [k]: temp[k] })));
-
-    // console.log(tree);
-
-    //  this.nodes = tree;
-
-        this.nodes = [
-          {
-            name: 'root1',
-            children: [
-              {
-                name: 'child1'
-              }, {
-                name: 'child2'
-              }
-            ]
-          },
-          {
-            name: 'root2',
-            children: [
-              {
-                name: 'child2.1'
-              }, {
-                name: 'child2.2',
-                children: [
-                  {
-                    id: 1001,
-                    name: 'subsub'
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            name: 'root3',
-            children: [
-              {
-                name: 'child3.1'
-              }, {
-                name: 'child3.2',
-                children: [
-                  {
-                    id: 1003,
-                    name: 'subsub'
-                  }
-                ]
-              }, {
-                name: 'child3.3',
-                children: [
-                  {
-                    id: 1004,
-                    name: 'subsub'
-                  }
-                ]
-              }, {
-                name: 'child3.4',
-                children: [
-                  {
-                    id: 1005,
-                    name: 'subsub'
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            name: 'root4',
-            children: [
-              {
-                name: 'child4.1'
-              }, {
-                name: 'child4.2',
-                children: [
-                  {
-                    id: 1006,
-                    name: 'subsub'
-                  }
-                ]
-              }, {
-                name: 'child4.3',
-                children: [
-                  {
-                    id: 1007,
-                    name: 'subsub'
-                  }
-                ]
-              }, {
-                name: 'child4.4',
-                children: [
-                  {
-                    id: 1008,
-                    name: 'subsub'
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            name: 'root5',
-            children: [
-              {
-                name: 'child5.1'
-              }, {
-                name: 'child5.2',
-                children: [
-                  {
-                    id: 1009,
-                    name: 'subsub'
-                  }
-                ]
-              }, {
-                name: 'child5.3',
-                children: [
-                  {
-                    id: 1010,
-                    name: 'subsub'
-                  }
-                ]
-              }, {
-                name: 'child5.4',
-                children: [
-                  {
-                    id: 1011,
-                    name: 'subsub'
-                  }
-                ]
-              }
-            ]
-          }
-        ];
+        this.nodes2 = this.getHierarchy(data, 0);
+        console.log(this.nodes2);
         this.gridStatus = !this.gridStatus;
        },
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
-        console.log(error);
      }
     )
   }
@@ -826,32 +693,7 @@ export class DashboardComponent implements OnInit{
   ];*/
 
   // options: ITreeOptions = {
-    
-  //  // actionMapping
-  //  const actionMapping:IActionMapping = {
-  //   mouse: {
-  //     contextMenu: (tree, node, $event) => {
-  //       $event.preventDefault();
-  //       alert(`context menu for ${node.data.name}`);
-  //     },
-  //     dblClick: (tree, node, $event) => {
-  //       if (node.hasChildren) {
-  //         TREE_ACTIONS.TOGGLE_EXPANDED(tree, node, $event);
-  //       }
-  //     },
-  //     click: (tree, node, $event) => {
-  //       $event.shiftKey
-  //         ? TREE_ACTIONS.TOGGLE_ACTIVE_MULTI(tree, node, $event)
-  //         : TREE_ACTIONS.TOGGLE_ACTIVE(tree, node, $event);
-  //       //alert(`context menu for ${node.data.name}`);
-  //       nodeName = node.data.name;
-  //       //this.clickTree(node.data.name);
-  //     }
-  //   },
-  //   keys: {
-  //     [KEYS.ENTER]: (tree, node, $event) => alert(`This is ${node.data.name}`)
-  //   }
-  // }
+  //   actionMapping
   // };
 
  
@@ -866,13 +708,29 @@ export class DashboardComponent implements OnInit{
   clickTransaction(evt){
   console.log(evt.srcElement.textContent);
     let test = evt.srcElement.textContent;
+    if(test == "" || test == undefined){
+      return;
+    }
+    else{
+      if (test.indexOf("-") > -1) {
+        test = test.split("-")[1].trim();
+      } 
       this.GetTransaction(test);
+    }
   }
 
   clickTransactionDetails(evt){
     console.log(evt.srcElement.textContent);
     let dt = evt.srcElement.textContent;
+    //let dt = dt1;
+    if(dt == "" || dt == undefined){
+      return;
+    }
+    else{
+      if (dt.indexOf("-") > -1) {
+        dt = dt.split("-")[0].trim();
+      }       
       this.GetTransactionDetails(dt);
+    }    
   }
-
 }
