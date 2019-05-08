@@ -139,11 +139,11 @@ export class SigninComponent implements OnInit {
       this.router.navigateByUrl('/pages');
     }
 
-    showToast(position, status) {
+   /* showToast(position, status) {
       this.index += 1;
       this.toastrService.show(
         status || 'Success',
         `Toast ${this.index}`,
         { position, status });
-    }
+    }*/
 }
