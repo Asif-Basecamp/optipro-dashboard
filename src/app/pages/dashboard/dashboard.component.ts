@@ -366,133 +366,7 @@ export class DashboardComponent implements OnInit{
         map["children"] = childrens;
 
         this.nodes1.push(map);
-
-        // this.nodes1 = [
-        //   {
-        //     name: 'root1',
-        //     children: [
-        //       {
-        //         name: 'child1'
-        //       }, {
-        //         name: 'child2'
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     name: 'root2',
-        //     children: [
-        //       {
-        //         name: 'child2.1'
-        //       }, {
-        //         name: 'child2.2',
-        //         children: [
-        //           {
-        //             id: 1001,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     name: 'root3',
-        //     children: [
-        //       {
-        //         name: 'child3.1'
-        //       }, {
-        //         name: 'child3.2',
-        //         children: [
-        //           {
-        //             id: 1003,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }, {
-        //         name: 'child3.3',
-        //         children: [
-        //           {
-        //             id: 1004,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }, {
-        //         name: 'child3.4',
-        //         children: [
-        //           {
-        //             id: 1005,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     name: 'root4',
-        //     children: [
-        //       {
-        //         name: 'child4.1'
-        //       }, {
-        //         name: 'child4.2',
-        //         children: [
-        //           {
-        //             id: 1006,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }, {
-        //         name: 'child4.3',
-        //         children: [
-        //           {
-        //             id: 1007,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }, {
-        //         name: 'child4.4',
-        //         children: [
-        //           {
-        //             id: 1008,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     name: 'root5',
-        //     children: [
-        //       {
-        //         name: 'child5.1'
-        //       }, {
-        //         name: 'child5.2',
-        //         children: [
-        //           {
-        //             id: 1009,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }, {
-        //         name: 'child5.3',
-        //         children: [
-        //           {
-        //             id: 1010,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }, {
-        //         name: 'child5.4',
-        //         children: [
-        //           {
-        //             id: 1011,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }
-        //     ]
-        //   }
-        // ];
-
-       },
+    },
        error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
      }
@@ -517,13 +391,15 @@ export class DashboardComponent implements OnInit{
   this.dash.GetTransactionDetails('http://localhost:41807','Build129IR4',DC,NodeName,this.DfltWarehouse).subscribe(
       data =>
        {
-         this.transactions.Table = data;
+         this.transactions = data.Table;
+         console.log(data);
+         console.log(this.transactions);
        },
        error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
      }
     )
- }
+  }
  
  Resurse(){
    
