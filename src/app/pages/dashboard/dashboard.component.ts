@@ -212,7 +212,7 @@ export class DashboardComponent implements OnInit{
 
   openItemLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetItemList('http://localhost:41806','Build129IR4').subscribe(
+    this.dash.GetItemList('http://localhost:41807','Build129IR4').subscribe(
       data =>
        {
         this.Item = true;
@@ -247,7 +247,7 @@ export class DashboardComponent implements OnInit{
 
   openWarehouseLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetWarehouseList('http://localhost:41806','Build129IR4').subscribe(
+    this.dash.GetWarehouseList('http://localhost:41807','Build129IR4').subscribe(
       data =>
        {
         this.gridData = data;
@@ -265,7 +265,7 @@ export class DashboardComponent implements OnInit{
 
   openLotFromLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetLotNumber('http://localhost:41806','Build129IR4',this.ItemValue,this.trackName).subscribe(
+    this.dash.GetLotNumber('http://localhost:41807','Build129IR4',this.ItemValue,this.trackName).subscribe(
       data =>
        {
         this.gridData = data;
@@ -284,7 +284,7 @@ export class DashboardComponent implements OnInit{
 
   openLotToLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetLotNumber('http://localhost:41806','Build129IR4',this.ItemValue,this.trackName).subscribe(
+    this.dash.GetLotNumber('http://localhost:41807','Build129IR4',this.ItemValue,this.trackName).subscribe(
       data =>
        {
         this.gridData = data;
@@ -330,7 +330,7 @@ export class DashboardComponent implements OnInit{
  }
 
  GetTransaction(NodeName){
-  this.dash.GetTransaction('http://localhost:41806','Build129IR4',NodeName).subscribe(
+  this.dash.GetTransaction('http://localhost:41807','Build129IR4',NodeName).subscribe(
       data =>
        {
          this.transactions = data;
@@ -342,7 +342,7 @@ export class DashboardComponent implements OnInit{
  }
 
  GetTransactionDetails(NodeName){
-  this.dash.GetTransaction('http://localhost:41806','Build129IR4',NodeName).subscribe(
+  this.dash.GetTransaction('http://localhost:41807','Build129IR4',NodeName).subscribe(
       data =>
        {
          this.transactions = data;
@@ -372,7 +372,7 @@ export class DashboardComponent implements OnInit{
   }
 
    GetExplosion(){
-    this.dash.GetLotExplosionData('http://localhost:41806','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'DOWN').subscribe(
+    this.dash.GetLotExplosionData('http://localhost:41807','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'DOWN').subscribe(
       data =>
        {
         this.nodes2 = this.getHierarchy(data, 0);
