@@ -225,7 +225,7 @@ export class DashboardComponent implements OnInit{
 
   openItemLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetItemList('http://localhost:41807','Build129IR4').subscribe(
+    this.dash.GetItemList('http://localhost:41808','Build129IR4').subscribe(
       data =>
        {
         this.Item = true;
@@ -260,7 +260,7 @@ export class DashboardComponent implements OnInit{
 
   openWarehouseLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetWarehouseList('http://localhost:41807','Build129IR4').subscribe(
+    this.dash.GetWarehouseList('http://localhost:41808','Build129IR4').subscribe(
       data =>
        {
         this.gridData = data;
@@ -278,7 +278,7 @@ export class DashboardComponent implements OnInit{
 
   openLotFromLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetLotNumber('http://localhost:41807','Build129IR4',this.ItemValue,this.trackName).subscribe(
+    this.dash.GetLotNumber('http://localhost:41808','Build129IR4',this.ItemValue,this.trackName).subscribe(
       data =>
        {
         this.gridData = data;
@@ -297,7 +297,7 @@ export class DashboardComponent implements OnInit{
 
   openLotToLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetLotNumber('http://localhost:41807','Build129IR4',this.ItemValue,this.trackName).subscribe(
+    this.dash.GetLotNumber('http://localhost:41808','Build129IR4',this.ItemValue,this.trackName).subscribe(
       data =>
        {
         this.gridData = data;
@@ -344,7 +344,7 @@ export class DashboardComponent implements OnInit{
 
  GetTransaction(NodeName){
   //alert(nodeName);
-  this.dash.GetTransaction('http://localhost:41807','Build129IR4',NodeName).subscribe(
+  this.dash.GetTransaction('http://localhost:41808','Build129IR4',NodeName).subscribe(
       data =>
        {
         this.DocEntryArr = [];
@@ -388,7 +388,7 @@ export class DashboardComponent implements OnInit{
    });
   console.log(this.DocEntryArr);
 
-  this.dash.GetTransactionDetails('http://localhost:41807','Build129IR4',DC,NodeName,this.DfltWarehouse).subscribe(
+  this.dash.GetTransactionDetails('http://localhost:41808','Build129IR4',DC,NodeName,this.DfltWarehouse).subscribe(
       data =>
        {
          this.transactions = data.Table;
@@ -414,12 +414,7 @@ export class DashboardComponent implements OnInit{
         }
     }).forEach(function(d){
      var cd = d;
-    //  if(parent == 0){
-    //   cd.title = this.ItemValue;
-    //  }
-    //  else{
-    //   cd.title = d.OPTM_ITEMCODE;
-    //  }
+    
      cd.children = this.getHierarchy(dataa, d.OPTM_SEQ);
      return node.push(cd);
     }.bind(this))
@@ -427,10 +422,10 @@ export class DashboardComponent implements OnInit{
   }
 
    GetExplosion(){
-    this.dash.GetLotExplosionData('http://localhost:41807','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'DOWN').subscribe(
+    this.dash.GetLotExplosionData('http://localhost:41808','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'DOWN').subscribe(
       data =>
        {
-        this.nodes2 = this.getHierarchy(data, 0);
+        this.nodes2 = this.getHierarchy(data, '-1');
         console.log(this.nodes2);
         this.gridStatus = !this.gridStatus;
        },
