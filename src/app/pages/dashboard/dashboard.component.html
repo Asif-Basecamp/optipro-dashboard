@@ -1,10 +1,10 @@
-<div class="dashboard-left">
-  <nb-card accent="primary">
+<div class="dashboard-left" id="dashboard-left">
+  <nb-card accent="primary" id="selection-criteria-section" (click)="searchCriteriaExpand()">
     <nb-card-header class="border-bottom d-flex">
       <i data-eva="search" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="mr-2"></i>
       <span>Selection Criteria</span>
     </nb-card-header>
-    <nb-card-body>
+    <nb-card-body id="selection-criteria-body">
       <div class="row">
         <div class="col-sm-12">
           <form>
@@ -73,7 +73,7 @@
               <label for="inputPassword3" class="form-label">Lot To</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input fieldSize="small" nbInput type="text" class="form-control" placeholder="Select Lot To"
+                  <input fieldSize="small"  nbInput type="text" class="form-control" placeholder="Select Lot To"
                     name="DistNumTo" id="DistNumTo" #LotT=ngModel [(ngModel)]="DistNumTo">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
@@ -94,7 +94,7 @@
             <div class="form-group row">
 
               <div class="col-sm-12">
-                <nb-select placeholder="Select Showcase" size="small" shape="rectangle" outline
+                <nb-select placeholder="Select Showcase" size="small" outline
                   [(selected)]="selectedItem">
                   <nb-option value="1">Option 1</nb-option>
                   <nb-option value="2">Option 2</nb-option>
@@ -111,7 +111,7 @@
       </div>
     </nb-card-body>
     <nb-card-footer class="text-center py-2">
-      <button type="submit" nbButton class="btn btn-primary" size="small" (click)="GetExplosion()">Process <i data-eva="arrow-forward"
+      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small" (click)="GetExplosion($event)">Process <i data-eva="arrow-forward"
           data-eva-height="18" data-eva-width="18" data-eva-fill="#fff" class="ml-2"></i></button>
     </nb-card-footer>
   </nb-card>
@@ -216,16 +216,16 @@
     </nb-accordion-item>
   </nb-accordion> -->
   <div class="custom-accordian">
-    <div class="grid-accordian">
+    <div class="grid-accordian expanded" id="grid-accordian">
       <nb-card accent="primary">
-        <nb-card-header class="border-bottom d-flex">
+        <nb-card-header class="border-bottom d-flex" id="grid-accordian-trigger" (click)="customAccordianGrid($event)">
           <i data-eva="grid" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="mr-2"></i>
           <span>Grid View</span>
           <i data-eva="arrow-ios-downward" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a"
-            class="ml-auto cursor-pointer"></i>
+            class="ml-auto cursor-pointer" ></i>
         </nb-card-header>
-        <nb-card-body class="py-0">
-          <div class="row h-100">
+        <nb-card-body class="py-0" id="grid-accordian-body">
+          <div class="row h-100 flex-100">
             <div class="col-sm-4 border-right">
               <div class="tree-wrapper pt-3">
                 <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true">
@@ -257,32 +257,21 @@
         </nb-card-footer> -->
       </nb-card>
     </div>
-    <div class="analysis-accordian">
+    <div class="analysis-accordian expanded" id="analysis-accordian" >
       <nb-card accent="primary">
-        <nb-card-header class="border-bottom d-flex">
+        <nb-card-header class="border-bottom d-flex" id="analysis-accordian-trigger" (click)="customAccordianAnalysis($event)">
           <i data-eva="layers" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="mr-2"></i>
           <span>Analysis View</span>
           <i data-eva="arrow-ios-downward" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a"
             class="ml-auto cursor-pointer"></i>
         </nb-card-header>
-        <nb-card-body>
+        <nb-card-body id="analysis-accordian-body">
           <div id="chart-container"></div>
         </nb-card-body>
         <!-- <nb-card-footer class="text-center py-2">
           <button type="submit" nbButton class="btn btn-primary" size="small">Process</button>
         </nb-card-footer> -->
       </nb-card>
-      <!-- <nb-accordion class="w-100">
-      <nb-accordion-item expanded>
-          <nb-accordion-item-header>
-            <i data-eva="layers" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="mr-2"></i>
-            Analysis View
-          </nb-accordion-item-header>
-          <nb-accordion-item-body>
-            <div id="chart-container"></div>
-          </nb-accordion-item-body>
-        </nb-accordion-item>
-      </nb-accordion> -->
     </div>
   </div>
 </div>

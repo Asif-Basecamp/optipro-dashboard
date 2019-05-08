@@ -53,7 +53,20 @@ body.opti_account-module {
     align-items: center;
     justify-content: center;
 }
-
+.btn.btn-with-icon-right{
+    padding: nb-theme(btn-padding-y-sm)- .307 nb-theme(btn-padding-x-sm) - 1.2 nb-theme(btn-padding-y-sm) - .307 nb-theme(btn-padding-x-sm) - 0.85 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+nb-select{
+    button {
+        padding: nb-theme(btn-padding-y-sm) - 0.093  nb-theme(btn-padding-x-sm) nb-theme(btn-padding-y-sm) - 0.093  nb-theme(btn-padding-x-sm) - 1 !important;
+        &:after{
+            transform: translateY(-50%);
+        }
+    }
+}
 label{
     margin-bottom: 1px;
     font-size: 12px;
