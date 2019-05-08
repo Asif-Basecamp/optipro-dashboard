@@ -99,6 +99,7 @@ export class DashboardComponent implements OnInit{
   public transactions: any = [];
   public NodeName = '';
   public DocEntryArr: any = [];
+  public searchCriteria: boolean = false;
  
 
   constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
@@ -561,6 +562,8 @@ export class DashboardComponent implements OnInit{
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
      }
     )
+
+    this.searchCriteriaToggle(event);
   }
 
   open(dialog: TemplateRef<any>) {
@@ -733,4 +736,54 @@ export class DashboardComponent implements OnInit{
       this.GetTransactionDetails(dt);
     }    
   }
+  //Search criteria expand-shrink function  
+  searchCriteriaToggle(event){
+    event.stopPropagation();
+    if(document.getElementById("dashboard-left").classList.contains('shrink')){      
+      document.getElementById("dashboard-left").classList.remove('shrink');
+      document.getElementById("selection-criteria-body").style.height= '100%';
+      document.getElementById("selection-criteria-body").style.display= 'flex';
+      this.searchCriteria = false;
+    }else{
+      document.getElementById("dashboard-left").classList.add('shrink');      
+      document.getElementById("selection-criteria-body").style.height= '0';
+      document.getElementById("selection-criteria-body").style.display= 'none'; 
+      this.searchCriteria = true;
+    }
+  }
+  searchCriteriaExpand(){
+    if(this.searchCriteria && document.getElementById("dashboard-left").classList.contains('shrink')){      
+      document.getElementById("dashboard-left").classList.remove('shrink');
+      document.getElementById("selection-criteria-body").style.height= '100%';
+      document.getElementById("selection-criteria-body").style.display= 'flex';
+    }
+  }
+  
+
+  //Custom accordian function
+  customAccordianGrid(e){
+    if(document.getElementById("grid-accordian").classList.contains('expanded')){
+      this.hideAcordian(e);
+    }else{
+      this.expandAcordian(e);
+    }
+  }
+  customAccordianAnalysis(e){
+    if(document.getElementById("analysis-accordian").classList.contains('expanded')){
+      this.hideAcordian(e);
+    }else{
+      this.expandAcordian(e);
+    } 
+  }
+  hideAcordian(e: any){
+    e.currentTarget.parentElement.parentElement.classList.remove('expanded')
+    e.currentTarget.nextSibling.style.height= '0';
+    e.currentTarget.nextSibling.style.display= 'none';
+  }
+  expandAcordian(e:any){
+    e.currentTarget.parentElement.parentElement.classList.add('expanded')
+    e.currentTarget.nextSibling.style.height= '100%';
+    e.currentTarget.nextSibling.style.display= 'flex';
+  }
+
 }
