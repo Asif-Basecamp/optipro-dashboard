@@ -520,9 +520,9 @@ export class DashboardComponent implements OnInit{
     for(let i=0 ; i <this.DocEntryArr.length; i++){
      //stringDC.push(this.DocEntryArr[i].DocEntry);
      if(i == 0)
-     str = this.DocEntryArr[i].DocEntry+"'";
+     str = this.DocEntryArr[i].DocEntry;
      else
-     str = str + ',' +"'"+ this.DocEntryArr[i].DocEntry;
+     str = str + ',' + this.DocEntryArr[i].DocEntry;
 
     } 
     DC = str;
