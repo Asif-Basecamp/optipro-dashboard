@@ -25,7 +25,8 @@ export class SigninComponent implements OnInit {
   public clickSignIn: boolean = true;
   public defaultCompnyComboValue: any = [];
   public listItems: any = [] = this.defaultCompnyComboValue;
-
+  public selectedValue: any = [];
+  
   constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastr: ToastrService, private toastrService: NbToastrService) { }
   ngOnInit() {
     const element = document.getElementsByTagName("body")[0];
@@ -136,6 +137,7 @@ export class SigninComponent implements OnInit {
 
     OnSignIn(){
       this.router.navigateByUrl('/pages');
+      window.localStorage.setItem('CompanyDB', JSON.stringify(this.selectedValue.OPTM_COMPID));
     }
 
    /* showToast(position, status) {
@@ -145,5 +147,7 @@ export class SigninComponent implements OnInit {
         `Toast ${this.index}`,
         { position, status });
     }*/
-    selectedItemNgModel;
+   // this.selectedValue = selectedItemNgModel;
+   selectedItemNgModel;
+   
 }

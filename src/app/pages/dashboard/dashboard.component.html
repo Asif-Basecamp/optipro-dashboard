@@ -8,13 +8,12 @@
       <div class="row">
         <div class="col-sm-12">
           <form>
-            <fieldset class="form-group px-0 mb-2">
-              <nb-radio-group class="d-flex">
-                <nb-radio>Lot Explosion
+            <fieldset class="form-group px-0 mb-2"> <!-- [(value)]="radioExplode"-->
+              <nb-radio-group class="d-flex" [(ngModel)]="radioExplode" name="radioExplode"> 
+                <nb-radio [value]="'Lot Explosion'">Lot Explosion
                 </nb-radio>
-                <nb-radio>Where Used</nb-radio>
+                <nb-radio [value]="'Where Used'">Where Used</nb-radio>
               </nb-radio-group>
-              {{radiobtn}}
             </fieldset>
         
             <h5 class="border-bottom pb-1 mb-3">Select</h5>
@@ -255,10 +254,10 @@
                 </nb-card-body> -->
                 <nb-card-body>
                   <nb-radio-group class="d-flex" [(value)]="radioGroupValue">
-                    <nb-radio [value]="'This is value 1'">
+                    <nb-radio [value]="'Show Data of all type of lots'">
                       Show Data of all type of lots
                     </nb-radio>
-                    <nb-radio [value]="'This is value 2'">
+                    <nb-radio [value]="'Show Data of all immediate of lots'">
                       Show Data of all immediate of lots
                     </nb-radio>
                   </nb-radio-group>

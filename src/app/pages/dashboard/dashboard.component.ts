@@ -70,7 +70,7 @@ export class DashboardComponent implements OnInit{
   public nextElementSibling: any;
   //public gridData: any[] = products;
   public gridData: any[];
-  public arrConfigData: any[];
+  public arrConfigData: any;
   dataGridSelectNum: number;
   public ItemValue: any;
   public ItemDesc: any;
@@ -93,23 +93,26 @@ export class DashboardComponent implements OnInit{
   public transactions: any = [];
   public DocEntryArr: any = [];
   public searchCriteria: boolean = false;
-<<<<<<< HEAD
   public transactiondetails: any = []; 
   public Dsource: any = {};
-
+  public CompanyDB: any;
+  public radioExplode: any; 
+  public explodeDirection: any ;
+  //public radioOptions: any= [];  
   
-=======
-  //public radioOptions: any= [];
- 
->>>>>>> fe799b6e769f68764044ef58ae95bf4c0264c0b6
-
   constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
-  }  
+  } 
+  
+  radioGroupValue = 'Show Data of all type of lots';
+  
 
-
-    
   ngOnInit() {
 
+    this.arrConfigData = JSON.parse(window.localStorage.getItem('arrConfigData')); 
+    this.CompanyDB = JSON.parse(window.localStorage.getItem('CompanyDB')); 
+
+    this.radioExplode = 'Lot Explosion';    
+    
     this.Dsource = {
       'id': '1',
         'name': 'Lao Lao',
@@ -241,7 +244,7 @@ export class DashboardComponent implements OnInit{
 
   openItemLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetItemList('http://localhost:41808','Build129IR4').subscribe(
+    this.dash.GetItemList(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB).subscribe(
       data =>
        {
         this.Item = true;
@@ -260,7 +263,7 @@ export class DashboardComponent implements OnInit{
 
   openWarehouseLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetWarehouseList('http://localhost:41808','Build129IR4').subscribe(
+    this.dash.GetWarehouseList(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB).subscribe(
       data =>
        {
         this.gridData = data;
@@ -278,7 +281,7 @@ export class DashboardComponent implements OnInit{
 
   openLotFromLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetLotNumber('http://localhost:41808','Build129IR4',this.ItemValue,this.trackName).subscribe(
+    this.dash.GetLotNumber(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,this.ItemValue,this.trackName).subscribe(
       data =>
        {
         this.gridData = data;
@@ -297,7 +300,7 @@ export class DashboardComponent implements OnInit{
 
   openLotToLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetLotNumber('http://localhost:41808','Build129IR4',this.ItemValue,this.trackName).subscribe(
+    this.dash.GetLotNumber(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,this.ItemValue,this.trackName).subscribe(
       data =>
        {
         this.gridData = data;
@@ -342,7 +345,7 @@ export class DashboardComponent implements OnInit{
  }
 
  GetTransaction(NodeName, fullName){
-  this.dash.GetTransaction('http://localhost:41808','Build129IR4',NodeName).subscribe(
+  this.dash.GetTransaction(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,NodeName).subscribe(
       data =>
        {
         this.DocEntryArr = [];
@@ -500,17 +503,33 @@ export class DashboardComponent implements OnInit{
 
  GetTransactionDetails(Dcentry,Item){
    
-  let DC= '';   
+  let DC = '';  
+  let stringDC = []; 
+  let str = '';
   if (Dcentry.indexOf(":") > -1) {
     Dcentry = Dcentry.split(":")[1].trim();
-  }
-   this.DocEntryArr.filter(function(d){ 
-     if(d.DocEntry == Dcentry){
+    this.DocEntryArr.filter(function(d){ 
+      if(d.DocEntry == Dcentry){
+        // DC.push(d.DocEntry);
         DC = d.DocEntry;
-     }
-   });
+      }
+    });
+  }
+  else {
+    Item = Dcentry;
+    for(let i=0 ; i <this.DocEntryArr.length; i++){
+     //stringDC.push(this.DocEntryArr[i].DocEntry);
+     if(i == 0)
+     str = this.DocEntryArr[i].DocEntry+"'";
+     else
+     str = str + ',' +"'"+ this.DocEntryArr[i].DocEntry;
 
-  this.dash.GetTransactionDetails('http://localhost:41808','Build129IR4',DC,Item,this.DfltWarehouse).subscribe(
+    } 
+    DC = str;
+  }
+   
+
+  this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,DC,Item,this.DfltWarehouse).subscribe(
       data =>
        {
          this.transactiondetails = data;
@@ -571,7 +590,13 @@ export class DashboardComponent implements OnInit{
   }
 
    GetExplosion(){
-    this.dash.GetLotExplosionData('http://localhost:41808','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'DOWN').subscribe(
+
+    if(this.radioExplode == 'Lot Explosion')
+      this.explodeDirection = 'DOWN';
+    else
+      this.explodeDirection = 'UP';
+     
+    this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL,'',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,this.explodeDirection).subscribe(
       data =>
        {
         this.nodes2 = this.getHierarchy(data, '-1');
@@ -627,7 +652,10 @@ export class DashboardComponent implements OnInit{
     }
     else{
       if (dt.indexOf("-") > -1) {
-        dcentry = dt.split("-")[0].trim();
+        if(dt.indexOf(":") > -1)
+          dcentry = dt.split("-")[0].trim();       
+        else
+        dcentry = dt.split("-")[1].trim();
       } 
       else {
         dcentry = dt;
@@ -692,6 +720,7 @@ export class DashboardComponent implements OnInit{
     e.currentTarget.nextSibling.style.display= 'flex';
   }
 
-  radioGroupValue = 'This is value 2';
+  
+  
 
 }
