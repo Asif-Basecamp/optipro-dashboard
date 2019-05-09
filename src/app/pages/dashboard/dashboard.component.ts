@@ -11,15 +11,7 @@ import { ItemLookupComponent } from 'src/app/lookup/item-lookup/item-lookup.comp
 import {RecordModel}  from 'src/app/CommonData/Data';
 import * as eva from 'eva-icons';
 
-const datascource = {
-  'id': '1',
-    'name': 'Lao Lao',
-    'className': 'purReceipt',
-    'children': [
-      { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
-      { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice'},
-    ]
-  }
+
 
   var nodeName = '';
 
@@ -89,9 +81,23 @@ export class DashboardComponent implements OnInit{
   public NodeName = '';
   public DocEntryArr: any = [];
   public searchCriteria: boolean = false;
+  public datasource: any = [];
+  /*public datasource = {
+    'id': '1',
+      'name': 'Lao Lao',
+      'className': 'purReceipt',
+      'children': [
+        { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
+        { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice',
+        'children': [
+          { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
+          { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice'}]},
+      ]
+    }*/
  
 
   constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
+    
   }
 
   
@@ -99,9 +105,9 @@ export class DashboardComponent implements OnInit{
   ngOnInit() {
     
     eva.replace();
-    this.orgchart = new OrgChart({
+    /*this.orgchart = new OrgChart({
       'chartContainer': '#chart-container',
-      'data' : datascource,
+      'data' : this.datasource,
       'nodeContent': 'title',
       'nodeID': 'id',
       'depth': 1,
@@ -208,7 +214,7 @@ export class DashboardComponent implements OnInit{
         // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
         node.appendChild(secondMenu);
       }
-    });
+    });*/
   }
 
 
@@ -377,8 +383,125 @@ export class DashboardComponent implements OnInit{
   this.dash.GetTransactionDetails('http://localhost:41807','Build129IR4',DC,NodeName,this.DfltWarehouse).subscribe(
       data =>
        {
-         this.AnalysisData = data;
-         console.log(this.AnalysisData);
+          this.AnalysisData = data;
+          var result = {};
+          for (var i=0; i<this.AnalysisData.length; i++) {
+            result = this.AnalysisData[i];
+            result["name"] = this.AnalysisData[i].itemcode;
+          }  
+          this.datasource = result;
+          console.log(JSON.stringify(this.datasource));
+
+          this.orgchart = new OrgChart({
+            'chartContainer': '#chart-container',
+            'data' : this.datasource,
+            'nodeContent': 'title',
+          //  'nodeID': 'id',
+            'depth': 1,
+            'direction': 'l2r',
+            'pan': false,
+            'zoom': false,
+            'toggleSiblingsResp': false,
+            'createNode': function(node, data) {
+              let secondMenu = document.createElement('div');
+              secondMenu.setAttribute('class', 'second-menu');
+              secondMenu.innerHTML = `
+                <div class="node-content">
+                  <div class="node-img">
+                    <img class="node-avatar" src="./assets/images/images.png">
+                  </div>
+                  <div class="node-data">
+                    <div class="data-column">
+                      <div class="data-heading">
+                        Item 
+                      </div>
+                      <div class="data-content">
+                        ${data.itemcode}
+                      </div>
+                    </div>
+                    <div class="data-column">
+                      <div class="data-heading">
+                        Warehouse
+                      </div>
+                      <div class="data-content">
+                        ${data.Warehouse}
+                      </div>
+                    </div>
+                    
+                    <div class="data-column">
+                      <div class="data-heading">
+                        Lot #
+                      </div>
+                      <div class="data-content">
+                        ${data.LotNUmber}
+                      </div>
+                    </div>
+                    <div class="data-column">
+                      <div class="data-heading">
+                        Expiry Date
+                      </div>
+                      <div class="data-content">
+                        ${data.ExpDate}
+                      </div>
+                    </div>
+                    <div class="data-column">
+                      <div class="data-heading">
+                        Receipt Date
+                      </div>
+                      <div class="data-content">
+                        ${data.CreateDate}
+                      </div>
+                    </div>
+                    <div class="data-column">
+                      <div class="data-heading">
+                        Lot Status
+                      </div>
+                      <div class="data-content">
+                        
+                      </div>
+                    </div>
+                    <div class="data-column">
+                      <div class="data-heading">
+                        Quantity
+                      </div>
+                      <div class="data-content">
+                        ${data.Quantity}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="node-footer">
+                  <div class="footer-column">
+                    <div class="column-heading">
+                      Total Received
+                    </div>
+                    <div class="column-content">
+                      ${data.TotalReceive}
+                    </div>
+                  </div>
+                  <div class="footer-column">
+                    <div class="column-heading">
+                      Total Issued
+                    </div>
+                    <div class="column-content">
+                      ${data.TotalIssue}
+                    </div>
+                  </div>
+                  <div class="footer-column">
+                    <div class="column-heading">
+                      Onhand
+                    </div>
+                    <div class="column-content">
+                      ${data.OnHand}
+                    </div>
+                  </div>
+                </div>
+              
+              `;
+              // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
+              node.appendChild(secondMenu);
+            }
+          });
        },
        error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
