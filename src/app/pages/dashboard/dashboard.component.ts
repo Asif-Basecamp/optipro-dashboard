@@ -11,29 +11,27 @@ import { ItemLookupComponent } from 'src/app/lookup/item-lookup/item-lookup.comp
 import {RecordModel}  from 'src/app/CommonData/Data';
 import * as eva from 'eva-icons';
 
-const datascource = {
-  'id': '1',
-    'name': 'Lao Lao',
-    'className': 'purReceipt',
-    'children': [
-      { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
-      { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice',
-        'children': [
-          { 'id': '4', 'name': 'Tie Hua', 'className': 'prodReceipt' },
-          { 'id': '5', 'name': 'Hei Hei', 'className': 'prodIssue',
-            'children': [
-              { 'id': '6', 'name': 'Pang Pang', 'className': 'matReturn'},
-              { 'id': '7', 'name': 'Xiang Xiang', 'className': 'creditMemo'}
-            ]
-          }
-        ]
-      },
-      { 'id': '8', 'name': 'Yu Jie', 'className': 'salesReturn' },
-      { 'id': '9', 'name': 'Yu Li', 'className': 'goodsIssue' },
-    ]
-  }
-
-  var nodeName = '';
+// const datascource = {
+//   'id': '1',
+//     'name': 'Lao Lao',
+//     'className': 'purReceipt',
+//     'children': [
+//       { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
+//       { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice'}
+      //   'children': [
+      //     { 'id': '4', 'name': 'Tie Hua', 'className': 'prodReceipt' },
+      //     { 'id': '5', 'name': 'Hei Hei', 'className': 'prodIssue',
+      //       'children': [
+      //         { 'id': '6', 'name': 'Pang Pang', 'className': 'matReturn'},
+      //         { 'id': '7', 'name': 'Xiang Xiang', 'className': 'creditMemo'}
+      //       ]
+      //     }
+      //   ]
+      // },
+      // { 'id': '8', 'name': 'Yu Jie', 'className': 'salesReturn' },
+      // { 'id': '9', 'name': 'Yu Li', 'className': 'goodsIssue' },
+  //   ]
+  // }
 
   const actionMapping:IActionMapping = {
     mouse: {
@@ -60,10 +58,6 @@ const datascource = {
       [KEYS.ENTER]: (tree, node, $event) => alert(`This is ${node.data.name}`)
     }
   };
-
-  //declare function Transact(nm):any;
-
- 
 
 @Component({
   selector: 'ngx-dashboard',
@@ -97,22 +91,40 @@ export class DashboardComponent implements OnInit{
   public nodes1: any = [];
   public nodes2: any = [];
   public transactions: any = [];
-  public NodeName = '';
   public DocEntryArr: any = [];
   public searchCriteria: boolean = false;
- 
-
-  constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
-  }
+  public transactiondetails: any = []; 
+  public Dsource: any = {};
 
   
+
+  constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
+  }  
+
+
     
   ngOnInit() {
+
+    this.Dsource = {
+      'id': '1',
+        'name': 'Lao Lao',
+        'className': 'purReceipt',
+        'children': [
+          { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
+          { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice'}
+        ]
+      }
+   
     
     eva.replace();
+    this.orgData();
+    
+  }
+
+  orgData(){
     this.orgchart = new OrgChart({
       'chartContainer': '#chart-container',
-      'data' : datascource,
+      'data' : this.Dsource,
       'nodeContent': 'title',
       'nodeID': 'id',
       'depth': 1,
@@ -213,8 +225,7 @@ export class DashboardComponent implements OnInit{
                 text
               </div>
             </div>
-          </div>
-        
+          </div>        
         `;
         // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
         node.appendChild(secondMenu);
@@ -233,24 +244,8 @@ export class DashboardComponent implements OnInit{
         this.LotTo = false;
         this.LotFrom = false;
 
-
         this.gridData = data;
-        // for(let i=0 ;i<this.gridData.length;i++){
-        //     this.gridData[i].ItemCode = this.SAPDateFormat[0];
-        //     this.gridData[i].CurrentEntryDate = this.CurrentDateFormat;
-        //  }
-
-
-
-      //  this.recordModel = data;
-
-        // for(let i=0 ;i<this.recordModel.length;i++){
-        //   this.recordModel[i].CurrentDateFormat = this.SAPDateFormat[0];
-        //   this.recordModel[i].CurrentEntryDate = this.CurrentDateFormat;
-        // }
-         this.dialogService.open(dialog);
-
-
+        this.dialogService.open(dialog);
        },
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
@@ -338,28 +333,27 @@ export class DashboardComponent implements OnInit{
     else{
       this.DfltWarehouse = evt.selectedRows[0].dataItem.WhsCode;
     }
-
     ref.close();
  }
 
- GetTransaction(NodeName){
-  //alert(nodeName);
+ GetTransaction(NodeName, fullName){
   this.dash.GetTransaction('http://localhost:41808','Build129IR4',NodeName).subscribe(
       data =>
        {
         this.DocEntryArr = [];
         this.nodes1 = [];
         this.transactions = data;
+        
         console.log(data);
 
-        let name = NodeName;
+        let name = fullName;
         let childrens = [];
 
         let map = {};
-        map["name"] = name;
+        map["name"] = fullName;
 
         for(let i=0; i< this.transactions.Table.length; i++){
-          childrens.push({name: this.transactions.Table[i].DistNumber + ' - ' + this.transactions.Table[i].ObjectTypeDesc});
+          childrens.push({name: '(' + this.transactions.Table[i].DistNumber + ') Doc Entry : ' + this.transactions.Table[i].DocEntry + ' - ' + this.transactions.Table[i].ObjectTypeDesc});
           this.DocEntryArr.push({key: this.transactions.Table[i].DistNumber ,
                                 DocEntry: this.transactions.Table[i].DocEntry});
         }
@@ -499,25 +493,53 @@ export class DashboardComponent implements OnInit{
     )
  }
 
- GetTransactionDetails(NodeName){
+ GetTransactionDetails(Dcentry,Item){
    
-  let DC= '';
-  
-  if (NodeName.indexOf("-") > -1) {
-    NodeName = NodeName.split("-")[0].trim();
+  let DC= '';   
+  if (Dcentry.indexOf(":") > -1) {
+    Dcentry = Dcentry.split(":")[1].trim();
   }
    this.DocEntryArr.filter(function(d){ 
-     if(d.key == NodeName){
-        console.log(d.DocEntry);
+     if(d.DocEntry == Dcentry){
         DC = d.DocEntry;
      }
    });
-  console.log(this.DocEntryArr);
 
-  this.dash.GetTransactionDetails('http://localhost:41808','Build129IR4',DC,NodeName,this.DfltWarehouse).subscribe(
+  this.dash.GetTransactionDetails('http://localhost:41808','Build129IR4',DC,Item,this.DfltWarehouse).subscribe(
       data =>
        {
-         this.transactions.Table = data;
+         this.transactiondetails = data;
+         console.log(data);
+         this.Dsource = [];
+         
+         if(data != undefined && data != null){
+          let count = 1;
+          for(let i=0; i < data.length; i++){
+            let map = {}; 
+            let child = [];           
+            map["id"] = count;
+            map["name"] = data[i].DistNumber;
+            map["className"] = 'purReceipt';
+            child.push({ 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
+            { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice'});
+            map["children"] = child;
+            this.Dsource.push(map);
+            count++;
+          }
+          this.orgData();
+         }
+
+        //  this.Dsource = {
+        //     'id': '1',
+        //     'name': 'Lao Lao',
+        //     'className': 'purReceipt',
+        //     'children': [
+        //       { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
+        //       { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice'}
+        //     ]
+        //   }
+
+
        },
        error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
@@ -531,14 +553,12 @@ export class DashboardComponent implements OnInit{
 
  getHierarchy(dataa, parent){
     let node = [];
-    dataa.filter(function(d){ 
-       
+    dataa.filter(function(d){        
         if(d.ParantId == parent){
              return d.ParantId == parent  
         }
     }).forEach(function(d){
-     var cd = d;
-    
+     var cd = d;    
      cd.children = this.getHierarchy(dataa, d.OPTM_SEQ);
      return node.push(cd);
     }.bind(this))
@@ -565,135 +585,9 @@ export class DashboardComponent implements OnInit{
     this.dialogService.open(dialog);
   }
 
-  /*nodes = [
-    {
-      name: 'root1',
-      children: [
-        {
-          name: 'child1'
-        }, {
-          name: 'child2'
-        }
-      ]
-    },
-    {
-      name: 'root2',
-      children: [
-        {
-          name: 'child2.1'
-        }, {
-          name: 'child2.2',
-          children: [
-            {
-              id: 1001,
-              name: 'subsub'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: 'root3',
-      children: [
-        {
-          name: 'child3.1'
-        }, {
-          name: 'child3.2',
-          children: [
-            {
-              id: 1003,
-              name: 'subsub'
-            }
-          ]
-        }, {
-          name: 'child3.3',
-          children: [
-            {
-              id: 1004,
-              name: 'subsub'
-            }
-          ]
-        }, {
-          name: 'child3.4',
-          children: [
-            {
-              id: 1005,
-              name: 'subsub'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: 'root4',
-      children: [
-        {
-          name: 'child4.1'
-        }, {
-          name: 'child4.2',
-          children: [
-            {
-              id: 1006,
-              name: 'subsub'
-            }
-          ]
-        }, {
-          name: 'child4.3',
-          children: [
-            {
-              id: 1007,
-              name: 'subsub'
-            }
-          ]
-        }, {
-          name: 'child4.4',
-          children: [
-            {
-              id: 1008,
-              name: 'subsub'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: 'root5',
-      children: [
-        {
-          name: 'child5.1'
-        }, {
-          name: 'child5.2',
-          children: [
-            {
-              id: 1009,
-              name: 'subsub'
-            }
-          ]
-        }, {
-          name: 'child5.3',
-          children: [
-            {
-              id: 1010,
-              name: 'subsub'
-            }
-          ]
-        }, {
-          name: 'child5.4',
-          children: [
-            {
-              id: 1011,
-              name: 'subsub'
-            }
-          ]
-        }
-      ]
-    }
-  ];*/
-
   // options: ITreeOptions = {
   //   actionMapping
   // };
-
  
   options = {
     actionMapping
@@ -706,6 +600,7 @@ export class DashboardComponent implements OnInit{
   clickTransaction(evt){
   console.log(evt.srcElement.textContent);
     let test = evt.srcElement.textContent;
+    let name = evt.srcElement.textContent;
     if(test == "" || test == undefined){
       return;
     }
@@ -713,22 +608,33 @@ export class DashboardComponent implements OnInit{
       if (test.indexOf("-") > -1) {
         test = test.split("-")[1].trim();
       } 
-      this.GetTransaction(test);
+      this.GetTransaction(test,name);
     }
   }
 
   clickTransactionDetails(evt){
     console.log(evt.srcElement.textContent);
     let dt = evt.srcElement.textContent;
-    //let dt = dt1;
+    let dcentry = '';
+    let disnum = '';
     if(dt == "" || dt == undefined){
       return;
     }
     else{
       if (dt.indexOf("-") > -1) {
-        dt = dt.split("-")[0].trim();
-      }       
-      this.GetTransactionDetails(dt);
+        dcentry = dt.split("-")[0].trim();
+      } 
+      else {
+        dcentry = dt;
+      } 
+
+      if (dt.indexOf(")") > -1) {
+        disnum = dt.split(")")[0].split("(")[1].trim();
+      } 
+      else {
+        disnum = dt;
+      }     
+      this.GetTransactionDetails(dcentry,disnum);
     }    
   }
   //Search criteria expand-shrink function  
