@@ -100,6 +100,7 @@ export class DashboardComponent implements OnInit{
   public NodeName = '';
   public DocEntryArr: any = [];
   public searchCriteria: boolean = false;
+  //public radioOptions: any= [];
  
 
   constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
@@ -780,5 +781,7 @@ export class DashboardComponent implements OnInit{
     e.currentTarget.nextSibling.style.height= '100%';
     e.currentTarget.nextSibling.style.display= 'flex';
   }
+
+  radioGroupValue = 'This is value 2';
 
 }
