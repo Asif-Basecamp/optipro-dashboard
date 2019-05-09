@@ -25,8 +25,8 @@ export class SigninComponent implements OnInit {
   public defaultCompnyComboValue: any = [];
   public listItems: any = [] = this.defaultCompnyComboValue;
   public selectedValue: any = [];
-
-  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastrService: NbToastrService) { }
+  
+  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastr: ToastrService, private toastrService: NbToastrService) { }
   ngOnInit() {
     const element = document.getElementsByTagName("body")[0];
     element.classList.add("opti_body-login");
@@ -134,5 +134,10 @@ export class SigninComponent implements OnInit {
 
     OnSignIn(){
       this.router.navigateByUrl('/pages');
+      window.localStorage.setItem('CompanyDB', JSON.stringify(this.selectedValue.OPTM_COMPID));
     }
+
+   
+   selectedItemNgModel;
+   
 }

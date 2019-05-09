@@ -41,10 +41,6 @@ import * as eva from 'eva-icons';
     }
   };
 
-  //declare function Transact(nm):any;
-
- 
-
 @Component({
   selector: 'ngx-dashboard',
   styleUrls: ['./dashboard.component.scss'],
@@ -56,7 +52,7 @@ export class DashboardComponent implements OnInit{
   public nextElementSibling: any;
   //public gridData: any[] = products;
   public gridData: any[];
-  public arrConfigData: any[];
+  public arrConfigData: any;
   dataGridSelectNum: number;
   public ItemValue: any;
   public ItemDesc: any;
@@ -77,150 +73,47 @@ export class DashboardComponent implements OnInit{
   public nodes1: any = [];
   public nodes2: any = [];
   public transactions: any = [];
-  public AnalysisData: any = [];
-  public NodeName = '';
   public DocEntryArr: any = [];
   public searchCriteria: boolean = false;
+  public transactiondetails: any = []; 
+  public Dsource: any = {};
+  public CompanyDB: any;
+  public radioExplode: any; 
+  public explodeDirection: any ;
+  //public radioOptions: any= [];  
+  public AnalysisData: any = [];
   public datasource: any = [];
-  /*public datasource = {
-    'id': '1',
-      'name': 'Lao Lao',
-      'className': 'purReceipt',
-      'children': [
-        { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
-        { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice',
+  
+  constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
+  } 
+  
+  radioGroupValue = 'Show Data of all type of lots';
+  
+
+  ngOnInit() {
+
+    this.arrConfigData = JSON.parse(window.localStorage.getItem('arrConfigData')); 
+    this.CompanyDB = JSON.parse(window.localStorage.getItem('CompanyDB')); 
+
+    this.radioExplode = 'Lot Explosion';    
+    
+    this.Dsource = {
+      'id': '1',
+        'name': 'Lao Lao',
+        'className': 'purReceipt',
         'children': [
           { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
-          { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice'}]},
-      ]
-    }*/
- 
-
-  constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
-    
-  }
-
-  
-    
-  ngOnInit() {
-    
-    eva.replace();
-    /*this.orgchart = new OrgChart({
-      'chartContainer': '#chart-container',
-      'data' : this.datasource,
-      'nodeContent': 'title',
-      'nodeID': 'id',
-      'depth': 1,
-      'direction': 'l2r',
-      'pan': false,
-      'zoom': false,
-      'toggleSiblingsResp': false,
-      'createNode': function(node, data) {
-        let secondMenu = document.createElement('div');
-        secondMenu.setAttribute('class', 'second-menu');
-        secondMenu.innerHTML = `
-          <div class="node-content">
-            <div class="node-img">
-              <img class="node-avatar" src="./assets/images/images.png">
-            </div>
-            <div class="node-data">
-              <div class="data-column">
-                <div class="data-heading">
-                  Item
-                </div>
-                <div class="data-content">
-                  INT
-                </div>
-              </div>
-              <div class="data-column">
-                <div class="data-heading">
-                  Warehouse
-                </div>
-                <div class="data-content">
-                  LOT 1
-                </div>
-              </div>
-              
-              <div class="data-column">
-                <div class="data-heading">
-                  Lot #
-                </div>
-                <div class="data-content">
-                  LOT 1
-                </div>
-              </div>
-              <div class="data-column">
-                <div class="data-heading">
-                  Expiry Date
-                </div>
-                <div class="data-content">
-                  01/01/01
-                </div>
-              </div>
-              <div class="data-column">
-                <div class="data-heading">
-                  Receipt Date
-                </div>
-                <div class="data-content">
-                  01/01/01
-                </div>
-              </div>
-              <div class="data-column">
-                <div class="data-heading">
-                  Lot Status
-                </div>
-                <div class="data-content">
-                  Release
-                </div>
-              </div>
-              <div class="data-column">
-                <div class="data-heading">
-                  Quantity
-                </div>
-                <div class="data-content">
-                  10.000 KG
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="node-footer">
-            <div class="footer-column">
-              <div class="column-heading">
-                Total Received
-              </div>
-              <div class="column-content">
-                text
-              </div>
-            </div>
-            <div class="footer-column">
-              <div class="column-heading">
-                Total Issued
-              </div>
-              <div class="column-content">
-                text
-              </div>
-            </div>
-            <div class="footer-column">
-              <div class="column-heading">
-                Onhand
-              </div>
-              <div class="column-content">
-                text
-              </div>
-            </div>
-          </div>
-        
-        `;
-        // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
-        node.appendChild(secondMenu);
+          { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice'}
+        ]
       }
-    });*/
+    
+    eva.replace();    
   }
 
 
   openItemLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetItemList('http://localhost:41807','Build129IR4').subscribe(
+    this.dash.GetItemList(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB).subscribe(
       data =>
        {
         this.Item = true;
@@ -228,24 +121,8 @@ export class DashboardComponent implements OnInit{
         this.LotTo = false;
         this.LotFrom = false;
 
-
         this.gridData = data;
-        // for(let i=0 ;i<this.gridData.length;i++){
-        //     this.gridData[i].ItemCode = this.SAPDateFormat[0];
-        //     this.gridData[i].CurrentEntryDate = this.CurrentDateFormat;
-        //  }
-
-
-
-      //  this.recordModel = data;
-
-        // for(let i=0 ;i<this.recordModel.length;i++){
-        //   this.recordModel[i].CurrentDateFormat = this.SAPDateFormat[0];
-        //   this.recordModel[i].CurrentEntryDate = this.CurrentDateFormat;
-        // }
-         this.dialogService.open(dialog);
-
-
+        this.dialogService.open(dialog);
        },
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
@@ -255,7 +132,7 @@ export class DashboardComponent implements OnInit{
 
   openWarehouseLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetWarehouseList('http://localhost:41807','Build129IR4').subscribe(
+    this.dash.GetWarehouseList(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB).subscribe(
       data =>
        {
         this.gridData = data;
@@ -273,7 +150,7 @@ export class DashboardComponent implements OnInit{
 
   openLotFromLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetLotNumber('http://localhost:41807','Build129IR4',this.ItemValue,this.trackName).subscribe(
+    this.dash.GetLotNumber(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,this.ItemValue,this.trackName).subscribe(
       data =>
        {
         this.gridData = data;
@@ -292,7 +169,7 @@ export class DashboardComponent implements OnInit{
 
   openLotToLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetLotNumber('http://localhost:41807','Build129IR4',this.ItemValue,this.trackName).subscribe(
+    this.dash.GetLotNumber(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,this.ItemValue,this.trackName).subscribe(
       data =>
        {
         this.gridData = data;
@@ -333,27 +210,27 @@ export class DashboardComponent implements OnInit{
     else{
       this.DfltWarehouse = evt.selectedRows[0].dataItem.WhsCode;
     }
-
     ref.close();
  }
 
- GetTransaction(NodeName){
-  //alert(nodeName);
-  this.dash.GetTransaction('http://localhost:41807','Build129IR4',NodeName).subscribe(
+ GetTransaction(NodeName, fullName){
+  this.dash.GetTransaction(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,NodeName).subscribe(
       data =>
        {
         this.DocEntryArr = [];
         this.nodes1 = [];
         this.transactions = data;
+        
+        console.log(data);
 
-        let name = NodeName;
+        let name = fullName;
         let childrens = [];
 
         let map = {};
-        map["name"] = name;
+        map["name"] = fullName;
 
         for(let i=0; i< this.transactions.Table.length; i++){
-          childrens.push({name: this.transactions.Table[i].DistNumber + ' - ' + this.transactions.Table[i].ObjectTypeDesc});
+          childrens.push({name: '(' + this.transactions.Table[i].DistNumber + ') Doc Entry : ' + this.transactions.Table[i].DocEntry + ' - ' + this.transactions.Table[i].ObjectTypeDesc});
           this.DocEntryArr.push({key: this.transactions.Table[i].DistNumber ,
                                 DocEntry: this.transactions.Table[i].DocEntry});
         }
@@ -367,142 +244,162 @@ export class DashboardComponent implements OnInit{
     )
  }
 
- GetTransactionDetails(NodeName){
-   
-  let DC= '';
-  
-  if (NodeName.indexOf("-") > -1) {
-    NodeName = NodeName.split("-")[0].trim();
-  }
-   this.DocEntryArr.filter(function(d){ 
-     if(d.key == NodeName){
+ GetTransactionDetails(Dcentry,Item){  
+ 
+  let DC = '';  
+  let stringDC = []; 
+  let str = '';
+  if (Dcentry.indexOf(":") > -1) {
+    Dcentry = Dcentry.split(":")[1].trim();
+    this.DocEntryArr.filter(function(d){ 
+      if(d.DocEntry == Dcentry){
+        // DC.push(d.DocEntry);
         DC = d.DocEntry;
-     }
-   });
+      }
+    });
+  }
+  else {
+    Item = Dcentry;
+    for(let i=0 ; i <this.DocEntryArr.length; i++){
+     //stringDC.push(this.DocEntryArr[i].DocEntry);
+     if(i == 0)
+     str = this.DocEntryArr[i].DocEntry+"'";
+     else
+     str = str + ',' +"'"+ this.DocEntryArr[i].DocEntry;
 
-  this.dash.GetTransactionDetails('http://localhost:41807','Build129IR4',DC,NodeName,this.DfltWarehouse).subscribe(
+    } 
+    DC = str;
+  }
+   
+
+  this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,DC,Item,this.DfltWarehouse).subscribe(
       data =>
        {
-          this.AnalysisData = data;
-          var result = {};
-          for (var i=0; i<this.AnalysisData.length; i++) {
-            result = this.AnalysisData[i];
-            result["name"] = this.AnalysisData[i].itemcode;
-          }  
-          this.datasource = result;
-          console.log(JSON.stringify(this.datasource));
+         this.transactiondetails = data;
+         console.log(data);
+         this.AnalysisData = data;
+         var result = {};
+         for (var i=0; i<this.AnalysisData.length; i++) {
+           result = this.AnalysisData[i];
+           result["name"] = this.AnalysisData[i].itemcode;
+         }  
+         this.datasource = result;
+         console.log(JSON.stringify(this.datasource));
 
-          this.orgchart = new OrgChart({
-            'chartContainer': '#chart-container',
-            'data' : this.datasource,
-            'nodeContent': 'title',
-          //  'nodeID': 'id',
-            'depth': 1,
-            'direction': 'l2r',
-            'pan': false,
-            'zoom': false,
-            'toggleSiblingsResp': false,
-            'createNode': function(node, data) {
-              let secondMenu = document.createElement('div');
-              secondMenu.setAttribute('class', 'second-menu');
-              secondMenu.innerHTML = `
-                <div class="node-content">
-                  <div class="node-img">
-                    <img class="node-avatar" src="./assets/images/images.png">
-                  </div>
-                  <div class="node-data">
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Item 
-                      </div>
-                      <div class="data-content">
-                        ${data.itemcode}
-                      </div>
-                    </div>
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Warehouse
-                      </div>
-                      <div class="data-content">
-                        ${data.Warehouse}
-                      </div>
-                    </div>
-                    
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Lot #
-                      </div>
-                      <div class="data-content">
-                        ${data.LotNUmber}
-                      </div>
-                    </div>
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Expiry Date
-                      </div>
-                      <div class="data-content">
-                        ${data.ExpDate}
-                      </div>
-                    </div>
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Receipt Date
-                      </div>
-                      <div class="data-content">
-                        ${data.CreateDate}
-                      </div>
-                    </div>
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Lot Status
-                      </div>
-                      <div class="data-content">
-                        
-                      </div>
-                    </div>
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Quantity
-                      </div>
-                      <div class="data-content">
-                        ${data.Quantity}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="node-footer">
-                  <div class="footer-column">
-                    <div class="column-heading">
-                      Total Received
-                    </div>
-                    <div class="column-content">
-                      ${data.TotalReceive}
-                    </div>
-                  </div>
-                  <div class="footer-column">
-                    <div class="column-heading">
-                      Total Issued
-                    </div>
-                    <div class="column-content">
-                      ${data.TotalIssue}
-                    </div>
-                  </div>
-                  <div class="footer-column">
-                    <div class="column-heading">
-                      Onhand
-                    </div>
-                    <div class="column-content">
-                      ${data.OnHand}
-                    </div>
-                  </div>
-                </div>
-              
-              `;
-              // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
-              node.appendChild(secondMenu);
-            }
-          });
-       },
+         this.orgchart = new OrgChart({
+           'chartContainer': '#chart-container',
+           'data' : this.datasource,
+           'nodeContent': 'title',
+         //  'nodeID': 'id',
+           'depth': 1,
+           'direction': 'l2r',
+           'pan': false,
+           'zoom': false,
+           'toggleSiblingsResp': false,
+           'createNode': function(node, data) {
+             let secondMenu = document.createElement('div');
+             secondMenu.setAttribute('class', 'second-menu');
+             secondMenu.innerHTML = `
+               <div class="node-content">
+                 <div class="node-img">
+                   <img class="node-avatar" src="./assets/images/images.png">
+                 </div>
+                 <div class="node-data">
+                   <div class="data-column">
+                     <div class="data-heading">
+                       Item 
+                     </div>
+                     <div class="data-content">
+                       ${data.itemcode}
+                     </div>
+                   </div>
+                   <div class="data-column">
+                     <div class="data-heading">
+                       Warehouse
+                     </div>
+                     <div class="data-content">
+                       ${data.Warehouse}
+                     </div>
+                   </div>
+                   
+                   <div class="data-column">
+                     <div class="data-heading">
+                       Lot #
+                     </div>
+                     <div class="data-content">
+                       ${data.LotNUmber}
+                     </div>
+                   </div>
+                   <div class="data-column">
+                     <div class="data-heading">
+                       Expiry Date
+                     </div>
+                     <div class="data-content">
+                       ${data.ExpDate}
+                     </div>
+                   </div>
+                   <div class="data-column">
+                     <div class="data-heading">
+                       Receipt Date
+                     </div>
+                     <div class="data-content">
+                       ${data.CreateDate}
+                     </div>
+                   </div>
+                   <div class="data-column">
+                     <div class="data-heading">
+                       Lot Status
+                     </div>
+                     <div class="data-content">
+                       
+                     </div>
+                   </div>
+                   <div class="data-column">
+                     <div class="data-heading">
+                       Quantity
+                     </div>
+                     <div class="data-content">
+                       ${data.Quantity}
+                     </div>
+                   </div>
+                 </div>
+               </div>
+               <div class="node-footer">
+                 <div class="footer-column">
+                   <div class="column-heading">
+                     Total Received
+                   </div>
+                   <div class="column-content">
+                     ${data.TotalReceive}
+                   </div>
+                 </div>
+                 <div class="footer-column">
+                   <div class="column-heading">
+                     Total Issued
+                   </div>
+                   <div class="column-content">
+                     ${data.TotalIssue}
+                   </div>
+                 </div>
+                 <div class="footer-column">
+                   <div class="column-heading">
+                     Onhand
+                   </div>
+                   <div class="column-content">
+                     ${data.OnHand}
+                   </div>
+                 </div>
+               </div>
+             
+             `;
+             // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
+             node.appendChild(secondMenu);
+          
+           }
+          })
+      
+          },
+       
        error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
      }
@@ -516,14 +413,12 @@ export class DashboardComponent implements OnInit{
  /*-- grid view --*/
  getHierarchy(dataa, parent){
     let node = [];
-    dataa.filter(function(d){ 
-       
+    dataa.filter(function(d){        
         if(d.ParantId == parent){
              return d.ParantId == parent  
         }
     }).forEach(function(d){
-     var cd = d;
-    
+     var cd = d;    
      cd.children = this.getHierarchy(dataa, d.OPTM_SEQ);
      return node.push(cd);
     }.bind(this))
@@ -531,7 +426,13 @@ export class DashboardComponent implements OnInit{
   }
 
    GetExplosion(){
-    this.dash.GetLotExplosionData('http://localhost:41807','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'DOWN').subscribe(
+
+    if(this.radioExplode == 'Lot Explosion')
+      this.explodeDirection = 'DOWN';
+    else
+      this.explodeDirection = 'UP';
+     
+    this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL,'',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,this.explodeDirection).subscribe(
       data =>
        {
         this.nodes2 = this.getHierarchy(data, '-1');
@@ -549,135 +450,9 @@ export class DashboardComponent implements OnInit{
     this.dialogService.open(dialog);
   }
 
-  /*nodes = [
-    {
-      name: 'root1',
-      children: [
-        {
-          name: 'child1'
-        }, {
-          name: 'child2'
-        }
-      ]
-    },
-    {
-      name: 'root2',
-      children: [
-        {
-          name: 'child2.1'
-        }, {
-          name: 'child2.2',
-          children: [
-            {
-              id: 1001,
-              name: 'subsub'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: 'root3',
-      children: [
-        {
-          name: 'child3.1'
-        }, {
-          name: 'child3.2',
-          children: [
-            {
-              id: 1003,
-              name: 'subsub'
-            }
-          ]
-        }, {
-          name: 'child3.3',
-          children: [
-            {
-              id: 1004,
-              name: 'subsub'
-            }
-          ]
-        }, {
-          name: 'child3.4',
-          children: [
-            {
-              id: 1005,
-              name: 'subsub'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: 'root4',
-      children: [
-        {
-          name: 'child4.1'
-        }, {
-          name: 'child4.2',
-          children: [
-            {
-              id: 1006,
-              name: 'subsub'
-            }
-          ]
-        }, {
-          name: 'child4.3',
-          children: [
-            {
-              id: 1007,
-              name: 'subsub'
-            }
-          ]
-        }, {
-          name: 'child4.4',
-          children: [
-            {
-              id: 1008,
-              name: 'subsub'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: 'root5',
-      children: [
-        {
-          name: 'child5.1'
-        }, {
-          name: 'child5.2',
-          children: [
-            {
-              id: 1009,
-              name: 'subsub'
-            }
-          ]
-        }, {
-          name: 'child5.3',
-          children: [
-            {
-              id: 1010,
-              name: 'subsub'
-            }
-          ]
-        }, {
-          name: 'child5.4',
-          children: [
-            {
-              id: 1011,
-              name: 'subsub'
-            }
-          ]
-        }
-      ]
-    }
-  ];*/
-
   // options: ITreeOptions = {
   //   actionMapping
   // };
-
  
   options = {
     actionMapping
@@ -689,6 +464,7 @@ export class DashboardComponent implements OnInit{
 
   clickTransaction(evt){
     let test = evt.srcElement.textContent;
+    let name = evt.srcElement.textContent;
     if(test == "" || test == undefined){
       return;
     }
@@ -696,21 +472,35 @@ export class DashboardComponent implements OnInit{
       if (test.indexOf("-") > -1) {
         test = test.split("-")[1].trim();
       } 
-      this.GetTransaction(test);
+      this.GetTransaction(test,name);
     }
   }
 
   clickTransactionDetails(evt){
     let dt = evt.srcElement.textContent;
-    //let dt = dt1;
+    let dcentry = '';
+    let disnum = '';
     if(dt == "" || dt == undefined){
       return;
     }
     else{
       if (dt.indexOf("-") > -1) {
-        dt = dt.split("-")[0].trim();
-      }       
-      this.GetTransactionDetails(dt);
+        if(dt.indexOf(":") > -1)
+          dcentry = dt.split("-")[0].trim();       
+        else
+        dcentry = dt.split("-")[1].trim();
+      } 
+      else {
+        dcentry = dt;
+      } 
+
+      if (dt.indexOf(")") > -1) {
+        disnum = dt.split(")")[0].split("(")[1].trim();
+      } 
+      else {
+        disnum = dt;
+      }     
+      this.GetTransactionDetails(dcentry,disnum);
     }    
   }
   //Search criteria expand-shrink function  
@@ -762,5 +552,8 @@ export class DashboardComponent implements OnInit{
     e.currentTarget.nextSibling.style.height= '100%';
     e.currentTarget.nextSibling.style.display= 'flex';
   }
+
+  
+  
 
 }
