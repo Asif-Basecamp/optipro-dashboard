@@ -93,10 +93,15 @@ export class DashboardComponent implements OnInit{
   public transactions: any = [];
   public DocEntryArr: any = [];
   public searchCriteria: boolean = false;
+<<<<<<< HEAD
   public transactiondetails: any = []; 
   public Dsource: any = {};
 
   
+=======
+  //public radioOptions: any= [];
+ 
+>>>>>>> fe799b6e769f68764044ef58ae95bf4c0264c0b6
 
   constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
   }  
@@ -686,5 +691,7 @@ export class DashboardComponent implements OnInit{
     e.currentTarget.nextSibling.style.height= '100%';
     e.currentTarget.nextSibling.style.display= 'flex';
   }
+
+  radioGroupValue = 'This is value 2';
 
 }

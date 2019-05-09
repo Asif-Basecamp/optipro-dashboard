@@ -247,10 +247,20 @@
             </div>
             <div class="col-sm-8 pt-3">
               <nb-card>
-                <nb-card-body>
-                  <nb-radio-group class="d-flex">
+                <!-- <nb-card-body>
+                  <nb-radio-group class="d-flex" [(ngModel)]="selectedOption">
                     <nb-radio>Show Data of all type of lots</nb-radio>
                     <nb-radio>Show Data of all immediate of lots</nb-radio>
+                  </nb-radio-group>
+                </nb-card-body> -->
+                <nb-card-body>
+                  <nb-radio-group class="d-flex" [(value)]="radioGroupValue">
+                    <nb-radio [value]="'This is value 1'">
+                      Show Data of all type of lots
+                    </nb-radio>
+                    <nb-radio [value]="'This is value 2'">
+                      Show Data of all immediate of lots
+                    </nb-radio>
                   </nb-radio-group>
                 </nb-card-body>
               </nb-card>
