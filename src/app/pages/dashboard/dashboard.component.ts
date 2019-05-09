@@ -11,27 +11,9 @@ import { ItemLookupComponent } from 'src/app/lookup/item-lookup/item-lookup.comp
 import {RecordModel}  from 'src/app/CommonData/Data';
 import * as eva from 'eva-icons';
 
-// const datascource = {
-//   'id': '1',
-//     'name': 'Lao Lao',
-//     'className': 'purReceipt',
-//     'children': [
-//       { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
-//       { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice'}
-      //   'children': [
-      //     { 'id': '4', 'name': 'Tie Hua', 'className': 'prodReceipt' },
-      //     { 'id': '5', 'name': 'Hei Hei', 'className': 'prodIssue',
-      //       'children': [
-      //         { 'id': '6', 'name': 'Pang Pang', 'className': 'matReturn'},
-      //         { 'id': '7', 'name': 'Xiang Xiang', 'className': 'creditMemo'}
-      //       ]
-      //     }
-      //   ]
-      // },
-      // { 'id': '8', 'name': 'Yu Jie', 'className': 'salesReturn' },
-      // { 'id': '9', 'name': 'Yu Li', 'className': 'goodsIssue' },
-  //   ]
-  // }
+
+
+  var nodeName = '';
 
   const actionMapping:IActionMapping = {
     mouse: {
@@ -99,6 +81,8 @@ export class DashboardComponent implements OnInit{
   public radioExplode: any; 
   public explodeDirection: any ;
   //public radioOptions: any= [];  
+  public AnalysisData: any = [];
+  public datasource: any = [];
   
   constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
   } 
@@ -122,123 +106,8 @@ export class DashboardComponent implements OnInit{
           { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice'}
         ]
       }
-   
     
-    eva.replace();
-    this.orgData();
-    
-  }
-
-  orgData(){
-    this.orgchart = new OrgChart({
-      'chartContainer': '#chart-container',
-      'data' : this.Dsource,
-      'nodeContent': 'title',
-      'nodeID': 'id',
-      'depth': 1,
-      'direction': 'l2r',
-      'pan': false,
-      'zoom': false,
-      'toggleSiblingsResp': false,
-      'createNode': function(node, data) {
-        let secondMenu = document.createElement('div');
-        secondMenu.setAttribute('class', 'second-menu');
-        secondMenu.innerHTML = `
-          <div class="node-content">
-            <div class="node-img">
-              <img class="node-avatar" src="./assets/images/images.png">
-            </div>
-            <div class="node-data">
-              <div class="data-column">
-                <div class="data-heading">
-                  Item
-                </div>
-                <div class="data-content">
-                  INT
-                </div>
-              </div>
-              <div class="data-column">
-                <div class="data-heading">
-                  Warehouse
-                </div>
-                <div class="data-content">
-                  LOT 1
-                </div>
-              </div>
-              
-              <div class="data-column">
-                <div class="data-heading">
-                  Lot #
-                </div>
-                <div class="data-content">
-                  LOT 1
-                </div>
-              </div>
-              <div class="data-column">
-                <div class="data-heading">
-                  Expiry Date
-                </div>
-                <div class="data-content">
-                  01/01/01
-                </div>
-              </div>
-              <div class="data-column">
-                <div class="data-heading">
-                  Receipt Date
-                </div>
-                <div class="data-content">
-                  01/01/01
-                </div>
-              </div>
-              <div class="data-column">
-                <div class="data-heading">
-                  Lot Status
-                </div>
-                <div class="data-content">
-                  Release
-                </div>
-              </div>
-              <div class="data-column">
-                <div class="data-heading">
-                  Quantity
-                </div>
-                <div class="data-content">
-                  10.000 KG
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="node-footer">
-            <div class="footer-column">
-              <div class="column-heading">
-                Total Received
-              </div>
-              <div class="column-content">
-                text
-              </div>
-            </div>
-            <div class="footer-column">
-              <div class="column-heading">
-                Total Issued
-              </div>
-              <div class="column-content">
-                text
-              </div>
-            </div>
-            <div class="footer-column">
-              <div class="column-heading">
-                Onhand
-              </div>
-              <div class="column-content">
-                text
-              </div>
-            </div>
-          </div>        
-        `;
-        // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
-        node.appendChild(secondMenu);
-      }
-    });
+    eva.replace();    
   }
 
 
@@ -368,141 +237,15 @@ export class DashboardComponent implements OnInit{
         map["children"] = childrens;
 
         this.nodes1.push(map);
-
-        // this.nodes1 = [
-        //   {
-        //     name: 'root1',
-        //     children: [
-        //       {
-        //         name: 'child1'
-        //       }, {
-        //         name: 'child2'
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     name: 'root2',
-        //     children: [
-        //       {
-        //         name: 'child2.1'
-        //       }, {
-        //         name: 'child2.2',
-        //         children: [
-        //           {
-        //             id: 1001,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     name: 'root3',
-        //     children: [
-        //       {
-        //         name: 'child3.1'
-        //       }, {
-        //         name: 'child3.2',
-        //         children: [
-        //           {
-        //             id: 1003,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }, {
-        //         name: 'child3.3',
-        //         children: [
-        //           {
-        //             id: 1004,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }, {
-        //         name: 'child3.4',
-        //         children: [
-        //           {
-        //             id: 1005,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     name: 'root4',
-        //     children: [
-        //       {
-        //         name: 'child4.1'
-        //       }, {
-        //         name: 'child4.2',
-        //         children: [
-        //           {
-        //             id: 1006,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }, {
-        //         name: 'child4.3',
-        //         children: [
-        //           {
-        //             id: 1007,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }, {
-        //         name: 'child4.4',
-        //         children: [
-        //           {
-        //             id: 1008,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     name: 'root5',
-        //     children: [
-        //       {
-        //         name: 'child5.1'
-        //       }, {
-        //         name: 'child5.2',
-        //         children: [
-        //           {
-        //             id: 1009,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }, {
-        //         name: 'child5.3',
-        //         children: [
-        //           {
-        //             id: 1010,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }, {
-        //         name: 'child5.4',
-        //         children: [
-        //           {
-        //             id: 1011,
-        //             name: 'subsub'
-        //           }
-        //         ]
-        //       }
-        //     ]
-        //   }
-        // ];
-
-       },
+    },
        error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
      }
     )
  }
 
- GetTransactionDetails(Dcentry,Item){
-   
+ GetTransactionDetails(Dcentry,Item){  
+ 
   let DC = '';  
   let stringDC = []; 
   let str = '';
@@ -534,47 +277,140 @@ export class DashboardComponent implements OnInit{
        {
          this.transactiondetails = data;
          console.log(data);
-         this.Dsource = [];
-         
-         if(data != undefined && data != null){
-          let count = 1;
-          for(let i=0; i < data.length; i++){
-            let map = {}; 
-            let child = [];           
-            map["id"] = count;
-            map["name"] = data[i].DistNumber;
-            map["className"] = 'purReceipt';
-            child.push({ 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
-            { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice'});
-            map["children"] = child;
-            this.Dsource.push(map);
-            count++;
-          }
-          this.orgData();
-         }
+         this.AnalysisData = data;
+         var result = {};
+         for (var i=0; i<this.AnalysisData.length; i++) {
+           result = this.AnalysisData[i];
+           result["name"] = this.AnalysisData[i].itemcode;
+         }  
+         this.datasource = result;
+         console.log(JSON.stringify(this.datasource));
 
-        //  this.Dsource = {
-        //     'id': '1',
-        //     'name': 'Lao Lao',
-        //     'className': 'purReceipt',
-        //     'children': [
-        //       { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
-        //       { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice'}
-        //     ]
-        //   }
-
-
-       },
+         this.orgchart = new OrgChart({
+           'chartContainer': '#chart-container',
+           'data' : this.datasource,
+           'nodeContent': 'title',
+         //  'nodeID': 'id',
+           'depth': 1,
+           'direction': 'l2r',
+           'pan': false,
+           'zoom': false,
+           'toggleSiblingsResp': false,
+           'createNode': function(node, data) {
+             let secondMenu = document.createElement('div');
+             secondMenu.setAttribute('class', 'second-menu');
+             secondMenu.innerHTML = `
+               <div class="node-content">
+                 <div class="node-img">
+                   <img class="node-avatar" src="./assets/images/images.png">
+                 </div>
+                 <div class="node-data">
+                   <div class="data-column">
+                     <div class="data-heading">
+                       Item 
+                     </div>
+                     <div class="data-content">
+                       ${data.itemcode}
+                     </div>
+                   </div>
+                   <div class="data-column">
+                     <div class="data-heading">
+                       Warehouse
+                     </div>
+                     <div class="data-content">
+                       ${data.Warehouse}
+                     </div>
+                   </div>
+                   
+                   <div class="data-column">
+                     <div class="data-heading">
+                       Lot #
+                     </div>
+                     <div class="data-content">
+                       ${data.LotNUmber}
+                     </div>
+                   </div>
+                   <div class="data-column">
+                     <div class="data-heading">
+                       Expiry Date
+                     </div>
+                     <div class="data-content">
+                       ${data.ExpDate}
+                     </div>
+                   </div>
+                   <div class="data-column">
+                     <div class="data-heading">
+                       Receipt Date
+                     </div>
+                     <div class="data-content">
+                       ${data.CreateDate}
+                     </div>
+                   </div>
+                   <div class="data-column">
+                     <div class="data-heading">
+                       Lot Status
+                     </div>
+                     <div class="data-content">
+                       
+                     </div>
+                   </div>
+                   <div class="data-column">
+                     <div class="data-heading">
+                       Quantity
+                     </div>
+                     <div class="data-content">
+                       ${data.Quantity}
+                     </div>
+                   </div>
+                 </div>
+               </div>
+               <div class="node-footer">
+                 <div class="footer-column">
+                   <div class="column-heading">
+                     Total Received
+                   </div>
+                   <div class="column-content">
+                     ${data.TotalReceive}
+                   </div>
+                 </div>
+                 <div class="footer-column">
+                   <div class="column-heading">
+                     Total Issued
+                   </div>
+                   <div class="column-content">
+                     ${data.TotalIssue}
+                   </div>
+                 </div>
+                 <div class="footer-column">
+                   <div class="column-heading">
+                     Onhand
+                   </div>
+                   <div class="column-content">
+                     ${data.OnHand}
+                   </div>
+                 </div>
+               </div>
+             
+             `;
+             // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
+             node.appendChild(secondMenu);
+          
+           }
+          })
+      
+          },
+       
        error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
      }
     )
- }
+  }
  
  Resurse(){
    
  }
 
+ /*-- grid view --*/
  getHierarchy(dataa, parent){
     let node = [];
     dataa.filter(function(d){        
@@ -600,7 +436,6 @@ export class DashboardComponent implements OnInit{
       data =>
        {
         this.nodes2 = this.getHierarchy(data, '-1');
-        console.log(this.nodes2);
         this.gridStatus = !this.gridStatus;
        },
       error => {
@@ -628,7 +463,6 @@ export class DashboardComponent implements OnInit{
   }
 
   clickTransaction(evt){
-  console.log(evt.srcElement.textContent);
     let test = evt.srcElement.textContent;
     let name = evt.srcElement.textContent;
     if(test == "" || test == undefined){
@@ -643,7 +477,6 @@ export class DashboardComponent implements OnInit{
   }
 
   clickTransactionDetails(evt){
-    console.log(evt.srcElement.textContent);
     let dt = evt.srcElement.textContent;
     let dcentry = '';
     let disnum = '';

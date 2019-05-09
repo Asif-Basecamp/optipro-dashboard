@@ -4,7 +4,6 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { NbToastrService } from '@nebular/theme';
 
 @Component({
@@ -60,7 +59,7 @@ export class SigninComponent implements OnInit {
       },
       error => {
         //this.toastr.error('', this.language.error_getting_psurl +error, this.Commonser.messageConfig.iconClasses.error);
-        alert('There is some error');
+        this.toastrService.danger('There is some error');
       }
     )
   }
@@ -87,7 +86,6 @@ export class SigninComponent implements OnInit {
       this.auth.login(this.loginId, this.password, this.psURL).subscribe(
         data => {
           this.modelSource = data;
-          console.log(data);
 
           if (this.modelSource != null && this.modelSource.Table.length > 0 && this.modelSource.Table[0].OPTM_ACTIVE == 1) {
             this.getCompanies();
@@ -98,8 +96,8 @@ export class SigninComponent implements OnInit {
             this.selectedValue = this.listItems[0];
             // this.toastr.error('', this.language.alert_incorrect_useridpassword, this.Commonser.messageConfig.iconClasses.error);
             //this.OnDropDownBlur(0);
-            //alert("Incorrect User Name or Password");
-            this.toastr.error('Incorrect username or password!');
+            this.toastrService.danger('Incorrect username or password!');
+
           }       
         },
         error => {
@@ -115,7 +113,6 @@ export class SigninComponent implements OnInit {
         data =>
          {
           this.modelSource = data;
-          console.log(data);
           if (this.modelSource != undefined && this.modelSource != null && this.modelSource.Table.length > 0)
           {
             this.assignedCompanies = data.Table; 
@@ -125,7 +122,7 @@ export class SigninComponent implements OnInit {
            this.selectedValue = this.listItems[0];
           }
           else {
-            alert("No Company is assigned to user");
+            this.toastrService.danger('No Company is assigned to user');
           }           
           
           }
@@ -140,14 +137,7 @@ export class SigninComponent implements OnInit {
       window.localStorage.setItem('CompanyDB', JSON.stringify(this.selectedValue.OPTM_COMPID));
     }
 
-   /* showToast(position, status) {
-      this.index += 1;
-      this.toastrService.show(
-        status || 'Success',
-        `Toast ${this.index}`,
-        { position, status });
-    }*/
-   // this.selectedValue = selectedItemNgModel;
+   
    selectedItemNgModel;
    
 }
