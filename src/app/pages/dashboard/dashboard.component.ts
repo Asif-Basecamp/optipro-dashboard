@@ -17,19 +17,7 @@ const datascource = {
     'className': 'purReceipt',
     'children': [
       { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
-      { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice',
-        'children': [
-          { 'id': '4', 'name': 'Tie Hua', 'className': 'prodReceipt' },
-          { 'id': '5', 'name': 'Hei Hei', 'className': 'prodIssue',
-            'children': [
-              { 'id': '6', 'name': 'Pang Pang', 'className': 'matReturn'},
-              { 'id': '7', 'name': 'Xiang Xiang', 'className': 'creditMemo'}
-            ]
-          }
-        ]
-      },
-      { 'id': '8', 'name': 'Yu Jie', 'className': 'salesReturn' },
-      { 'id': '9', 'name': 'Yu Li', 'className': 'goodsIssue' },
+      { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice'},
     ]
   }
 
@@ -97,6 +85,7 @@ export class DashboardComponent implements OnInit{
   public nodes1: any = [];
   public nodes2: any = [];
   public transactions: any = [];
+  public AnalysisData: any = [];
   public NodeName = '';
   public DocEntryArr: any = [];
   public searchCriteria: boolean = false;
@@ -225,7 +214,7 @@ export class DashboardComponent implements OnInit{
 
   openItemLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetItemList('http://localhost:41808','Build129IR4').subscribe(
+    this.dash.GetItemList('http://localhost:41807','Build129IR4').subscribe(
       data =>
        {
         this.Item = true;
@@ -260,7 +249,7 @@ export class DashboardComponent implements OnInit{
 
   openWarehouseLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetWarehouseList('http://localhost:41808','Build129IR4').subscribe(
+    this.dash.GetWarehouseList('http://localhost:41807','Build129IR4').subscribe(
       data =>
        {
         this.gridData = data;
@@ -278,7 +267,7 @@ export class DashboardComponent implements OnInit{
 
   openLotFromLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetLotNumber('http://localhost:41808','Build129IR4',this.ItemValue,this.trackName).subscribe(
+    this.dash.GetLotNumber('http://localhost:41807','Build129IR4',this.ItemValue,this.trackName).subscribe(
       data =>
        {
         this.gridData = data;
@@ -297,7 +286,7 @@ export class DashboardComponent implements OnInit{
 
   openLotToLookup(dialog: TemplateRef<any>){
 
-    this.dash.GetLotNumber('http://localhost:41808','Build129IR4',this.ItemValue,this.trackName).subscribe(
+    this.dash.GetLotNumber('http://localhost:41807','Build129IR4',this.ItemValue,this.trackName).subscribe(
       data =>
        {
         this.gridData = data;
@@ -344,13 +333,12 @@ export class DashboardComponent implements OnInit{
 
  GetTransaction(NodeName){
   //alert(nodeName);
-  this.dash.GetTransaction('http://localhost:41808','Build129IR4',NodeName).subscribe(
+  this.dash.GetTransaction('http://localhost:41807','Build129IR4',NodeName).subscribe(
       data =>
        {
         this.DocEntryArr = [];
         this.nodes1 = [];
         this.transactions = data;
-        console.log(data);
 
         let name = NodeName;
         let childrens = [];
@@ -382,18 +370,15 @@ export class DashboardComponent implements OnInit{
   }
    this.DocEntryArr.filter(function(d){ 
      if(d.key == NodeName){
-        console.log(d.DocEntry);
         DC = d.DocEntry;
      }
    });
-  console.log(this.DocEntryArr);
 
-  this.dash.GetTransactionDetails('http://localhost:41808','Build129IR4',DC,NodeName,this.DfltWarehouse).subscribe(
+  this.dash.GetTransactionDetails('http://localhost:41807','Build129IR4',DC,NodeName,this.DfltWarehouse).subscribe(
       data =>
        {
-         this.transactions = data.Table;
-         console.log(data);
-         console.log(this.transactions);
+         this.AnalysisData = data;
+         console.log(this.AnalysisData);
        },
        error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
@@ -405,6 +390,7 @@ export class DashboardComponent implements OnInit{
    
  }
 
+ /*-- grid view --*/
  getHierarchy(dataa, parent){
     let node = [];
     dataa.filter(function(d){ 
@@ -422,11 +408,10 @@ export class DashboardComponent implements OnInit{
   }
 
    GetExplosion(){
-    this.dash.GetLotExplosionData('http://localhost:41808','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'DOWN').subscribe(
+    this.dash.GetLotExplosionData('http://localhost:41807','',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,'DOWN').subscribe(
       data =>
        {
         this.nodes2 = this.getHierarchy(data, '-1');
-        console.log(this.nodes2);
         this.gridStatus = !this.gridStatus;
        },
       error => {
@@ -580,7 +565,6 @@ export class DashboardComponent implements OnInit{
   }
 
   clickTransaction(evt){
-  console.log(evt.srcElement.textContent);
     let test = evt.srcElement.textContent;
     if(test == "" || test == undefined){
       return;
@@ -594,7 +578,6 @@ export class DashboardComponent implements OnInit{
   }
 
   clickTransactionDetails(evt){
-    console.log(evt.srcElement.textContent);
     let dt = evt.srcElement.textContent;
     //let dt = dt1;
     if(dt == "" || dt == undefined){
