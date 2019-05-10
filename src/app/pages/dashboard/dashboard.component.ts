@@ -306,7 +306,7 @@ export class DashboardComponent implements OnInit{
              let secondMenu = document.createElement('div');
              secondMenu.setAttribute('class', 'second-menu');
              secondMenu.innerHTML = `
-               <div class="node-content" *ngFor="let datass of data; let i = index">
+               <div class="node-content" *ngFor="let dataa of data; ">
                  <div class="node-img">
                    <img class="node-avatar" src="./assets/images/images.png">
                  </div>
