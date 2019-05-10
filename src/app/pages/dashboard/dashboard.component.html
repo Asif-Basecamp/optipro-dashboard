@@ -230,7 +230,7 @@
         </nb-card-header>
         <nb-card-body class="py-0" id="grid-accordian-body">
           <div class="row h-100 flex-100">
-            <div class="col-sm-4 border-right">
+            <div class="col-sm-4 border-right overflow-auto">
               <div class="tree-wrapper pt-3">
                 <!-- <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true" (click)="clickTransaction($event)">-->
 
@@ -250,7 +250,7 @@
                 </tree-root>
                </div>
             </div>
-            <div class="col-sm-8 pt-3">
+            <div class="col-sm-8 pt-3 overflow-auto">
               <nb-card>
                 <!-- <nb-card-body>
                   <nb-radio-group class="d-flex" [(ngModel)]="selectedOption">
@@ -300,7 +300,7 @@
           <i data-eva="arrow-ios-downward" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a"
             class="ml-auto cursor-pointer"></i>
         </nb-card-header>
-        <nb-card-body id="analysis-accordian-body">
+        <nb-card-body id="analysis-accordian-body" class="overflow-auto">
           <!-- <div id="chart-container"></div> -->
           <div class="node-wrapper">
             <div class="single-node node purReceipt">
