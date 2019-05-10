@@ -32,25 +32,23 @@
 
                    <div class="form-group">
                         <label for="">Company</label>
-                        <nb-select placeholder="NgModel" [(ngModel)]="selectedItemNgModel">
-                            <nb-option value="1">Option 1</nb-option>
-                            <nb-option value="2">Option 2</nb-option>
-                            <nb-option value="3">Option 3</nb-option>
-                            <nb-option value="4">Option 4</nb-option>
+                        <nb-select placeholder="Select Company" [(ngModel)]="selectedItemNgModel" name="NgModel">
+                            <nb-option *ngFor="let cmp of listItems" name="selcompany" value="cmp">{{cmp.cmpName}}
+                                    ({{cmp.OPTM_COMPID}})</nb-option> 
                         </nb-select>
                     </div>
                       
                       <!-- start if condition -->
-                        <ng-container>
+                        <!-- <ng-container>
                           <label class="k-form-field">
                               Company                            
-                          </label>
+                          </label> -->
                         <!-- <select type="company" name="form-company" [(ngModel)]="selectedValue" class="form-username form-control" id="form-company" [disabled]="disableDropDown"
                         (change)="OnDropDownBlur($event)">
                           <option *ngFor="let cmp of listItems" name="selcompany" [ngValue]="cmp">{{cmp.cmpName}}
                             ({{cmp.OPTM_COMPID}})</option> 
                         </select>  -->
-                        </ng-container>
+                        <!-- </ng-container> -->
                       <!-- end if condition -->
 
                       <!-- <label class="k-form-field">
@@ -61,8 +59,6 @@
                       <div class="text-right">
                           <button type="submit" (click)="OnSignIn()" [disabled]="!signInForm.form.valid  || clickSignIn" id=connectbtn class="btn btn-primary opti_fullwidth"  size="xsmall" nbButton>Login</button>
                       </div>
-                      <!--<button nbButton (click)="showToast('top-right', 'success')">Top Right</button>
-    <button nbButton (click)="showToast('bottom-left', 'info')">Bottom left</button>-->
                   </form>
               </div>
           </div>

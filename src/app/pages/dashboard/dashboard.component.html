@@ -8,13 +8,14 @@
       <div class="row">
         <div class="col-sm-12">
           <form>
-            <fieldset class="form-group px-0 mb-2">
-              <nb-radio-group class="d-flex">
-                <nb-radio>Lot Explosion</nb-radio>
-                <nb-radio>Where Used</nb-radio>
+            <fieldset class="form-group px-0 mb-2"> <!-- [(value)]="radioExplode"-->
+              <nb-radio-group class="d-flex" [(ngModel)]="radioExplode" name="radioExplode"> 
+                <nb-radio [value]="'Lot Explosion'">Lot Explosion
+                </nb-radio>
+                <nb-radio [value]="'Where Used'">Where Used</nb-radio>
               </nb-radio-group>
             </fieldset>
-
+        
             <h5 class="border-bottom pb-1 mb-3">Select</h5>
 
             <div class="form-group">
@@ -237,27 +238,17 @@
                   <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
                     <div class="tree-node">
                       <tree-node-expander [node]="node"></tree-node-expander>
-                      <div class="node-content-wrapper">
-                        <span>{{node.data.OPTM_ITEMCODE}} - {{node.data.OPTM_BTCHSERNO }}</span>
-                      </div>
+                        <div class="node-content-wrapper" *ngIf="explodeDirection == 'DOWN'">
+                          <span>{{node.data.OPTM_ITEMCODE}} - {{node.data.OPTM_BTCHSERNO }}</span>
+                        </div>
+                        <div class="node-content-wrapper" *ngIf="explodeDirection == 'UP'">
+                            <span>{{node.data.OPTM_ITEMCODE}} - {{node.data.OPTM_PARENTBTCHSERNO }}</span>
+                          </div>
                       <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
                     </div>
                   </ng-template>
                 </tree-root>
-
-                <!-- <tree-root id="tree2" [focused]="true" [nodes]="nodes2">
-                    <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
-                      <div class="tree-node">
-                        <tree-node-expander [node]="node"></tree-node-expander>
-                        <div class="node-content-wrapper">
-                          <span>{{ node.data.OPTM_BTCHSERNO }}</span>
-                        </div>
-                        <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
-                      </div>
-                    </ng-template>
-                  </tree-root> -->
-
-              </div>
+               </div>
             </div>
             <div class="col-sm-8 pt-3">
               <nb-card>
@@ -269,10 +260,10 @@
                 </nb-card-body> -->
                 <nb-card-body>
                   <nb-radio-group class="d-flex" [(value)]="radioGroupValue">
-                    <nb-radio [value]="'This is value 1'">
+                    <nb-radio [value]="'Show Data of all type of lots'">
                       Show Data of all type of lots
                     </nb-radio>
-                    <nb-radio [value]="'This is value 2'">
+                    <nb-radio [value]="'Show Data of all immediate of lots'">
                       Show Data of all immediate of lots
                     </nb-radio>
                   </nb-radio-group>
@@ -286,15 +277,6 @@
                   </tree-root> -->
 
                   <tree-root id="tree2" [focused]="true" [nodes]="nodes1" (click)="clickTransactionDetails($event)">
-                    <!-- <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
-                      <div class="tree-node">
-                        <tree-node-expander [node]="node"></tree-node-expander> 
-                          <div class="node-content-wrapper">
-                            <span> {{nodes1.ObjectTypeDesc }}</span>
-                          </div>
-                       <tree-node-children [node]="node" [templates]="templates"></tree-node-children> 
-                      </div>
-                    </ng-template> -->
                   </tree-root>
 
                 </nb-card-body>
@@ -307,7 +289,9 @@
         </nb-card-footer> -->
       </nb-card>
     </div>
-    <div class="analysis-accordian expanded" id="analysis-accordian">
+
+    
+    <div class="analysis-accordian expanded" id="analysis-accordian" >
       <nb-card accent="primary">
         <nb-card-header class="border-bottom d-flex" id="analysis-accordian-trigger"
           (click)="customAccordianAnalysis($event)">

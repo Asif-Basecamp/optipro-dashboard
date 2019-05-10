@@ -4,7 +4,6 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { NbToastrService } from '@nebular/theme';
 
 @Component({
@@ -26,16 +25,14 @@ export class SigninComponent implements OnInit {
   public defaultCompnyComboValue: any = [];
   public listItems: any = [] = this.defaultCompnyComboValue;
   public selectedValue: any = [];
-
   
-
-  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastr: ToastrService, private toastrService: NbToastrService) { }
+  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastrService: NbToastrService) { }
   ngOnInit() {
     const element = document.getElementsByTagName("body")[0];
     element.classList.add("opti_body-login");
     element.classList.add("opti_account-module");
 
-    this.httpClientSer.get('/assets/configuration.json').subscribe(
+    this.httpClientSer.get('./assets/configuration.json').subscribe(
       data => {
         this.arrConfigData = data as string[];
         window.localStorage.setItem('arrConfigData', JSON.stringify(this.arrConfigData[0]));
@@ -46,8 +43,6 @@ export class SigninComponent implements OnInit {
       }
     );
   }
-
-
 
   getPSURL() {
     this.auth.getPSURL(this.arrConfigData[0].optiProDashboardAPIURL,this.adminDBName).subscribe(
@@ -62,7 +57,7 @@ export class SigninComponent implements OnInit {
       },
       error => {
         //this.toastr.error('', this.language.error_getting_psurl +error, this.Commonser.messageConfig.iconClasses.error);
-        alert('There is some error');
+        this.toastrService.danger('There is some error');
       }
     )
   }
@@ -89,7 +84,6 @@ export class SigninComponent implements OnInit {
       this.auth.login(this.loginId, this.password, this.psURL).subscribe(
         data => {
           this.modelSource = data;
-          console.log(data);
 
           if (this.modelSource != null && this.modelSource.Table.length > 0 && this.modelSource.Table[0].OPTM_ACTIVE == 1) {
             this.getCompanies();
@@ -100,8 +94,8 @@ export class SigninComponent implements OnInit {
             this.selectedValue = this.listItems[0];
             // this.toastr.error('', this.language.alert_incorrect_useridpassword, this.Commonser.messageConfig.iconClasses.error);
             //this.OnDropDownBlur(0);
-            //alert("Incorrect User Name or Password");
-            this.toastr.error('Incorrect username or password!');
+            this.toastrService.danger('Incorrect username or password!');
+
           }       
         },
         error => {
@@ -117,7 +111,6 @@ export class SigninComponent implements OnInit {
         data =>
          {
           this.modelSource = data;
-          console.log(data);
           if (this.modelSource != undefined && this.modelSource != null && this.modelSource.Table.length > 0)
           {
             this.assignedCompanies = data.Table; 
@@ -127,7 +120,7 @@ export class SigninComponent implements OnInit {
            this.selectedValue = this.listItems[0];
           }
           else {
-            alert("No Company is assigned to user");
+            this.toastrService.danger('No Company is assigned to user');
           }           
           
           }
@@ -139,14 +132,9 @@ export class SigninComponent implements OnInit {
 
     OnSignIn(){
       this.router.navigateByUrl('/pages');
+      window.localStorage.setItem('CompanyDB', JSON.stringify(this.selectedValue.OPTM_COMPID));
     }
-
-   /* showToast(position, status) {
-      this.index += 1;
-      this.toastrService.show(
-        status || 'Success',
-        `Toast ${this.index}`,
-        { position, status });
-    }*/
-    selectedItemNgModel;
+   
+   selectedItemNgModel;
+   
 }
