@@ -26,7 +26,7 @@ export class SigninComponent implements OnInit {
   public listItems: any = [] = this.defaultCompnyComboValue;
   public selectedValue: any = [];
   
-  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastr: ToastrService, private toastrService: NbToastrService) { }
+  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router, private toastrService: NbToastrService) { }
   ngOnInit() {
     const element = document.getElementsByTagName("body")[0];
     element.classList.add("opti_body-login");

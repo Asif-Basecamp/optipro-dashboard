@@ -262,13 +262,19 @@ export class DashboardComponent implements OnInit{
     Item = Dcentry;
     for(let i=0 ; i <this.DocEntryArr.length; i++){
      //stringDC.push(this.DocEntryArr[i].DocEntry);
-     if(i == 0)
-     str = this.DocEntryArr[i].DocEntry+"'";
+    //  if(i == 0)
+    //  str = this.DocEntryArr[i].DocEntry+"'";
+    //  else
+    //  str = str + ',' +"'"+ this.DocEntryArr[i].DocEntry;
+
+    // } 
+    if(i == 0)
+     str = this.DocEntryArr[i].DocEntry;
      else
-     str = str + ',' +"'"+ this.DocEntryArr[i].DocEntry;
+     str = str + ',' + this.DocEntryArr[i].DocEntry;
 
     } 
-    DC = str;
+   DC = str;
   }
    
 
@@ -300,7 +306,7 @@ export class DashboardComponent implements OnInit{
              let secondMenu = document.createElement('div');
              secondMenu.setAttribute('class', 'second-menu');
              secondMenu.innerHTML = `
-               <div class="node-content">
+               <div class="node-content" *ngFor="let datass of data; let i = index">
                  <div class="node-img">
                    <img class="node-avatar" src="./assets/images/images.png">
                  </div>

@@ -8,26 +8,28 @@
       <div class="row">
         <div class="col-sm-12">
           <form>
-            <fieldset class="form-group px-0 mb-2"> <!-- [(value)]="radioExplode"-->
-              <nb-radio-group class="d-flex" [(ngModel)]="radioExplode" name="radioExplode"> 
+            <fieldset class="form-group px-0 mb-2">
+              <!-- [(value)]="radioExplode"-->
+              <nb-radio-group class="d-flex" [(ngModel)]="radioExplode" name="radioExplode">
                 <nb-radio [value]="'Lot Explosion'">Lot Explosion
                 </nb-radio>
                 <nb-radio [value]="'Where Used'">Where Used</nb-radio>
               </nb-radio-group>
             </fieldset>
-        
+
             <h5 class="border-bottom pb-1 mb-3">Select</h5>
 
             <div class="form-group">
               <label for="inputPassword3" class="form-label">Item</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input nbInput fieldSize="small" type="text" name="ItemValue" id="ItemValue" class="form-control"
-                    placeholder="Select Item" #ItemVal=ngModel [(ngModel)]="ItemValue">
+                  <input nbInput fieldSize="small" type="text" name="ItemValue" id="ItemValue" class="form-control" placeholder="Select Item"
+                    #ItemVal=ngModel [(ngModel)]="ItemValue">
 
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
-                      (click)="openItemLookup(dialog)"><i class="nb-menu"></i></button>
+                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemLookup(dialog)">
+                      <i class="nb-menu"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -36,8 +38,8 @@
               <label for="inputPassword3" class="form-label">Desc.</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input nbInput type="text" fieldSize="small" name="ItemDesc" id="ItemDesc" class="form-control"
-                    placeholder="Description" #ItemDes=ngModel [(ngModel)]="ItemDesc">
+                  <input nbInput type="text" fieldSize="small" name="ItemDesc" id="ItemDesc" class="form-control" placeholder="Description"
+                    #ItemDes=ngModel [(ngModel)]="ItemDesc">
                   <!-- <div class="input-group-append">
                         <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemLookup(dialog)"><i class="nb-menu"></i></button>
                       </div> -->
@@ -48,11 +50,12 @@
               <label for="inputPassword3" class="form-label">Warehouse</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input nbInput fieldSize="small" type="text" class="form-control" placeholder="Select Warehouse"
-                    name="DfltWarehouse" id="DfltWarehouse" #Whse=ngModel [(ngModel)]="DfltWarehouse">
+                  <input nbInput fieldSize="small" type="text" class="form-control" placeholder="Select Warehouse" name="DfltWarehouse" id="DfltWarehouse"
+                    #Whse=ngModel [(ngModel)]="DfltWarehouse">
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
-                      (click)="openWarehouseLookup(dialog)"><i class="nb-menu"></i></button>
+                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openWarehouseLookup(dialog)">
+                      <i class="nb-menu"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -61,11 +64,12 @@
               <label for="inputPassword3" class="form-label">Lot From</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input fieldSize="small" nbInput type="text" class="form-control" placeholder="Select Lot From"
-                    name="DistNumFrom" id="DistNumFrom" #LotF=ngModel [(ngModel)]="DistNumFrom">
+                  <input fieldSize="small" nbInput type="text" class="form-control" placeholder="Select Lot From" name="DistNumFrom" id="DistNumFrom"
+                    #LotF=ngModel [(ngModel)]="DistNumFrom">
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
-                      (click)="openLotFromLookup(dialog)"><i class="nb-menu"></i></button>
+                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openLotFromLookup(dialog)">
+                      <i class="nb-menu"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -74,11 +78,12 @@
               <label for="inputPassword3" class="form-label">Lot To</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input fieldSize="small"  nbInput type="text" class="form-control" placeholder="Select Lot To"
-                    name="DistNumTo" id="DistNumTo" #LotT=ngModel [(ngModel)]="DistNumTo">
+                  <input fieldSize="small" nbInput type="text" class="form-control" placeholder="Select Lot To" name="DistNumTo" id="DistNumTo"
+                    #LotT=ngModel [(ngModel)]="DistNumTo">
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
-                      (click)="openLotToLookup(dialog)"><i class="nb-menu"></i></button>
+                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openLotToLookup(dialog)">
+                      <i class="nb-menu"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -95,8 +100,7 @@
             <div class="form-group row">
 
               <div class="col-sm-12">
-                <nb-select placeholder="Select Showcase" size="small" outline
-                  [(selected)]="selectedItem">
+                <nb-select placeholder="Select Showcase" size="small" outline [(selected)]="selectedItem">
                   <nb-option value="1">Option 1</nb-option>
                   <nb-option value="2">Option 2</nb-option>
                   <nb-option value="3">Option 3</nb-option>
@@ -112,8 +116,9 @@
       </div>
     </nb-card-body>
     <nb-card-footer class="text-center py-2">
-      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small" (click)="GetExplosion($event)">Process <i data-eva="arrow-forward"
-          data-eva-height="18" data-eva-width="18" data-eva-fill="#fff" class="ml-2"></i></button>
+      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small" (click)="GetExplosion($event)">Process
+        <i data-eva="arrow-forward" data-eva-height="18" data-eva-width="18" data-eva-fill="#fff" class="ml-2"></i>
+      </button>
     </nb-card-footer>
   </nb-card>
 
@@ -122,8 +127,7 @@
       <nb-card-header>Template Dialog</nb-card-header>
       <nb-card-body>
         <div *ngIf="Item">
-          <kendo-grid [data]="gridData" [selectable]="selectableSettings"
-            (selectionChange)="gridRowSelectionChange($event,ref)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
+          <kendo-grid [data]="gridData" [selectable]="selectableSettings" (selectionChange)="gridRowSelectionChange($event,ref)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
 
             <kendo-grid-column field="ItemCode" title="Item Code" width="80">
             </kendo-grid-column>
@@ -134,8 +138,7 @@
 
         <div *ngIf="whse">
 
-          <kendo-grid [data]="gridData" [selectable]="selectableSettings"
-            (selectionChange)="gridRowSelectionChange($event,ref)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px' }">
+          <kendo-grid [data]="gridData" [selectable]="selectableSettings" (selectionChange)="gridRowSelectionChange($event,ref)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px' }">
 
             <kendo-grid-column field="WhsCode" title="Warehouse Code" width="80">
             </kendo-grid-column>
@@ -146,8 +149,7 @@
 
         <div *ngIf="LotFrom || LotTo">
 
-          <kendo-grid [data]="gridData" [selectable]="selectableSettings"
-            (selectionChange)="gridRowSelectionChange($event,ref)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px' }">
+          <kendo-grid [data]="gridData" [selectable]="selectableSettings" (selectionChange)="gridRowSelectionChange($event,ref)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px' }">
 
             <kendo-grid-column field="DistNumber" title="Item Code" width="80">
             </kendo-grid-column>
@@ -222,27 +224,26 @@
         <nb-card-header class="border-bottom d-flex" id="grid-accordian-trigger" (click)="customAccordianGrid($event)">
           <i data-eva="grid" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="mr-2"></i>
           <span>Grid View</span>
-          <i data-eva="arrow-ios-downward" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a"
-            class="ml-auto cursor-pointer" ></i>
+          <i data-eva="arrow-ios-downward" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="ml-auto cursor-pointer"></i>
         </nb-card-header>
         <nb-card-body class="py-0" id="grid-accordian-body">
           <div class="row h-100 flex-100">
             <div class="col-sm-4 border-right">
               <div class="tree-wrapper pt-3">
-               <!-- <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true" (click)="clickTransaction($event)">-->
+                <!-- <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true" (click)="clickTransaction($event)">-->
 
                 <tree-root id="tree2" [focused]="true" [nodes]="nodes2" (click)="clickTransaction($event)">
                   <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
                     <div class="tree-node">
                       <tree-node-expander [node]="node"></tree-node-expander>
-                        <div class="node-content-wrapper">
-                          <span>{{node.data.OPTM_ITEMCODE}} - {{node.data.OPTM_BTCHSERNO }}</span>
-                        </div>
+                      <div class="node-content-wrapper">
+                        <span>{{node.data.OPTM_ITEMCODE}} - {{node.data.OPTM_BTCHSERNO }}</span>
+                      </div>
                       <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
                     </div>
                   </ng-template>
                 </tree-root>
-               </div>
+              </div>
             </div>
             <div class="col-sm-8 pt-3">
               <nb-card>
@@ -277,21 +278,20 @@
               </nb-card>
             </div>
           </div>
-        </nb-card-body>       
+        </nb-card-body>
         <!-- <nb-card-footer class="text-center py-2">
           <button type="submit" nbButton class="btn btn-primary" size="small">Process</button>
         </nb-card-footer> -->
       </nb-card>
     </div>
 
-    
-    <div class="analysis-accordian expanded" id="analysis-accordian" >
+
+    <div class="analysis-accordian expanded" id="analysis-accordian">
       <nb-card accent="primary">
         <nb-card-header class="border-bottom d-flex" id="analysis-accordian-trigger" (click)="customAccordianAnalysis($event)">
           <i data-eva="layers" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="mr-2"></i>
           <span>Analysis View</span>
-          <i data-eva="arrow-ios-downward" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a"
-            class="ml-auto cursor-pointer"></i>
+          <i data-eva="arrow-ios-downward" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="ml-auto cursor-pointer"></i>
         </nb-card-header>
         <nb-card-body id="analysis-accordian-body">
           <div id="chart-container"></div>
@@ -303,3 +303,5 @@
     </div>
   </div>
 </div>
+
+
