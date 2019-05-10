@@ -51,9 +51,9 @@ export class SigninComponent implements OnInit {
         if (data != null) {
           this.psURL = data;
           //this.psURL = "http://172.16.6.140/OptiAdmin";   
-          this.defaultCompnyComboValue = [{ OPTM_COMPID: 'Select Company' }];
+         /* this.defaultCompnyComboValue = [{ OPTM_COMPID: 'Select Company' }];
           this.listItems = this.defaultCompnyComboValue;
-          this.selectedValue = this.listItems[0];
+          this.selectedValue = this.listItems[0];*/
         }
       },
       error => {
