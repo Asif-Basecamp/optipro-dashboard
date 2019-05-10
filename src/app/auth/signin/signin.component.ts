@@ -26,13 +26,13 @@ export class SigninComponent implements OnInit {
   public listItems: any = [] = this.defaultCompnyComboValue;
   public selectedValue: any = [];
   
-  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastr: ToastrService, private toastrService: NbToastrService) { }
+  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastrService: NbToastrService) { }
   ngOnInit() {
     const element = document.getElementsByTagName("body")[0];
     element.classList.add("opti_body-login");
     element.classList.add("opti_account-module");
 
-    this.httpClientSer.get('/assets/configuration.json').subscribe(
+    this.httpClientSer.get('./assets/configuration.json').subscribe(
       data => {
         this.arrConfigData = data as string[];
         window.localStorage.setItem('arrConfigData', JSON.stringify(this.arrConfigData[0]));
@@ -43,8 +43,6 @@ export class SigninComponent implements OnInit {
       }
     );
   }
-
-
 
   getPSURL() {
     this.auth.getPSURL(this.arrConfigData[0].optiProDashboardAPIURL,this.adminDBName).subscribe(
@@ -136,7 +134,6 @@ export class SigninComponent implements OnInit {
       this.router.navigateByUrl('/pages');
       window.localStorage.setItem('CompanyDB', JSON.stringify(this.selectedValue.OPTM_COMPID));
     }
-
    
    selectedItemNgModel;
    
