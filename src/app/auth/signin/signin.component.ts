@@ -25,8 +25,9 @@ export class SigninComponent implements OnInit {
   public defaultCompnyComboValue: any = [];
   public listItems: any = [] = this.defaultCompnyComboValue;
   public selectedValue: any = [];
+
+  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastrService: NbToastrService) {}
   
-  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastrService: NbToastrService) { }
   ngOnInit() {
     const element = document.getElementsByTagName("body")[0];
     element.classList.add("opti_body-login");
@@ -52,7 +53,7 @@ export class SigninComponent implements OnInit {
           //this.psURL = "http://172.16.6.140/OptiAdmin";   
           this.defaultCompnyComboValue = [{ OPTM_COMPID: 'Select Company' }];
           this.listItems = this.defaultCompnyComboValue;
-          this.selectedValue = this.listItems[0];      
+          this.selectedValue = this.listItems[0];
         }
       },
       error => {
