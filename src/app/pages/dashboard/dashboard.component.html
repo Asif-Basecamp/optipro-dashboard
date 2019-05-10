@@ -8,26 +8,28 @@
       <div class="row">
         <div class="col-sm-12">
           <form>
-            <fieldset class="form-group px-0 mb-2"> <!-- [(value)]="radioExplode"-->
-              <nb-radio-group class="d-flex" [(ngModel)]="radioExplode" name="radioExplode"> 
+            <fieldset class="form-group px-0 mb-2">
+              <!-- [(value)]="radioExplode"-->
+              <nb-radio-group class="d-flex" [(ngModel)]="radioExplode" name="radioExplode">
                 <nb-radio [value]="'Lot Explosion'">Lot Explosion
                 </nb-radio>
                 <nb-radio [value]="'Where Used'">Where Used</nb-radio>
               </nb-radio-group>
             </fieldset>
-        
+
             <h5 class="border-bottom pb-1 mb-3">Select</h5>
 
             <div class="form-group">
               <label for="inputPassword3" class="form-label">Item</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input nbInput fieldSize="small" type="text" name="ItemValue" id="ItemValue" class="form-control"
-                    placeholder="Select Item" #ItemVal=ngModel [(ngModel)]="ItemValue">
+                  <input nbInput fieldSize="small" type="text" name="ItemValue" id="ItemValue" class="form-control" placeholder="Select Item"
+                    #ItemVal=ngModel [(ngModel)]="ItemValue">
 
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
-                      (click)="openItemLookup(dialog)"><i class="nb-menu"></i></button>
+                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemLookup(dialog)">
+                      <i class="nb-menu"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -36,8 +38,8 @@
               <label for="inputPassword3" class="form-label">Desc.</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input nbInput type="text" fieldSize="small" name="ItemDesc" id="ItemDesc" class="form-control"
-                    placeholder="Description" #ItemDes=ngModel [(ngModel)]="ItemDesc">
+                  <input nbInput type="text" fieldSize="small" name="ItemDesc" id="ItemDesc" class="form-control" placeholder="Description"
+                    #ItemDes=ngModel [(ngModel)]="ItemDesc">
                   <!-- <div class="input-group-append">
                         <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemLookup(dialog)"><i class="nb-menu"></i></button>
                       </div> -->
@@ -48,11 +50,12 @@
               <label for="inputPassword3" class="form-label">Warehouse</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input nbInput fieldSize="small" type="text" class="form-control" placeholder="Select Warehouse"
-                    name="DfltWarehouse" id="DfltWarehouse" #Whse=ngModel [(ngModel)]="DfltWarehouse">
+                  <input nbInput fieldSize="small" type="text" class="form-control" placeholder="Select Warehouse" name="DfltWarehouse" id="DfltWarehouse"
+                    #Whse=ngModel [(ngModel)]="DfltWarehouse">
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
-                      (click)="openWarehouseLookup(dialog)"><i class="nb-menu"></i></button>
+                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openWarehouseLookup(dialog)">
+                      <i class="nb-menu"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -61,11 +64,12 @@
               <label for="inputPassword3" class="form-label">Lot From</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input fieldSize="small" nbInput type="text" class="form-control" placeholder="Select Lot From"
-                    name="DistNumFrom" id="DistNumFrom" #LotF=ngModel [(ngModel)]="DistNumFrom">
+                  <input fieldSize="small" nbInput type="text" class="form-control" placeholder="Select Lot From" name="DistNumFrom" id="DistNumFrom"
+                    #LotF=ngModel [(ngModel)]="DistNumFrom">
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
-                      (click)="openLotFromLookup(dialog)"><i class="nb-menu"></i></button>
+                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openLotFromLookup(dialog)">
+                      <i class="nb-menu"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -77,8 +81,9 @@
                   <input fieldSize="small" nbInput type="text" class="form-control" placeholder="Select Lot To"
                     name="DistNumTo" id="DistNumTo" #LotT=ngModel [(ngModel)]="DistNumTo">
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
-                      (click)="openLotToLookup(dialog)"><i class="nb-menu"></i></button>
+                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openLotToLookup(dialog)">
+                      <i class="nb-menu"></i>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -248,7 +253,7 @@
                     </div>
                   </ng-template>
                 </tree-root>
-               </div>
+              </div>
             </div>
             <div class="col-sm-8 pt-3 overflow-auto h-100">
               <nb-card>
@@ -290,21 +295,21 @@
       </nb-card>
     </div>
 
-    
-    <div class="analysis-accordian expanded" id="analysis-accordian" >
+
+    <div class="analysis-accordian expanded" id="analysis-accordian">
       <nb-card accent="primary">
         <nb-card-header class="border-bottom d-flex" id="analysis-accordian-trigger"
           (click)="customAccordianAnalysis($event)">
           <i data-eva="layers" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="mr-2"></i>
           <span>Analysis View</span>
-          <i data-eva="arrow-ios-downward" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a"
-            class="ml-auto cursor-pointer"></i>
+          <i data-eva="arrow-ios-downward" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="ml-auto cursor-pointer"></i>
         </nb-card-header>
         <nb-card-body id="analysis-accordian-body" class="overflow-auto">
           <!-- <div id="chart-container"></div> -->
           <div class="node-wrapper">
-            <div class="single-node node purReceipt">
-              <div class="title">Lao Lao</div>
+
+            <div class="single-node node purReceipt" *ngFor="let data of AnalysisData; let i = index">
+              <div class="title">{{data.itemcode}}</div>
               <div class="second-menu">
                 <div class="node-content">
                   <div class="node-img">
@@ -316,7 +321,7 @@
                         Item
                       </div>
                       <div class="data-content">
-                        INT
+                          {{data.itemcode}}
                       </div>
                     </div>
                     <div class="data-column">
@@ -324,7 +329,7 @@
                         Warehouse
                       </div>
                       <div class="data-content">
-                        LOT 1
+                          {{data.Warehouse}}
                       </div>
                     </div>
 
@@ -333,7 +338,7 @@
                         Lot #
                       </div>
                       <div class="data-content">
-                        LOT 1
+                          {{data.LotNUmber}}
                       </div>
                     </div>
                     <div class="data-column">
@@ -341,15 +346,14 @@
                         Expiry Date
                       </div>
                       <div class="data-content">
-                        01/01/01
-                      </div>
+                          {{data.ExpDate | date: 'dd/MM/yyyy'}}                      </div>
                     </div>
                     <div class="data-column">
                       <div class="data-heading">
                         Receipt Date
                       </div>
                       <div class="data-content">
-                        01/01/01
+                          {{data.CreateDate | date: 'dd/MM/yyyy'}}
                       </div>
                     </div>
                     <div class="data-column">
@@ -365,7 +369,7 @@
                         Quantity
                       </div>
                       <div class="data-content">
-                        10.000 KG
+                          {{data.Quantity}}
                       </div>
                     </div>
                   </div>
@@ -376,7 +380,7 @@
                       Total Received
                     </div>
                     <div class="column-content">
-                      text
+                        {{data.TotalReceive}}
                     </div>
                   </div>
                   <div class="footer-column">
@@ -384,7 +388,7 @@
                       Total Issued
                     </div>
                     <div class="column-content">
-                      text
+                        {{data.TotalIssue}}
                     </div>
                   </div>
                   <div class="footer-column">
@@ -392,107 +396,15 @@
                       Onhand
                     </div>
                     <div class="column-content">
-                      text
+                        {{data.OnHand}}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="single-node node purReceipt">
-              <div class="title">Lao Lao</div>
-              <div class="second-menu">
-                <div class="node-content">
-                  <div class="node-img">
-                    <img class="node-avatar" src="./assets/images/images.png">
-                  </div>
-                  <div class="node-data">
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Item
-                      </div>
-                      <div class="data-content">
-                        INT
-                      </div>
-                    </div>
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Warehouse
-                      </div>
-                      <div class="data-content">
-                        LOT 1
-                      </div>
-                    </div>
 
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Lot #
-                      </div>
-                      <div class="data-content">
-                        LOT 1
-                      </div>
-                    </div>
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Expiry Date
-                      </div>
-                      <div class="data-content">
-                        01/01/01
-                      </div>
-                    </div>
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Receipt Date
-                      </div>
-                      <div class="data-content">
-                        01/01/01
-                      </div>
-                    </div>
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Lot Status
-                      </div>
-                      <div class="data-content">
-                        Release
-                      </div>
-                    </div>
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Quantity
-                      </div>
-                      <div class="data-content">
-                        10.000 KG
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="node-footer">
-                  <div class="footer-column">
-                    <div class="column-heading">
-                      Total Received
-                    </div>
-                    <div class="column-content">
-                      text
-                    </div>
-                  </div>
-                  <div class="footer-column">
-                    <div class="column-heading">
-                      Total Issued
-                    </div>
-                    <div class="column-content">
-                      text
-                    </div>
-                  </div>
-                  <div class="footer-column">
-                    <div class="column-heading">
-                      Onhand
-                    </div>
-                    <div class="column-content">
-                      text
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          
+
           </div>
 
         </nb-card-body>

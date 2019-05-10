@@ -262,13 +262,19 @@ export class DashboardComponent implements OnInit{
     Item = Dcentry;
     for(let i=0 ; i <this.DocEntryArr.length; i++){
      //stringDC.push(this.DocEntryArr[i].DocEntry);
-     if(i == 0)
+    //  if(i == 0)
+    //  str = this.DocEntryArr[i].DocEntry+"'";
+    //  else
+    //  str = str + ',' +"'"+ this.DocEntryArr[i].DocEntry;
+
+    // } 
+    if(i == 0)
      str = this.DocEntryArr[i].DocEntry;
      else
      str = str + ',' + this.DocEntryArr[i].DocEntry;
 
     } 
-    DC = str;
+   DC = str;
   }
    
 
@@ -276,15 +282,13 @@ export class DashboardComponent implements OnInit{
       data =>
        {
          this.transactiondetails = data;
-         console.log(data);
          this.AnalysisData = data;
-         var result = {};
+        /* var result = {};
          for (var i=0; i<this.AnalysisData.length; i++) {
            result = this.AnalysisData[i];
            result["name"] = this.AnalysisData[i].itemcode;
          }  
          this.datasource = result;
-         console.log(JSON.stringify(this.datasource));
 
          this.orgchart = new OrgChart({
            'chartContainer': '#chart-container',
@@ -396,7 +400,7 @@ export class DashboardComponent implements OnInit{
              node.appendChild(secondMenu);
           
            }
-          })
+          })*/
       
           },
        
