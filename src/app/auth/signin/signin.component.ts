@@ -25,6 +25,9 @@ export class SigninComponent implements OnInit {
   public clickSignIn: boolean = true;
   public defaultCompnyComboValue: any = [];
   public listItems: any = [] = this.defaultCompnyComboValue;
+  public selectedValue: any = [];
+
+  
 
   constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastr: ToastrService, private toastrService: NbToastrService) { }
   ngOnInit() {
