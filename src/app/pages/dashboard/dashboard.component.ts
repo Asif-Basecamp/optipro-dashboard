@@ -80,7 +80,7 @@ export class DashboardComponent implements OnInit{
   public CompanyDB: any;
   public radioExplode: any; 
   public explodeDirection: any ;
-  //public radioOptions: any= [];  
+  public lookUpHeading: any;  
   public AnalysisData: any = [];
   public datasource: any = [];
   
@@ -120,7 +120,7 @@ export class DashboardComponent implements OnInit{
         this.whse = false;
         this.LotTo = false;
         this.LotFrom = false;
-
+        this.lookUpHeading = 'Item Code';
         this.gridData = data;
         this.dialogService.open(dialog);
        },
@@ -139,6 +139,7 @@ export class DashboardComponent implements OnInit{
         this.Item = false;
         this.whse = true;
         this.Lot = false;
+        this.lookUpHeading = 'Warehouse';
         this.dialogService.open(dialog);
        },
       error => {
@@ -158,7 +159,7 @@ export class DashboardComponent implements OnInit{
         this.whse = false;
         this.LotFrom = true;
         this.LotTo = false;
-
+        this.lookUpHeading = 'Lot From';
         this.dialogService.open(dialog);
        },
       error => {
@@ -178,6 +179,7 @@ export class DashboardComponent implements OnInit{
         this.whse = false;
         this.LotFrom = false;
         this.LotTo = true;
+        this.lookUpHeading = 'Lot To';
         this.dialogService.open(dialog);
        },
       error => {

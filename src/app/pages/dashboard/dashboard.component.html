@@ -124,7 +124,7 @@
 
   <ng-template #dialog let-data let-ref="dialogRef">
     <nb-card style="max-width:700px">
-      <nb-card-header>Template Dialog</nb-card-header>
+      <nb-card-header>{{lookUpHeading}}</nb-card-header>
       <nb-card-body>
         <div *ngIf="Item">
           <kendo-grid [data]="gridData" [selectable]="selectableSettings"
