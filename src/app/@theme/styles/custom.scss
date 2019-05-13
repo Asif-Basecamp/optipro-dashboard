@@ -1893,6 +1893,14 @@ tree-node-expander .toggle-children-placeholder:after {
   // left: -10px;
   // top: -10px;
 }
+.tree-node {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+tree-node-children {
+  width: 100%;
+}
 [class*="tree-node-level"]:not(.tree-node-level-1) tree-node-expander:before{
   content: "";
   width: 1px;
