@@ -71,7 +71,7 @@ export class SigninComponent implements OnInit {
     else {
       // this.disablePassword = false;
     }
-   }
+  }
 
   onPasswordBlur(){
     //if(this.password != null && this.password != undefined && this.password != ''){
@@ -110,7 +110,7 @@ export class SigninComponent implements OnInit {
     getCompanies(){
       this.auth.getCompany(this.loginId, this.psURL).subscribe(
         data =>
-         {
+        {
           this.modelSource = data;
           if (this.modelSource != undefined && this.modelSource != null && this.modelSource.Table.length > 0)
           {
@@ -123,8 +123,7 @@ export class SigninComponent implements OnInit {
           else {
             this.toastrService.danger('No Company is assigned to user');
           }           
-          
-          }
+        }
       )
     }
 

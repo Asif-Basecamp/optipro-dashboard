@@ -519,7 +519,7 @@ export const products = [{
     }
 }, {
     "ProductID": 22,
-    "ProductName": "Gustaf's Knäckebröd",
+    "ProductName": "Gustaf's Knï¿½ckebrï¿½d",
     "SupplierID": 9,
     "CategoryID": 5,
     "QuantityPerUnit": "24 - 500 g pkgs.",
@@ -535,7 +535,7 @@ export const products = [{
     }
 }, {
     "ProductID": 23,
-    "ProductName": "Tunnbröd",
+    "ProductName": "Tunnbrï¿½d",
     "SupplierID": 9,
     "CategoryID": 5,
     "QuantityPerUnit": "12 - 250 g pkgs.",
@@ -551,7 +551,7 @@ export const products = [{
     }
 }, {
     "ProductID": 24,
-    "ProductName": "Guaraná Fantástica",
+    "ProductName": "Guaranï¿½ Fantï¿½stica",
     "SupplierID": 10,
     "CategoryID": 1,
     "QuantityPerUnit": "12 - 355 ml cans",
@@ -567,7 +567,7 @@ export const products = [{
     }
 }, {
     "ProductID": 25,
-    "ProductName": "NuNuCa Nuß-Nougat-Creme",
+    "ProductName": "NuNuCa Nuï¿½-Nougat-Creme",
     "SupplierID": 11,
     "CategoryID": 3,
     "QuantityPerUnit": "20 - 450 g glasses",
@@ -583,7 +583,7 @@ export const products = [{
     }
 }, {
     "ProductID": 26,
-    "ProductName": "Gumbär Gummibärchen",
+    "ProductName": "Gumbï¿½r Gummibï¿½rchen",
     "SupplierID": 11,
     "CategoryID": 3,
     "QuantityPerUnit": "100 - 250 g bags",
@@ -615,7 +615,7 @@ export const products = [{
     }
 }, {
     "ProductID": 28,
-    "ProductName": "Rössle Sauerkraut",
+    "ProductName": "Rï¿½ssle Sauerkraut",
     "SupplierID": 12,
     "CategoryID": 7,
     "QuantityPerUnit": "25 - 825 g cans",
@@ -631,7 +631,7 @@ export const products = [{
     }
 }, {
     "ProductID": 29,
-    "ProductName": "Thüringer Rostbratwurst",
+    "ProductName": "Thï¿½ringer Rostbratwurst",
     "SupplierID": 12,
     "CategoryID": 6,
     "QuantityPerUnit": "50 bags x 30 sausgs.",
@@ -775,7 +775,7 @@ export const products = [{
     }
 }, {
     "ProductID": 38,
-    "ProductName": "Côte de Blaye",
+    "ProductName": "Cï¿½te de Blaye",
     "SupplierID": 18,
     "CategoryID": 1,
     "QuantityPerUnit": "12 - 75 cl bottles",
@@ -1031,7 +1031,7 @@ export const products = [{
     }
 }, {
     "ProductID": 54,
-    "ProductName": "Tourtière",
+    "ProductName": "Tourtiï¿½re",
     "SupplierID": 25,
     "CategoryID": 6,
     "QuantityPerUnit": "16 pies",
@@ -1047,7 +1047,7 @@ export const products = [{
     }
 }, {
     "ProductID": 55,
-    "ProductName": "Pâté chinois",
+    "ProductName": "Pï¿½tï¿½ chinois",
     "SupplierID": 25,
     "CategoryID": 6,
     "QuantityPerUnit": "24 boxes x 2 pies",
@@ -1143,7 +1143,7 @@ export const products = [{
     }
 }, {
     "ProductID": 61,
-    "ProductName": "Sirop d'érable",
+    "ProductName": "Sirop d'ï¿½rable",
     "SupplierID": 29,
     "CategoryID": 2,
     "QuantityPerUnit": "24 - 500 ml bottles",
@@ -1191,7 +1191,7 @@ export const products = [{
     }
 }, {
     "ProductID": 64,
-    "ProductName": "Wimmers gute Semmelknödel",
+    "ProductName": "Wimmers gute Semmelknï¿½del",
     "SupplierID": 12,
     "CategoryID": 5,
     "QuantityPerUnit": "20 bags x 4 pieces",
@@ -1335,7 +1335,7 @@ export const products = [{
     }
 }, {
     "ProductID": 73,
-    "ProductName": "Röd Kaviar",
+    "ProductName": "Rï¿½d Kaviar",
     "SupplierID": 17,
     "CategoryID": 8,
     "QuantityPerUnit": "24 - 150 g jars",
@@ -1367,7 +1367,7 @@ export const products = [{
     }
 }, {
     "ProductID": 75,
-    "ProductName": "Rhönbräu Klosterbier",
+    "ProductName": "Rhï¿½nbrï¿½u Klosterbier",
     "SupplierID": 12,
     "CategoryID": 1,
     "QuantityPerUnit": "24 - 0.5 l bottles",
@@ -1383,7 +1383,7 @@ export const products = [{
     }
 }, {
     "ProductID": 76,
-    "ProductName": "Lakkalikööri",
+    "ProductName": "Lakkalikï¿½ï¿½ri",
     "SupplierID": 23,
     "CategoryID": 1,
     "QuantityPerUnit": "500 ml",
@@ -1399,7 +1399,7 @@ export const products = [{
     }
 }, {
     "ProductID": 77,
-    "ProductName": "Original Frankfurter grüne Soße",
+    "ProductName": "Original Frankfurter grï¿½ne Soï¿½e",
     "SupplierID": 12,
     "CategoryID": 2,
     "QuantityPerUnit": "12 boxes",

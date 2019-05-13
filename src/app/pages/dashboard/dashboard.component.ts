@@ -312,9 +312,10 @@ export class DashboardComponent implements OnInit{
     else
       this.explodeDirection = 'UP';
      
-    this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL,'',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,this.explodeDirection).subscribe(
+    this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,this.explodeDirection).subscribe(
       data =>
        {
+        console.log(data);
         this.nodes2 = this.getHierarchy(data, '-1');
         this.gridStatus = !this.gridStatus;
        },
