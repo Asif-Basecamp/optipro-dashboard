@@ -44,6 +44,9 @@ export class HeaderComponent implements OnInit {
 
   LogOut(){
     this.router.navigateByUrl('/Login');
+    // window.localStorage.setItem('CompanyDB', '');
+    // window.localStorage.setItem('Username', '');
+    // window.localStorage.setItem('Userpwd', '');
   }
 
   // startSearch() {

@@ -30,9 +30,9 @@ export class SigninComponent implements OnInit {
   
   ngOnInit() {
 
-    if (window.localStorage.getItem('Username') != null || window.localStorage.getItem('Username') != undefined) {
-      this.router.navigateByUrl('/pages');
-    }
+    // if (window.localStorage.getItem('Username') != null || window.localStorage.getItem('Username') != undefined) {
+    //   this.router.navigateByUrl('/pages');
+    // }
 
     const element = document.getElementsByTagName("body")[0];
     element.classList.add("opti_body-login");

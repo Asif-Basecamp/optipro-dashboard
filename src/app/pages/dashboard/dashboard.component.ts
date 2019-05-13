@@ -382,7 +382,7 @@ export class DashboardComponent implements OnInit{
     else
       this.explodeDirection = 'UP';
      
-    this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL,'',this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,this.explodeDirection).subscribe(
+    this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,this.explodeDirection).subscribe(
       data =>
        {
         this.nodes2 = this.getHierarchy(data, '-1');
@@ -420,7 +420,15 @@ export class DashboardComponent implements OnInit{
     }
     else{
       if (test.indexOf("-") > -1) {
-        test = test.split("-")[1].trim();
+       // test = test.split("-")[1].trim();
+       test = test.split("-")[1];
+       if(test != '' && test != " " && test != undefined && test != null){
+        test = test.trim();
+       }
+       else {
+         alert("Item is None Tracked");
+         return;
+       }
       } 
       this.GetTransaction(test,name);
     }
