@@ -421,7 +421,15 @@ export class DashboardComponent implements OnInit{
     }
     else{
       if (test.indexOf("-") > -1) {
-        test = test.split("-")[1].trim();
+       // test = test.split("-")[1].trim();
+       test = test.split("-")[1];
+       if(test != '' && test != " " && test != undefined && test != null){
+        test = test.trim();
+       }
+       else {
+         alert("Item is None Tracked");
+         return;
+       }
       } 
       this.GetTransaction(test,name);
     }
