@@ -29,9 +29,14 @@ export class SigninComponent implements OnInit {
   constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastrService: NbToastrService) {}
   
   ngOnInit() {
+
+    if (window.localStorage.getItem('Username') != null || window.localStorage.getItem('Username') != undefined) {
+      this.router.navigateByUrl('/pages');
+    }
+
     const element = document.getElementsByTagName("body")[0];
     element.classList.add("opti_body-login");
-    element.classList.add("opti_account-module");
+    element.classList.add("opti_account-module");   
 
     this.httpClientSer.get('./assets/configuration.json').subscribe(
       data => {
@@ -44,7 +49,7 @@ export class SigninComponent implements OnInit {
       }
     );
   }
-
+  
   getPSURL() {
     this.auth.getPSURL(this.arrConfigData[0].optiProDashboardAPIURL,this.adminDBName).subscribe(
       data => {
@@ -133,6 +138,8 @@ export class SigninComponent implements OnInit {
     OnSignIn(){
       this.router.navigateByUrl('/pages');
       window.localStorage.setItem('CompanyDB', JSON.stringify(this.selectedValue.OPTM_COMPID));
+      window.localStorage.setItem('Username', JSON.stringify(this.loginId));
+      window.localStorage.setItem('Userpwd', JSON.stringify(this.password));
     }
    
    selectedItemNgModel;

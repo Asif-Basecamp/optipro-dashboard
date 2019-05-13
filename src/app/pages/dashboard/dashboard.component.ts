@@ -7,11 +7,10 @@ import { DashboardService } from 'src/app/service/dashboard.service';
 import { AnalyticsService } from 'src/app/@core/utils/index.js';
 import { SelectableSettings } from '@progress/kendo-angular-grid/dist/es2015/main';
 import { ItemLookupComponent } from 'src/app/lookup/item-lookup/item-lookup.component.js';
+import { Router } from '@angular/router';
 
 import {RecordModel}  from 'src/app/CommonData/Data';
 import * as eva from 'eva-icons';
-
-
 
   var nodeName = '';
 
@@ -78,22 +77,30 @@ export class DashboardComponent implements OnInit{
   public transactiondetails: any = []; 
   public Dsource: any = {};
   public CompanyDB: any;
+  public Username: any;
+  public Userpwd: any;
   public radioExplode: any; 
   public explodeDirection: any ;
   public lookUpHeading: any;  
   public AnalysisData: any = [];
   public datasource: any = [];
+  public disableLotNumber: boolean = true;
+ // radioGroupValue = 'Show Data of all type of lots';
   
-  constructor(private dialogService: NbDialogService,private dash:DashboardService ) {
-  } 
-  
-  radioGroupValue = 'Show Data of all type of lots';
-  
+  constructor(private dialogService: NbDialogService,private dash:DashboardService,private router: Router) {
+  }   
 
   ngOnInit() {
 
     this.arrConfigData = JSON.parse(window.localStorage.getItem('arrConfigData')); 
     this.CompanyDB = JSON.parse(window.localStorage.getItem('CompanyDB')); 
+    this.Username = JSON.parse(window.localStorage.getItem('Username'));
+    this.Userpwd = JSON.parse(window.localStorage.getItem('Userpwd'));
+    
+    // if(this.Username == null || this.Username || undefined || this.Userpwd == null || this.Userpwd == undefined){
+    //   this.router.navigateByUrl('/Login');
+    //   return;
+    // }
 
     this.radioExplode = 'Lot Explosion';    
     
@@ -110,6 +117,28 @@ export class DashboardComponent implements OnInit{
     eva.replace();    
   }
 
+  onItemCodeBlur(){
+    this.dash.GetItemList(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB).subscribe(
+      data =>
+       {
+          let item = this.ItemValue;
+          let validitem = data.filter(function(val){
+              if(item == val.ItemCode){
+                this.ItemValue = val.ItemCode;
+                this.ItemDesc = val.ItemName;
+                this.disableLotNumber = false;
+              }             
+          });
+          
+          if(validitem.length <= 0){
+              alert('Enter correct Item Code');
+              this.ItemValue = '';
+              this.disableLotNumber = true;
+              return;
+          }
+        });
+  }
+
 
   openItemLookup(dialog: TemplateRef<any>){
 
@@ -123,11 +152,29 @@ export class DashboardComponent implements OnInit{
         this.lookUpHeading = 'Item Code';
         this.gridData = data;
         this.dialogService.open(dialog);
+        this.disableLotNumber = false;
        },
       error => {
         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
      }
     )
+  }
+
+  onWarehouseBlur(){
+    this.dash.GetWarehouseList(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB).subscribe(
+      data =>
+       {
+          let warehouse = this.DfltWarehouse;
+          let validItem = data.filter(function(val){
+              return warehouse == val.WhsCode;
+          });
+
+          if(validItem.length <= 0){
+            alert('Enter correct Warehouse Code');
+            this.DfltWarehouse = '';
+            return;
+          }
+       });
   }
 
   openWarehouseLookup(dialog: TemplateRef<any>){
@@ -148,6 +195,31 @@ export class DashboardComponent implements OnInit{
     )
   }
 
+  onLotNumberBlur(LotNum){
+    this.dash.GetLotNumber(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,this.ItemValue,this.trackName).subscribe(
+      data =>
+       {
+          let DistNum = '';
+          if(LotNum == 'From')
+            DistNum = this.DistNumFrom;          
+          else 
+            DistNum = this.DistNumTo;         
+          
+          let validItem = data.filter(function(val){
+            return DistNum == val.DistNumber;
+          });
+
+          if(validItem.length <= 0){
+            alert('Enter correct Lot Number');
+            this.DfltWarehouse = '';
+            if(LotNum == 'From')
+                this.DistNumFrom = '';          
+            else 
+                this.DistNumTo = '';
+            return;
+          }          
+       });
+  }
 
   openLotFromLookup(dialog: TemplateRef<any>){
 
@@ -255,7 +327,6 @@ export class DashboardComponent implements OnInit{
     Dcentry = Dcentry.split(":")[1].trim();
     this.DocEntryArr.filter(function(d){ 
       if(d.DocEntry == Dcentry){
-        // DC.push(d.DocEntry);
         DC = d.DocEntry;
       }
     });
@@ -267,7 +338,6 @@ export class DashboardComponent implements OnInit{
      str = this.DocEntryArr[i].DocEntry;
      else
      str = str + ',' + this.DocEntryArr[i].DocEntry;
-
     } 
    DC = str;
   }
@@ -433,8 +503,4 @@ export class DashboardComponent implements OnInit{
     e.currentTarget.nextSibling.style.height= '100%';
     e.currentTarget.nextSibling.style.display= 'flex';
   }
-
-  
-  
-
 }
