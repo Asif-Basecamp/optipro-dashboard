@@ -23,7 +23,7 @@
               <div class="w-100">
                 <div class="input-group">
                   <input nbInput fieldSize="small" type="text" name="ItemValue" id="ItemValue" class="form-control"
-                    placeholder="Select Item" #ItemVal=ngModel [(ngModel)]="ItemValue">
+                    placeholder="Select Item" #ItemVal=ngModel [(ngModel)]="ItemValue" (blur)="onItemCodeBlur()">
 
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
@@ -49,7 +49,7 @@
               <div class="w-100">
                 <div class="input-group">
                   <input nbInput fieldSize="small" type="text" class="form-control" placeholder="Select Warehouse"
-                    name="DfltWarehouse" id="DfltWarehouse" #Whse=ngModel [(ngModel)]="DfltWarehouse">
+                    name="DfltWarehouse" id="DfltWarehouse" #Whse=ngModel [(ngModel)]="DfltWarehouse" (blur)="onWarehouseBlur()">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
                       (click)="openWarehouseLookup(dialog)"><i class="nb-menu"></i></button>
@@ -62,10 +62,10 @@
               <div class="w-100">
                 <div class="input-group">
                   <input fieldSize="small" nbInput type="text" class="form-control" placeholder="Select Lot From"
-                    name="DistNumFrom" id="DistNumFrom" #LotF=ngModel [(ngModel)]="DistNumFrom">
+                    name="DistNumFrom" id="DistNumFrom" #LotF=ngModel [disabled]="disableLotNumber" [(ngModel)]="DistNumFrom" (blur)="onLotNumberBlur('From')">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
-                      (click)="openLotFromLookup(dialog)"><i class="nb-menu"></i></button>
+                      (click)="openLotFromLookup(dialog)" [disabled]="disableLotNumber"><i class="nb-menu"></i></button>
                   </div>
                 </div>
               </div>
@@ -75,10 +75,10 @@
               <div class="w-100">
                 <div class="input-group">
                   <input fieldSize="small"  nbInput type="text" class="form-control" placeholder="Select Lot To"
-                    name="DistNumTo" id="DistNumTo" #LotT=ngModel [(ngModel)]="DistNumTo">
+                    name="DistNumTo" id="DistNumTo" #LotT=ngModel [disabled]="disableLotNumber" [(ngModel)]="DistNumTo" (blur)="onLotNumberBlur('To')">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
-                      (click)="openLotToLookup(dialog)"><i class="nb-menu"></i></button>
+                      (click)="openLotToLookup(dialog)" [disabled]="disableLotNumber"><i class="nb-menu"></i></button>
                   </div>
                 </div>
               </div>
