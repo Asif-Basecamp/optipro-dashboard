@@ -1682,36 +1682,119 @@ col.k-sorted,th.k-sorted {
   text-decoration: underline;
 }
 
-.orgchart .purReceipt {
+.orgchart .purReceipt, .single-node.node.purReceipt {
   background-color: #b3f5f5;
 }
-.orgchart .purReturn {
+.orgchart .purReturn, .single-node.node.purReturn {
   background-color: #ffdfbc;
 }
-.orgchart .purInvoice {
+.orgchart .purInvoice, .single-node.node.purInvoice {
   background-color: #e5bd8c;
 }
-.orgchart .prodReceipt {
+.orgchart .prodReceipt, .single-node.node.prodReceipt {
   background-color: #f8e6b7;
 }
-.orgchart .prodIssue {
+.orgchart .prodIssue, .single-node.node.prodIssue {
   background-color: #ffebe7;
 }
-.orgchart .matReturn {
+.orgchart .matReturn, .single-node.node.matReturn {
   background-color:#f7ee8f;
 }
-.orgchart .creditMemo {
+.orgchart .creditMemo, .single-node.node.creditMemo {
   background-color:#1eb7ae;
 }
-.orgchart .salesReturn {
+.orgchart .salesReturn, .single-node.node.salesReturn {
   background-color:#ffbac6;
 }
-.orgchart .goodsIssue {
+.orgchart .goodsIssue, .single-node.node.goodsIssue {
   background-color:#83ffda;
 }
 
+/*Single node*/
+.node-wrapper{
+  margin: -5px;
+}
+.single-node.node, .single-node.node div::before, .single-node.node div::after {
+  box-sizing: border-box;
+  margin: 5px;
+}
+.single-node.node {
+  width: 240px;
+  padding: 3px;
+  text-align: center;
+  border-radius: 6px;
+  border: 2px solid #999;
+}
+.single-node.node .title {
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  height: 20px;
+  line-height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  border-radius: 4px 4px 0 0;
+}
+.single-node.node .second-menu {
+  z-index: 10;
+  position: relative;
+  display: flex;
+  font-size: 12px;
+  flex-direction: column;
+}
 
-
+.single-node.node  .second-menu .node-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px 8px 0 5px;
+}
+.single-node.node .second-menu .node-footer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+}
+.single-node.node .second-menu .node-avatar {
+  width: 60px;
+  height: 60px;
+}
+.single-node.node .second-menu .node-data {
+  display: flex;
+  flex-direction: column;
+}
+.single-node.node .second-menu .node-data .data-column {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2px;
+}
+.single-node.node .second-menu .node-footer .column-heading {
+  font-weight: 600;
+  color: #000;
+  font-size: 0.78rem;
+}
+.single-node.node .second-menu .node-data .data-column .data-content {
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+.single-node.node .second-menu .node-data .data-column .data-heading {
+  font-weight: 500;
+  width: 80px;
+  text-align: left;
+  font-size: 0.78rem;
+  color: #333;
+}
+.single-node.node .second-menu .node-footer .column-content {
+  font-weight: 600;
+  color: #0064ff;
+  font-size: 0.78rem;
+  text-decoration: underline;
+}
 
   .chart-arrow-up{
     font-style: normal;

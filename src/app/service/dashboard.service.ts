@@ -18,7 +18,7 @@ export class DashboardService {
 
     GetItemList(optiProDashboardAPIURL:string,CompanyDBID:string): Observable<any>{
       let jObject:any={ ItemList: JSON.stringify([{ 
-       CompanyDBID: CompanyDBID
+       CompanyDBID: 'Build129IR4'
       }])};
       return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetItemList",jObject,this.httpOptions);
     }
@@ -32,7 +32,7 @@ export class DashboardService {
 
     GetLotNumber(optiProDashboardAPIURL:string,CompanyDBID:string,ItemKey:string,TrackName:string): Observable<any>{
       let jObject:any={ ItemList: JSON.stringify([{ 
-       CompanyDBID: CompanyDBID,
+       CompanyDBID: 'Build129IR4',
        ItemKey: ItemKey,
        TrackName: TrackName
       //ItemKey: 'Battery',
@@ -43,7 +43,7 @@ export class DashboardService {
 
     GetTransaction(optiProDashboardAPIURL:string,CompanyDBID:string,ItemKey:string): Observable<any>{
       let jObject:any={ ItemList: JSON.stringify([{ 
-       CompanyDBID: CompanyDBID,
+       CompanyDBID: 'Build129IR4',
        ItemKey: ItemKey
       }])};
       return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetTransaction",jObject,this.httpOptions);
@@ -51,7 +51,7 @@ export class DashboardService {
 
     GetTransactionDetails(optiProDashboardAPIURL:string,CompanyDBID:string,DocEntry:string,ItemKey:string,Warehouse:string): Observable<any>{
       let jObject:any={ ItemList: JSON.stringify([{ 
-       CompanyDBID: CompanyDBID,
+       CompanyDBID: 'Build129IR4',
        DocEntry: DocEntry,
        ItemKey:ItemKey,
        Warehouse:Warehouse

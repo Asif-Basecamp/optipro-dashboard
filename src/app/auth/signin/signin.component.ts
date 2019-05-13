@@ -25,8 +25,9 @@ export class SigninComponent implements OnInit {
   public defaultCompnyComboValue: any = [];
   public listItems: any = [] = this.defaultCompnyComboValue;
   public selectedValue: any = [];
+
+  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastrService: NbToastrService) {}
   
-  constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastrService: NbToastrService) { }
   ngOnInit() {
 
     if (window.localStorage.getItem('Username') != null || window.localStorage.getItem('Username') != undefined) {
@@ -55,9 +56,9 @@ export class SigninComponent implements OnInit {
         if (data != null) {
           this.psURL = data;
           //this.psURL = "http://172.16.6.140/OptiAdmin";   
-          this.defaultCompnyComboValue = [{ OPTM_COMPID: 'Select Company' }];
+         /* this.defaultCompnyComboValue = [{ OPTM_COMPID: 'Select Company' }];
           this.listItems = this.defaultCompnyComboValue;
-          this.selectedValue = this.listItems[0];      
+          this.selectedValue = this.listItems[0];*/
         }
       },
       error => {
