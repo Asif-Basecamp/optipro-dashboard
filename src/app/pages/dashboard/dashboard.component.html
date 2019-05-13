@@ -23,8 +23,8 @@
               <label for="inputPassword3" class="form-label">Item</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input nbInput fieldSize="small" type="text" name="ItemValue" id="ItemValue" class="form-control" placeholder="Select Item"
-                    #ItemVal=ngModel [(ngModel)]="ItemValue">
+                  <input nbInput fieldSize="small" type="text" name="ItemValue" id="ItemValue" class="form-control"
+                    placeholder="Select Item" #ItemVal=ngModel [(ngModel)]="ItemValue" (blur)="onItemCodeBlur()">
 
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemLookup(dialog)">
@@ -50,8 +50,8 @@
               <label for="inputPassword3" class="form-label">Warehouse</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input nbInput fieldSize="small" type="text" class="form-control" placeholder="Select Warehouse" name="DfltWarehouse" id="DfltWarehouse"
-                    #Whse=ngModel [(ngModel)]="DfltWarehouse">
+                  <input nbInput fieldSize="small" type="text" class="form-control" placeholder="Select Warehouse"
+                    name="DfltWarehouse" id="DfltWarehouse" #Whse=ngModel [(ngModel)]="DfltWarehouse" (blur)="onWarehouseBlur()">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openWarehouseLookup(dialog)">
                       <i class="nb-menu"></i>
@@ -64,12 +64,11 @@
               <label for="inputPassword3" class="form-label">Lot From</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input fieldSize="small" nbInput type="text" class="form-control" placeholder="Select Lot From" name="DistNumFrom" id="DistNumFrom"
-                    #LotF=ngModel [(ngModel)]="DistNumFrom">
+                  <input fieldSize="small" nbInput type="text" class="form-control" placeholder="Select Lot From"
+                    name="DistNumFrom" id="DistNumFrom" #LotF=ngModel [disabled]="disableLotNumber" [(ngModel)]="DistNumFrom" (blur)="onLotNumberBlur('From')">
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openLotFromLookup(dialog)">
-                      <i class="nb-menu"></i>
-                    </button>
+                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
+                      (click)="openLotFromLookup(dialog)" [disabled]="disableLotNumber"><i class="nb-menu"></i></button>
                   </div>
                 </div>
               </div>
@@ -78,12 +77,11 @@
               <label for="inputPassword3" class="form-label">Lot To</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input fieldSize="small" nbInput type="text" class="form-control" placeholder="Select Lot To"
-                    name="DistNumTo" id="DistNumTo" #LotT=ngModel [(ngModel)]="DistNumTo">
+                  <input fieldSize="small"  nbInput type="text" class="form-control" placeholder="Select Lot To"
+                    name="DistNumTo" id="DistNumTo" #LotT=ngModel [disabled]="disableLotNumber" [(ngModel)]="DistNumTo" (blur)="onLotNumberBlur('To')">
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openLotToLookup(dialog)">
-                      <i class="nb-menu"></i>
-                    </button>
+                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
+                      (click)="openLotToLookup(dialog)" [disabled]="disableLotNumber"><i class="nb-menu"></i></button>
                   </div>
                 </div>
               </div>
