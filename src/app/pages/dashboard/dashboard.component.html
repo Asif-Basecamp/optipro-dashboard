@@ -114,8 +114,8 @@
       </div>
     </nb-card-body>
     <nb-card-footer class="text-center py-2">
-      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small"
-        (click)="GetExplosion($event)">Process <i data-eva="arrow-forward" data-eva-height="18" data-eva-width="18"
+      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" 
+      size="small" (click)="GetExplosion($event)">Process <i data-eva="arrow-forward" data-eva-height="18" data-eva-width="18"
           data-eva-fill="#fff" class="ml-2"></i></button>
     </nb-card-footer>
   </nb-card>
@@ -309,7 +309,7 @@
           <div class="node-wrapper">
 
             <div class="single-node node purReceipt" *ngFor="let data of AnalysisData; let i = index">
-              <div class="title">{{data.itemcode}}</div>
+              <div class="title">{{data.DistNumber}} (Doc Entry:{{data.DocEntry}})</div>
               <div class="second-menu">
                 <div class="node-content">
                   <div class="node-img">
@@ -321,7 +321,7 @@
                         Item
                       </div>
                       <div class="data-content">
-                          {{data.itemcode}}
+                          {{data.ItemCode}}
                       </div>
                     </div>
                     <div class="data-column">
@@ -338,7 +338,7 @@
                         Lot #
                       </div>
                       <div class="data-content">
-                          {{data.LotNUmber}}
+                          {{data.DistNumber}}
                       </div>
                     </div>
                     <div class="data-column">
@@ -361,8 +361,9 @@
                         Lot Status
                       </div>
                       <div class="data-content">
-                        Release
-                      </div>
+                        {{data.Status}}
+                        
+                        </div>
                     </div>
                     <div class="data-column">
                       <div class="data-heading">
