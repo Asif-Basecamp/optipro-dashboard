@@ -96,7 +96,7 @@
 .k-grid th {
   padding: 8px 12px;
   border-width: 0 0 1px 1px;
-  white-space: nowrap
+  white-space: nowrap;  
 }
 
 .k-grid td {
@@ -1090,9 +1090,13 @@ div.k-grid-header,div.k-grid-footer {
   border-color: rgba(0,0,0,0.08)
 }
 
-.k-grid-header,.k-grid-toolbar,.k-grouping-header,.k-grid-add-row,.k-grid-footer {
+.k-grid-toolbar,.k-grouping-header,.k-grid-add-row,.k-grid-footer {
   color: #656565;
   background-color: #f6f6f6
+}
+.k-grid-header{
+  background: nb-theme(color-primary);
+  color:nb-theme(color-white)
 }
 
 .k-drag-clue {
@@ -2330,5 +2334,10 @@ button.toast-close-button {
   .toast-container .ngx-toastr.div {
     padding: 15px 15px 15px 50px;
     width: 25em;
+  }
+}
+@media screen and (min-width:1025px){
+  body *:focus{
+    outline:0 !important;
   }
 }
