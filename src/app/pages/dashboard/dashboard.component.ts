@@ -8,8 +8,8 @@ import { AnalyticsService } from 'src/app/@core/utils/index.js';
 import { SelectableSettings } from '@progress/kendo-angular-grid/dist/es2015/main';
 import { ItemLookupComponent } from 'src/app/lookup/item-lookup/item-lookup.component.js';
 import { Router } from '@angular/router';
-
 import {RecordModel}  from 'src/app/CommonData/Data';
+import { NbToastrService } from '@nebular/theme';
 import * as eva from 'eva-icons';
 
   var nodeName = '';
@@ -85,9 +85,10 @@ export class DashboardComponent implements OnInit{
   public AnalysisData: any = [];
   public datasource: any = [];
   public disableLotNumber: boolean = true;
+  //public disableProcess: boolean = true;
  // radioGroupValue = 'Show Data of all type of lots';
   
-  constructor(private dialogService: NbDialogService,private dash:DashboardService,private router: Router) {
+  constructor(private dialogService: NbDialogService,private dash:DashboardService,private router: Router,private toastrService: NbToastrService) {
   }   
 
   ngOnInit() {
@@ -131,7 +132,8 @@ export class DashboardComponent implements OnInit{
           });
           
           if(validitem.length <= 0){
-              alert('Enter correct Item Code');
+              //alert('Enter correct Item Code');
+              this.toastrService.danger('Enter correct Item Code');
               this.ItemValue = '';
               this.disableLotNumber = true;
               return;
@@ -170,7 +172,8 @@ export class DashboardComponent implements OnInit{
           });
 
           if(validItem.length <= 0){
-            alert('Enter correct Warehouse Code');
+           // alert('Enter correct Warehouse Code');
+            this.toastrService.danger('Enter correct Warehouse Code');
             this.DfltWarehouse = '';
             return;
           }
@@ -210,14 +213,19 @@ export class DashboardComponent implements OnInit{
           });
 
           if(validItem.length <= 0){
-            alert('Enter correct Lot Number');
+            //alert('Enter correct Lot Number');
+            this.toastrService.danger('Enter correct Lot Number');
             this.DfltWarehouse = '';
             if(LotNum == 'From')
                 this.DistNumFrom = '';          
             else 
                 this.DistNumTo = '';
             return;
-          }          
+          }
+          // else
+          // {
+          //   this.disableProcess = false;
+          // }          
        });
   }
 
@@ -377,6 +385,26 @@ export class DashboardComponent implements OnInit{
 
    GetExplosion(){
 
+    if(this.ItemValue == null || this.ItemValue == undefined || this.ItemValue == '' || this.ItemValue == " "){
+      this.toastrService.danger('Please enter Item Code');
+      return;
+    }
+
+    if(this.DfltWarehouse == null || this.DfltWarehouse == undefined || this.DfltWarehouse == '' || this.DfltWarehouse == " "){
+      this.toastrService.danger('Please enter Warehouse Code');
+      return;
+    }
+
+    if(this.DistNumFrom == null || this.DistNumFrom == undefined || this.DistNumFrom == '' || this.DistNumFrom == " "){
+      this.toastrService.danger('Please enter Lot From');
+      return;
+    }
+
+    if(this.DistNumTo == null || this.DistNumTo == undefined || this.DistNumTo == '' || this.DistNumTo == " "){
+      this.toastrService.danger('Please enter Lot To');
+      return;
+    }
+
     if(this.radioExplode == 'Lot Explosion')
       this.explodeDirection = 'DOWN';
     else
@@ -427,7 +455,8 @@ export class DashboardComponent implements OnInit{
         test = test.trim();
        }
        else {
-         alert("Item is None Tracked");
+        // alert("Item is None Tracked");
+         this.toastrService.danger('Item is None Tracked');       
          return;
        }
       } 

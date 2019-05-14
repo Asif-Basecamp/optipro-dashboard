@@ -18,7 +18,7 @@ export class DashboardService {
 
     GetItemList(optiProDashboardAPIURL:string,CompanyDBID:string): Observable<any>{
       let jObject:any={ ItemList: JSON.stringify([{ 
-       CompanyDBID: 'Build129IR4'
+       CompanyDBID: CompanyDBID
       }])};
       return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetItemList",jObject,this.httpOptions);
     }
@@ -32,18 +32,16 @@ export class DashboardService {
 
     GetLotNumber(optiProDashboardAPIURL:string,CompanyDBID:string,ItemKey:string,TrackName:string): Observable<any>{
       let jObject:any={ ItemList: JSON.stringify([{ 
-       CompanyDBID: 'Build129IR4',
+       CompanyDBID: CompanyDBID,
        ItemKey: ItemKey,
        TrackName: TrackName
-      //ItemKey: 'Battery',
-     // TrackName: 'Serial'
       }])};
       return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetLotNumber",jObject,this.httpOptions);
     }
 
     GetTransaction(optiProDashboardAPIURL:string,CompanyDBID:string,ItemKey:string): Observable<any>{
       let jObject:any={ ItemList: JSON.stringify([{ 
-       CompanyDBID: 'Build129IR4',
+       CompanyDBID: CompanyDBID,
        ItemKey: ItemKey
       }])};
       return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetTransaction",jObject,this.httpOptions);
@@ -51,7 +49,7 @@ export class DashboardService {
 
     GetTransactionDetails(optiProDashboardAPIURL:string,CompanyDBID:string,DocEntry:string,ItemKey:string,Warehouse:string): Observable<any>{
       let jObject:any={ ItemList: JSON.stringify([{ 
-       CompanyDBID: 'Build129IR4',
+       CompanyDBID: CompanyDBID,
        DocEntry: DocEntry,
        ItemKey:ItemKey,
        Warehouse:Warehouse
@@ -68,12 +66,7 @@ export class DashboardService {
         Warehouse: Warehouse,
         LotFrom: LotFrom,
         LotTo: LotTo,
-        Mode: Mode
-        // ItemKey: 'Car_B',
-        // Warehouse: '01',
-        // LotFrom: 'c2',
-        // LotTo: 'c3',
-        // Mode: 'DOWN'
+        Mode: Mode       
     }]) };
     //Return the response form the API  
     return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetLotExplosionData",jObject,this.httpOptions);
