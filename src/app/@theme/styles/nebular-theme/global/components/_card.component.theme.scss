@@ -150,7 +150,7 @@
   }
 
   nb-card-footer {
-    padding: nb-theme(card-padding);
+    padding: 0.5rem nb-theme(card-padding);
     border-top: 1px solid nb-theme(card-separator);
     border-bottom-left-radius: nb-theme(card-border-radius);
     border-bottom-right-radius: nb-theme(card-border-radius);
@@ -159,5 +159,12 @@
   nb-card-header {
     @include nb-card-header();
   }
+
+  //dialouge box css
+
+  nb-dialog-container nb-card{
+    border-top: nb-theme(card-border-radius) nb-theme(card-border-type) nb-theme(card-header-primary-bg);  
+  }
+
 }
 
