@@ -392,7 +392,7 @@ export class DashboardComponent implements OnInit{
       }
     }).forEach(function(d){
      var cd = d;
-     cd.children = this.getHierarchy(dataa, d.OPTM_SEQ, d.id);
+     cd.children = this.getHierarchy(dataa, d.OPTM_SEQ, d.root);
      return node.push(cd);
    }.bind(this))
     return node;
@@ -433,10 +433,10 @@ export class DashboardComponent implements OnInit{
 
         for(var i=0; i<this.data.length; i++){
           if(this.data[i].GroupId == ''){
-            this.data[i]["id"] = this.data[i].OPTM_SEQ;
+            this.data[i]["root"] = this.data[i].OPTM_SEQ;
             Arr.push(this.data[i]);
           }else{
-            this.data[i]["id"] = this.data[i].GroupId;
+            this.data[i]["root"] = this.data[i].GroupId;
             Arr.push(this.data[i]);
           }
         }
@@ -546,15 +546,19 @@ export class DashboardComponent implements OnInit{
   customAccordianGrid(e){
     if(document.getElementById("grid-accordian").classList.contains('expanded')){
       this.hideAcordian(e);
+      document.getElementById("custom-accordian").classList.remove('grid-accordian-open');
     }else{
       this.expandAcordian(e);
+      document.getElementById("custom-accordian").classList.add('grid-accordian-open');
     }
   }
   customAccordianAnalysis(e){
     if(document.getElementById("analysis-accordian").classList.contains('expanded')){
       this.hideAcordian(e);
+      document.getElementById("custom-accordian").classList.remove('analysis-accordian-open');
     }else{
       this.expandAcordian(e);
+      document.getElementById("custom-accordian").classList.add('analysis-accordian-open');
     } 
   }
   hideAcordian(e: any){

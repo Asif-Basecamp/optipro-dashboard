@@ -230,7 +230,7 @@
       </nb-accordion-item-body>
     </nb-accordion-item>
   </nb-accordion> -->
-  <div class="custom-accordian">
+  <div class="custom-accordian analysis-accordian-open grid-accordian-open" id="custom-accordian">
     <div class="grid-accordian expanded" id="grid-accordian">
       <nb-card accent="primary">
         <nb-card-header class="border-bottom d-flex" id="grid-accordian-trigger" (click)="customAccordianGrid($event)">
@@ -281,7 +281,7 @@
                 </nb-card-body>
               </nb-card>
 
-              <nb-card class="mb-0">
+              <nb-card class="mb-4">
                 <nb-card-header>Transaction Type</nb-card-header>
                 <nb-card-body>
                   <!-- <tree-root #tree [nodes]="nodes1" [options]="options" [focused]="true" (click)="clickTransactionDetails($event)">
@@ -289,7 +289,6 @@
 
                   <tree-root id="tree2" [focused]="true" [nodes]="nodes1" (click)="clickTransactionDetails($event)">
                   </tree-root>
-
                 </nb-card-body>
               </nb-card>
 
