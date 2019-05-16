@@ -47,12 +47,22 @@
 
     .logo {
       padding: 0 nb-theme(padding);
-      font-size: 1.75rem;
+      font-size: 1.5rem;
       font-weight: nb-theme(font-weight-bolder);
       @include nb-ltr(border-left, 1px solid nb-theme(separator));
       @include nb-rtl(border-right, 1px solid nb-theme(separator));
       white-space: nowrap;
-
+      color:nb-theme(color-white); 
+      display: flex;
+      align-items: center;
+      justify-content: center; 
+      svg{
+        width: 25px;
+        margin-right: 10px;
+        path{
+          fill: nb-theme(color-white);
+        }
+      }
       span {
         font-weight: nb-theme(font-weight-normal);
       }

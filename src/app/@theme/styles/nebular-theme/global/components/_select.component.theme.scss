@@ -18,13 +18,33 @@
 @mixin nb-select-theme() {
   nb-select > button[nbButton] {
     transition: all 0.1s;
-
+    &.btn-outline.btn-primary{
+      border: 2px solid nb-theme(form-control-border-color);
+      &:hover{
+        border: 2px solid nb-theme(form-control-border-color);
+        color: nb-theme(color-fg-heading);
+        background-color: transparent;
+      }
+      &:focus, &:active, &:active:focus{
+        border-color:nb-theme(form-control-selected-border-color);
+        background-color: transparent;
+        color: nb-theme(color-fg-heading);
+      }
+      &.opened {
+        border-color:nb-theme(form-control-selected-border-color);
+        background-color: transparent;
+        color: nb-theme(color-fg-heading);
+      }
+    }    
     &::after {
       @include nb-rtl(left, 0.75rem);
       @include nb-rtl(right, auto);
     }
 
     &.opened {
+      border-color:nb-theme(form-control-selected-border-color);
+      background-color: transparent;
+      color: nb-theme(color-fg-heading);
       &.top {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
