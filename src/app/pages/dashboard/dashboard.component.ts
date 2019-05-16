@@ -84,6 +84,7 @@ export class DashboardComponent implements OnInit{
   public lookUpHeading: any;  
   public AnalysisData: any = [];
   public datasource: any = [];
+  public data: any = [];
   public disableLotNumber: boolean = true;
   //public disableProcess: boolean = true;
  // radioGroupValue = 'Show Data of all type of lots';
@@ -369,7 +370,7 @@ export class DashboardComponent implements OnInit{
  }
 
  /*-- grid view --*/
- getHierarchy(dataa, parent){
+ /*getHierarchy(dataa, parent){
     let node = [];
     dataa.filter(function(d){        
         if(d.ParantId == parent){
@@ -381,7 +382,21 @@ export class DashboardComponent implements OnInit{
      return node.push(cd);
     }.bind(this))
    return node;
-  }
+  }*/
+
+  getHierarchy(dataa, Seq, Id){
+    let node = [];
+    dataa.filter(function(d){
+      if(d.ParantId == Seq && Id == d.GroupId){
+        return d.ParantId == Seq
+      }
+    }).forEach(function(d){
+     var cd = d;
+     cd.children = this.getHierarchy(dataa, d.OPTM_SEQ, d.id);
+     return node.push(cd);
+   }.bind(this))
+    return node;
+  } 
 
    GetExplosion(){
 
@@ -413,8 +428,20 @@ export class DashboardComponent implements OnInit{
     this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,this.explodeDirection).subscribe(
       data =>
        {
-        console.log(data);
-        this.nodes2 = this.getHierarchy(data, '-1');
+        this.data = data; 
+        let Arr = [];
+
+        for(var i=0; i<this.data.length; i++){
+          if(this.data[i].GroupId == ''){
+            this.data[i]["id"] = this.data[i].OPTM_SEQ;
+            Arr.push(this.data[i]);
+          }else{
+            this.data[i]["id"] = this.data[i].GroupId;
+            Arr.push(this.data[i]);
+          }
+        }
+    
+     this.nodes2 = this.getHierarchy(Arr, '-1', Arr[0].OPTM_SEQ);
         this.gridStatus = !this.gridStatus;
        },
       error => {
@@ -450,7 +477,7 @@ export class DashboardComponent implements OnInit{
     else{
       if (test.indexOf("-") > -1) {
        // test = test.split("-")[1].trim();
-       test = test.split("-")[1];
+       test = test.split("-")[test.split("-").length-1];
        if(test != '' && test != " " && test != undefined && test != null){
         test = test.trim();
        }
