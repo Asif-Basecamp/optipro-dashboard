@@ -85,6 +85,7 @@ export class DashboardComponent implements OnInit{
   public AnalysisData: any = [];
   public datasource: any = [];
   public disableLotNumber: boolean = true;
+  public data:any = [];
   //public disableProcess: boolean = true;
  // radioGroupValue = 'Show Data of all type of lots';
   
@@ -314,7 +315,8 @@ export class DashboardComponent implements OnInit{
         for(let i=0; i< this.transactions.Table.length; i++){
           childrens.push({name: '(' + this.transactions.Table[i].DistNumber + ') Doc Entry : ' + this.transactions.Table[i].DocEntry + ' - ' + this.transactions.Table[i].ObjectTypeDesc});
           this.DocEntryArr.push({key: this.transactions.Table[i].DistNumber ,
-                                DocEntry: this.transactions.Table[i].DocEntry});
+                                DocEntry: this.transactions.Table[i].DocEntry,
+                                ObjectType: this.transactions.Table[i].ObjectType});
         }
         map["children"] = childrens;
 
@@ -329,6 +331,8 @@ export class DashboardComponent implements OnInit{
  GetTransactionDetails(Dcentry,Item){  
  
   let DC = '';  
+  let ObjType = '';
+  let OTstr = '';
   let stringDC = []; 
   let str = '';
   if (Dcentry.indexOf(":") > -1) {
@@ -336,22 +340,28 @@ export class DashboardComponent implements OnInit{
     this.DocEntryArr.filter(function(d){ 
       if(d.DocEntry == Dcentry){
         DC = d.DocEntry;
+        ObjType = d.ObjectType;
       }
     });
   }
   else {
     Item = Dcentry;
     for(let i=0 ; i <this.DocEntryArr.length; i++){
-    if(i == 0)
-     str = this.DocEntryArr[i].DocEntry;
-     else
-     str = str + ',' + this.DocEntryArr[i].DocEntry;
+    if(i == 0){
+      str = this.DocEntryArr[i].DocEntry;
+      OTstr = this.DocEntryArr[i].ObjectType;
+    }
+     else{
+      str = str + ',' + this.DocEntryArr[i].DocEntry;
+      OTstr = OTstr + ',' + this.DocEntryArr[i].ObjectType;
+     }
     } 
    DC = str;
+   ObjType = OTstr;
   }
    
 
-  this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,DC,Item,this.DfltWarehouse).subscribe(
+  this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,DC,ObjType,Item,this.DfltWarehouse).subscribe(
       data =>
        {
          this.transactiondetails = data;
@@ -363,25 +373,26 @@ export class DashboardComponent implements OnInit{
      }
     )
   }
- 
- Resurse(){
-   
- }
 
+  
+ 
+  
  /*-- grid view --*/
- getHierarchy(dataa, parent){
-    let node = [];
-    dataa.filter(function(d){        
-        if(d.ParantId == parent){
-             return d.ParantId == parent  
-        }
-    }).forEach(function(d){
-     var cd = d;    
-     cd.children = this.getHierarchy(dataa, d.OPTM_SEQ);
-     return node.push(cd);
-    }.bind(this))
-   return node;
-  }
+
+getHierarchy(dataa, Seq, Id){
+  let node = [];
+  dataa.filter(function(d){
+    if(d.ParantId == Seq && Id == d.GroupId){
+      return d.ParantId == Seq
+    }
+  }).forEach(function(d){
+   var cd = d;
+   cd.children = this.getHierarchy(dataa, d.OPTM_SEQ, d.id);
+   return node.push(cd);
+ }.bind(this))
+  return node;
+} 
+
 
    GetExplosion(){
 
@@ -409,12 +420,28 @@ export class DashboardComponent implements OnInit{
       this.explodeDirection = 'DOWN';
     else
       this.explodeDirection = 'UP';
-     
-    this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,this.explodeDirection).subscribe(
-      data =>
-       {
+           
+    
+   this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,this.ItemValue,this.DfltWarehouse,this.DistNumFrom,this.DistNumTo,this.explodeDirection).subscribe(
+   data =>
+    {
         console.log(data);
-        this.nodes2 = this.getHierarchy(data, '-1');
+        this.data = data;
+        let Arr = [];
+
+     for(var i=0; i<this.data.length; i++){
+      if(this.data[i].GroupId == ''){
+        this.data[i]["id"] = this.data[i].OPTM_SEQ;
+        Arr.push(this.data[i]);
+      }else{
+        this.data[i]["id"] = this.data[i].GroupId;
+        Arr.push(this.data[i]);
+      }
+    }
+    
+    this.nodes2 = this.getHierarchy(Arr, '-1', Arr[0].OPTM_SEQ);
+
+   
         this.gridStatus = !this.gridStatus;
        },
       error => {
@@ -450,7 +477,7 @@ export class DashboardComponent implements OnInit{
     else{
       if (test.indexOf("-") > -1) {
        // test = test.split("-")[1].trim();
-       test = test.split("-")[1];
+       test = test.split("-")[test.split("-").length-1];
        if(test != '' && test != " " && test != undefined && test != null){
         test = test.trim();
        }
