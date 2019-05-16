@@ -315,7 +315,8 @@ export class DashboardComponent implements OnInit{
         for(let i=0; i< this.transactions.Table.length; i++){
           childrens.push({name: '(' + this.transactions.Table[i].DistNumber + ') Doc Entry : ' + this.transactions.Table[i].DocEntry + ' - ' + this.transactions.Table[i].ObjectTypeDesc});
           this.DocEntryArr.push({key: this.transactions.Table[i].DistNumber ,
-                                DocEntry: this.transactions.Table[i].DocEntry});
+                                DocEntry: this.transactions.Table[i].DocEntry,
+                                ObjectType: this.transactions.Table[i].ObjectType});
         }
         map["children"] = childrens;
 
@@ -330,6 +331,8 @@ export class DashboardComponent implements OnInit{
  GetTransactionDetails(Dcentry,Item){  
  
   let DC = '';  
+  let ObjType = '';
+  let OTstr = '';
   let stringDC = []; 
   let str = '';
   if (Dcentry.indexOf(":") > -1) {
@@ -337,22 +340,28 @@ export class DashboardComponent implements OnInit{
     this.DocEntryArr.filter(function(d){ 
       if(d.DocEntry == Dcentry){
         DC = d.DocEntry;
+        ObjType = d.ObjectType;
       }
     });
   }
   else {
     Item = Dcentry;
     for(let i=0 ; i <this.DocEntryArr.length; i++){
-    if(i == 0)
-     str = this.DocEntryArr[i].DocEntry;
-     else
-     str = str + ',' + this.DocEntryArr[i].DocEntry;
+    if(i == 0){
+      str = this.DocEntryArr[i].DocEntry;
+      OTstr = this.DocEntryArr[i].ObjectType;
+    }
+     else{
+      str = str + ',' + this.DocEntryArr[i].DocEntry;
+      OTstr = OTstr + ',' + this.DocEntryArr[i].ObjectType;
+     }
     } 
    DC = str;
+   ObjType = OTstr;
   }
    
 
-  this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,DC,Item,this.DfltWarehouse).subscribe(
+  this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL,this.CompanyDB,DC,ObjType,Item,this.DfltWarehouse).subscribe(
       data =>
        {
          this.transactiondetails = data;
@@ -364,25 +373,6 @@ export class DashboardComponent implements OnInit{
      }
     )
   }
- 
- Resurse(){
-   
- }
-
- /*-- grid view --*/
- /*getHierarchy(dataa, parent){
-    let node = [];
-    dataa.filter(function(d){        
-        if(d.ParantId == parent){
-             return d.ParantId == parent  
-        }
-    }).forEach(function(d){
-     var cd = d;    
-     cd.children = this.getHierarchy(dataa, d.OPTM_SEQ);
-     return node.push(cd);
-    }.bind(this))
-   return node;
-  }*/
 
   getHierarchy(dataa, Seq, Id){
     let node = [];
