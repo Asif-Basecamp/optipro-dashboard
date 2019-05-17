@@ -219,15 +219,15 @@ div.tree div.tree-children::before {
     left: 5px
 }
 
-div.tree tree-node>div>.node-wrapper {
+div.tree tree-node>div>.node-wrapper-box {
     margin-left: 24px
 }
 
-div.tree tree-node>div>.node-wrapper>.node-content-wrapper {
+div.tree tree-node>div>.node-wrapper-box>.node-content-wrapper {
     margin-left: 4px
 }
 
-div.tree tree-node>div.tree-node-leaf>.node-wrapper {
+div.tree tree-node>div.tree-node-leaf>.node-wrapper-box {
     margin-left: 0
 }
 
@@ -285,7 +285,7 @@ div.tree>tree-node>div::before {
     left: 14px
 }
 
-div.tree>tree-node>div>.node-wrapper>tree-node-expander>.toggle-children-wrapper {
+div.tree>tree-node>div>.node-wrapper-box>tree-node-expander>.toggle-children-wrapper {
     left: 22px
 }
 

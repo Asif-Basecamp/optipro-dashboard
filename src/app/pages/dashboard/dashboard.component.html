@@ -9,16 +9,13 @@
         <div class="col-sm-12">
           <form>
             <fieldset class="form-group px-0 mb-2">
-              <!-- [(value)]="radioExplode"-->
               <nb-radio-group class="d-flex" [(ngModel)]="radioExplode" name="radioExplode">
                 <nb-radio [value]="'Lot Explosion'">Lot Explosion
                 </nb-radio>
                 <nb-radio [value]="'Where Used'">Where Used</nb-radio>
               </nb-radio-group>
             </fieldset>
-
             <h5 class="border-bottom pb-1 mb-3">Select</h5>
-
             <div class="form-group">
               <label for="inputPassword3" class="form-label">Item</label>
               <div class="w-100">
@@ -40,9 +37,6 @@
                 <div class="input-group">
                   <input nbInput type="text" fieldSize="small" name="ItemDesc" id="ItemDesc" class="form-control" placeholder="Description"
                     #ItemDes=ngModel [(ngModel)]="ItemDesc">
-                  <!-- <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemLookup(dialog)"><i class="nb-menu"></i></button>
-                      </div> -->
                 </div>
               </div>
             </div>
@@ -105,9 +99,7 @@
                   <nb-option value="4">Option 4</nb-option>
                 </nb-select>
               </div>
-              <!-- <div class="col-sm-12 text-center mt-3">
-                <button type="submit" nbButton class="btn btn-primary" size="small">Process</button>
-              </div> -->
+
             </div>
           </form>
         </div>
@@ -178,61 +170,9 @@
 </div>
 
 <div class="dashboard-right">
-  <!-- <nb-accordion multi>
-    <nb-accordion-item expanded>
-      <nb-accordion-item-header>
-        Grid View &nbsp; <button nbButton size="xsmall" (click)="process()">Back</button>
-      </nb-accordion-item-header>
-      <nb-accordion-item-body>
-        <div class="col-sm-4">
-          <div class="tree-wrapper pt-3">
-            <tree-root
-              #tree
-              [nodes]="nodes"
-              [options]="options"
-              [focused]="true"
-            >
-            </tree-root>
-          </div>
-        </div>
-        <div class="col-sm-8 pt-3">
-          <nb-card>
-            <nb-card-body>
-                <nb-radio-group class="d-flex" >
-                  <nb-radio>Show Data of all type of lots</nb-radio>
-                  <nb-radio>Show Data of all immediate of lots</nb-radio>
-                </nb-radio-group>
-            </nb-card-body>
-          </nb-card>
-
-          <nb-card>
-            <nb-card-header>Transaction Type</nb-card-header>
-            <nb-card-body>
-                <tree-root
-                #tree
-                [nodes]="nodes"
-                [options]="options"
-                [focused]="true"
-              >
-              </tree-root>
-            </nb-card-body>
-          </nb-card>
-        </div>
-      </nb-accordion-item-body>
-    </nb-accordion-item>
-
-    <nb-accordion-item expanded>
-      <nb-accordion-item-header>
-        Analysis View
-      </nb-accordion-item-header>
-      <nb-accordion-item-body>
-        <div id="chart-container"></div>
-      </nb-accordion-item-body>
-    </nb-accordion-item>
-  </nb-accordion> -->
   <div class="custom-accordian analysis-accordian-open grid-accordian-open" id="custom-accordian">
     <div class="grid-accordian expanded" id="grid-accordian">
-      <nb-card accent="primary">
+      <nb-card accent="primary" size="xsmall" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="xlarge">
         <nb-card-header class="border-bottom d-flex" id="grid-accordian-trigger" (click)="customAccordianGrid($event)">
           <i data-eva="grid" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="mr-2"></i>
           <span>Grid View</span>
@@ -243,8 +183,6 @@
           <div class="row h-100 flex-100">
             <div class="col-sm-4 border-right overflow-auto h-100">
               <div class="tree-wrapper pt-3">
-                <!-- <tree-root #tree [nodes]="nodes" [options]="options" [focused]="true" (click)="clickTransaction($event)">-->
-
                 <tree-root id="tree2" [focused]="true" [nodes]="nodes2" (click)="clickTransaction($event)">
                   <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
                     <div class="tree-node">
@@ -263,12 +201,6 @@
             </div>
             <div class="col-sm-8 pt-3 overflow-auto h-100">
               <nb-card>
-                <!-- <nb-card-body>
-                  <nb-radio-group class="d-flex" [(ngModel)]="selectedOption">
-                    <nb-radio>Show Data of all type of lots</nb-radio>
-                    <nb-radio>Show Data of all immediate of lots</nb-radio>
-                  </nb-radio-group>
-                </nb-card-body> -->
                 <nb-card-body>
                   <nb-radio-group class="d-flex" [(value)]="radioGroupValue">
                     <nb-radio [value]="'Show Data of all type of lots'">
@@ -276,7 +208,7 @@
                     </nb-radio>
                     <nb-radio [value]="'Show Data of all immediate of lots'">
                       Show Data of all immediate of lots
-                    </nb-radio>
+                  </nb-radio>
                   </nb-radio-group>
                 </nb-card-body>
               </nb-card>
@@ -284,21 +216,13 @@
               <nb-card class="mb-4">
                 <nb-card-header>Transaction Type</nb-card-header>
                 <nb-card-body>
-                  <!-- <tree-root #tree [nodes]="nodes1" [options]="options" [focused]="true" (click)="clickTransactionDetails($event)">
-                  </tree-root> -->
-
                   <tree-root id="tree2" [focused]="true" [nodes]="nodes1" (click)="clickTransactionDetails($event)">
                   </tree-root>
                 </nb-card-body>
               </nb-card>
-
-
             </div>
           </div>
         </nb-card-body>
-        <!-- <nb-card-footer class="text-center py-2">
-          <button type="submit" nbButton class="btn btn-primary" size="small">Process</button>
-        </nb-card-footer> -->
       </nb-card>
     </div>
 
@@ -312,9 +236,7 @@
           <i data-eva="arrow-ios-downward" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="ml-auto cursor-pointer"></i>
         </nb-card-header>
         <nb-card-body id="analysis-accordian-body" class="overflow-auto">
-          <!-- <div id="chart-container"></div> -->
-          <div class="node-wrapper">
-
+          <div class="node-wrapper-box">
             <div class="single-node node purReceipt" *ngFor="let data of AnalysisData; let i = index">
               <div class="title">{{data.DistNumber}} (Doc Entry:{{data.DocEntry}})</div>
               <div class="second-menu">
@@ -410,15 +332,8 @@
                 </div>
               </div>
             </div>
-
-          
-
           </div>
-
         </nb-card-body>
-        <!-- <nb-card-footer class="text-center py-2">
-          <button type="submit" nbButton class="btn btn-primary" size="small">Process</button>
-        </nb-card-footer> -->
       </nb-card>
     </div>
   </div>
