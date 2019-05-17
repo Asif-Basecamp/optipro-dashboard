@@ -13,7 +13,6 @@ import { NbToastrService } from '@nebular/theme';
 })
 export class SigninComponent implements OnInit {
 
-  private index: number = 0;
   public psURL: string = "";
   public adminDBName: string = "OPTIPROADMIN";
   public arrConfigData: any[];
@@ -54,33 +53,17 @@ export class SigninComponent implements OnInit {
       data => {
         if (data != null) {
           this.psURL = data;
-          //this.psURL = "http://172.16.6.140/OptiAdmin";   
-         /* this.defaultCompnyComboValue = [{ OPTM_COMPID: 'Select Company' }];
-          this.listItems = this.defaultCompnyComboValue;
-          this.selectedValue = this.listItems[0];*/
         }
       },
       error => {
-        //this.toastr.error('', this.language.error_getting_psurl +error, this.Commonser.messageConfig.iconClasses.error);
         this.toastrService.danger('There is some error');
       }
     )
   }
 
-  OnUserIdBlur(){
-    if( this.loginId == "" ||  this.loginId == undefined){
-      //alert("Please enter User Id");
-      return;
-    }
-    else {
-      // this.disablePassword = false;
-    }
-  }
 
   onPasswordBlur(){
-    //if(this.password != null && this.password != undefined && this.password != ''){
       if (this.loginId == "" ||  this.loginId == undefined || this.password == "" || this.password == undefined) {
-       // alert("User Id or Password is blank");
         return;
       }
       
@@ -97,15 +80,11 @@ export class SigninComponent implements OnInit {
           else{
             this.listItems = this.defaultCompnyComboValue;
             this.selectedValue = this.listItems[0];
-            // this.toastr.error('', this.language.alert_incorrect_useridpassword, this.Commonser.messageConfig.iconClasses.error);
-            //this.OnDropDownBlur(0);
             this.toastrService.danger('Incorrect username or password!');
 
           }       
         },
         error => {
-         // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
-         // this.showLoader = false;
         }       
       );   
       }
@@ -121,7 +100,6 @@ export class SigninComponent implements OnInit {
             this.assignedCompanies = data.Table; 
             this.clickSignIn = false; 
             this.listItems = this.assignedCompanies;
-           // this.listItems.unshift({ OPTM_COMPID: 'Select Company' }) 
            this.selectedValue = this.listItems[0];
           }
           else {
@@ -131,8 +109,7 @@ export class SigninComponent implements OnInit {
       )
     }
 
-    OnDropDownBlur(event){
-    }
+  
 
     OnSignIn(){
       this.router.navigateByUrl('/pages');
