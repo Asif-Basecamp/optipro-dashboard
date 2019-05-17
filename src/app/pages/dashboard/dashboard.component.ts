@@ -86,6 +86,9 @@ export class DashboardComponent implements OnInit{
   public datasource: any = [];
   public data: any = [];
   public disableLotNumber: boolean = true;
+  public itemStatus: boolean = false;
+  public WarehouseStatus: boolean = false;
+  
   //public disableProcess: boolean = true;
  // radioGroupValue = 'Show Data of all type of lots';
   
@@ -125,20 +128,24 @@ export class DashboardComponent implements OnInit{
        {
           let item = this.ItemValue;
           let validitem = data.filter(function(val){
-              if(item == val.ItemCode){
-                this.ItemValue = val.ItemCode;
-                this.ItemDesc = val.ItemName;
-                this.disableLotNumber = false;
-              }             
+             return item == val.ItemCode;
           });
           
-          if(validitem.length <= 0){
-              //alert('Enter correct Item Code');
-              this.toastrService.danger('Enter correct Item Code');
-              this.ItemValue = '';
+          if(validitem.length <= 0){              
+              //this.ItemValue = '';
               this.disableLotNumber = true;
+              this.itemStatus = true;
+              // this.ItemDesc = '';
+              // this.DistNumFrom = '';
+              // this.DistNumTo = '';
               return;
           }
+          else {
+            this.ItemValue = validitem[0].ItemCode;
+            this.ItemDesc = validitem[0].ItemName;
+            this.disableLotNumber = false;           
+          }
+
         });
   }
 
@@ -173,10 +180,13 @@ export class DashboardComponent implements OnInit{
           });
 
           if(validItem.length <= 0){
-           // alert('Enter correct Warehouse Code');
-            this.toastrService.danger('Enter correct Warehouse Code');
-            this.DfltWarehouse = '';
+            this.WarehouseStatus = true;
+            //this.DfltWarehouse = '';
             return;
+          }
+          else{
+            this.DfltWarehouse = validItem[0].WhsCode;
+            this.WarehouseStatus = false;
           }
        });
   }

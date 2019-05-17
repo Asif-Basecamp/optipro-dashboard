@@ -1,3 +1,11 @@
+<style>
+  .opti_error-msg {
+      color: red !important;
+      font-size: 12px;
+      
+  }
+  </style>
+
 <div class="dashboard-left" id="dashboard-left">
   <nb-card accent="primary" id="selection-criteria-section" (click)="searchCriteriaExpand()">
     <nb-card-header class="border-bottom d-flex">
@@ -7,7 +15,7 @@
     <nb-card-body id="selection-criteria-body">
       <div class="row">
         <div class="col-sm-12">
-          <form>
+          <form #criteriaForm="ngForm">
             <fieldset class="form-group px-0 mb-2">
               <!-- [(value)]="radioExplode"-->
               <nb-radio-group class="d-flex" [(ngModel)]="radioExplode" name="radioExplode">
@@ -24,7 +32,7 @@
               <div class="w-100">
                 <div class="input-group">
                   <input nbInput fieldSize="small" type="text" name="ItemValue" id="ItemValue" class="form-control"
-                    placeholder="Select Item" #ItemVal=ngModel [(ngModel)]="ItemValue" (blur)="onItemCodeBlur()">
+                    placeholder="Select Item" #ItemVal=ngModel [(ngModel)]="ItemValue"  (blur)="onItemCodeBlur()" required autocomplete="off">
 
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemLookup(dialog)">
@@ -33,6 +41,8 @@
                   </div>
                 </div>
               </div>
+              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="ItemVal.errors?.required && !itemStatus && ItemVal.touched" class="float-right opti_error-msg">Item Code Required</small>
+              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="itemStatus && ItemVal.touched" class="float-right opti_error-msg">Enter Correct Item Code</small>
             </div>
             <div class="form-group">
               <label for="inputPassword3" class="form-label">Desc.</label>
@@ -51,7 +61,7 @@
               <div class="w-100">
                 <div class="input-group">
                   <input nbInput fieldSize="small" type="text" class="form-control" placeholder="Select Warehouse"
-                    name="DfltWarehouse" id="DfltWarehouse" #Whse=ngModel [(ngModel)]="DfltWarehouse" (blur)="onWarehouseBlur()">
+                    name="DfltWarehouse" id="DfltWarehouse" #Whse=ngModel [(ngModel)]="DfltWarehouse" (keyup)="onWarehouseBlur()" required autocomplete="off">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openWarehouseLookup(dialog)">
                       <i class="nb-menu"></i>
@@ -59,33 +69,36 @@
                   </div>
                 </div>
               </div>
+              <small id="emalHelp" class="form-text text-muted opti_error-msg" *ngIf="Whse.errors?.required && !WarehouseStatus && Whse.touched" class="float-right opti_error-msg">Warehouse Code Required</small>
+              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="WarehouseStatus && Whse.touched" class="float-right opti_error-msg">Enter Correct Warehouse Code</small>
             </div>
             <div class="form-group">
               <label for="inputPassword3" class="form-label">Lot From</label>
               <div class="w-100">
                 <div class="input-group">
                   <input fieldSize="small" nbInput type="text" class="form-control" placeholder="Select Lot From"
-                    name="DistNumFrom" id="DistNumFrom" #LotF=ngModel [disabled]="disableLotNumber" [(ngModel)]="DistNumFrom" (blur)="onLotNumberBlur('From')">
+                    name="DistNumFrom" id="DistNumFrom" #LotF=ngModel [disabled]="disableLotNumber" [(ngModel)]="DistNumFrom" (blur)="onLotNumberBlur('From')" required autocomplete="off">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
                       (click)="openLotFromLookup(dialog)" [disabled]="disableLotNumber"><i class="nb-menu"></i></button>
                   </div>
                 </div>
               </div>
+              <small id="emalHelp" class="form-text text-muted opti_error-msg" *ngIf="LotF.errors?.required && Whse.touched" class="float-right opti_error-msg">Lot From Required</small>
             </div>
             <div class="form-group">
               <label for="inputPassword3" class="form-label">Lot To</label>
               <div class="w-100">
                 <div class="input-group">
                   <input fieldSize="small"  nbInput type="text" class="form-control" placeholder="Select Lot To"
-                    name="DistNumTo" id="DistNumTo" #LotT=ngModel [disabled]="disableLotNumber" [(ngModel)]="DistNumTo" (blur)="onLotNumberBlur('To')">
+                    name="DistNumTo" id="DistNumTo" #LotT=ngModel [disabled]="disableLotNumber" [(ngModel)]="DistNumTo" (blur)="onLotNumberBlur('To')" required autocomplete="off">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
                       (click)="openLotToLookup(dialog)" [disabled]="disableLotNumber"><i class="nb-menu"></i></button>
                   </div>
                 </div>
               </div>
-
+              <small id="emalHelp" class="form-text text-muted opti_error-msg" *ngIf="LotT.errors?.required && Whse.touched" class="float-right opti_error-msg">Lot To Required</small>
             </div>
             <fieldset class="form-group px-0">
               <nb-radio-group class="d-flex">
@@ -115,7 +128,7 @@
     </nb-card-body>
     <nb-card-footer class="text-center py-2">
       <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" 
-      size="small" (click)="GetExplosion($event)">Process <i data-eva="arrow-forward" data-eva-height="18" data-eva-width="18"
+      size="small" (click)="GetExplosion($event)" [disabled]="!criteriaForm.form.valid || (itemStatus || WarehouseStatus)">Process <i data-eva="arrow-forward" data-eva-height="18" data-eva-width="18"
           data-eva-fill="#fff" class="ml-2"></i></button>
           
     </nb-card-footer>
