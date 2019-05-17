@@ -29,10 +29,9 @@ export class SigninComponent implements OnInit {
   constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastrService: NbToastrService) {}
   
   ngOnInit() {
-
-    // if (window.localStorage.getItem('Username') != null || window.localStorage.getItem('Username') != undefined) {
-    //   this.router.navigateByUrl('/pages');
-    // }
+     if (window.localStorage.getItem('Username') != null || window.localStorage.getItem('Username') != undefined) {
+        this.router.navigateByUrl('/pages');
+     }
 
     const element = document.getElementsByTagName("body")[0];
     element.classList.add("opti_body-login");

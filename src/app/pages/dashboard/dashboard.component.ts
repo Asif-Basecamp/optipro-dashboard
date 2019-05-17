@@ -53,7 +53,6 @@
   constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
  
   ngOnInit() {
- 
    this.arrConfigData = JSON.parse(window.localStorage.getItem('arrConfigData'));
    this.CompanyDB = JSON.parse(window.localStorage.getItem('CompanyDB'));
    this.Username = JSON.parse(window.localStorage.getItem('Username'));
@@ -98,6 +97,7 @@
     },
     error => {
      // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
+     this.toastrService.danger("No Record Found!");    
     }
    )
   }
@@ -131,6 +131,7 @@
     },
     error => {
      // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
+     this.toastrService.danger("No Record Found!");    
     }
    )
   }
@@ -174,6 +175,7 @@
     },
     error => {
      // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
+     this.toastrService.danger("No Record Found!");    
     }
    )
   }
@@ -193,7 +195,9 @@
     },
     error => {
      // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
+     this.toastrService.danger("No Record Found!");    
     }
+    
    )
   }
  
@@ -249,6 +253,7 @@
     },
     error => {
      // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
+     this.toastrService.danger("No Record Found!");    
     }
    )
   }
@@ -295,6 +300,7 @@
  
     error => {
      // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
+     this.toastrService.danger("No Record Found!");    
     }
    )
   }
@@ -319,21 +325,25 @@
  
    if (this.ItemValue == null || this.ItemValue == undefined || this.ItemValue == '' || this.ItemValue == " ") {
     this.toastrService.danger('Please enter Item Code');
+    this.loading = false;
     return;
    }
  
    if (this.DfltWarehouse == null || this.DfltWarehouse == undefined || this.DfltWarehouse == '' || this.DfltWarehouse == " ") {
     this.toastrService.danger('Please enter Warehouse Code');
+    this.loading = false;
     return;
    }
  
    if (this.DistNumFrom == null || this.DistNumFrom == undefined || this.DistNumFrom == '' || this.DistNumFrom == " ") {
     this.toastrService.danger('Please enter Lot From');
+    this.loading = false;
     return;
    }
  
    if (this.DistNumTo == null || this.DistNumTo == undefined || this.DistNumTo == '' || this.DistNumTo == " ") {
     this.toastrService.danger('Please enter Lot To');
+    this.loading = false;
     return;
    }
  
@@ -344,7 +354,14 @@
  
    this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.DfltWarehouse, this.DistNumFrom, this.DistNumTo, this.explodeDirection).subscribe(
     data => {
-    if(data){
+      console.log(data.length);
+    if(data.length==0){
+      this.loading = false;
+      this.toastrService.danger("No Record Found!");
+      this.AnalysisData = [];
+      this.nodes1 = [];
+      this.nodes2 = [];
+    }else{
      this.data = data;
      let Arr = [];
  
@@ -362,9 +379,13 @@
      this.gridStatus = !this.gridStatus;
      this.loading = false;
     } 
+     
+  
     },
     error => {
-     // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
+      this.loading = false;
+      this.toastrService.danger("No Record Found!");    
+       // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
     }
    )
  
@@ -392,6 +413,7 @@
       test = test.trim();
      } else {
       this.toastrService.danger('Item is None Tracked');
+      this.loading = false;
       return;
      }
     }
