@@ -4,6 +4,7 @@
  import {DashboardService} from 'src/app/service/dashboard.service';
  import {Router} from '@angular/router';
  import {NbToastrService} from '@nebular/theme';
+ import * as eva from 'eva-icons';
  
  var nodeName = '';
  
@@ -58,6 +59,7 @@
    this.Username = JSON.parse(window.localStorage.getItem('Username'));
    this.Userpwd = JSON.parse(window.localStorage.getItem('Userpwd'));
    this.radioExplode = 'Lot Explosion';
+   eva.replace()
   }
  
   onItemCodeBlur() {
