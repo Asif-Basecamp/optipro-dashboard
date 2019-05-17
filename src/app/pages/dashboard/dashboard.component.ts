@@ -48,6 +48,7 @@
   public data: any = [];
   public disableLotNumber: boolean = true;
   loading = false;
+  Analysisloading = false;
  
   constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
  
@@ -220,6 +221,8 @@
   GetTransaction(NodeName, fullName) {
    this.dash.GetTransaction(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, NodeName).subscribe(
     data => {
+    if(data){
+     this.loading = false;
      this.DocEntryArr = [];
      this.nodes1 = [];
      this.transactions = data;
@@ -242,6 +245,7 @@
      map["children"] = childrens;
  
      this.nodes1.push(map);
+    } 
     },
     error => {
      // this.toastr.error('', this.language.error_login, this.Commonser.messageConfig.iconClasses.error);
@@ -282,8 +286,11 @@
  
    this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DC, ObjType, Item, this.DfltWarehouse).subscribe(
     data => {
+    if(data){ 
+     this.Analysisloading = false; 
      this.transactiondetails = data;
      this.AnalysisData = data;
+    } 
     },
  
     error => {
@@ -379,7 +386,7 @@
     return;
    } else {
     if (test.indexOf("-") > -1) {
-    //  alert('hello');
+     this.loading = true;
      test = test.split("-")[test.split("-").length - 1];
      if (test != '' && test != " " && test != undefined && test != null) {
       test = test.trim();
@@ -399,6 +406,7 @@
    if (dt == "" || dt == undefined) {
     return;
    } else {
+    this.Analysisloading = true; 
     if (dt.indexOf("-") > -1) {
      if (dt.indexOf(":") > -1)
       dcentry = dt.split("-")[0].trim();

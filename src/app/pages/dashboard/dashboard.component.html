@@ -228,7 +228,7 @@
 
 
     <div class="analysis-accordian expanded" id="analysis-accordian">
-      <nb-card accent="primary">
+      <nb-card accent="primary" size="xsmall" [nbSpinner]="Analysisloading" nbSpinnerStatus="primary" nbSpinnerSize="xlarge">
         <nb-card-header class="border-bottom d-flex" id="analysis-accordian-trigger"
           (click)="customAccordianAnalysis($event)">
           <i data-eva="layers" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="mr-2"></i>
