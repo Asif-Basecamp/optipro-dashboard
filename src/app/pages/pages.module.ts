@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
 import { TreeModule } from 'angular-tree-component';
+import { DefaultComponent } from './default/default.component';
 
 
 const PAGES_COMPONENTS = [
@@ -14,7 +15,7 @@ const PAGES_COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: [DashboardComponent, PagesComponent],
+  declarations: [DashboardComponent, PagesComponent, DefaultComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,

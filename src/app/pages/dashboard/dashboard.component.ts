@@ -1,10 +1,12 @@
- import {Component,OnInit,TemplateRef} from '@angular/core';
+ import {Component,OnInit,TemplateRef, Input} from '@angular/core';
  import {TreeNode,TreeModel,TREE_ACTIONS,KEYS,IActionMapping,ITreeOptions} from 'angular-tree-component';
  import {NbDialogService} from '@nebular/theme';
  import {DashboardService} from 'src/app/service/dashboard.service';
  import {Router} from '@angular/router';
  import {NbToastrService} from '@nebular/theme';
  import * as eva from 'eva-icons';
+import { GridComponent } from '@progress/kendo-angular-grid';
+import { State } from '@progress/kendo-data-query';
  
  var nodeName = '';
  
@@ -15,6 +17,7 @@
  })
  
  export class DashboardComponent implements OnInit {
+  @Input() serviceData: any;
   public gridData: any[];
   public arrConfigData: any;
   dataGridSelectNum: number;
@@ -50,6 +53,8 @@
   public disableLotNumber: boolean = true;
   loading = false;
   Analysisloading = false;
+  showSelection: boolean = false;
+  selectedValues: Array<any> = [];
  
   constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
  
@@ -450,6 +455,42 @@
   }
  
  
+  onCheckboxClick(checked: any, index: number) {
+
+    let servivceItem: any = this.serviceData[index];
+    if (checked) {
+      this.selectedValues.push(servivceItem);
+    }
+    else {
+      // let rixd: number= this.selectedValues.findIndex(i => i.LOTNO == servivceItem.LOTNO && i.LOTNO == servivceItem.BINNO)
+      this.selectedValues = this.selectedValues.splice(index, 1);
+    }
+  }
+
+  onFilterChange(checkBox: any, grid: GridComponent) {
+    if (checkBox.checked == false) {
+      this.clearFilter(grid);
+    }
+  }
+  clearFilter(grid: GridComponent) {
+    this.clearFilters()
+  }
+  public state: State = {
+    skip: 0,
+    take: 5,
+
+    // Initial filter descriptor
+    filter: {
+      logic: 'and',
+      filters: []
+    }
+  };
+  public clearFilters() {
+    this.state.filter = {
+      logic: 'and',
+      filters: []
+    };
+  }
   //Custom accordian function
   customAccordianGrid(e) {
    if (document.getElementById("grid-accordian").classList.contains('expanded')) {
