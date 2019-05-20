@@ -414,13 +414,13 @@
    )
   }
  
- /* open(dialog: TemplateRef < any > ) {
+  open(dialog: TemplateRef < any > ) {
    this.dialogService.open(dialog);
-  }*/
+  }
  
-  /*process() {
+  process() {
    this.gridStatus = !this.gridStatus;
-  }*/
+  }
  
   clickTransaction(evt) {
    let test = evt.srcElement.textContent;
