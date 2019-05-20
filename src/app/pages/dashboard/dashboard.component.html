@@ -82,10 +82,15 @@
 
             </div>
             <fieldset class="form-group px-0">
-              <nb-radio-group class="d-flex">
-                <nb-radio>Single Level</nb-radio>
-                <nb-radio>Multi Level</nb-radio>
-              </nb-radio-group>
+              <!-- <nb-radio-group class="d-flex"> -->
+                <!-- <nb-radio>Single Level</nb-radio>
+                <nb-radio>Multi Level</nb-radio> -->
+                <nb-radio-group class="d-flex" [(ngModel)]="radioLevel" name="radioLevel">
+                  <nb-radio [value]="'Single Level'">Single Level
+                  </nb-radio>
+                  <nb-radio [value]="'Multi Level'">Multi Level</nb-radio>
+                </nb-radio-group>
+              <!-- </nb-radio-group> -->
             </fieldset>
 
 
@@ -202,11 +207,11 @@
             <div class="col-sm-8 pt-3 overflow-auto h-100">
               <nb-card>
                 <nb-card-body>
-                  <nb-radio-group class="d-flex" [(value)]="radioGroupValue">
-                    <nb-radio [value]="'Show Data of all type of lots'">
+                  <nb-radio-group class="d-flex" [(ngModel)]="radioTransaction" name="radioTransaction">
+                    <nb-radio [value]="'AllLots'">
                       Show Data of all type of lots
                     </nb-radio>
-                    <nb-radio [value]="'Show Data of all immediate of lots'">
+                    <nb-radio [value]="'ImmediateLots'">
                       Show Data of all immediate of lots
                   </nb-radio>
                   </nb-radio-group>

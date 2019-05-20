@@ -42,7 +42,11 @@
   public Username: any;
   public Userpwd: any;
   public radioExplode: any;
-  public explodeDirection: any;
+  public radioLevel: any;
+  public radioTransaction: any;
+  public explodeDirection: any;  
+  public explodeLevel: any;
+  public explodeTransaction: any;
   public lookUpHeading: any;
   public AnalysisData: any = [];
   public datasource: any = [];
@@ -59,6 +63,8 @@
    this.Username = JSON.parse(window.localStorage.getItem('Username'));
    this.Userpwd = JSON.parse(window.localStorage.getItem('Userpwd'));
    this.radioExplode = 'Lot Explosion';
+   this.radioLevel = 'Single Level';
+   this.radioTransaction = 'AllLots';
    eva.replace()
   }
  
@@ -225,7 +231,13 @@
   }
  
   GetTransaction(NodeName, fullName) {
-   this.dash.GetTransaction(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, NodeName).subscribe(
+
+   if (this.radioTransaction == 'AllLots')
+    this.explodeTransaction = 'AllLots';
+   else
+    this.explodeTransaction = 'ImmediateLots';
+
+   this.dash.GetTransaction(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, NodeName, this.explodeTransaction).subscribe(
     data => {
     if(data){
      this.loading = false;
@@ -353,8 +365,13 @@
     this.explodeDirection = 'DOWN';
    else
     this.explodeDirection = 'UP';
+
+   if (this.radioLevel == 'Single Level')
+    this.explodeLevel = 'Single';
+   else
+    this.explodeLevel = 'Multi';
  
-   this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.DfltWarehouse, this.DistNumFrom, this.DistNumTo, this.explodeDirection).subscribe(
+   this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.DfltWarehouse, this.DistNumFrom, this.DistNumTo, this.explodeDirection, this.explodeLevel).subscribe(
     data => {
       console.log(data.length);
     if(data.length==0){

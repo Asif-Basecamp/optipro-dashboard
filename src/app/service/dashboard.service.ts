@@ -39,10 +39,11 @@ export class DashboardService {
       return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetLotNumber",jObject,this.httpOptions);
     }
 
-    GetTransaction(optiProDashboardAPIURL:string,CompanyDBID:string,ItemKey:string): Observable<any>{
+    GetTransaction(optiProDashboardAPIURL:string,CompanyDBID:string,ItemKey:string,explodeTransaction:string): Observable<any>{
       let jObject:any={ ItemList: JSON.stringify([{ 
        CompanyDBID: CompanyDBID,
-       ItemKey: ItemKey
+       ItemKey: ItemKey,
+       explodeTransaction: explodeTransaction
       }])};
       return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetTransaction",jObject,this.httpOptions);
     }
@@ -59,7 +60,7 @@ export class DashboardService {
     }
 
 
-    GetLotExplosionData(optiProDashboardAPIURL:string,CompanyDBID:string,ItemKey:string,Warehouse:string,LotFrom:string,LotTo:string,Mode:string ):Observable<any>{
+    GetLotExplosionData(optiProDashboardAPIURL:string,CompanyDBID:string,ItemKey:string,Warehouse:string,LotFrom:string,LotTo:string,Mode:string,SelectionCriteria:string):Observable<any>{
       //JSON Obeject Prepared to be send as a param to API
       let jObject:any={ GetData: JSON.stringify([{ 
         CompanyDBID: CompanyDBID,
@@ -67,7 +68,8 @@ export class DashboardService {
         Warehouse: Warehouse,
         LotFrom: LotFrom,
         LotTo: LotTo,
-        Mode: Mode       
+        Mode: Mode,
+        SelectionCriteria: SelectionCriteria      
     }]) };
     //Return the response form the API  
     return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetLotExplosionData",jObject,this.httpOptions);
