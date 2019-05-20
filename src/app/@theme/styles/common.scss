@@ -105,6 +105,10 @@ label{
 .form-control.input-sm::placeholder {
     font-size: nb-theme(form-control-font-size-sm) !important;
 }
+.opti_error-msg {
+    color: red !important;
+    font-size: 12px;
+}
 // html body nb-select{
 //     & > [nbButton].btn-outline.btn-primary{
 //         &:hover{

@@ -16,16 +16,12 @@ export class HeaderComponent implements OnInit {
   @Input() position = 'normal';
 
   user: any;
-
-  //userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
   userMenu = [{ title: 'Log out' }];
 
-  constructor(private sidebarService: NbSidebarService,
-              private menuService: NbMenuService,
-              private userService: UserData,
-              // private analyticsService: AnalyticsService,
-              private router: Router
-              ) {
+  constructor(private sidebarService: NbSidebarService,private menuService: NbMenuService,private userService: UserData,private router: Router) {
+    if(window.localStorage.getItem('Username') == null || window.localStorage.getItem('Username') == undefined) {
+         this.router.navigateByUrl('/auth/signin');
+    }
   }
 
   ngOnInit() {
@@ -45,6 +41,12 @@ export class HeaderComponent implements OnInit {
   }
 
   LogOut(){
+     if(window.localStorage.getItem('Username') != null || window.localStorage.getItem('Username') != undefined) {
+       /* window.localStorage.removeItem('CompanyDB');
+        window.localStorage.removeItem('Username');
+        window.localStorage.removeItem('Userpwd');*/
+        window.localStorage.clear();
+      }
     this.router.navigateByUrl('/Login');
     // window.localStorage.setItem('CompanyDB', '');
     // window.localStorage.setItem('Username', '');

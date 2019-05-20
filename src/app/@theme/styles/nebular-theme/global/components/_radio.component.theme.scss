@@ -43,6 +43,7 @@
 @mixin nb-radio-theme() {
   nb-radio {
     .radio-indicator {
+      cursor: pointer;
       @include set-box-style(
           nb-theme(radio-bg),
           nb-theme(radio-size),
@@ -81,6 +82,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
     }
   }
 }

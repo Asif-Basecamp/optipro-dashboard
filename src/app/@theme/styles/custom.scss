@@ -1805,6 +1805,8 @@ col.k-sorted,th.k-sorted {
 /*Single node*/
 .node-wrapper-box{
   margin: -5px;
+  display: flex;
+  flex-wrap: wrap;
 }
 .single-node.node, .single-node.node div::before, .single-node.node div::after {
   box-sizing: border-box;
