@@ -73,6 +73,5 @@ export class DashboardService {
     }]) };
     //Return the response form the API  
     return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetLotExplosionData",jObject,this.httpOptions);
-    }  
-     
+    }       
 }
