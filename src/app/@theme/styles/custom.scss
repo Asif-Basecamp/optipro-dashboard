@@ -1715,9 +1715,11 @@ col.k-sorted,th.k-sorted {
 }
 
 /*Single node*/
-// .node-wrapper{
-//   margin: -5px;
-// }
+.node-wrapper-box{
+  margin: -5px;
+  display: flex;
+  flex-wrap: wrap;
+}
 .single-node.node, .single-node.node div::before, .single-node.node div::after {
   box-sizing: border-box;
   margin: 5px;
@@ -1990,6 +1992,7 @@ tree-node:not(:last-child):after{
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  flex-wrap: wrap;
 }
 .node-content-wrapper-active,
 .node-content-wrapper.node-content-wrapper-active:hover,

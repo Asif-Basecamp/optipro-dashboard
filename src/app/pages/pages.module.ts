@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbSidebarModule, NbLayoutModule } from '@nebular/theme';
+import { NbSidebarModule, NbLayoutModule, NbSpinnerModule } from '@nebular/theme';
 import { FormsModule } from '@angular/forms';
 import { PagesRoutingModule } from './pages-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -21,6 +21,7 @@ const PAGES_COMPONENTS = [
     NbLayoutModule,
     ThemeModule,
     NbSidebarModule,
+    NbSpinnerModule,
     FormsModule,
     TreeModule.forRoot() 
   ],
