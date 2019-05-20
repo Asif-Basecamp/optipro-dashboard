@@ -186,7 +186,7 @@
 <div class="dashboard-right">
   <div class="custom-accordian analysis-accordian-open grid-accordian-open" id="custom-accordian">
     <div class="grid-accordian expanded" id="grid-accordian">
-      <nb-card accent="primary" size="xsmall" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="xlarge">
+      <nb-card accent="primary" size="xsmall" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="xlarge" nbSpinnerMessage="Waiting">
         <nb-card-header class="border-bottom d-flex" id="grid-accordian-trigger" (click)="customAccordianGrid($event)">
           <i data-eva="grid" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="mr-2"></i>
           <span>Grid View</span>
@@ -242,7 +242,7 @@
 
 
     <div class="analysis-accordian expanded" id="analysis-accordian">
-      <nb-card accent="primary" size="xsmall" [nbSpinner]="Analysisloading" nbSpinnerStatus="primary" nbSpinnerSize="xlarge">
+      <nb-card accent="primary" size="xsmall" [nbSpinner]="Analysisloading" nbSpinnerStatus="primary" nbSpinnerSize="xlarge" nbSpinnerMessage="Waiting">
         <nb-card-header class="border-bottom d-flex" id="analysis-accordian-trigger"
           (click)="customAccordianAnalysis($event)">
           <i data-eva="layers" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="mr-2"></i>
