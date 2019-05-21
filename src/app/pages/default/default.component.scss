@@ -1,0 +1,62 @@
+@import "./../../@theme/styles/themes";
+
+.default-page-bg{
+    width: 100%;
+    display:flex;
+    flex:1;
+    align-items: center;
+    justify-items: center;    
+    position: relative;  
+    overflow: hidden;
+    border-radius: nb-theme(card-border-radius);  
+    &:before {
+        background: url('../../../assets/images/background2.jpg');
+        background-size: cover;
+        background-position: left center;
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        -webkit-filter: blur(8px);
+        filter: blur(8px);
+    }
+    &:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        background: nb-theme(color-primary);
+        opacity: 0.3;
+    }
+}
+
+.opti_signin-logo{
+    color:#fff;
+    font-family: Exo;
+    font-size: 3rem;
+    position: relative;
+    z-index: 100;
+    margin: 0 auto;
+    background: rgba(0,0,0,0.3);
+    padding: 50px 40px 40px 40px;
+    border-radius: 0.375rem;
+    svg{
+        margin-right: 10px;
+        width:70px;
+        path{
+            fill:#fff;
+        }
+    }
+}
+
+.opti_version-info{
+    font-size: 1rem;
+    line-height: 2;
+    margin-top: 1rem;
+}

@@ -4,6 +4,7 @@ import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { UserData } from '../../../@core/data/users';
 // import { AnalyticsService } from '../../../@core/utils';
 import { Router } from '@angular/router';
+import * as eva from 'eva-icons';
 
 @Component({
   selector: 'opti-header',
@@ -24,6 +25,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    eva.replace()
     this.userService.getUsers()
       .subscribe((users: any) => this.user = users.nick);
   }

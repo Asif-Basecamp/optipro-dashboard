@@ -20,6 +20,7 @@
 
 @mixin form-control-sm() {
   font-size: nb-theme(form-control-font-size-sm);
+  height:nb-theme(form-control-height);
 }
 
 @mixin form-control-md() {

@@ -59,7 +59,21 @@
         overflow: hidden;
       }
     }
+    .menu-item a.active {
+      position: relative;
 
+      &::before {
+        position: absolute;
+        content: '';
+        @include nb-ltr(left, 0);
+        // @include nb-rtl(right, 0);
+        top: 0;
+        height: 100%;
+        width: 4px;
+        background: nb-theme(color-fg-highlight);
+      }
+    }
+    
     &.compacted {
       width: nb-theme(sidebar-width-compact);
       .main-container {

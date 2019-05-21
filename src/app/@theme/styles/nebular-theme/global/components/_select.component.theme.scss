@@ -19,9 +19,9 @@
   nb-select > button[nbButton] {
     transition: all 0.1s;
     &.btn-outline.btn-primary{
-      border: 2px solid nb-theme(form-control-border-color);
+      border: 1px solid nb-theme(form-control-border-color);
       &:hover{
-        border: 2px solid nb-theme(form-control-border-color);
+        border: 1px solid nb-theme(form-control-border-color);
         color: nb-theme(color-fg-heading);
         background-color: transparent;
       }

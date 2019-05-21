@@ -75,7 +75,7 @@
 }
 
 .k-grid th,.k-grid td {
-  padding: 8px 12px;
+  padding: 5px 8px;
   border-style: solid;
   border-color: inherit;
   outline: 0;
@@ -94,7 +94,7 @@
 }
 
 .k-grid th {
-  padding: 8px 12px;
+  padding: 5px 8px;
   border-width: 0 0 1px 1px;
   white-space: nowrap;  
 }
@@ -336,7 +336,7 @@
 }
 
 .k-grid-toolbar {
-  padding: 8px 8px;
+  padding:5px 5px;
   border-width: 0 0 1px;
   border-style: solid;
   border-color: inherit;
@@ -646,7 +646,7 @@ div.k-grid-header,div.k-grid-footer {
 .k-filter-row td,.k-filter-row th {
   border-width: 0 0 1px 1px;
   white-space: nowrap;
-  padding: 8px 8px
+  padding: 5px 8px
 }
 
 .k-filter-row td:first-child {
@@ -698,16 +698,22 @@ div.k-grid-header,div.k-grid-footer {
 
 .k-filtercell .k-filtercell-operator>.k-button.k-clear-button-visible {
   visibility: visible;
-  height: calc(10px + 1.4285714286em)
+  //height: calc(10px + 1.4285714286em)
+  background: transparent;
+  border: none;
+  color: #fff;
 }
 
 .k-filtercell .k-filtercell-operator>.k-button:not(.k-clear-button-visible) {
   visibility: hidden;
-  pointer-events: none
+  pointer-events: none;
+  display: none;  
 }
 
 .k-filtercell .k-filtercell-operator {
-  margin-left: 4px
+  align-items: center;
+  margin-left: 4px;
+  display: flex;
 }
 
 .k-filtercell .k-widget:not(.k-dropdown-operator),.k-filtercell .k-filtercell-wrapper>.k-textbox {
@@ -719,7 +725,12 @@ div.k-grid-header,div.k-grid-footer {
 
 .k-filtercell .k-filtercell-wrapper>.k-textbox {
   width: 100%;
-  min-width: 0
+  min-width: 0;
+  border-radius: 3px;
+  border: 1px solid #dadfe6;
+  padding: 2px 5px;
+  display: flex;
+  flex: 1;
 }
 
 .k-grid-content,.k-grid-content-locked {
@@ -1129,7 +1140,8 @@ div.k-grid-header,div.k-grid-footer {
   border-color: rgba(0,0,0,0.08);
   color: #656565;
   background-color: #fff;
-  background-clip: padding-box
+  background-clip: padding-box;
+  border-radius: 0.375rem;
 }
 
 .k-ie11 .k-grid,.k-edge12 .k-grid,.k-edge13 .k-grid {
@@ -1213,6 +1225,82 @@ col.k-sorted,th.k-sorted {
 
 .k-column-menu .k-menu:not(.k-context-menu) {
   font-weight: 400
+}
+.k-checkbox, .k-radio {
+  margin: 0;
+  padding: 0;
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+  position: absolute;
+  opacity: 0;
+  -webkit-appearance: none;
+  pointer-events: none;
+}
+.k-checkbox-label::before, .k-checkbox-label::after, .k-radio-label::before, .k-radio-label::after {
+  font-size: 16px;
+  font-family: "WebComponentsIcons";
+  box-sizing: border-box;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.k-checkbox-label::before, .k-radio-label::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border: 1px solid nb-theme(form-control-border-color);
+}
+.k-checkbox-label::before {
+  border-radius: 0.25rem;
+}
+.k-checkbox:checked + .k-checkbox-label::before {
+  border-color: nb-theme(color-primary);
+  background-color: nb-theme(color-primary);
+}
+.k-checkbox:checked + .k-checkbox-label::after {
+  border-radius: .25rem;
+  transform:scale(0.75);
+  color: #fff;
+}
+.k-checkbox:focus + .k-checkbox-label::before {
+  box-shadow: 0 0 0 1px #ffffff, 0 0 0 3px nb-theme(color-primary);
+  background-color: rgba(48, 54, 60, 0.15);
+  border-color: rgba(48, 54, 60, 0.15);
+  border-radius: 0.25rem;
+}
+.k-checkbox:checked + .k-checkbox-label::before, .k-checkbox:checked:focus + .k-checkbox-label::before {
+  border-color: nb-theme(color-primary);
+  background-color: nb-theme(color-primary);
+}
+.k-checkbox-label {
+  cursor: pointer;
+}
+.k-checkbox-label::after {
+  content: "\e118";
+  width: 16px;
+  height: 16px;
+  transform: scale(0);
+}
+.k-checkbox-label, .k-radio-label {
+  margin: 0;
+  padding-left: calc( 16px + 0.5rem);
+  min-height: 16px;
+  line-height: 17px;
+  vertical-align: text-top;
+  display: inline-flex;
+  align-items: flex-start;
+  position: relative;
+  cursor: pointer;
+}
+.k-grid-norecords td{
+  font-size: 16px;
+  text-align: center;
+  padding: 10px;
 }
 //orgchart css
 .orgchart {

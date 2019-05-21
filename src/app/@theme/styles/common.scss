@@ -1,3 +1,4 @@
+
 body.opti_account-module {
     position: relative;
     float: left;
@@ -45,15 +46,18 @@ body.opti_account-module {
 
 
 //css for button
-
+.btn-disabled{
+    cursor: not-allowed !important;
+}
 .btn-icon-with-input{
-    font-size: 27px !important;
+    font-size: 26px !important;
     padding: 0 !important;
     line-height: 1px !important;
     border: none !important;
     display: flex !important;
     align-items: center;
     justify-content: center;
+    height:nb-theme(form-control-height);
 }
 .btn.btn-with-icon-right{
     padding: nb-theme(btn-padding-y-sm) - .215 nb-theme(btn-padding-x-sm) - 1.2 nb-theme(btn-padding-y-sm) - .215 nb-theme(btn-padding-x-sm) - 0.85 !important;
@@ -63,7 +67,7 @@ body.opti_account-module {
 }
 nb-select{
     button {
-        padding: nb-theme(btn-padding-y-sm) nb-theme(btn-padding-x-sm) nb-theme(btn-padding-y-sm) nb-theme(btn-padding-x-sm) - 1 !important;
+        padding: nb-theme(btn-padding-y-sm) 25px nb-theme(btn-padding-y-sm) 0.5rem !important;
         &:after{
             transform: translateY(-50%);
         }
@@ -82,12 +86,28 @@ label{
 .overflow-auto{
     overflow: auto;
 }
+.overflow-hidden{
+    overflow: hidden;
+}
+.k-dropdown-operator .k-input {
+    display: none;
+}
 
-
+.form-control.input-sm::-webkit-input-placeholder {
+    font-size: nb-theme(form-control-font-size-sm)  !important;
+}
+.form-control.input-sm::-moz-placeholder {
+    font-size: nb-theme(form-control-font-size-sm)  !important;
+}
+.form-control.input-sm:-ms-input-placeholder {
+    font-size: nb-theme(form-control-font-size-sm)  !important;
+}
+.form-control.input-sm::placeholder {
+    font-size: nb-theme(form-control-font-size-sm) !important;
+}
 .opti_error-msg {
-    color: red !important;
-    font-size: 12px;
-    
+    color: nb-theme(color-danger) !important;
+    font-size: 12px !important;
 }
 // html body nb-select{
 //     & > [nbButton].btn-outline.btn-primary{
