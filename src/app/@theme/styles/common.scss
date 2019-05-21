@@ -106,8 +106,8 @@ label{
     font-size: nb-theme(form-control-font-size-sm) !important;
 }
 .opti_error-msg {
-    color: red !important;
-    font-size: 12px;
+    color: nb-theme(color-danger) !important;
+    font-size: 12px !important;
 }
 // html body nb-select{
 //     & > [nbButton].btn-outline.btn-primary{

@@ -100,7 +100,7 @@
   }
 
    /*-- Item Code functions --*/
-  getItemCodeData(api, companyDB){
+   getItemCodeData(api, companyDB){
     this.dash.GetItemList(api, companyDB).subscribe(
       data => {
         this.ItemCodeData = data;
@@ -267,6 +267,7 @@
    this.dash.GetLotNumber(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.trackName).subscribe(
     data => {
      this.gridData = data;
+     this.gridData = data;
      this.Item = false;
      this.whse = false;
      this.LotFrom = false;
@@ -308,7 +309,7 @@
   
     this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.DfltWarehouse, this.DistNumFrom, this.DistNumTo, this.explodeDirection).subscribe(
      data => {
-     if(!data){
+     if(data.length==0){
        this.loading = false;
        this.toastrService.danger("No Record Found!");
        this.AnalysisData = [];
