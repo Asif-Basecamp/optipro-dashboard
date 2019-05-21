@@ -455,7 +455,7 @@
    if (Dcentry.indexOf(":") > -1) {
     Dcentry = Dcentry.split(":")[1].trim();
     this.DocEntryArr.filter(function(d) {
-     if (d.DocEntry == Dcentry) {
+     if (d.DocEntry == Dcentry && d.key == Item) {
       DC = d.DocEntry;
       ObjType = d.ObjectType;
       node = "'"+d.key+"'";
