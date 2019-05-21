@@ -49,7 +49,6 @@
   selectedItem = '2';
   public Item: boolean = false;
   public whse: boolean = false;
-  public Lot: boolean = false;
   public LotFrom: boolean = false;
   public LotTo: boolean = false;
   public DistNumFrom: any;
@@ -60,6 +59,7 @@
   public nodes2: any = [];
   public transactions: any = [];
   public DocEntryArr: any = [];
+  public DocEntryArrNode: any = [];
   public searchCriteria: boolean = false;
   public transactiondetails: any = [];
   public Dsource: any = {};
@@ -67,7 +67,11 @@
   public Username: any;
   public Userpwd: any;
   public radioExplode: any;
-  public explodeDirection: any;
+  public radioLevel: any;
+  public radioTransaction: any;
+  public explodeDirection: any;  
+  public explodeLevel: any;
+  public explodeTransaction: any;
   public lookUpHeading: any;
   public AnalysisData: any = [];
   public datasource: any = [];
@@ -97,7 +101,9 @@
    this.getWarehouseCodeData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB); 
  
    this.radioExplode = 'Lot Explosion';
-   eva.replace();
+   this.radioLevel = 'Single Level';
+   this.radioTransaction = 'ParentLot';
+   eva.replace()
   }
 
    /*-- Item Code functions --*/
@@ -117,7 +123,7 @@
       this.lookUpHeading = 'Item Code';
       this.gridData = this.ItemCodeData;
       this.dialogService.open(dialog);
-      this.disableLotNumber = false;
+     // this.disableLotNumber = false;
     }
   }
 
@@ -165,7 +171,8 @@
       this.gridData = this.WarehouseData;
       this.Item = false;
       this.whse = true;
-      this.Lot = false;
+      this.LotFrom = false;
+      this.LotTo = false;
       this.lookUpHeading = 'Warehouse';
       this.dialogService.open(dialog);
     }
@@ -307,8 +314,13 @@
      this.explodeDirection = 'DOWN';
     else
      this.explodeDirection = 'UP';
+
+    if (this.radioLevel == 'Single Level')
+     this.explodeLevel = 'Single';
+    else
+     this.explodeLevel = 'Multi';
   
-    this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.DfltWarehouse, this.DistNumFrom, this.DistNumTo, this.explodeDirection).subscribe(
+     this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.DfltWarehouse, this.DistNumFrom, this.DistNumTo, this.explodeDirection, this.explodeLevel, this.trackName).subscribe(
      data => {
      if(!data){
        this.loading = false;
@@ -347,7 +359,8 @@
     this.dataGridSelectNum = evt.selectedRows[0].index;
     this.ItemValue = evt.selectedRows[0].dataItem.ItemCode;
     this.ItemDesc = evt.selectedRows[0].dataItem.ItemName;
-    this.DfltWarehouse = evt.selectedRows[0].dataItem.DfltWH;
+    this.disableLotNumber = false;
+    //this.DfltWarehouse = evt.selectedRows[0].dataItem.DfltWH;
     if (evt.selectedRows[0].dataItem.ManBtchNum == 'Y') {
      this.trackName = 'Batch'
     } else {
@@ -362,33 +375,65 @@
    }
    ref.close();
   }
+
+  getHierarchyTransaction(dataa, Id) {
+    let node1 = [];
+    dataa.filter(function(d) {
+     if (d.ParantId == Id) {
+      return d.ParantId == Id
+     }
+    }).forEach(function(d) {
+     var cd = d;
+     cd.children = this.getHierarchyTransaction(dataa, d.SeqNo);
+     
+     return node1.push(cd);
+    }.bind(this))
+    console.log(node1);
+    return node1;
+   }
+
+   setTransactionDetailParam(transaction){
+    for (let i = 0; i < transaction.length; i++) {
+      
+      if(transaction[i].ObjectTypeDesc != null ){
+        this.DocEntryArr.push({
+          key: transaction[i].DistNumber,
+          DocEntry: transaction[i].DocEntry,
+          ObjectType: transaction[i].ObjectType,
+          ParantId: transaction[i].ParantId
+         });
+      }
+      else {
+          this.DocEntryArrNode.push({
+            key: transaction[i].DistNumber,
+            ParantId: transaction[i].ParantId
+           });              
+      }     
+     }  
+    }
  
   /*-- get transaction type on click items of grid view --*/
 
   GetTransaction(NodeName, fullName) {
-   this.dash.GetTransaction(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, NodeName).subscribe(
+
+   if (this.radioTransaction == 'ParentLot')
+    this.explodeTransaction = 'ParentLot';
+   else
+    this.explodeTransaction = 'ImmediateLot';
+
+   this.dash.GetTransaction(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, NodeName,this.DfltWarehouse,this.explodeTransaction).subscribe(
     data => {
     if(data){
      this.loading = false;
      this.DocEntryArr = [];
+     this.DocEntryArrNode = [];
      this.nodes1 = [];
      this.transactions = data;
      let name = fullName;
      let childrens = [];
-     let map = {};
-     map["name"] = fullName;
-     for (let i = 0; i < this.transactions.Table.length; i++) {
-      childrens.push({
-       name: '(' + this.transactions.Table[i].DistNumber + ') Doc Entry : ' + this.transactions.Table[i].DocEntry + ' - ' + this.transactions.Table[i].ObjectTypeDesc
-      });
-      this.DocEntryArr.push({
-       key: this.transactions.Table[i].DistNumber,
-       DocEntry: this.transactions.Table[i].DocEntry,
-       ObjectType: this.transactions.Table[i].ObjectType
-      });
-     }
-     map["children"] = childrens;
-     this.nodes1.push(map);
+
+    this.setTransactionDetailParam(this.transactions.Table);
+    this.nodes1 =  this.getHierarchyTransaction(data.Table,'-1');
     } 
     },
     error => {
@@ -421,12 +466,15 @@
    let OTstr = '';
    let stringDC = [];
    let str = '';
+
+   let node = '';
    if (Dcentry.indexOf(":") > -1) {
     Dcentry = Dcentry.split(":")[1].trim();
     this.DocEntryArr.filter(function(d) {
      if (d.DocEntry == Dcentry) {
       DC = d.DocEntry;
       ObjType = d.ObjectType;
+      node = "'"+d.key+"'";
      }
     });
    } else {
@@ -442,8 +490,28 @@
     }
     DC = str;
     ObjType = OTstr;
-   }
-  this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DC, ObjType, Item, this.DfltWarehouse).subscribe(
+
+    let Array = this.DocEntryArrNode;
+   this.DocEntryArrNode.filter(function(d) {
+
+     if(d.key == Item){
+        if(d.ParantId == -1){
+          for(let k=0 ; k<Array.length; k++){   
+            if(k==0) 
+            node = "'"+Array[k].key+"'";
+            else
+            node = node + ", '" + Array[k].key+"'";     
+         }
+        }
+        else{
+          node = "'"+Item+"'";
+        }     
+
+     }
+   });
+   }  
+
+  this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DC, ObjType, node,this.DfltWarehouse).subscribe(
     data => {
     if(data){ 
      this.Analysisloading = false; 
