@@ -49,7 +49,6 @@
   selectedItem = '2';
   public Item: boolean = false;
   public whse: boolean = false;
-  public Lot: boolean = false;
   public LotFrom: boolean = false;
   public LotTo: boolean = false;
   public DistNumFrom: any;
@@ -123,7 +122,7 @@
       this.lookUpHeading = 'Item Code';
       this.gridData = this.ItemCodeData;
       this.dialogService.open(dialog);
-      this.disableLotNumber = false;
+     // this.disableLotNumber = false;
     }
   }
 
@@ -171,8 +170,8 @@
       this.gridData = this.WarehouseData;
       this.Item = false;
       this.whse = true;
-      this.Lot = false;
-
+      this.LotFrom = false;
+      this.LotTo = false;
       this.lookUpHeading = 'Warehouse';
       this.dialogService.open(dialog);
     }
@@ -359,7 +358,8 @@
     this.dataGridSelectNum = evt.selectedRows[0].index;
     this.ItemValue = evt.selectedRows[0].dataItem.ItemCode;
     this.ItemDesc = evt.selectedRows[0].dataItem.ItemName;
-    this.DfltWarehouse = evt.selectedRows[0].dataItem.DfltWH;
+    this.disableLotNumber = false;
+    //this.DfltWarehouse = evt.selectedRows[0].dataItem.DfltWH;
     if (evt.selectedRows[0].dataItem.ManBtchNum == 'Y') {
      this.trackName = 'Batch'
     } else {
@@ -375,37 +375,7 @@
    ref.close();
   }
 
-  GetTransaction1(NodeName, fullName) {
-
-    this.loading = false;
-
-    let data = [
-      { uniqueNo:'1', DistNumber : 'C2' , ObjectTypeDesc: '' , ParentID: '-1'},
-      
-     // { uniqueNo:'2', DistNumber : 'en2' , ObjectTypeDesc: " " , ParentID: '1'},
-
-
-      { uniqueNo: '2', DistNumber : 'C2' , ObjectTypeDesc: 'Receipt From Production' , ParentID: '1' },
-      { uniqueNo: '2', DistNumber : 'C2' , ObjectTypeDesc: 'Delivery' , ParentID: '1' } ,
-      
-      { uniqueNo: '3', DistNumber : 'EN2' , ObjectTypeDesc: '', ParentID: '1' },
-      { uniqueNo: '', DistNumber : 'EN2' , ObjectTypeDesc: 'Goods Receipt' , ParentID: '3'},
-      { uniqueNo: '',  DistNumber : 'EN2' , ObjectTypeDesc: 'Receipt From Production' , ParentID: '3'},
-      {  uniqueNo: '', DistNumber : 'EN2' , ObjectTypeDesc: 'Issue From Production' , ParentID: '3'},
-
-      { uniqueNo: '4', DistNumber : 'N2' , ObjectTypeDesc: '' , ParentID: '1' },
-      { uniqueNo: '', DistNumber : 'N2' , ObjectTypeDesc: 'Goods Receipt' , ParentID: '4' },
-      {  uniqueNo: '', DistNumber : 'N2' , ObjectTypeDesc: 'Receipt From Production' , ParentID: '4'},
-      { uniqueNo: '', DistNumber : 'N2' , ObjectTypeDesc: 'Issue From Production' , ParentID: '4'},
-     
-    ];
-
-    this.nodes1 =  this.getHierarchys(data,'-1');
-    console.log(this.nodes1);
-    
-  };
-
-  getHierarchys(dataa, Id) {
+  getHierarchyTransaction(dataa, Id) {
     let node1 = [];
     dataa.filter(function(d) {
      if (d.ParantId == Id) {
@@ -413,13 +383,33 @@
      }
     }).forEach(function(d) {
      var cd = d;
-     cd.children = this.getHierarchys(dataa, d.SeqNo);
+     cd.children = this.getHierarchyTransaction(dataa, d.SeqNo);
      
      return node1.push(cd);
     }.bind(this))
     console.log(node1);
     return node1;
    }
+
+   setTransactionDetailParam(transaction){
+    for (let i = 0; i < transaction.length; i++) {
+      
+      if(transaction[i].ObjectTypeDesc != null ){
+        this.DocEntryArr.push({
+          key: transaction[i].DistNumber,
+          DocEntry: transaction[i].DocEntry,
+          ObjectType: transaction[i].ObjectType,
+          ParantId: transaction[i].ParantId
+         });
+      }
+      else {
+          this.DocEntryArrNode.push({
+            key: transaction[i].DistNumber,
+            ParantId: transaction[i].ParantId
+           });              
+      }     
+     }  
+    }
  
   /*-- get transaction type on click items of grid view --*/
 
@@ -440,30 +430,9 @@
      this.transactions = data;
      let name = fullName;
      let childrens = [];
-    // let map = {};
-    //map["name"] = fullName;
-     for (let i = 0; i < this.transactions.Table.length; i++) {
-      //   childrens.push({
-      //   name: '(' + this.transactions.Table[i].DistNumber + ') Doc Entry : ' + this.transactions.Table[i].DocEntry + ' - ' + this.transactions.Table[i].ObjectTypeDesc
-      // });
-      if(this.transactions.Table[i].ObjectTypeDesc != null ){
-        this.DocEntryArr.push({
-          key: this.transactions.Table[i].DistNumber,
-          DocEntry: this.transactions.Table[i].DocEntry,
-          ObjectType: this.transactions.Table[i].ObjectType
-         });
-      }
-      else {
-        this.DocEntryArrNode.push({
-          key: this.transactions.Table[i].DistNumber
-         });
-      }
-     
-     }
-    // map["children"] = childrens;
-    // this.nodes1.push(map);
 
-    this.nodes1 =  this.getHierarchys(data.Table,'-1');
+    this.setTransactionDetailParam(this.transactions.Table);
+    this.nodes1 =  this.getHierarchyTransaction(data.Table,'-1');
     } 
     },
     error => {
@@ -489,6 +458,7 @@
      if (d.DocEntry == Dcentry) {
       DC = d.DocEntry;
       ObjType = d.ObjectType;
+      node = "'"+d.key+"'";
      }
     });
    } else {
@@ -504,17 +474,28 @@
     }
     DC = str;
     ObjType = OTstr;
-   }
 
-   for(let k=0 ; k<this.DocEntryArrNode.length; k++){
-    if (k == 0) {
-      node = this.DocEntryArrNode[k].key;
-     } else {
-      node = node + ',' + this.DocEntryArrNode[k].key;
+    let Array = this.DocEntryArrNode;
+   this.DocEntryArrNode.filter(function(d) {
+
+     if(d.key == Item){
+        if(d.ParantId == -1){
+          for(let k=0 ; k<Array.length; k++){   
+            if(k==0) 
+            node = "'"+Array[k].key+"'";
+            else
+            node = node + ", '" + Array[k].key+"'";     
+         }
+        }
+        else{
+          node = "'"+Item+"'";
+        }     
+
      }
-   }
+   });
+   }  
 
-  this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DC, ObjType, node, Item,this.DfltWarehouse).subscribe(
+  this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DC, ObjType, node,this.DfltWarehouse).subscribe(
     data => {
     if(data){ 
      this.Analysisloading = false; 

@@ -89,31 +89,13 @@
 
             </div>
             <fieldset class="form-group px-0">
-              <!-- <nb-radio-group class="d-flex"> -->
-                <!-- <nb-radio>Single Level</nb-radio>
-                <nb-radio>Multi Level</nb-radio> -->
                 <nb-radio-group class="d-flex" [(ngModel)]="radioLevel" name="radioLevel">
                   <nb-radio [value]="'Single Level'">Single Level
                   </nb-radio>
                   <nb-radio [value]="'Multi Level'">Multi Level</nb-radio>
                 </nb-radio-group>
-              <!-- </nb-radio-group> -->
             </fieldset>
-
-
-           <!-- <div class="form-group row">
-
-              <div class="col-sm-12">
-                <nb-select placeholder="Select Showcase" size="small" outline [(selected)]="selectedItem">
-                  <nb-option value="1">Option 1</nb-option>
-                  <nb-option value="2">Option 2</nb-option>
-                  <nb-option value="3">Option 3</nb-option>
-                  <nb-option value="4">Option 4</nb-option>
-                </nb-select>
-              </div>
-
-            </div>-->
-          </form>
+            </form>
         </div>
       </div>
     </nb-card-body>
@@ -182,7 +164,7 @@
         </div>
 
         <div *ngIf="whse">
-
+          
           <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort"
           [filter]="state.filter" [resizable]="true" (selectionChange)="gridRowSelectionChange($event,ref)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px' }">
 
