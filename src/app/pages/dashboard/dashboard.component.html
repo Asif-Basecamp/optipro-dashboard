@@ -63,14 +63,13 @@
               <div class="w-100">
                 <div class="input-group">
                   <input fieldSize="small" nbInput type="text" class="form-control" placeholder="Select Lot From"
-                    name="DistNumFrom" id="DistNumFrom" #LotF=ngModel [disabled]="disableLotNumber" [(ngModel)]="DistNumFrom" (blur)="onLotFromNumberBlur('From')" autocomplete="off" required>
+                    name="DistNumFrom" id="DistNumFrom" #LotF=ngModel [disabled]="disableLotNumber" [(ngModel)]="DistNumFrom" (blur)="onLotFromNumberBlur('From')" autocomplete="off">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
                       (click)="openLotFromLookup(dialog)" [disabled]="disableLotNumber"><i class="nb-menu"></i></button>
                   </div>
                 </div>
               </div>
-              <small id="emalHelp" class="form-text text-muted opti_error-msg" *ngIf="LotF.errors?.required && !LotFromStatus && LotF.touched" class="float-right opti_error-msg">Lot From Required</small>
               <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="LotFromStatus && LotF.touched" class="float-right opti_error-msg">Enter Correct Lot From</small>
 
             </div>
@@ -79,14 +78,13 @@
               <div class="w-100">
                 <div class="input-group">
                   <input fieldSize="small"  nbInput type="text" class="form-control" placeholder="Select Lot To"
-                    name="DistNumTo" id="DistNumTo" #LotT=ngModel [disabled]="disableLotNumber" [(ngModel)]="DistNumTo" (blur)="onLotToNumberBlur('To')" autocomplete="off" required>
+                    name="DistNumTo" id="DistNumTo" #LotT=ngModel [disabled]="disableLotNumber" [(ngModel)]="DistNumTo" (blur)="onLotToNumberBlur('To')" autocomplete="off">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
                       (click)="openLotToLookup(dialog)" [disabled]="disableLotNumber"><i class="nb-menu"></i></button>
                   </div>
                 </div>
               </div>
-              <small id="emalHelp" class="form-text text-muted opti_error-msg" *ngIf="LotT.errors?.required && !LotToStatus && LotT.touched" class="float-right opti_error-msg">Lot To Required</small>
               <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="LotToStatus && LotT.touched" class="float-right opti_error-msg">Enter Correct Lot To</small>
 
             </div>
@@ -162,6 +160,7 @@
 
             <kendo-grid-column field="ItemCode" title="Item Code" width="80">
             </kendo-grid-column>
+            
             <kendo-grid-column field="ItemName" title="Description" width="80">
             </kendo-grid-column>
           </kendo-grid>
@@ -313,7 +312,8 @@
           <i data-eva="arrow-ios-downward" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="ml-auto cursor-pointer"></i>
         </nb-card-header>
         <nb-card-body id="analysis-accordian-body" class="overflow-auto">
-          <div class="node-wrapper-box">
+        <!-- <div id="chart-container"></div>-->
+         <div class="node-wrapper-box">
             <div class="single-node node purReceipt" *ngFor="let data of AnalysisData; let i = index">
               <div class="title">{{data.DistNumber}} (Doc Entry:{{data.DocEntry}})</div>
               <div class="second-menu">

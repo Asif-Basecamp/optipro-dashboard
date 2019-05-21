@@ -5,9 +5,31 @@
  import {Router} from '@angular/router';
  import {NbToastrService} from '@nebular/theme';
  import * as eva from 'eva-icons';
-import { GridComponent } from '@progress/kendo-angular-grid';
-import { State } from '@progress/kendo-data-query';
- 
+ import { GridComponent } from '@progress/kendo-angular-grid';
+ import { State } from '@progress/kendo-data-query';
+ import OrgChart from '../../@core/org-chart/orgchart.js';
+
+ /*const datascource = {
+  'id': '1',
+    'name': 'Lao Lao',
+    'className': 'purReceipt',
+    'children': [
+      { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
+      { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice',
+        'children': [
+          { 'id': '4', 'name': 'Tie Hua', 'className': 'prodReceipt' },
+          { 'id': '5', 'name': 'Hei Hei', 'className': 'prodIssue',
+            'children': [
+              { 'id': '6', 'name': 'Pang Pang', 'className': 'matReturn'},
+              { 'id': '7', 'name': 'Xiang Xiang', 'className': 'creditMemo'}
+            ]
+          }
+        ]
+      },
+      { 'id': '8', 'name': 'Yu Jie', 'className': 'salesReturn' },
+      { 'id': '9', 'name': 'Yu Li', 'className': 'goodsIssue' },
+    ]
+  }*/
  var nodeName = '';
  
  @Component({
@@ -61,9 +83,7 @@ import { State } from '@progress/kendo-data-query';
   public LotToStatus: boolean = false;
   showSelection: boolean = false;
   selectedValues: Array<any> = [];
-   dash: any;
-   toastrService: any;
-   dialogService: any;
+  public orgchart: any;
 
   constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
  
@@ -80,7 +100,7 @@ import { State } from '@progress/kendo-data-query';
   }
 
    /*-- Item Code functions --*/
-   getItemCodeData(api, companyDB){
+  getItemCodeData(api, companyDB){
     this.dash.GetItemList(api, companyDB).subscribe(
       data => {
         this.ItemCodeData = data;
@@ -247,7 +267,6 @@ import { State } from '@progress/kendo-data-query';
    this.dash.GetLotNumber(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.trackName).subscribe(
     data => {
      this.gridData = data;
-     this.gridData = data;
      this.Item = false;
      this.whse = false;
      this.LotFrom = false;
@@ -289,7 +308,7 @@ import { State } from '@progress/kendo-data-query';
   
     this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.DfltWarehouse, this.DistNumFrom, this.DistNumTo, this.explodeDirection).subscribe(
      data => {
-     if(data.length==0){
+     if(!data){
        this.loading = false;
        this.toastrService.danger("No Record Found!");
        this.AnalysisData = [];
