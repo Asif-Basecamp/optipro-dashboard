@@ -322,7 +322,7 @@
   
      this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.DfltWarehouse, this.DistNumFrom, this.DistNumTo, this.explodeDirection, this.explodeLevel, this.trackName).subscribe(
      data => {
-     if(data.length==0){
+     if(!data){
        this.loading = false;
        this.toastrService.danger("No Record Found!");
        this.AnalysisData = [];
