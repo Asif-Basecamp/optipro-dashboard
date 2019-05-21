@@ -35,6 +35,7 @@
   public nodes2: any = [];
   public transactions: any = [];
   public DocEntryArr: any = [];
+  public DocEntryArrNode: any = [];
   public searchCriteria: boolean = false;
   public transactiondetails: any = [];
   public Dsource: any = {};
@@ -74,7 +75,7 @@
  
    this.radioExplode = 'Lot Explosion';
    this.radioLevel = 'Single Level';
-   this.radioTransaction = 'AllLots';
+   this.radioTransaction = 'ParentLot';
    eva.replace()
   }
 
@@ -144,6 +145,7 @@
       this.Item = false;
       this.whse = true;
       this.Lot = false;
+
       this.lookUpHeading = 'Warehouse';
       this.dialogService.open(dialog);
     }
@@ -291,7 +293,7 @@
     else
      this.explodeLevel = 'Multi';
   
-     this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.DfltWarehouse, this.DistNumFrom, this.DistNumTo, this.explodeDirection, this.explodeLevel).subscribe(
+     this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.DfltWarehouse, this.DistNumFrom, this.DistNumTo, this.explodeDirection, this.explodeLevel, this.trackName).subscribe(
      data => {
      if(data.length==0){
        this.loading = false;
@@ -345,39 +347,96 @@
    }
    ref.close();
   }
+
+  GetTransaction1(NodeName, fullName) {
+
+    this.loading = false;
+
+    let data = [
+      { uniqueNo:'1', DistNumber : 'C2' , ObjectTypeDesc: '' , ParentID: '-1'},
+      
+     // { uniqueNo:'2', DistNumber : 'en2' , ObjectTypeDesc: " " , ParentID: '1'},
+
+
+      { uniqueNo: '2', DistNumber : 'C2' , ObjectTypeDesc: 'Receipt From Production' , ParentID: '1' },
+      { uniqueNo: '2', DistNumber : 'C2' , ObjectTypeDesc: 'Delivery' , ParentID: '1' } ,
+      
+      { uniqueNo: '3', DistNumber : 'EN2' , ObjectTypeDesc: '', ParentID: '1' },
+      { uniqueNo: '', DistNumber : 'EN2' , ObjectTypeDesc: 'Goods Receipt' , ParentID: '3'},
+      { uniqueNo: '',  DistNumber : 'EN2' , ObjectTypeDesc: 'Receipt From Production' , ParentID: '3'},
+      {  uniqueNo: '', DistNumber : 'EN2' , ObjectTypeDesc: 'Issue From Production' , ParentID: '3'},
+
+      { uniqueNo: '4', DistNumber : 'N2' , ObjectTypeDesc: '' , ParentID: '1' },
+      { uniqueNo: '', DistNumber : 'N2' , ObjectTypeDesc: 'Goods Receipt' , ParentID: '4' },
+      {  uniqueNo: '', DistNumber : 'N2' , ObjectTypeDesc: 'Receipt From Production' , ParentID: '4'},
+      { uniqueNo: '', DistNumber : 'N2' , ObjectTypeDesc: 'Issue From Production' , ParentID: '4'},
+     
+    ];
+
+    this.nodes1 =  this.getHierarchys(data,'-1');
+    console.log(this.nodes1);
+    
+  };
+
+  getHierarchys(dataa, Id) {
+    let node1 = [];
+    dataa.filter(function(d) {
+     if (d.ParantId == Id) {
+      return d.ParantId == Id
+     }
+    }).forEach(function(d) {
+     var cd = d;
+     cd.children = this.getHierarchys(dataa, d.SeqNo);
+     
+     return node1.push(cd);
+    }.bind(this))
+    console.log(node1);
+    return node1;
+   }
  
   /*-- get transaction type on click items of grid view --*/
 
   GetTransaction(NodeName, fullName) {
 
-   if (this.radioTransaction == 'AllLots')
-    this.explodeTransaction = 'AllLots';
+   if (this.radioTransaction == 'ParentLot')
+    this.explodeTransaction = 'ParentLot';
    else
-    this.explodeTransaction = 'ImmediateLots';
+    this.explodeTransaction = 'ImmediateLot';
 
-   this.dash.GetTransaction(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, NodeName, this.explodeTransaction).subscribe(
+   this.dash.GetTransaction(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, NodeName,this.DfltWarehouse,this.explodeTransaction).subscribe(
     data => {
     if(data){
      this.loading = false;
      this.DocEntryArr = [];
+     this.DocEntryArrNode = [];
      this.nodes1 = [];
      this.transactions = data;
      let name = fullName;
      let childrens = [];
-     let map = {};
-     map["name"] = fullName;
+    // let map = {};
+    //map["name"] = fullName;
      for (let i = 0; i < this.transactions.Table.length; i++) {
-      childrens.push({
-       name: '(' + this.transactions.Table[i].DistNumber + ') Doc Entry : ' + this.transactions.Table[i].DocEntry + ' - ' + this.transactions.Table[i].ObjectTypeDesc
-      });
-      this.DocEntryArr.push({
-       key: this.transactions.Table[i].DistNumber,
-       DocEntry: this.transactions.Table[i].DocEntry,
-       ObjectType: this.transactions.Table[i].ObjectType
-      });
+      //   childrens.push({
+      //   name: '(' + this.transactions.Table[i].DistNumber + ') Doc Entry : ' + this.transactions.Table[i].DocEntry + ' - ' + this.transactions.Table[i].ObjectTypeDesc
+      // });
+      if(this.transactions.Table[i].ObjectTypeDesc != null ){
+        this.DocEntryArr.push({
+          key: this.transactions.Table[i].DistNumber,
+          DocEntry: this.transactions.Table[i].DocEntry,
+          ObjectType: this.transactions.Table[i].ObjectType
+         });
+      }
+      else {
+        this.DocEntryArrNode.push({
+          key: this.transactions.Table[i].DistNumber
+         });
+      }
+     
      }
-     map["children"] = childrens;
-     this.nodes1.push(map);
+    // map["children"] = childrens;
+    // this.nodes1.push(map);
+
+    this.nodes1 =  this.getHierarchys(data.Table,'-1');
     } 
     },
     error => {
@@ -395,6 +454,8 @@
    let OTstr = '';
    let stringDC = [];
    let str = '';
+
+   let node = '';
    if (Dcentry.indexOf(":") > -1) {
     Dcentry = Dcentry.split(":")[1].trim();
     this.DocEntryArr.filter(function(d) {
@@ -417,7 +478,16 @@
     DC = str;
     ObjType = OTstr;
    }
-  this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DC, ObjType, Item, this.DfltWarehouse).subscribe(
+
+   for(let k=0 ; k<this.DocEntryArrNode.length; k++){
+    if (k == 0) {
+      node = this.DocEntryArrNode[k].key;
+     } else {
+      node = node + ',' + this.DocEntryArrNode[k].key;
+     }
+   }
+
+  this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DC, ObjType, node, Item,this.DfltWarehouse).subscribe(
     data => {
     if(data){ 
      this.Analysisloading = false; 

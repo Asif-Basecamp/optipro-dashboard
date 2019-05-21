@@ -217,10 +217,10 @@
               <nb-card>
                 <nb-card-body>
                   <nb-radio-group class="d-flex" [(ngModel)]="radioTransaction" name="radioTransaction">
-                    <nb-radio [value]="'AllLots'">
+                    <nb-radio [value]="'ParentLot'">
                       Show Data of all parents of lots
                     </nb-radio>
-                    <nb-radio [value]="'ImmediateLots'">
+                    <nb-radio [value]="'ImmediateLot'">
                       Show Data of all immediate of lots
                   </nb-radio>
                   </nb-radio-group>
@@ -230,7 +230,23 @@
               <nb-card class="mb-4">
                 <nb-card-header>Transaction Type</nb-card-header>
                 <nb-card-body>
+                  <!--<tree-root id="tree2" [focused]="true" [nodes]="nodes1" (click)="clickTransactionDetails($event)">
+                  </tree-root>-->
+
                   <tree-root id="tree2" [focused]="true" [nodes]="nodes1" (click)="clickTransactionDetails($event)">
+                    <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
+                      <div class="tree-node">
+                        <tree-node-expander [node]="node"></tree-node-expander>
+                          <div class="node-content-wrapper" *ngIf="node.data.ObjectTypeDesc == null">
+                            <span>{{node.data.ItemCode}} - {{node.data.DistNumber}}</span>
+                          </div>
+
+                          <div class="node-content-wrapper"  *ngIf="node.data.ObjectTypeDesc != null">
+                            <span>({{node.data.DistNumber}}) Doc Entry:{{node.data.DocEntry}} - {{node.data.ObjectTypeDesc}}</span>
+                          </div>
+                        <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
+                      </div>
+                    </ng-template>
                   </tree-root>
                 </nb-card-body>
               </nb-card>
