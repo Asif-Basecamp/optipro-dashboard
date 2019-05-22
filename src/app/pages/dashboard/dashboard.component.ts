@@ -9,27 +9,6 @@
  import { State } from '@progress/kendo-data-query';
  import OrgChart from '../../@core/org-chart/orgchart.js';
 
- /*const datascource = {
-  'id': '1',
-    'name': 'Lao Lao',
-    'className': 'purReceipt',
-    'children': [
-      { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
-      { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice',
-        'children': [
-          { 'id': '4', 'name': 'Tie Hua', 'className': 'prodReceipt' },
-          { 'id': '5', 'name': 'Hei Hei', 'className': 'prodIssue',
-            'children': [
-              { 'id': '6', 'name': 'Pang Pang', 'className': 'matReturn'},
-              { 'id': '7', 'name': 'Xiang Xiang', 'className': 'creditMemo'}
-            ]
-          }
-        ]
-      },
-      { 'id': '8', 'name': 'Yu Jie', 'className': 'salesReturn' },
-      { 'id': '9', 'name': 'Yu Li', 'className': 'goodsIssue' },
-    ]
-  }*/
  var nodeName = '';
  
  @Component({
@@ -49,7 +28,6 @@
   selectedItem = '2';
   public Item: boolean = false;
   public whse: boolean = false;
-  public Lot: boolean = false;
   public LotFrom: boolean = false;
   public LotTo: boolean = false;
   public DistNumFrom: any;
@@ -60,6 +38,7 @@
   public nodes2: any = [];
   public transactions: any = [];
   public DocEntryArr: any = [];
+  public DocEntryArrNode: any = [];
   public searchCriteria: boolean = false;
   public transactiondetails: any = [];
   public Dsource: any = {};
@@ -67,7 +46,11 @@
   public Username: any;
   public Userpwd: any;
   public radioExplode: any;
-  public explodeDirection: any;
+  public radioLevel: any;
+  public radioTransaction: any;
+  public explodeDirection: any;  
+  public explodeLevel: any;
+  public explodeTransaction: any;
   public lookUpHeading: any;
   public AnalysisData: any = [];
   public datasource: any = [];
@@ -84,6 +67,8 @@
   showSelection: boolean = false;
   selectedValues: Array<any> = [];
   public orgchart: any;
+  public nodes3: any;
+  public nodes4: any;
 
   constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
  
@@ -96,6 +81,8 @@
    this.getWarehouseCodeData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB); 
  
    this.radioExplode = 'Lot Explosion';
+   this.radioLevel = 'Single Level';
+   this.radioTransaction = 'ParentLot';
    eva.replace()
   }
 
@@ -108,7 +95,7 @@
   }
 
   openItemLookup(dialog: TemplateRef<any>){
-    if(this.ItemCodeData.length>0){
+    if(this.ItemCodeData){
       this.Item = true;
       this.whse = false;
       this.LotTo = false;
@@ -116,7 +103,7 @@
       this.lookUpHeading = 'Item Code';
       this.gridData = this.ItemCodeData;
       this.dialogService.open(dialog);
-      this.disableLotNumber = false;
+     // this.disableLotNumber = false;
     }
   }
 
@@ -160,11 +147,12 @@
   }
 
   openWarehouseLookup(dialog: TemplateRef<any>){
-    if(this.WarehouseData.length>0){
+    if(this.WarehouseData){
       this.gridData = this.WarehouseData;
       this.Item = false;
       this.whse = true;
-      this.Lot = false;
+      this.LotFrom = false;
+      this.LotTo = false;
       this.lookUpHeading = 'Warehouse';
       this.dialogService.open(dialog);
     }
@@ -306,10 +294,15 @@
      this.explodeDirection = 'DOWN';
     else
      this.explodeDirection = 'UP';
+
+    if (this.radioLevel == 'Single Level')
+     this.explodeLevel = 'Single';
+    else
+     this.explodeLevel = 'Multi';
   
-    this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.DfltWarehouse, this.DistNumFrom, this.DistNumTo, this.explodeDirection).subscribe(
+     this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.DfltWarehouse, this.DistNumFrom, this.DistNumTo, this.explodeDirection, this.explodeLevel, this.trackName).subscribe(
      data => {
-     if(data.length==0){
+     if(!data){
        this.loading = false;
        this.toastrService.danger("No Record Found!");
        this.AnalysisData = [];
@@ -346,7 +339,8 @@
     this.dataGridSelectNum = evt.selectedRows[0].index;
     this.ItemValue = evt.selectedRows[0].dataItem.ItemCode;
     this.ItemDesc = evt.selectedRows[0].dataItem.ItemName;
-    this.DfltWarehouse = evt.selectedRows[0].dataItem.DfltWH;
+    this.disableLotNumber = false;
+    //this.DfltWarehouse = evt.selectedRows[0].dataItem.DfltWH;
     if (evt.selectedRows[0].dataItem.ManBtchNum == 'Y') {
      this.trackName = 'Batch'
     } else {
@@ -361,33 +355,64 @@
    }
    ref.close();
   }
+
+  getHierarchyTransaction(dataa, Id) {
+    let node1 = [];
+    dataa.filter(function(d) {
+     if (d.ParantId == Id) {
+      return d.ParantId == Id
+     }
+    }).forEach(function(d) {
+     var cd = d;
+     cd.children = this.getHierarchyTransaction(dataa, d.SeqNo);
+     
+     return node1.push(cd);
+    }.bind(this))
+    return node1;
+   }
+
+   setTransactionDetailParam(transaction){
+    for (let i = 0; i < transaction.length; i++) {
+      
+      if(transaction[i].ObjectTypeDesc != null ){
+        this.DocEntryArr.push({
+          key: transaction[i].DistNumber,
+          DocEntry: transaction[i].DocEntry,
+          ObjectType: transaction[i].ObjectType,
+          ParantId: transaction[i].ParantId
+         });
+      }
+      else {
+          this.DocEntryArrNode.push({
+            key: transaction[i].DistNumber,
+            ParantId: transaction[i].ParantId
+           });              
+      }     
+     }  
+    }
  
   /*-- get transaction type on click items of grid view --*/
 
   GetTransaction(NodeName, fullName) {
-   this.dash.GetTransaction(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, NodeName).subscribe(
+
+   if (this.radioTransaction == 'ParentLot')
+    this.explodeTransaction = 'ParentLot';
+   else
+    this.explodeTransaction = 'ImmediateLot';
+
+   this.dash.GetTransaction(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, NodeName,this.DfltWarehouse,this.explodeTransaction).subscribe(
     data => {
     if(data){
      this.loading = false;
      this.DocEntryArr = [];
+     this.DocEntryArrNode = [];
      this.nodes1 = [];
      this.transactions = data;
      let name = fullName;
      let childrens = [];
-     let map = {};
-     map["name"] = fullName;
-     for (let i = 0; i < this.transactions.Table.length; i++) {
-      childrens.push({
-       name: '(' + this.transactions.Table[i].DistNumber + ') Doc Entry : ' + this.transactions.Table[i].DocEntry + ' - ' + this.transactions.Table[i].ObjectTypeDesc
-      });
-      this.DocEntryArr.push({
-       key: this.transactions.Table[i].DistNumber,
-       DocEntry: this.transactions.Table[i].DocEntry,
-       ObjectType: this.transactions.Table[i].ObjectType
-      });
-     }
-     map["children"] = childrens;
-     this.nodes1.push(map);
+
+    this.setTransactionDetailParam(this.transactions.Table);
+    this.nodes1 =  this.getHierarchyTransaction(data.Table,'-1');
     } 
     },
     error => {
@@ -395,22 +420,40 @@
     }
    )
   }
+
+  /*-- recursive function for analysis view --*/
+
+  getAnalysisHierarchy(data, seq){
+      let nodess = [];
+      data.filter(function(d) {
+       if (d.ParantId == seq) {
+        return d.ParantId == seq
+       }
+      }).forEach(function(d) {
+       var cd = d;
+       cd.children = this.getAnalysisHierarchy(data, d.SeqNo);
+       return nodess.push(cd);
+      }.bind(this))
+      return nodess;
+  }
   
   /*-- get transaction detail --*/
 
   GetTransactionDetails(Dcentry, Item) {
- 
    let DC = '';
    let ObjType = '';
    let OTstr = '';
    let stringDC = [];
    let str = '';
+
+   let node = '';
    if (Dcentry.indexOf(":") > -1) {
     Dcentry = Dcentry.split(":")[1].trim();
     this.DocEntryArr.filter(function(d) {
-     if (d.DocEntry == Dcentry) {
+     if (d.DocEntry == Dcentry && d.key == Item) {
       DC = d.DocEntry;
       ObjType = d.ObjectType;
+      node = "'"+d.key+"'";
      }
     });
    } else {
@@ -426,13 +469,160 @@
     }
     DC = str;
     ObjType = OTstr;
-   }
-  this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DC, ObjType, Item, this.DfltWarehouse).subscribe(
+
+    let Array = this.DocEntryArrNode;
+   this.DocEntryArrNode.filter(function(d) {
+
+     if(d.key == Item){
+        if(d.ParantId == -1){
+          for(let k=0 ; k<Array.length; k++){   
+            if(k==0) 
+            node = "'"+Array[k].key+"'";
+            else
+            node = node + ", '" + Array[k].key+"'";     
+         }
+        }
+        else{
+          node = "'"+Item+"'";
+        }     
+
+     }
+   });
+   }  
+
+  this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DC, ObjType, node,this.DfltWarehouse).subscribe(
     data => {
     if(data){ 
+     this.orgchart = [];
      this.Analysisloading = false; 
-     this.transactiondetails = data;
      this.AnalysisData = data;
+     
+     this.nodes3 = this.getAnalysisHierarchy(this.AnalysisData, '-1');
+    
+    let datascource = [{
+      'id': '1',
+        'name': 'Lao Lao',
+        'className': 'purReceipt',
+        'children': [
+          { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
+          { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice' },
+        ]
+      }];
+
+     var result = {};
+     for (var i=0; i<datascource.length; i++) {
+        result = datascource[i];
+     }
+     this.orgchart = new OrgChart({
+      'chartContainer': '#chart-container',
+      'data' : result,
+      'nodeContent': 'title',
+      //'nodeID': 'id',
+      'depth': 1,
+      'direction': 'l2r',
+      'pan': false,
+      'zoom': false,
+      'toggleSiblingsResp': false,
+      'createNode': function(node, data) {
+        let secondMenu = document.createElement('div');
+        secondMenu.setAttribute('class', 'second-menu');
+        secondMenu.innerHTML = `
+          <div class="node-content">
+            <div class="node-img">
+              <img class="node-avatar" src="./assets/images/images.png">
+            </div>
+            <div class="node-data">
+              <div class="data-column">
+                <div class="data-heading">
+                  Item
+                </div>
+                <div class="data-content">
+                  ${data.ItemCode}
+                </div>
+              </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Warehouse
+                </div>
+                <div class="data-content">
+                  ${data.Warehouse}
+                </div>
+              </div>
+              
+              <div class="data-column">
+                <div class="data-heading">
+                  Lot #
+                </div>
+                <div class="data-content">
+                  Lot
+                </div>
+              </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Expiry Date
+                </div>
+                <div class="data-content">
+                  ${data.ExpDate}
+                </div>
+              </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Receipt Date
+                </div>
+                <div class="data-content">
+                  ${data.CreateDate}
+                </div>
+              </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Lot Status
+                </div>
+                <div class="data-content">
+                  ${data.Status}
+                </div>
+              </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Quantity
+                </div>
+                <div class="data-content">
+                  ${data.Quantity}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="node-footer">
+            <div class="footer-column">
+              <div class="column-heading">
+                Total Received
+              </div>
+              <div class="column-content">
+                ${data.TOTALRECEIVE}
+              </div>
+            </div>
+            <div class="footer-column">
+              <div class="column-heading">
+                Total Issued
+              </div>
+              <div class="column-content">
+                ${data.TOTALISSUE}
+              </div>
+            </div>
+            <div class="footer-column">
+              <div class="column-heading">
+                Onhand
+              </div>
+              <div class="column-content">
+                ${data.ONHAND}
+              </div>
+            </div>
+          </div>
+        
+        `;
+        // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
+        node.appendChild(secondMenu);
+      }
+    });
     } 
     },
   error => {

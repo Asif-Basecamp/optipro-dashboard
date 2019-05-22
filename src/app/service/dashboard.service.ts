@@ -39,10 +39,12 @@ export class DashboardService {
       return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetLotNumber",jObject,this.httpOptions);
     }
 
-    GetTransaction(optiProDashboardAPIURL:string,CompanyDBID:string,ItemKey:string): Observable<any>{
+    GetTransaction(optiProDashboardAPIURL:string,CompanyDBID:string,ItemKey:string,Warehouse:string,SelectionCriteria:string): Observable<any>{
       let jObject:any={ ItemList: JSON.stringify([{ 
        CompanyDBID: CompanyDBID,
-       ItemKey: ItemKey
+       ItemKey: ItemKey,
+       Warehouse:Warehouse,
+       SelectionCriteria : SelectionCriteria 
       }])};
       return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetTransaction",jObject,this.httpOptions);
     }
@@ -52,14 +54,14 @@ export class DashboardService {
        CompanyDBID: CompanyDBID,
        DocEntry: DocEntry,
        ObjType: ObjType,
-       ItemKey:ItemKey,
-       Warehouse:Warehouse
+       ItemKey: ItemKey,
+       Warehouse: Warehouse
       }])};
       return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetTransactionDetails",jObject,this.httpOptions);
     }
 
 
-    GetLotExplosionData(optiProDashboardAPIURL:string,CompanyDBID:string,ItemKey:string,Warehouse:string,LotFrom:string,LotTo:string,Mode:string ):Observable<any>{
+    GetLotExplosionData(optiProDashboardAPIURL:string,CompanyDBID:string,ItemKey:string,Warehouse:string,LotFrom:string,LotTo:string,Mode:string,SelectionCriteria:string,TrackName:string):Observable<any>{
       //JSON Obeject Prepared to be send as a param to API
       let jObject:any={ GetData: JSON.stringify([{ 
         CompanyDBID: CompanyDBID,
@@ -67,10 +69,11 @@ export class DashboardService {
         Warehouse: Warehouse,
         LotFrom: LotFrom,
         LotTo: LotTo,
-        Mode: Mode       
+        Mode: Mode,
+        SelectionCriteria: SelectionCriteria  ,
+        TrackName:TrackName    
     }]) };
     //Return the response form the API  
     return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetLotExplosionData",jObject,this.httpOptions);
-    }  
-     
+    }       
 }
