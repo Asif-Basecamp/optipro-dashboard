@@ -9,27 +9,6 @@
  import { State } from '@progress/kendo-data-query';
  import OrgChart from '../../@core/org-chart/orgchart.js';
 
- /*const datascource = {
-  'id': '1',
-    'name': 'Lao Lao',
-    'className': 'purReceipt',
-    'children': [
-      { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
-      { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice',
-        'children': [
-          { 'id': '4', 'name': 'Tie Hua', 'className': 'prodReceipt' },
-          { 'id': '5', 'name': 'Hei Hei', 'className': 'prodIssue',
-            'children': [
-              { 'id': '6', 'name': 'Pang Pang', 'className': 'matReturn'},
-              { 'id': '7', 'name': 'Xiang Xiang', 'className': 'creditMemo'}
-            ]
-          }
-        ]
-      },
-      { 'id': '8', 'name': 'Yu Jie', 'className': 'salesReturn' },
-      { 'id': '9', 'name': 'Yu Li', 'className': 'goodsIssue' },
-    ]
-  }*/
  var nodeName = '';
  
  @Component({
@@ -88,6 +67,8 @@
   showSelection: boolean = false;
   selectedValues: Array<any> = [];
   public orgchart: any;
+  public nodes3: any;
+  public nodes4: any;
 
   constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
  
@@ -114,7 +95,7 @@
   }
 
   openItemLookup(dialog: TemplateRef<any>){
-    if(this.ItemCodeData.length>0){
+    if(this.ItemCodeData){
       this.Item = true;
       this.whse = false;
       this.LotTo = false;
@@ -165,7 +146,7 @@
   }
 
   openWarehouseLookup(dialog: TemplateRef<any>){
-    if(this.WarehouseData.length>0){
+    if(this.WarehouseData){
       this.gridData = this.WarehouseData;
       this.Item = false;
       this.whse = true;
@@ -405,7 +386,6 @@
      cd.children = this.getHierarchyTransaction(dataa, d.SeqNo);     
      return node1.push(cd);
     }.bind(this))
-    console.log(node1);
     return node1;
    }
 
@@ -461,11 +441,26 @@
     }
    )
   }
+
+  /*-- recursive function for analysis view --*/
+
+  getAnalysisHierarchy(data, seq){
+      let nodess = [];
+      data.filter(function(d) {
+       if (d.ParantId == seq) {
+        return d.ParantId == seq
+       }
+      }).forEach(function(d) {
+       var cd = d;
+       cd.children = this.getAnalysisHierarchy(data, d.SeqNo);
+       return nodess.push(cd);
+      }.bind(this))
+      return nodess;
+  }
   
   /*-- get transaction detail --*/
 
   GetTransactionDetails(Dcentry, Item) {
- 
    let DC = '';
    let ObjType = '';
    let OTstr = '';
@@ -518,15 +513,142 @@
   this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DC, ObjType, node,this.DfltWarehouse).subscribe(
     data => {
     if(data){ 
+     this.orgchart = [];
      this.Analysisloading = false; 
-     this.transactiondetails = data;
      this.AnalysisData = data;
-    }
-    else{
-      this.Analysisloading = false;
-      this.toastrService.danger("No Record Found!"); 
-     } 
-    },
+     
+     this.nodes3 = this.getAnalysisHierarchy(this.AnalysisData, '-1');
+    
+    let datascource = [{
+      'id': '1',
+        'name': 'Lao Lao',
+        'className': 'purReceipt',
+        'children': [
+          { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
+          { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice' },
+        ]
+      }];
+
+     var result = {};
+     for (var i=0; i<datascource.length; i++) {
+        result = datascource[i];
+     }
+     this.orgchart = new OrgChart({
+      'chartContainer': '#chart-container',
+      'data' : result,
+      'nodeContent': 'title',
+      //'nodeID': 'id',
+      'depth': 1,
+      'direction': 'l2r',
+      'pan': false,
+      'zoom': false,
+      'toggleSiblingsResp': false,
+      'createNode': function(node, data) {
+        let secondMenu = document.createElement('div');
+        secondMenu.setAttribute('class', 'second-menu');
+        secondMenu.innerHTML = `
+          <div class="node-content">
+            <div class="node-img">
+              <img class="node-avatar" src="./assets/images/images.png">
+            </div>
+            <div class="node-data">
+              <div class="data-column">
+                <div class="data-heading">
+                  Item
+                </div>
+                <div class="data-content">
+                  ${data.ItemCode}
+                </div>
+              </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Warehouse
+                </div>
+                <div class="data-content">
+                  ${data.Warehouse}
+                </div>
+              </div>
+              
+              <div class="data-column">
+                <div class="data-heading">
+                  Lot #
+                </div>
+                <div class="data-content">
+                  Lot
+                </div>
+              </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Expiry Date
+                </div>
+                <div class="data-content">
+                  ${data.ExpDate}
+                </div>
+              </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Receipt Date
+                </div>
+                <div class="data-content">
+                  ${data.CreateDate}
+                </div>
+              </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Lot Status
+                </div>
+                <div class="data-content">
+                  ${data.Status}
+                </div>
+              </div>
+              <div class="data-column">
+                <div class="data-heading">
+                  Quantity
+                </div>
+                <div class="data-content">
+                  ${data.Quantity}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="node-footer">
+            <div class="footer-column">
+              <div class="column-heading">
+                Total Received
+              </div>
+              <div class="column-content">
+                ${data.TOTALRECEIVE}
+              </div>
+            </div>
+            <div class="footer-column">
+              <div class="column-heading">
+                Total Issued
+              </div>
+              <div class="column-content">
+                ${data.TOTALISSUE}
+              </div>
+            </div>
+            <div class="footer-column">
+              <div class="column-heading">
+                Onhand
+              </div>
+              <div class="column-content">
+                ${data.ONHAND}
+              </div>
+            </div>
+          </div>
+        
+        `;
+        // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
+        node.appendChild(secondMenu);
+      }
+    });
+    } 
+   else{
+    this.Analysisloading = false;
+    this.toastrService.danger("No Record Found!"); 
+   }
+  },
   error => {
      this.Analysisloading = false;
      this.toastrService.danger("No Record Found!");    
