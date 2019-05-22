@@ -6,6 +6,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-bar-chart',
     link: '/pages/dashboard',
     home: true,
+  },
+  {
+    title: 'Production',
+    icon: 'nb-bar-chart',
+    link: '/pages/production',
+    home: true,
   }
   // {
   //   title: 'FEATURES',

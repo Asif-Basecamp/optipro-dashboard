@@ -1,6 +1,7 @@
 .dashboard-left{
     padding-right:5px;
     height: calc(100vh - 65px); 
+    width: 265px;
     & > nb-card{
         height:100%;
     }
