@@ -521,9 +521,11 @@
      for (var i=0; i<this.nodes3.length; i++) {
         result = this.nodes3[i];
      }
+
      this.orgchart = new OrgChart({
       'chartContainer': '#chart-container',
       'data' : result,
+      'nodeContent': 'title',
       'depth': 1,
       'direction': 'l2r',
       'createNode': function(node, data) {
@@ -557,7 +559,7 @@
                   Lot #
                 </div>
                 <div class="data-content">
-                  Lot
+                ${data.DistNumber}
                 </div>
               </div>
               <div class="data-column">
@@ -565,7 +567,7 @@
                   Expiry Date
                 </div>
                 <div class="data-content">
-                  ${data.ExpDate}
+                  ${data.EXPDATE}
                 </div>
               </div>
               <div class="data-column">
@@ -573,7 +575,7 @@
                   Receipt Date
                 </div>
                 <div class="data-content">
-                  ${data.CreateDate}
+                  ${data.CREATEDATE}
                 </div>
               </div>
               <div class="data-column">
