@@ -431,7 +431,9 @@
        }
       }).forEach(function(d) {
        var cd = d;
+       cd["name"] = cd.DistNumber + ` (Doc Entry: ${cd.DocEntry})`;
        cd.children = this.getAnalysisHierarchy(data, d.SeqNo);
+       console.log(cd);
        return nodess.push(cd);
       }.bind(this))
       return nodess;
