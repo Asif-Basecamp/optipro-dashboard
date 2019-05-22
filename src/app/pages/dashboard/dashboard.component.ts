@@ -504,13 +504,8 @@
      this.orgchart = new OrgChart({
       'chartContainer': '#chart-container',
       'data' : result,
-      'nodeContent': 'title',
-      //'nodeID': 'id',
       'depth': 1,
       'direction': 'l2r',
-      'pan': false,
-      'zoom': false,
-      'toggleSiblingsResp': false,
       'createNode': function(node, data) {
         let secondMenu = document.createElement('div');
         secondMenu.setAttribute('class', 'second-menu');
