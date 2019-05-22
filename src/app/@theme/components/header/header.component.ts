@@ -5,6 +5,7 @@ import { UserData } from '../../../@core/data/users';
 // import { AnalyticsService } from '../../../@core/utils';
 import { Router } from '@angular/router';
 import * as eva from 'eva-icons';
+import { NbToastrService } from '@nebular/theme';
 
 @Component({
   selector: 'opti-header',
@@ -18,7 +19,7 @@ export class HeaderComponent implements OnInit {
   user: any;
   userMenu = [{ title: 'Log out' }];
 
-  constructor(private sidebarService: NbSidebarService,private menuService: NbMenuService,private userService: UserData,private router: Router) {
+  constructor(private sidebarService: NbSidebarService,private menuService: NbMenuService,private userService: UserData,private router: Router,private toastrService: NbToastrService) {
     if(window.localStorage.getItem('Username') == null || window.localStorage.getItem('Username') == undefined) {
          this.router.navigateByUrl('/auth/signin');
     }
@@ -42,18 +43,9 @@ export class HeaderComponent implements OnInit {
 
   LogOut(){
      if(window.localStorage.getItem('Username') != null || window.localStorage.getItem('Username') != undefined) {
-       /* window.localStorage.removeItem('CompanyDB');
-        window.localStorage.removeItem('Username');
-        window.localStorage.removeItem('Userpwd');*/
         window.localStorage.clear();
+        this.router.navigateByUrl('/Login');
       }
-    this.router.navigateByUrl('/Login');
-    // window.localStorage.setItem('CompanyDB', '');
-    // window.localStorage.setItem('Username', '');
-    // window.localStorage.setItem('Userpwd', '');
   }
 
-  // startSearch() {
-  //   this.analyticsService.trackEvent('startSearch');
-  // }
 }

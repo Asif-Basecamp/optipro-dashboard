@@ -17,7 +17,7 @@
                        V31h20v10.069c-3.94,0.495-7,3.859-7,7.931c0,4.411,3.589,8,8,8s8-3.589,8-8C60,44.928,56.94,41.564,53,41.069z"/></svg>
                        OptiPro Dashboard
                   </div>
-
+  
                   <form class="k-form" #signInForm="ngForm">
                     <div class="form-group">
                         <label for="username">Username</label>
@@ -44,6 +44,7 @@
                           <button type="submit" (click)="OnSignIn()" [disabled]="!signInForm.form.valid  || clickSignIn" id=connectbtn class="btn btn-primary opti_fullwidth"  size="xsmall" nbButton>Login</button>
                       </div>
                   </form>
+
               </div>
           </div>
       </div>
