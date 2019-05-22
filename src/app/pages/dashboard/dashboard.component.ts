@@ -9,27 +9,6 @@
  import { State } from '@progress/kendo-data-query';
  import OrgChart from '../../@core/org-chart/orgchart.js';
 
- /*const datascource = {
-  'id': '1',
-    'name': 'Lao Lao',
-    'className': 'purReceipt',
-    'children': [
-      { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
-      { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice',
-        'children': [
-          { 'id': '4', 'name': 'Tie Hua', 'className': 'prodReceipt' },
-          { 'id': '5', 'name': 'Hei Hei', 'className': 'prodIssue',
-            'children': [
-              { 'id': '6', 'name': 'Pang Pang', 'className': 'matReturn'},
-              { 'id': '7', 'name': 'Xiang Xiang', 'className': 'creditMemo'}
-            ]
-          }
-        ]
-      },
-      { 'id': '8', 'name': 'Yu Jie', 'className': 'salesReturn' },
-      { 'id': '9', 'name': 'Yu Li', 'className': 'goodsIssue' },
-    ]
-  }*/
  var nodeName = '';
  
  @Component({
@@ -89,6 +68,7 @@
   selectedValues: Array<any> = [];
   public orgchart: any;
   public nodes3: any;
+  public nodes4: any;
 
   constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
  
@@ -388,7 +368,6 @@
      
      return node1.push(cd);
     }.bind(this))
-    console.log(node1);
     return node1;
    }
 
@@ -445,17 +424,17 @@
   /*-- recursive function for analysis view --*/
 
   getAnalysisHierarchy(data, seq){
-      let node3 = [];
+      let nodess = [];
       data.filter(function(d) {
        if (d.ParantId == seq) {
         return d.ParantId == seq
        }
       }).forEach(function(d) {
        var cd = d;
-       cd.children = this.getAnalysisHierarchy(data, d.OPTM_SEQ);
-       return node3.push(cd);
+       cd.children = this.getAnalysisHierarchy(data, d.SeqNo);
+       return nodess.push(cd);
       }.bind(this))
-      return node3;
+      return nodess;
   }
   
   /*-- get transaction detail --*/
@@ -471,7 +450,7 @@
    if (Dcentry.indexOf(":") > -1) {
     Dcentry = Dcentry.split(":")[1].trim();
     this.DocEntryArr.filter(function(d) {
-     if (d.DocEntry == Dcentry) {
+     if (d.DocEntry == Dcentry && d.key == Item) {
       DC = d.DocEntry;
       ObjType = d.ObjectType;
       node = "'"+d.key+"'";
@@ -514,39 +493,31 @@
   this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DC, ObjType, node,this.DfltWarehouse).subscribe(
     data => {
     if(data){ 
+     this.orgchart = [];
      this.Analysisloading = false; 
-    // this.transactiondetails = data;
      this.AnalysisData = data;
-     console.log(this.AnalysisData);
+     
      this.nodes3 = this.getAnalysisHierarchy(this.AnalysisData, '-1');
-     console.log(this.nodes3);
-    /* const datascource = {
+    
+    let datascource = [{
       'id': '1',
         'name': 'Lao Lao',
         'className': 'purReceipt',
         'children': [
           { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
-          { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice',
-            'children': [
-              { 'id': '4', 'name': 'Tie Hua', 'className': 'prodReceipt' },
-              { 'id': '5', 'name': 'Hei Hei', 'className': 'prodIssue',
-                'children': [
-                  { 'id': '6', 'name': 'Pang Pang', 'className': 'matReturn'},
-                  { 'id': '7', 'name': 'Xiang Xiang', 'className': 'creditMemo'}
-                ]
-              }
-            ]
-          },
-          { 'id': '8', 'name': 'Yu Jie', 'className': 'salesReturn' },
-          { 'id': '9', 'name': 'Yu Li', 'className': 'goodsIssue' },
+          { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice' },
         ]
-      };
+      }];
 
+     var result = {};
+     for (var i=0; i<datascource.length; i++) {
+        result = datascource[i];
+     }
      this.orgchart = new OrgChart({
       'chartContainer': '#chart-container',
-      'data' : datascource,
+      'data' : result,
       'nodeContent': 'title',
-      'nodeID': 'id',
+      //'nodeID': 'id',
       'depth': 1,
       'direction': 'l2r',
       'pan': false,
@@ -566,7 +537,7 @@
                   Item
                 </div>
                 <div class="data-content">
-                  INT
+                  ${data.ItemCode}
                 </div>
               </div>
               <div class="data-column">
@@ -574,7 +545,7 @@
                   Warehouse
                 </div>
                 <div class="data-content">
-                  LOT 1
+                  ${data.Warehouse}
                 </div>
               </div>
               
@@ -583,7 +554,7 @@
                   Lot #
                 </div>
                 <div class="data-content">
-                  LOT 1
+                  Lot
                 </div>
               </div>
               <div class="data-column">
@@ -591,7 +562,7 @@
                   Expiry Date
                 </div>
                 <div class="data-content">
-                  01/01/01
+                  ${data.ExpDate}
                 </div>
               </div>
               <div class="data-column">
@@ -599,7 +570,7 @@
                   Receipt Date
                 </div>
                 <div class="data-content">
-                  01/01/01
+                  ${data.CreateDate}
                 </div>
               </div>
               <div class="data-column">
@@ -607,7 +578,7 @@
                   Lot Status
                 </div>
                 <div class="data-content">
-                  Release
+                  ${data.Status}
                 </div>
               </div>
               <div class="data-column">
@@ -615,7 +586,7 @@
                   Quantity
                 </div>
                 <div class="data-content">
-                  10.000 KG
+                  ${data.Quantity}
                 </div>
               </div>
             </div>
@@ -626,7 +597,7 @@
                 Total Received
               </div>
               <div class="column-content">
-                text
+                ${data.TOTALRECEIVE}
               </div>
             </div>
             <div class="footer-column">
@@ -634,7 +605,7 @@
                 Total Issued
               </div>
               <div class="column-content">
-                text
+                ${data.TOTALISSUE}
               </div>
             </div>
             <div class="footer-column">
@@ -642,7 +613,7 @@
                 Onhand
               </div>
               <div class="column-content">
-                text
+                ${data.ONHAND}
               </div>
             </div>
           </div>
@@ -651,7 +622,7 @@
         // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
         node.appendChild(secondMenu);
       }
-    });*/
+    });
     } 
     },
   error => {
