@@ -62,7 +62,6 @@ export class DashboardService {
 
 
     GetLotExplosionData(optiProDashboardAPIURL:string,CompanyDBID:string,ItemKey:string,Warehouse:string,LotFrom:string,LotTo:string,Mode:string,SelectionCriteria:string,TrackName:string):Observable<any>{
-      //JSON Obeject Prepared to be send as a param to API
       let jObject:any={ GetData: JSON.stringify([{ 
         CompanyDBID: CompanyDBID,
         ItemKey: ItemKey,
@@ -73,7 +72,6 @@ export class DashboardService {
         SelectionCriteria: SelectionCriteria  ,
         TrackName:TrackName    
     }]) };
-    //Return the response form the API  
     return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetLotExplosionData",jObject,this.httpOptions);
     }       
 }
