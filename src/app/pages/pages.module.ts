@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NbSidebarModule, NbLayoutModule, NbSpinnerModule } from '@nebular/theme';
 import { FormsModule } from '@angular/forms';
 import { PagesRoutingModule } from './pages-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { GenealogyComponent } from './genealogy/genealogy.component';
 import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
 import { TreeModule } from 'angular-tree-component';
@@ -15,7 +15,7 @@ const PAGES_COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: [DashboardComponent, PagesComponent, DefaultComponent],
+  declarations: [GenealogyComponent, PagesComponent, DefaultComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,

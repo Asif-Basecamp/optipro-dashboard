@@ -12,12 +12,12 @@
  var nodeName = '';
  
  @Component({
-  selector: 'ngx-dashboard',
-  styleUrls: ['./dashboard.component.scss'],
-  templateUrl: './dashboard.component.html',
+  selector: 'ngx-genealogy',
+  styleUrls: ['./genealogy.component.scss'],
+  templateUrl: './genealogy.component.html',
  })
  
- export class DashboardComponent implements OnInit {
+ export class GenealogyComponent implements OnInit {
   @Input() serviceData: any;
   public gridData: any[];
   public arrConfigData: any;
