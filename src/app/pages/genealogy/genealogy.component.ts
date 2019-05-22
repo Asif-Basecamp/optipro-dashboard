@@ -30,8 +30,8 @@
   public whse: boolean = false;
   public LotFrom: boolean = false;
   public LotTo: boolean = false;
-  public DistNumFrom: any;
-  public DistNumTo: any;
+  public DistNumFrom: any = '';
+  public DistNumTo: any = '';
   public trackName: any;
   public gridStatus: boolean = true;
   public nodes1: any = [];
@@ -103,7 +103,6 @@
       this.lookUpHeading = 'Item Code';
       this.gridData = this.ItemCodeData;
       this.dialogService.open(dialog);
-     // this.disableLotNumber = false;
     }
   }
 
@@ -180,38 +179,41 @@
   /*-- Lot From function on blur --*/
 
   onLotFromNumberBlur(LotNum) {
-   this.dash.GetLotNumber(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.trackName).subscribe(
-    data => {
-     let DistNum = '';
-     let LotFromCode = [];
-      DistNum = this.DistNumFrom;
-    
-
-      if(DistNum){
-        for(var i in data){
-          if(DistNum == data[i].DistNumber){
-            LotFromCode.push(data[i]);
+  
+  if(this.DistNumFrom.trim() != ""){
+    this.dash.GetLotNumber(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.trackName).subscribe(
+      data => {
+       let DistNum = '';
+       let LotFromCode = [];
+        DistNum = this.DistNumFrom.trim();  
+  
+        if(DistNum){
+          for(var i in data){
+            if(DistNum == data[i].DistNumber){
+              LotFromCode.push(data[i]);
+            }
           }
-        }
-        if(LotFromCode.length>0){
-          this.LotFromStatus = false;
+          if(LotFromCode.length>0){
+            this.LotFromStatus = false;
+          }else{
+            this.LotFromStatus = true;
+          }
         }else{
-          this.LotFromStatus = true;
+           this.LotFromStatus = false;
         }
-      }else{
-         this.LotFromStatus = false;
-      }
-    });
+      });
+    }  
   }
 
   /*-- Lot To function on blur --*/
 
   onLotToNumberBlur(LotNum) {
+    if(this.DistNumTo.trim() != ""){
     this.dash.GetLotNumber(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.trackName).subscribe(
      data => {
       let DistNums = '';
       let LotToCode = [];
-      DistNums = this.DistNumTo;
+      DistNums = this.DistNumTo.trim();
        if(DistNums){
          for(var i in data){
            if(DistNums == data[i].DistNumber){
@@ -227,6 +229,7 @@
           this.LotToStatus = false;
        }
      });
+    }
    }
  
   /*-- open Lot From lookup on click --*/ 
@@ -289,6 +292,16 @@
    /*-- get data on grid view after click on process --*/
 
    GetExplosion() {
+
+    if(this.DistNumFrom.trim() != "" && this.DistNumTo.trim() == ""){
+      this.toastrService.danger("Please enter Lot To!");
+      return;
+    }
+    else if(this.DistNumTo.trim() != "" && this.DistNumFrom.trim() == ""){
+      this.toastrService.danger("Please enter Lot From!");
+      return;
+    }
+
      this.loading = true;
     if (this.radioExplode == 'Lot Explosion')
      this.explodeDirection = 'DOWN';
@@ -310,6 +323,13 @@
        this.nodes2 = [];
      }else{
       this.data = data;
+
+      if(data.length <= 0){
+        this.loading = false;
+        this.toastrService.danger("No Record Found!");    
+        return;
+      }
+      
       let Arr = [];
       for (var i = 0; i < this.data.length; i++) {
        if (this.data[i].GroupId == '') {
@@ -340,7 +360,6 @@
     this.ItemValue = evt.selectedRows[0].dataItem.ItemCode;
     this.ItemDesc = evt.selectedRows[0].dataItem.ItemName;
     this.disableLotNumber = false;
-    //this.DfltWarehouse = evt.selectedRows[0].dataItem.DfltWH;
     if (evt.selectedRows[0].dataItem.ManBtchNum == 'Y') {
      this.trackName = 'Batch'
     } else {
@@ -364,8 +383,7 @@
      }
     }).forEach(function(d) {
      var cd = d;
-     cd.children = this.getHierarchyTransaction(dataa, d.SeqNo);
-     
+     cd.children = this.getHierarchyTransaction(dataa, d.SeqNo);     
      return node1.push(cd);
     }.bind(this))
     return node1;
@@ -408,14 +426,17 @@
      this.DocEntryArrNode = [];
      this.nodes1 = [];
      this.transactions = data;
-     let name = fullName;
-     let childrens = [];
 
     this.setTransactionDetailParam(this.transactions.Table);
     this.nodes1 =  this.getHierarchyTransaction(data.Table,'-1');
     } 
+    else{
+     this.loading = false;
+     this.toastrService.danger("No Record Found!");  
+    }
     },
     error => {
+     this.loading = false;
      this.toastrService.danger("No Record Found!");    
     }
    )
@@ -431,7 +452,10 @@
        }
       }).forEach(function(d) {
        var cd = d;
+       if(cd.DocEntry != null)
        cd["name"] = cd.DistNumber + ` (Doc Entry: ${cd.DocEntry})`;
+       else
+       cd["name"] = cd.DistNumber;
        cd.children = this.getAnalysisHierarchy(data, d.SeqNo);
        return nodess.push(cd);
       }.bind(this))
@@ -480,14 +504,13 @@
             if(k==0) 
             node = "'"+Array[k].key+"'";
             else
-            node = node + ", '" + Array[k].key+"'";     
+            node = node + ",'" + Array[k].key+"'";     
          }
         }
         else{
           node = "'"+Item+"'";
-        }     
-
-     }
+        }  
+    }
    });
    }  
 
@@ -502,6 +525,7 @@
      for (var i=0; i<this.nodes3.length; i++) {
         result = this.nodes3[i];
      }
+
      this.orgchart = new OrgChart({
       'chartContainer': '#chart-container',
       'data' : result,
@@ -538,7 +562,7 @@
                   Lot #
                 </div>
                 <div class="data-content">
-                  Lot
+                ${data.DistNumber}
                 </div>
               </div>
               <div class="data-column">
@@ -546,7 +570,7 @@
                   Expiry Date
                 </div>
                 <div class="data-content">
-                  ${data.ExpDate}
+                  ${data.EXPDATE}
                 </div>
               </div>
               <div class="data-column">
@@ -554,7 +578,7 @@
                   Receipt Date
                 </div>
                 <div class="data-content">
-                  ${data.CreateDate}
+                  ${data.CREATEDATE}
                 </div>
               </div>
               <div class="data-column">
@@ -608,8 +632,13 @@
       }
     });
     } 
-    },
+   else{
+    this.Analysisloading = false;
+    this.toastrService.danger("No Record Found!"); 
+   }
+  },
   error => {
+     this.Analysisloading = false;
      this.toastrService.danger("No Record Found!");    
     }
    )
