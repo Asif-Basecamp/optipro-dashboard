@@ -4,7 +4,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Lot Genealogy',
     icon: 'nb-bar-chart',
-    link: '/pages/dashboard',
+    link: '/pages/genealogy',
     home: true,
   },
   {
