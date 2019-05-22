@@ -452,7 +452,10 @@
        }
       }).forEach(function(d) {
        var cd = d;
+       if(cd.DocEntry != null)
        cd["name"] = cd.DistNumber + ` (Doc Entry: ${cd.DocEntry})`;
+       else
+       cd["name"] = cd.DistNumber;
        cd.children = this.getAnalysisHierarchy(data, d.SeqNo);
        return nodess.push(cd);
       }.bind(this))
@@ -526,7 +529,6 @@
      this.orgchart = new OrgChart({
       'chartContainer': '#chart-container',
       'data' : result,
-      'nodeContent': 'title',
       'depth': 1,
       'direction': 'l2r',
       'createNode': function(node, data) {
