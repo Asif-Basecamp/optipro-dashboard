@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { UserData } from '../../../@core/data/users';
 // import { AnalyticsService } from '../../../@core/utils';
@@ -15,6 +14,8 @@ import { NbToastrService } from '@nebular/theme';
 export class HeaderComponent implements OnInit {
 
   @Input() position = 'normal';
+  private index: number = 0;
+
 
   user: any;
   userMenu = [{ title: 'Log out' }];
@@ -41,9 +42,10 @@ export class HeaderComponent implements OnInit {
     this.menuService.navigateHome();
   }
 
-  LogOut(){
+  LogOut(position){
      if(window.localStorage.getItem('Username') != null || window.localStorage.getItem('Username') != undefined) {
         window.localStorage.clear();
+        this.toastrService.success('You have been logged out',  ``, { position });
         this.router.navigateByUrl('/Login');
       }
   }
