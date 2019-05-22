@@ -493,25 +493,13 @@
   this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DC, ObjType, node,this.DfltWarehouse).subscribe(
     data => {
     if(data){ 
-     this.orgchart = [];
+     document.getElementById('chart-container').innerHTML = "";
      this.Analysisloading = false; 
      this.AnalysisData = data;
-     
      this.nodes3 = this.getAnalysisHierarchy(this.AnalysisData, '-1');
-    
-    let datascource = [{
-      'id': '1',
-        'name': 'Lao Lao',
-        'className': 'purReceipt',
-        'children': [
-          { 'id': '2', 'name': 'Bo Miao', 'className': 'purReturn' },
-          { 'id': '3', 'name': 'Su Miao', 'className': 'purInvoice' },
-        ]
-      }];
-
      var result = {};
-     for (var i=0; i<datascource.length; i++) {
-        result = datascource[i];
+     for (var i=0; i<this.nodes3.length; i++) {
+        result = this.nodes3[i];
      }
      this.orgchart = new OrgChart({
       'chartContainer': '#chart-container',
