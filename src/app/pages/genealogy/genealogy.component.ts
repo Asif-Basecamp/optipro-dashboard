@@ -8,7 +8,7 @@
  import { GridComponent } from '@progress/kendo-angular-grid';
  import { State } from '@progress/kendo-data-query';
  import OrgChart from '../../@core/org-chart/orgchart.js';
-
+ 
  var nodeName = '';
  
  @Component({
@@ -69,14 +69,18 @@
   public orgchart: any;
   public nodes3: any;
   public nodes4: any;
+  public language: any;
 
   constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
  
   ngOnInit() {
    this.arrConfigData = JSON.parse(window.localStorage.getItem('arrConfigData'));
+   
    this.CompanyDB = JSON.parse(window.localStorage.getItem('CompanyDB'));
    this.Username = JSON.parse(window.localStorage.getItem('Username'));
    this.Userpwd = JSON.parse(window.localStorage.getItem('Userpwd'));
+   this.language = JSON.parse(window.localStorage.getItem('language'));
+
    this.getItemCodeData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
    this.getWarehouseCodeData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB); 
  
@@ -246,7 +250,7 @@
      this.dialogService.open(dialog);
     },
     error => {
-     this.toastrService.danger("No Record Found!");    
+     this.toastrService.danger(this.language.no_record_found);    
     }
    )
   }
@@ -267,7 +271,7 @@
      this.dialogService.open(dialog);
     },
     error => {
-     this.toastrService.danger("No Record Found!");    
+     this.toastrService.danger(this.language.no_record_found);    
     }
     
    )
@@ -294,11 +298,11 @@
    GetExplosion() {
 
     if(this.DistNumFrom.trim() != "" && this.DistNumTo.trim() == ""){
-      this.toastrService.danger("Please enter Lot To!");
+      this.toastrService.danger(this.language.error_enter_lot_to);
       return;
     }
     else if(this.DistNumTo.trim() != "" && this.DistNumFrom.trim() == ""){
-      this.toastrService.danger("Please enter Lot From!");
+      this.toastrService.danger(this.language.error_enter_lot_from);
       return;
     }
 
@@ -317,7 +321,7 @@
      data => {
      if(!data){
        this.loading = false;
-       this.toastrService.danger("No Record Found!");
+       this.toastrService.danger(this.language.no_record_found);
        this.AnalysisData = [];
        this.nodes1 = [];
        this.nodes2 = [];
@@ -326,7 +330,7 @@
 
       if(data.length <= 0){
         this.loading = false;
-        this.toastrService.danger("No Record Found!");    
+        this.toastrService.danger(this.language.no_record_found);    
         return;
       }
       
@@ -347,7 +351,7 @@
     },
      error => {
        this.loading = false;
-       this.toastrService.danger("No Record Found!");    
+       this.toastrService.danger(this.language.no_record_found);    
      }
     )
       this.searchCriteriaToggle(event);
@@ -432,12 +436,12 @@
     } 
     else{
      this.loading = false;
-     this.toastrService.danger("No Record Found!");  
+     this.toastrService.danger(this.language.no_record_found);  
     }
     },
     error => {
      this.loading = false;
-     this.toastrService.danger("No Record Found!");    
+     this.toastrService.danger(this.language.no_record_found);    
     }
    )
   }
@@ -634,12 +638,12 @@
     } 
    else{
     this.Analysisloading = false;
-    this.toastrService.danger("No Record Found!"); 
+    this.toastrService.danger(this.language.no_record_found); 
    }
   },
   error => {
      this.Analysisloading = false;
-     this.toastrService.danger("No Record Found!");    
+     this.toastrService.danger(this.language.no_record_found);    
     }
    )
   }
@@ -664,7 +668,7 @@
      if (test != '' && test != " " && test != undefined && test != null) {
       test = test.trim();
      } else {
-      this.toastrService.danger('Item is None Tracked');
+      this.toastrService.danger(this.language.error_item_none_tracked);
       this.loading = false;
       return;
      }

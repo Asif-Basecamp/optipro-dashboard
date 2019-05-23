@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
+import { CommonData } from "src/app/Data/CommonData";
 
 @Component({
   selector: 'app-signin',
@@ -13,8 +14,11 @@ import { NbToastrService } from '@nebular/theme';
 })
 export class SigninComponent implements OnInit {
 
+  private commonData = new CommonData();
+  public language: any = [];
+  public fileURL = this.commonData.get_current_url();
   public psURL: string = "";
-  public adminDBName: string = "OPTIPROADMIN";
+  public adminDBName = this.commonData.adminDBName;
   public arrConfigData: any[];
   public loginId: string;
   public password: string;
@@ -24,6 +28,7 @@ export class SigninComponent implements OnInit {
   public defaultCompnyComboValue: any = [];
   public listItems: any = [] = this.defaultCompnyComboValue;
   public selectedValue: any = [];
+  public InvalidActiveUser: boolean = false;
 
   constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastrService: NbToastrService) {}
   
@@ -36,14 +41,27 @@ export class SigninComponent implements OnInit {
     element.classList.add("opti_body-login");
     element.classList.add("opti_account-module");   
 
-    this.httpClientSer.get('./assets/configuration.json').subscribe(
+    this.httpClientSer.get(this.fileURL + '/assets/configuration.json').subscribe(
       data => {
         this.arrConfigData = data as string[];
         window.localStorage.setItem('arrConfigData', JSON.stringify(this.arrConfigData[0]));
-        this.getPSURL();
+        this.loadLanguage(this.arrConfigData[0].language);
       },
       (err: HttpErrorResponse) => {
         console.log(err.message);
+      }
+    );
+  }
+
+  public loadLanguage(langParam) {
+    this.httpClientSer.get(this.fileURL + '/assets/i18n/' + langParam + '.json').subscribe(
+      data => {
+        window.localStorage.setItem('language', JSON.stringify(data));
+        this.language = JSON.parse(window.localStorage.getItem('language'));
+        this.getPSURL();
+      },
+      error => {
+        this.toastrService.danger(this.language.error_reading_file);
       }
     );
   }
@@ -57,7 +75,7 @@ export class SigninComponent implements OnInit {
         }
       },
       error => {
-        this.toastrService.danger('There is some error');
+        this.toastrService.danger(this.language.error_some_error);
       }
     )
   }
@@ -81,8 +99,7 @@ export class SigninComponent implements OnInit {
           else{
             this.listItems = this.defaultCompnyComboValue;
             this.selectedValue = this.listItems[0];
-            this.toastrService.danger('Incorrect username or password!');
-
+            this.toastrService.danger(this.language.password_incorrect);
           }       
         },
         error => {
@@ -102,15 +119,15 @@ export class SigninComponent implements OnInit {
             this.clickSignIn = false; 
             this.listItems = this.assignedCompanies;
            this.selectedValue = this.listItems[0];
+           this.InvalidActiveUser = false;
           }
           else {
-            this.toastrService.danger('No Company is assigned to user');
+            this.toastrService.danger(this.language.error_no_company_assigned);
+            this.InvalidActiveUser = true;
           }           
         }
       )
-    }
-
-  
+    }  
 
     OnSignIn(){
       this.router.navigateByUrl('/pages');

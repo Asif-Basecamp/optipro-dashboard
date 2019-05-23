@@ -10,18 +10,18 @@
           <form #criteriaForm="ngForm">
             <fieldset class="form-group px-0 mb-2">
               <nb-radio-group class="d-flex" [(ngModel)]="radioExplode" name="radioExplode">
-                <nb-radio [value]="'Lot Explosion'">Lot Explosion
+                <nb-radio [value]="'Lot Explosion'">{{language.lotexplosion}}
                 </nb-radio>
-                <nb-radio [value]="'Where Used'">Where Used</nb-radio>
+                <nb-radio [value]="'Where Used'">{{language.whereused}}</nb-radio>
               </nb-radio-group>
             </fieldset>
-            <h5 class="border-bottom pb-1 mb-3">Select</h5>
+            <h5 class="border-bottom pb-1 mb-3">{{language.select}}</h5>
             <div class="form-group">
-              <label for="inputPassword3" class="form-label">Item</label>
+              <label for="inputPassword3" class="form-label">{{language.item}}</label>
               <div class="w-100">
                 <div class="input-group">
                   <input nbInput fieldSize="small" type="text" name="ItemValue" id="ItemValue" class="form-control"
-                  placeholder="Select Item" #ItemVal=ngModel [(ngModel)]="ItemValue" (blur)="onItemCodeBlur()" required autocomplete="off">
+                  placeholder="{{language.select_item}}" #ItemVal=ngModel [(ngModel)]="ItemValue" (blur)="onItemCodeBlur()" required autocomplete="off">
 
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemLookup(dialog)">
@@ -30,23 +30,23 @@
                   </div>
                 </div>
               </div>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="ItemVal.errors?.required && !itemStatus && ItemVal.touched" class="float-right opti_error-msg">Item Code Required</small>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="itemStatus && ItemVal.touched" class="float-right opti_error-msg">Enter Correct Item Code</small>  
+              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="ItemVal.errors?.required && !itemStatus && ItemVal.touched" class="float-right opti_error-msg">{{language.item_code_req}}</small>
+              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="itemStatus && ItemVal.touched" class="float-right opti_error-msg">{{language.correct_item_code}}</small>  
             </div>
             <div class="form-group">
-              <label for="inputPassword3" class="form-label">Desc.</label>
+              <label for="inputPassword3" class="form-label">{{language.description}}</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input nbInput type="text" fieldSize="small" name="ItemDesc" id="ItemDesc" class="form-control" placeholder="Description"
+                  <input nbInput type="text" fieldSize="small" name="ItemDesc" id="ItemDesc" class="form-control" placeholder="{{language.description}}"
                     #ItemDes=ngModel [(ngModel)]="ItemDesc" autocomplete="off">
                 </div>
               </div>
             </div>
             <div class="form-group">
-              <label for="inputPassword3" class="form-label">Warehouse</label>
+              <label for="inputPassword3" class="form-label">{{language.warehouse}}</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input nbInput fieldSize="small" type="text" class="form-control" placeholder="Select Warehouse"
+                  <input nbInput fieldSize="small" type="text" class="form-control" placeholder="{{language.select_warehouse}}"
                     name="DfltWarehouse" id="DfltWarehouse" #Whse=ngModel [(ngModel)]="DfltWarehouse" (blur)="onWarehouseBlur()" autocomplete="off" required>
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openWarehouseLookup(dialog)">
@@ -55,14 +55,14 @@
                   </div>
                 </div>
               </div>
-              <small id="emalHelp" class="form-text text-muted opti_error-msg" *ngIf="Whse.errors?.required && !WarehouseStatus && Whse.touched" class="float-right opti_error-msg">Warehouse Code Required</small>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="WarehouseStatus && Whse.touched" class="float-right opti_error-msg">Enter Correct Warehouse Code</small>
+              <small id="emalHelp" class="form-text text-muted opti_error-msg" *ngIf="Whse.errors?.required && !WarehouseStatus && Whse.touched" class="float-right opti_error-msg">{{language.warehouse_code_req}}</small>
+              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="WarehouseStatus && Whse.touched" class="float-right opti_error-msg">{{language.correct_warehouse_code}}</small>
             </div>
             <div class="form-group">
-              <label for="inputPassword3" class="form-label">Lot From</label>
+              <label for="inputPassword3" class="form-label">{{language.lot_from}}</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input fieldSize="small" nbInput type="text" class="form-control" placeholder="Select Lot From"
+                  <input fieldSize="small" nbInput type="text" class="form-control" placeholder="{{language.select_lot_from}}"
                     name="DistNumFrom" id="DistNumFrom" #LotF=ngModel [disabled]="disableLotNumber" [(ngModel)]="DistNumFrom" (blur)="onLotFromNumberBlur('From')" autocomplete="off">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
@@ -70,14 +70,14 @@
                   </div>
                 </div>
               </div>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="LotFromStatus && LotF.touched" class="float-right opti_error-msg">Enter Correct Lot From</small>
+              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="LotFromStatus && LotF.touched" class="float-right opti_error-msg">{{language.correct_lot_from}}</small>
 
             </div>
             <div class="form-group">
-              <label for="inputPassword3" class="form-label">Lot To</label>
+              <label for="inputPassword3" class="form-label">{{language.lot_to}}</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input fieldSize="small"  nbInput type="text" class="form-control" placeholder="Select Lot To"
+                  <input fieldSize="small"  nbInput type="text" class="form-control" placeholder="{{language.select_lot_to}}"
                     name="DistNumTo" id="DistNumTo" #LotT=ngModel [disabled]="disableLotNumber" [(ngModel)]="DistNumTo" (blur)="onLotToNumberBlur('To')" autocomplete="off">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
@@ -85,14 +85,14 @@
                   </div>
                 </div>
               </div>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="LotToStatus && LotT.touched" class="float-right opti_error-msg">Enter Correct Lot To</small>
+              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="LotToStatus && LotT.touched" class="float-right opti_error-msg">{{language.correct_lot_to}}</small>
 
             </div>
             <fieldset class="form-group px-0">
                 <nb-radio-group class="d-flex" [(ngModel)]="radioLevel" name="radioLevel">
-                  <nb-radio [value]="'Single Level'">Single Level
+                  <nb-radio [value]="'Single Level'">{{language.single_level}}
                   </nb-radio>
-                  <nb-radio [value]="'Multi Level'">Multi Level</nb-radio>
+                  <nb-radio [value]="'Multi Level'">{{language.multi_level}}</nb-radio>
                 </nb-radio-group>
             </fieldset>
             </form>
@@ -101,7 +101,7 @@
     </nb-card-body>
     <nb-card-footer class="text-center py-2">
       <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" 
-      size="small" (click)="GetExplosion($event)" [disabled]="!criteriaForm.form.valid || (itemStatus || WarehouseStatus || LotFromStatus || LotToStatus)">Process <i data-eva="arrow-forward" data-eva-height="18" data-eva-width="18"
+      size="small" (click)="GetExplosion($event)" [disabled]="!criteriaForm.form.valid || (itemStatus || WarehouseStatus || LotFromStatus || LotToStatus)">{{language.process}} <i data-eva="arrow-forward" data-eva-height="18" data-eva-width="18"
           data-eva-fill="#fff" class="ml-2"></i></button>
           
     </nb-card-footer>
@@ -129,7 +129,7 @@
                     <div class="k-form-field d-flex">
                         <input #chkFilter  type="checkbox" (change)="onFilterChange(chkFilter,gridItem)" id="opti_SalesOrderListColumnFilterID"
                             [(ngModel)]="isColumnFilter" class="k-checkbox" name="columnfilter" />
-                        <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">Enable Filter</label>
+                        <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">{{language_enable_filter}}</label>
                     </div>
                 </form>
 
@@ -176,7 +176,7 @@
                     <div class="k-form-field d-flex">
                         <input #chkFilter  type="checkbox" (change)="onFilterChange(chkFilter,gridItem)" id="opti_SalesOrderListColumnFilterID"
                             [(ngModel)]="isColumnFilter" class="k-checkbox" name="columnfilter" />
-                        <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">Enable Filter</label>
+                        <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">{{language.language_enable_filter}}</label>
                     </div>
                 </form>
 
@@ -212,7 +212,7 @@
                     <div class="k-form-field d-flex">
                         <input #chkFilter  type="checkbox" (change)="onFilterChange(chkFilter,gridItem)" id="opti_SalesOrderListColumnFilterID"
                             [(ngModel)]="isColumnFilter" class="k-checkbox" name="columnfilter" />
-                        <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">Enable Filter</label>
+                        <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">{{language.enable_filter}}</label>
                     </div>
                 </form>
 
@@ -236,7 +236,7 @@
         </div>
       </nb-card-body>
       <nb-card-footer>
-        <button nbButton (click)="ref.close()" size="small">Close</button>
+        <button nbButton (click)="ref.close()" size="small">{{language.close}}</button>
       </nb-card-footer>
     </nb-card>
   </ng-template>
@@ -277,17 +277,17 @@
                 <nb-card-body>
                   <nb-radio-group class="d-flex" [(ngModel)]="radioTransaction" name="radioTransaction">
                     <nb-radio [value]="'ParentLot'">
-                      Show Data of all parents of lots
+                      {{language.show_parent_lot}}
                     </nb-radio>
                     <nb-radio [value]="'ImmediateLot'">
-                      Show Data of all immediate of lots
+                     {{language.show_immediate_lot}}
                   </nb-radio>
                   </nb-radio-group>
                 </nb-card-body>
               </nb-card>
 
               <nb-card class="mb-4">
-                <nb-card-header>Transaction Type</nb-card-header>
+                <nb-card-header>{{language.transaction_type}}</nb-card-header>
                 <nb-card-body>
                   <!--<tree-root id="tree2" [focused]="true" [nodes]="nodes1" (click)="clickTransactionDetails($event)">
                   </tree-root>-->
@@ -321,7 +321,7 @@
         <nb-card-header class="border-bottom d-flex" id="analysis-accordian-trigger"
           (click)="customAccordianAnalysis($event)">
           <i data-eva="layers" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="mr-2"></i>
-          <span>Analysis View</span>
+          <span>{{language.analysis_view}}</span>
           <i data-eva="arrow-ios-downward" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="ml-auto cursor-pointer"></i>
         </nb-card-header>
         <nb-card-body id="analysis-accordian-body" class="overflow-auto">
