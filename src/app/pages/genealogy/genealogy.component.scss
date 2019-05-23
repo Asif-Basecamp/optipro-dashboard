@@ -10,7 +10,7 @@
         & > nb-card{
             cursor: pointer;
             & > nb-card-header{
-                transform: rotateZ(-90deg) translateX(-171px) translateY(2px);
+                transform: rotateZ(-90deg) translateX(-180px) translateY(2px);
                 transform-origin: left top;
                 white-space: nowrap;
                 width: 180px;
@@ -31,7 +31,7 @@
     }
 }
 .dashboard-right{
-    flex:1;
+    flex:1 1 100%;
     padding-left:5px; 
     height: calc(100vh - 65px);
     & .custom-accordian {

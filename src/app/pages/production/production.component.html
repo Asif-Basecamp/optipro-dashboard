@@ -1,238 +1,151 @@
 <div class="dashboard-left" id="dashboard-left">
   <nb-card accent="primary" id="selection-criteria-section" (click)="searchCriteriaExpand()">
+
     <nb-card-header class="border-bottom d-flex">
       <i data-eva="search" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="mr-2"></i>
       <span>Selection Criteria</span>
     </nb-card-header>
-    <nb-card-body id="selection-criteria-body" class="pt-0">
+
+    <nb-card-body id="selection-criteria-body" class="pt-0 d-flex justify-content-between flex-direction-column">
       <div class="row">
         <div class="col-sm-12">
           <form #criteriaForm="ngForm">
+
             <fieldset class="form-group px-0 mb-2">
-              <nb-radio-group class="d-flex" [(ngModel)]="radioExplode" name="radioExplode">
-                <nb-radio [value]="'Lot Explosion'">Lot Explosion
+              <nb-radio-group class="d-flex" name="radioExplode" [(ngModel)]="viewOption">
+                <nb-radio *ngFor="let viewOption of viewOptions" [value]="viewOption.value"> {{ viewOption.label }}
                 </nb-radio>
-                <nb-radio [value]="'Where Used'">Where Used</nb-radio>
               </nb-radio-group>
             </fieldset>
-            <h5 class="border-bottom pb-1 mb-3">Select</h5>
-            <div class="form-group">
-              <label for="inputPassword3" class="form-label">Item</label>
-              <div class="w-100">
-                <div class="input-group">
-                  <input nbInput fieldSize="small" type="text" name="ItemValue" id="ItemValue" class="form-control"
-                  placeholder="Select Item" #ItemVal=ngModel [(ngModel)]="ItemValue" (blur)="onItemCodeBlur()" required autocomplete="off">
 
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemLookup(dialog)">
-                      <i class="nb-menu"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="ItemVal.errors?.required && !itemStatus && ItemVal.touched" class="float-right opti_error-msg">Item Code Required</small>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="itemStatus && ItemVal.touched" class="float-right opti_error-msg">Enter Correct Item Code</small>  
-            </div>
-            <div class="form-group">
-              <label for="inputPassword3" class="form-label">Desc.</label>
-              <div class="w-100">
-                <div class="input-group">
-                  <input nbInput type="text" fieldSize="small" name="ItemDesc" id="ItemDesc" class="form-control" placeholder="Description"
-                    #ItemDes=ngModel [(ngModel)]="ItemDesc" autocomplete="off">
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="inputPassword3" class="form-label">Warehouse</label>
-              <div class="w-100">
-                <div class="input-group">
-                  <input nbInput fieldSize="small" type="text" class="form-control" placeholder="Select Warehouse"
-                    name="DfltWarehouse" id="DfltWarehouse" #Whse=ngModel [(ngModel)]="DfltWarehouse" (blur)="onWarehouseBlur()" autocomplete="off" required>
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openWarehouseLookup(dialog)">
-                      <i class="nb-menu"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <small id="emalHelp" class="form-text text-muted opti_error-msg" *ngIf="Whse.errors?.required && !WarehouseStatus && Whse.touched" class="float-right opti_error-msg">Warehouse Code Required</small>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="WarehouseStatus && Whse.touched" class="float-right opti_error-msg">Enter Correct Warehouse Code</small>
-            </div>
-            <div class="form-group">
-              <label for="inputPassword3" class="form-label">Lot From</label>
-              <div class="w-100">
-                <div class="input-group">
-                  <input fieldSize="small" nbInput type="text" class="form-control" placeholder="Select Lot From"
-                    name="DistNumFrom" id="DistNumFrom" #LotF=ngModel [disabled]="disableLotNumber" [(ngModel)]="DistNumFrom" (blur)="onLotFromNumberBlur('From')" autocomplete="off">
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
-                      (click)="openLotFromLookup(dialog)" [disabled]="disableLotNumber"><i class="nb-menu"></i></button>
-                  </div>
-                </div>
-              </div>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="LotFromStatus && LotF.touched" class="float-right opti_error-msg">Enter Correct Lot From</small>
+            <h6 class="border-bottom pb-1 mb-3 ">Select</h6>
 
+            <div class="form-group">
+              <label for="ItemFrom" class="form-label">Item From</label>
+              <div class="w-100">
+                <div class="input-group">
+                  <input nbInput fieldSize="small" type="text" name="ItemFrom" id="ItemFrom" class="form-control" placeholder="Item From" autocomplete="off">
+                  <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"><i class="nb-menu"></i></button>
+                  </div>
+                </div>
+              </div>              
             </div>
+            <div class="form-group">
+              <label for="ItemTo" class="form-label">Item To</label>
+              <div class="w-100">
+                <div class="input-group">
+                  <input nbInput fieldSize="small" type="text" name="ItemTo" id="ItemTo" class="form-control" placeholder="Item To" autocomplete="off">
+                  <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"><i class="nb-menu"></i></button>
+                  </div>
+                </div>
+              </div>              
+            </div>
+
+            <div class="form-group">
+              <label for="inputPassword" class="form-label">Lot From</label>
+              <div class="w-100">
+                <input fieldSize="small" nbInput type="text" class="form-control datepicker" [nbDatepicker]="fromPicker">
+                <nb-datepicker #fromPicker></nb-datepicker>
+              </div>
+            </div>
+
             <div class="form-group">
               <label for="inputPassword3" class="form-label">Lot To</label>
               <div class="w-100">
-                <div class="input-group">
-                  <input fieldSize="small"  nbInput type="text" class="form-control" placeholder="Select Lot To"
-                    name="DistNumTo" id="DistNumTo" #LotT=ngModel [disabled]="disableLotNumber" [(ngModel)]="DistNumTo" (blur)="onLotToNumberBlur('To')" autocomplete="off">
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"
-                      (click)="openLotToLookup(dialog)" [disabled]="disableLotNumber"><i class="nb-menu"></i></button>
-                  </div>
-                </div>
+                <input fieldSize="small" nbInput type="text" class="form-control datepicker" [nbDatepicker]="toPicker">
+                <nb-datepicker #toPicker></nb-datepicker>
               </div>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="LotToStatus && LotT.touched" class="float-right opti_error-msg">Enter Correct Lot To</small>
-
             </div>
+
+            <h6 class="border-bottom pb-1 mb-1 mt-3">WO Status</h6>
+
             <fieldset class="form-group px-0">
-                <nb-radio-group class="d-flex" [(ngModel)]="radioLevel" name="radioLevel">
-                  <nb-radio [value]="'Single Level'">Single Level
-                  </nb-radio>
-                  <nb-radio [value]="'Multi Level'">Multi Level</nb-radio>
-                </nb-radio-group>
+              <nb-radio-group class="d-flex flex-wrap" [(ngModel)]="radioLevel" name="radioLevel">
+                <nb-radio [value]="'All'">All</nb-radio>
+                <nb-radio [value]="'In Progress'">In Progress</nb-radio>  
+                <nb-radio [value]="'Single Level'">New </nb-radio>
+                <nb-radio [value]="'Close'">Close </nb-radio>                              
+                <nb-radio [value]="'Cancel'">Cancel</nb-radio>
+              </nb-radio-group>
             </fieldset>
-            </form>
+          </form>
         </div>
       </div>
+
+      <div class="row ">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <div class="k-form-field d-flex">
+              <input type="checkbox" class="k-checkbox" id="autorefreshTime" name="autorefreshTime" />
+              <label class="k-checkbox-label" for="autorefreshTime">Auto refresh time 3 minitus.</label>
+            </div>
+            <button class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Manual Refresh"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#212529" viewBox="0 0 24 24"><g data-name="Layer 2"><g data-name="sync"><rect width="24" height="24" opacity="0"></rect><path d="M21.66 10.37a.62.62 0 0 0 .07-.19l.75-4a1 1 0 0 0-2-.36l-.37 2a9.22 9.22 0 0 0-16.58.84 1 1 0 0 0 .55 1.3 1 1 0 0 0 1.31-.55A7.08 7.08 0 0 1 12.07 5a7.17 7.17 0 0 1 6.24 3.58l-1.65-.27a1 1 0 1 0-.32 2l4.25.71h.16a.93.93 0 0 0 .34-.06.33.33 0 0 0 .1-.06.78.78 0 0 0 .2-.11l.08-.1a1.07 1.07 0 0 0 .14-.16.58.58 0 0 0 .05-.16z"></path><path d="M19.88 14.07a1 1 0 0 0-1.31.56A7.08 7.08 0 0 1 11.93 19a7.17 7.17 0 0 1-6.24-3.58l1.65.27h.16a1 1 0 0 0 .16-2L3.41 13a.91.91 0 0 0-.33 0H3a1.15 1.15 0 0 0-.32.14 1 1 0 0 0-.18.18l-.09.1a.84.84 0 0 0-.07.19.44.44 0 0 0-.07.17l-.75 4a1 1 0 0 0 .8 1.22h.18a1 1 0 0 0 1-.82l.37-2a9.22 9.22 0 0 0 16.58-.83 1 1 0 0 0-.57-1.28z"></path></g></g></svg></button>
+        </div>
+      </div>
+
     </nb-card-body>
     <nb-card-footer class="text-center py-2">
-      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" 
-      size="small" (click)="GetExplosion($event)" [disabled]="!criteriaForm.form.valid || (itemStatus || WarehouseStatus || LotFromStatus || LotToStatus)">Process <i data-eva="arrow-forward" data-eva-height="18" data-eva-width="18"
-          data-eva-fill="#fff" class="ml-2"></i></button>
-          
+      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small">Process <i
+          data-eva="arrow-forward" data-eva-height="18" data-eva-width="18" data-eva-fill="#fff"
+          class="ml-2"></i></button>
     </nb-card-footer>
   </nb-card>
 
   <ng-template #dialog let-data let-ref="dialogRef">
     <nb-card style="max-width:700px">
       <nb-card-header class="d-flex justify-content-between">
-          <span>{{lookUpHeading}}</span>          
-          <span (click)="ref.close()" class="cursor-pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" class="eva eva-close-outline mr-2 cursor-pointer" fill="#2a2a2a">
-                <rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"></rect><path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"></path>
-              </svg>
-          </span>
+        <span>{{lookUpHeading}}</span>
+        <span (click)="ref.close()" class="cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+            class="eva eva-close-outline mr-2 cursor-pointer" fill="#2a2a2a">
+            <rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"></rect>
+            <path
+              d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z">
+            </path>
+          </svg>
+        </span>
       </nb-card-header>
       <nb-card-body>
-        <div *ngIf="Item">
-          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort"
-          [filter]="state.filter" [resizable]="true" (selectionChange)="gridRowSelectionChange($event,ref)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
+        <div>
+          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+            [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
+            (selectionChange)="gridRowSelectionChange($event,ref)"
+            [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
             <!-- grid template start -->
             <ng-template kendoGridToolbarTemplate>
 
-                <!-- checkbox -->
-                <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
-                    <div class="k-form-field d-flex">
-                        <input #chkFilter  type="checkbox" (change)="onFilterChange(chkFilter,gridItem)" id="opti_SalesOrderListColumnFilterID"
-                            [(ngModel)]="isColumnFilter" class="k-checkbox" name="columnfilter" />
-                        <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">Enable Filter</label>
-                    </div>
-                </form>
+              <!-- checkbox -->
+              <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
+                <div class="k-form-field d-flex">
+                  <input #chkFilter type="checkbox" (change)="onFilterChange(chkFilter,gridItem)"
+                    id="opti_SalesOrderListColumnFilterID" [(ngModel)]="isColumnFilter" class="k-checkbox"
+                    name="columnfilter" />
+                  <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">Enable Filter</label>
+                </div>
+              </form>
 
             </ng-template>
             <kendo-grid-checkbox-column *ngIf="showSelection==true" title="Select" [width]="25">
-                <ng-template  kendoGridCellTemplate let-idx='rowIndex' let-di='dataItem'>
-                    <div class="k-form-field d-flex center-checkbox">
-                        <input #chkSelection type="checkbox" [disabled]='di.OldData' [checked]='di.OldData' (change)="onCheckboxClick(chkSelection.checked,idx)" id="chkbox-{{idx}}" class="k-checkbox"
-                            name="columnfilter" />
-                            
-                        <label class="k-checkbox-label" for="chkbox-{{idx}}"></label>
-                    </div>
-                </ng-template>
+              <ng-template kendoGridCellTemplate let-idx='rowIndex' let-di='dataItem'>
+                <div class="k-form-field d-flex center-checkbox">
+                  <input #chkSelection type="checkbox" [disabled]='di.OldData' [checked]='di.OldData'
+                    (change)="onCheckboxClick(chkSelection.checked,idx)" id="chkbox-{{idx}}" class="k-checkbox"
+                    name="columnfilter" />
+
+                  <label class="k-checkbox-label" for="chkbox-{{idx}}"></label>
+                </div>
+              </ng-template>
             </kendo-grid-checkbox-column>
 
             <kendo-grid-column field="ItemCode" title="Item Code" width="80">
             </kendo-grid-column>
-            
+
             <kendo-grid-column field="ItemName" title="Description" width="80">
             </kendo-grid-column>
           </kendo-grid>
 
-          <!--<kendo-grid [data]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort"
-          [filter]="state.filter" [resizable]="true" (selectionChange)="gridRowSelectionChange($event,ref)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">--> 
 
-   <!-- <kendo-grid [kendoGridBinding]="gridData" [filterable]="isColumnFilter" [selectable]="true" [pageable]="false"
-    [resizable]="true" [skip]="skip" (selectionChange)="on_item_select($event)" style="max-height:400px;">
-   
-
-    </kendo-grid> -->
-
-        </div>
-
-        <div *ngIf="whse">
-          
-          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort"
-          [filter]="state.filter" [resizable]="true" (selectionChange)="gridRowSelectionChange($event,ref)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px' }">
-
-            <!-- grid template start -->
-            <ng-template kendoGridToolbarTemplate>
-
-                <!-- checkbox -->
-                <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
-                    <div class="k-form-field d-flex">
-                        <input #chkFilter  type="checkbox" (change)="onFilterChange(chkFilter,gridItem)" id="opti_SalesOrderListColumnFilterID"
-                            [(ngModel)]="isColumnFilter" class="k-checkbox" name="columnfilter" />
-                        <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">Enable Filter</label>
-                    </div>
-                </form>
-
-            </ng-template>
-            <kendo-grid-checkbox-column *ngIf="showSelection==true" title="Select" [width]="25">
-                <ng-template  kendoGridCellTemplate let-idx='rowIndex' let-di='dataItem'>
-                    <div class="k-form-field d-flex center-checkbox">
-                        <input #chkSelection type="checkbox" [disabled]='di.OldData' [checked]='di.OldData' (change)="onCheckboxClick(chkSelection.checked,idx)" id="chkbox-{{idx}}" class="k-checkbox"
-                            name="columnfilter" />
-                            
-                        <label class="k-checkbox-label" for="chkbox-{{idx}}"></label>
-                    </div>
-                </ng-template>
-            </kendo-grid-checkbox-column>
-
-            <kendo-grid-column field="WhsCode" title="Warehouse Code" width="80">
-            </kendo-grid-column>
-            <kendo-grid-column field="WhsName" title="Description" width="80">
-            </kendo-grid-column>
-          </kendo-grid>
-        </div>
-
-        <div *ngIf="LotFrom || LotTo">
-
-          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort"
-          [filter]="state.filter" [resizable]="true" (selectionChange)="gridRowSelectionChange($event,ref)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px' }">
-
-            <!-- grid template start -->
-            <ng-template kendoGridToolbarTemplate>
-
-                <!-- checkbox -->
-                <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
-                    <div class="k-form-field d-flex">
-                        <input #chkFilter  type="checkbox" (change)="onFilterChange(chkFilter,gridItem)" id="opti_SalesOrderListColumnFilterID"
-                            [(ngModel)]="isColumnFilter" class="k-checkbox" name="columnfilter" />
-                        <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">Enable Filter</label>
-                    </div>
-                </form>
-
-            </ng-template>
-            <kendo-grid-checkbox-column *ngIf="showSelection==true" title="Select" [width]="25">
-                <ng-template  kendoGridCellTemplate let-idx='rowIndex' let-di='dataItem'>
-                    <div class="k-form-field d-flex center-checkbox">
-                        <input #chkSelection type="checkbox" [disabled]='di.OldData' [checked]='di.OldData' (change)="onCheckboxClick(chkSelection.checked,idx)" id="chkbox-{{idx}}" class="k-checkbox"
-                            name="columnfilter" />
-                            
-                        <label class="k-checkbox-label" for="chkbox-{{idx}}"></label>
-                    </div>
-                </ng-template>
-            </kendo-grid-checkbox-column>
-
-            <kendo-grid-column field="DistNumber" title="Item Code" width="80">
-            </kendo-grid-column>
-            <kendo-grid-column field="ItemCode" title="Description" width="80">
-            </kendo-grid-column>
-          </kendo-grid>
         </div>
       </nb-card-body>
       <nb-card-footer>
@@ -243,9 +156,10 @@
 </div>
 
 <div class="dashboard-right">
-  <div class="custom-accordian analysis-accordian-open grid-accordian-open" id="custom-accordian">
+  <div class="custom-accordian grid-accordian-open" id="custom-accordian">
     <div class="grid-accordian expanded" id="grid-accordian">
-      <nb-card accent="primary" size="xsmall" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="xlarge" nbSpinnerMessage="Waiting">
+      <nb-card accent="primary" size="xsmall" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="xlarge"
+        nbSpinnerMessage="Waiting">
         <nb-card-header class="border-bottom d-flex" id="grid-accordian-trigger" (click)="customAccordianGrid($event)">
           <i data-eva="grid" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="mr-2"></i>
           <span>Grid View</span>
@@ -255,174 +169,454 @@
         <nb-card-body class="py-0" id="grid-accordian-body">
           <div class="row h-100 flex-100">
             <div class="col-sm-4 border-right overflow-auto h-100">
-              <div class="tree-wrapper pt-3">
+              <div class="simpleView pt-3" *ngIf="viewOption == 'SimpleView'">
+                <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                  [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
+                  (selectionChange)="gridRowSelectionChange($event,ref)"
+                  [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
+                  <!-- grid template start -->
+                  <!-- <ng-template kendoGridToolbarTemplate>
+                    <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
+                      <div class="k-form-field d-flex">
+                        <input #chkFilter type="checkbox" (change)="onFilterChange(chkFilter,gridItem)"
+                          id="opti_SalesOrderListColumnFilterID" [(ngModel)]="isColumnFilter" class="k-checkbox"
+                          name="columnfilter" />
+                        <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">Enable Filter</label>
+                      </div>
+                    </form>
+      
+                  </ng-template>
+                  <kendo-grid-checkbox-column *ngIf="showSelection==true" title="Select" [width]="25">
+                    <ng-template kendoGridCellTemplate let-idx='rowIndex' let-di='dataItem'>
+                      <div class="k-form-field d-flex center-checkbox">
+                        <input #chkSelection type="checkbox" [disabled]='di.OldData' [checked]='di.OldData'
+                          (change)="onCheckboxClick(chkSelection.checked,idx)" id="chkbox-{{idx}}" class="k-checkbox"
+                          name="columnfilter" />      
+                        <label class="k-checkbox-label" for="chkbox-{{idx}}"></label>
+                      </div>
+                    </ng-template>
+                  </kendo-grid-checkbox-column> -->
+      
+                  <kendo-grid-column field="ItemCode" title="Item" width="80">
+                  </kendo-grid-column>      
+                  <kendo-grid-column field="ItemName" title="In Stock" width="80">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="Committed" width="80">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="On Order" width="80">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="Avl Qty" width="80">
+                  </kendo-grid-column>
+
+                </kendo-grid>
+              </div>
+
+              <div class="tree-wrapper pt-3" *ngIf="viewOption == 'DetailedView'">
                 <tree-root id="tree2" [focused]="true" [nodes]="nodes2" (click)="clickTransaction($event)">
                   <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
                     <div class="tree-node">
                       <tree-node-expander [node]="node"></tree-node-expander>
-                        <div class="node-content-wrapper" *ngIf="explodeDirection == 'DOWN'">
-                          <span>{{node.data.OPTM_ITEMCODE}} - {{node.data.OPTM_BTCHSERNO }}</span>
-                        </div>
-                        <div class="node-content-wrapper" *ngIf="explodeDirection == 'UP'">
-                            <span>{{node.data.OPTM_ITEMCODE}} - {{node.data.OPTM_PARENTBTCHSERNO }}</span>
-                          </div>
+                      <div class="node-content-wrapper">
+                        <span>{{node.data.OPTM_ITEMCODE}} - {{node.data.OPTM_BTCHSERNO }}</span>
+                      </div>
+                      <div class="node-content-wrapper">
+                        <span>{{node.data.OPTM_ITEMCODE}} - {{node.data.OPTM_PARENTBTCHSERNO }}</span>
+                      </div>
                       <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
                     </div>
                   </ng-template>
                 </tree-root>
               </div>
+
             </div>
             <div class="col-sm-8 pt-3 overflow-auto h-100">
-              <nb-card>
-                <nb-card-body>
-                  <nb-radio-group class="d-flex" [(ngModel)]="radioTransaction" name="radioTransaction">
-                    <nb-radio [value]="'ParentLot'">
-                      Show Data of all parents of lots
-                    </nb-radio>
-                    <nb-radio [value]="'ImmediateLot'">
-                      Show Data of all immediate of lots
-                  </nb-radio>
+              <div>
+                  <nb-radio-group class="d-flex">
+                    <nb-radio>Show WO for selected PG</nb-radio>
+                    <nb-radio>Show WOs for all sub assemblies for selected FG</nb-radio>
                   </nb-radio-group>
-                </nb-card-body>
-              </nb-card>
+              </div>
 
-              <nb-card class="mb-4">
-                <nb-card-header>Transaction Type</nb-card-header>
-                <nb-card-body>
-                  <!--<tree-root id="tree2" [focused]="true" [nodes]="nodes1" (click)="clickTransactionDetails($event)">
-                  </tree-root>-->
-
-                  <tree-root id="tree2" [focused]="true" [nodes]="nodes1" (click)="clickTransactionDetails($event)">
-                    <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
-                      <div class="tree-node">
-                        <tree-node-expander [node]="node"></tree-node-expander>
-                          <div class="node-content-wrapper" *ngIf="node.data.ObjectTypeDesc == null">
-                            <span>{{node.data.ItemCode}} - {{node.data.DistNumber}}</span>
-                          </div>
-
-                          <div class="node-content-wrapper"  *ngIf="node.data.ObjectTypeDesc != null">
-                            <span>({{node.data.DistNumber}}) Doc Entry:{{node.data.DocEntry}} - {{node.data.ObjectTypeDesc}}</span>
-                          </div>
-                        <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
+              <div class="mt-4">
+                <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                  [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
+                  (selectionChange)="gridRowSelectionChange($event,ref)"
+                  [ngStyle]="{ 'max-height':'490px'}">
+                  <!-- grid template start -->
+                  <ng-template kendoGridToolbarTemplate>
+                    <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
+                      <div class="k-form-field d-flex">
+                        <input #chkFilter type="checkbox" (change)="onFilterChange(chkFilter,gridItem)"
+                          id="opti_SalesOrderListColumnFilterID" [(ngModel)]="isColumnFilter" class="k-checkbox"
+                          name="columnfilter" />
+                        <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">Enable Filter</label>
+                      </div>
+                    </form>
+      
+                  </ng-template>
+                  <kendo-grid-checkbox-column *ngIf="showSelection==true" title="Select" [width]="25">
+                    <ng-template kendoGridCellTemplate let-idx='rowIndex' let-di='dataItem'>
+                      <div class="k-form-field d-flex center-checkbox">
+                        <input #chkSelection type="checkbox" [disabled]='di.OldData' [checked]='di.OldData'
+                          (change)="onCheckboxClick(chkSelection.checked,idx)" id="chkbox-{{idx}}" class="k-checkbox"
+                          name="columnfilter" />      
+                        <label class="k-checkbox-label" for="chkbox-{{idx}}"></label>
                       </div>
                     </ng-template>
-                  </tree-root>
+                  </kendo-grid-checkbox-column>
+      
+                  <kendo-grid-column field="ItemCode" title="Priority" width="54">
+                  </kendo-grid-column>      
+                  <kendo-grid-column field="ItemName" title="WO#" width="44">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="Status" width="52">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="Product No." width="81">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="Product Desc" width="89">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemCode" title="SO No." width="54">
+                  </kendo-grid-column>      
+                  <kendo-grid-column field="ItemName" title="Customer" width="70">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="Sch. Start Date" width="97">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="Sch. End Date" width="97">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="UOM" width="44">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemCode" title="Qty Ord" width="57">
+                  </kendo-grid-column>      
+                  <kendo-grid-column field="ItemName" title="Qty Complete" width="90">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="Qty Accp" width="65">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="Qty Reject" width="71">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="Qty Bal" width="55">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemCode" title="% Complt" width="68">
+                  </kendo-grid-column>      
+                  <kendo-grid-column field="ItemName" title="WH" width="40">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="BOM Seq" width="67">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="Rout Seq" width="66">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="Component Cost" width="107">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="Resource Cost" width="95">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="Actual Product Cost" width="124">
+                  </kendo-grid-column>
+                  <kendo-grid-column field="ItemName" title="Variance" width="70">
+                  </kendo-grid-column>
+
+                </kendo-grid>
+              </div>
+              
+              <nb-card class="mt-4 no-shadow border border-light-gray">
+                <nb-card-body class="p-0">
+                  <nb-tabset>
+                    <nb-tab tabTitle="Material">
+                      <div class="py-3 px-2">
+                        <div class="pl-2">
+                            <nb-radio-group class="d-flex" [(ngModel)]="materialViewOption">
+                              <nb-radio [value]="'Show Immediate Components'" >Show Immediate Components</nb-radio>
+                              <nb-radio [value]="'Show Components for all the Subassemblies'">Show Components for all the Subassemblies</nb-radio>
+                            </nb-radio-group>
+                        </div>
+                        <div class="mt-4" *ngIf="materialViewOption == 'Show Immediate Components'">
+                          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                            [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
+                            (selectionChange)="gridRowSelectionChange($event,ref)"
+                            [ngStyle]="{ 'max-height':'490px'}">
+                            <!-- grid template start -->
+                            <ng-template kendoGridToolbarTemplate>
+                              <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
+                                <div class="k-form-field d-flex">
+                                  <input #chkFilter type="checkbox" (change)="onFilterChange(chkFilter,gridItem)"
+                                    id="opti_SalesOrderListColumnFilterID" [(ngModel)]="isColumnFilter" class="k-checkbox"
+                                    name="columnfilter" />
+                                  <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">Enable Filter</label>
+                                </div>
+                              </form>                
+                            </ng-template>
+
+                            <kendo-grid-checkbox-column *ngIf="showSelection==true" title="Select" [width]="25">
+                              <ng-template kendoGridCellTemplate let-idx='rowIndex' let-di='dataItem'>
+                                <div class="k-form-field d-flex center-checkbox">
+                                  <input #chkSelection type="checkbox" [disabled]='di.OldData' [checked]='di.OldData'
+                                    (change)="onCheckboxClick(chkSelection.checked,idx)" id="chkbox-{{idx}}" class="k-checkbox"
+                                    name="columnfilter" />      
+                                  <label class="k-checkbox-label" for="chkbox-{{idx}}"></label>
+                                </div>
+                              </ng-template>
+                            </kendo-grid-checkbox-column>
+
+                            <kendo-grid-column field="ItemCode" title="Component" width="79">
+                            </kendo-grid-column>      
+                            <kendo-grid-column field="ItemName" title="Description" width="78">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="UOM" width="44">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Qty Req" width="59">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Qty Issued" width="74">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemCode" title="Qty Bal" width="55">
+                            </kendo-grid-column>      
+                            <kendo-grid-column field="ItemName" title="Issue Date" width="74">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Issue WH" width="68">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Issue Bin" width="66">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Issue Mth" width="70">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemCode" title="Opn#" width="46">
+                            </kendo-grid-column>                            
+                            <kendo-grid-column-group headerClass="text-center"  title="Quantities at WH XXXX" [width]="300">
+                                <kendo-grid-column field="UnitsInStock" title="Qty In Stock" [width]="81">                                    
+                                </kendo-grid-column>
+                                <kendo-grid-column field="UnitPrice" title="Qty Commit" [width]="81" >
+                                </kendo-grid-column>
+                                <kendo-grid-column field="Discontinued" title="Qty On Order" [width]="86" [locked]="false">
+                                </kendo-grid-column>
+                                <kendo-grid-column field="Discontinued" title="Qty Aval" [width]="61" [locked]="false">
+                                </kendo-grid-column>
+                            </kendo-grid-column-group>
+                            <kendo-grid-column-group headerClass="text-center" title="Quantities at Company Lvl" [width]="300">
+                                <kendo-grid-column field="UnitsInStock" title="Qty In Stock" [width]="81">                                    
+                                </kendo-grid-column>
+                                <kendo-grid-column field="UnitPrice" title="Qty Commit" [width]="81" >
+                                </kendo-grid-column>
+                                <kendo-grid-column field="Discontinued" title="Qty On Order" [width]="86" [locked]="false">
+                                </kendo-grid-column>
+                                <kendo-grid-column field="Discontinued" title="Qty Aval" [width]="61" [locked]="false">
+                                </kendo-grid-column>
+                            </kendo-grid-column-group>          
+                        </kendo-grid>
+                        </div>
+                        <div class="mt-4" *ngIf="materialViewOption == 'Show Components for all the Subassemblies'">
+                            <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                              [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
+                              (selectionChange)="gridRowSelectionChange($event,ref)"
+                              [ngStyle]="{ 'max-height':'490px'}">
+                              <!-- grid template start -->
+                              <ng-template kendoGridToolbarTemplate>
+                                <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
+                                  <div class="k-form-field d-flex">
+                                    <input #chkFilter type="checkbox" (change)="onFilterChange(chkFilter,gridItem)"
+                                      id="opti_SalesOrderListColumnFilterID" [(ngModel)]="isColumnFilter" class="k-checkbox"
+                                      name="columnfilter" />
+                                    <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">Enable Filter</label>
+                                  </div>
+                                </form>                
+                              </ng-template>
+  
+                              <kendo-grid-checkbox-column *ngIf="showSelection==true" title="Select" [width]="25">
+                                <ng-template kendoGridCellTemplate let-idx='rowIndex' let-di='dataItem'>
+                                  <div class="k-form-field d-flex center-checkbox">
+                                    <input #chkSelection type="checkbox" [disabled]='di.OldData' [checked]='di.OldData'
+                                      (change)="onCheckboxClick(chkSelection.checked,idx)" id="chkbox-{{idx}}" class="k-checkbox"
+                                      name="columnfilter" />      
+                                    <label class="k-checkbox-label" for="chkbox-{{idx}}"></label>
+                                  </div>
+                                </ng-template>
+                              </kendo-grid-checkbox-column>
+  
+                              <kendo-grid-column field="ItemCode" title="WO#" width="43">
+                              </kendo-grid-column>      
+                              <kendo-grid-column field="ItemName" title="Parent FG" width="70">
+                              </kendo-grid-column>
+                              <kendo-grid-column field="ItemName" title="Description" width="78">
+                              </kendo-grid-column>
+                              <kendo-grid-column field="ItemName" title="Component" width="80">
+                              </kendo-grid-column>
+                              <kendo-grid-column field="ItemName" title="Description" width="78">
+                              </kendo-grid-column>
+                              <kendo-grid-column field="ItemCode" title="UOM" width="44">
+                              </kendo-grid-column>      
+                              <kendo-grid-column field="ItemName" title="Qty Req" width="59">
+                              </kendo-grid-column>
+                              <kendo-grid-column field="ItemName" title="Qty Issued" width="74">
+                              </kendo-grid-column>
+                              <kendo-grid-column field="ItemName" title="Qty Bal" width="55">
+                              </kendo-grid-column>
+                              <kendo-grid-column field="ItemName" title="Issue Date" width="74">
+                              </kendo-grid-column>
+                              <kendo-grid-column field="ItemCode" title="Issue WH" width="68">
+                              </kendo-grid-column>   
+                              <kendo-grid-column field="ItemCode" title="Issue Bin" width="66">
+                              </kendo-grid-column> 
+                              <kendo-grid-column field="ItemCode" title="Issue Mth" width="70">
+                              </kendo-grid-column>     
+                              <kendo-grid-column field="ItemCode" title="Opn#" width="46">
+                              </kendo-grid-column>                       
+                              <kendo-grid-column-group headerClass="text-center"  title="Quantities at WH XXXX" [width]="300">
+                                  <kendo-grid-column field="UnitsInStock" title="Qty In Stock" [width]="81">                                    
+                                  </kendo-grid-column>
+                                  <kendo-grid-column field="UnitPrice" title="Qty Commit" [width]="81" >
+                                  </kendo-grid-column>
+                                  <kendo-grid-column field="Discontinued" title="Qty On Order" [width]="86" [locked]="false">
+                                  </kendo-grid-column>
+                                  <kendo-grid-column field="Discontinued" title="Qty Aval" [width]="61" [locked]="false">
+                                  </kendo-grid-column>
+                              </kendo-grid-column-group>
+                              <kendo-grid-column-group headerClass="text-center" title="Quantities at Company Lvl" [width]="300">
+                                  <kendo-grid-column field="UnitsInStock" title="Qty In Stock" [width]="81">                                    
+                                  </kendo-grid-column>
+                                  <kendo-grid-column field="UnitPrice" title="Qty Commit" [width]="81" >
+                                  </kendo-grid-column>
+                                  <kendo-grid-column field="Discontinued" title="Qty On Order" [width]="86" [locked]="false">
+                                  </kendo-grid-column>
+                                  <kendo-grid-column field="Discontinued" title="Qty Aval" [width]="61" [locked]="false">
+                                  </kendo-grid-column>
+                              </kendo-grid-column-group> 
+            
+                          </kendo-grid>
+                          </div>
+                      </div>
+                    </nb-tab>
+
+                    <nb-tab tabTitle="Operations">
+                      <div class="py-3 px-2">
+                        <div class="">
+                          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                            [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
+                            (selectionChange)="gridRowSelectionChange($event,ref)"
+                            [ngStyle]="{ 'max-height':'490px'}">
+                            <!-- grid template start -->
+                            <ng-template kendoGridToolbarTemplate>
+                              <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
+                                <div class="k-form-field d-flex">
+                                  <input #chkFilter type="checkbox" (change)="onFilterChange(chkFilter,gridItem)"
+                                    id="opti_OperationsListColumnFilterID" [(ngModel)]="isColumnFilter" class="k-checkbox"
+                                    name="columnfilter" />
+                                  <label class="k-checkbox-label" for="opti_OperationsListColumnFilterID">Enable Filter</label>
+                                </div>
+                              </form>
+                
+                            </ng-template>
+                            <kendo-grid-checkbox-column *ngIf="showSelection==true" title="Select" [width]="25">
+                              <ng-template kendoGridCellTemplate let-idx='rowIndex' let-di='dataItem'>
+                                <div class="k-form-field d-flex center-checkbox">
+                                  <input #chkSelection type="checkbox" [disabled]='di.OldData' [checked]='di.OldData'
+                                    (change)="onCheckboxClick(chkSelection.checked,idx)" id="chkbox-{{idx}}" class="k-checkbox"
+                                    name="columnfilter" />      
+                                  <label class="k-checkbox-label" for="chkbox-{{idx}}"></label>
+                                </div>
+                              </ng-template>
+                            </kendo-grid-checkbox-column>
+                
+                            <kendo-grid-column field="ItemCode" title="Opn#" width="45">
+                            </kendo-grid-column>      
+                            <kendo-grid-column field="ItemName" title="Opn Code" width="70">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Opn Desc" width="69">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Opn Complt" width="81">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Opn Start Dt/Time" width="115">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemCode" title="Opn End Dt/Time" width="109">
+                            </kendo-grid-column>      
+                            <kendo-grid-column field="ItemName" title="Opn Type" width="68">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="UOM" width="44">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Qty Bal" width="55">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Qty Comm. Prod" width="105">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemCode" title="Qty Insp" width="61">
+                            </kendo-grid-column>      
+                            <kendo-grid-column field="ItemName" title="Qty Pass" width="65">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Qty Reject" width="71">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Qty Comm. NC" width="96">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Qty Comm. Rework" width="120">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemCode" title="Qty Comm. SC" width="95">
+                            </kendo-grid-column>      
+                            <kendo-grid-column field="ItemName" title="SC Cost" width="60">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="WC" width="36">
+                            </kendo-grid-column>          
+                          </kendo-grid>
+                        </div>
+                      </div>
+                    </nb-tab>
+                    <nb-tab tabTitle="Resources">
+                      <div class="py-3 px-2">
+                        <div class="">
+                          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                            [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
+                            (selectionChange)="gridRowSelectionChange($event,ref)"
+                            [ngStyle]="{ 'max-height':'490px'}">
+                            <!-- grid template start -->
+                            <ng-template kendoGridToolbarTemplate>
+                              <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
+                                <div class="k-form-field d-flex">
+                                  <input #chkFilter type="checkbox" (change)="onFilterChange(chkFilter,gridItem)"
+                                    id="opti_ResourcesListColumnFilterID" [(ngModel)]="isColumnFilter" class="k-checkbox"
+                                    name="columnfilter" />
+                                  <label class="k-checkbox-label" for="opti_ResourcesListColumnFilterID">Enable Filter</label>
+                                </div>
+                              </form>
+                
+                            </ng-template>
+                            <kendo-grid-checkbox-column *ngIf="showSelection==true" title="Select" [width]="25">
+                              <ng-template kendoGridCellTemplate let-idx='rowIndex' let-di='dataItem'>
+                                <div class="k-form-field d-flex center-checkbox">
+                                  <input #chkSelection type="checkbox" [disabled]='di.OldData' [checked]='di.OldData'
+                                    (change)="onCheckboxClick(chkSelection.checked,idx)" id="chkbox-{{idx}}" class="k-checkbox"
+                                    name="columnfilter" />      
+                                  <label class="k-checkbox-label" for="chkbox-{{idx}}"></label>
+                                </div>
+                              </ng-template>
+                            </kendo-grid-checkbox-column>
+                
+                            <kendo-grid-column field="ItemCode" title="Resource" width="66">
+                            </kendo-grid-column>      
+                            <kendo-grid-column field="ItemName" title="Description" width="78">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Resource Type" width="96">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="No of Resource" width="100">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Usage Per BOM Qty." width="124">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemCode" title="Usage Basis" width="83">
+                            </kendo-grid-column>      
+                            <kendo-grid-column field="ItemName" title="Total Usage" width="81">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Balance Usage" width="97">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Actual Usage" width="88">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Planned Resource" width="114">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemCode" title="Consumption Type" width="118">
+                            </kendo-grid-column>      
+                            <kendo-grid-column field="ItemName" title="Work Center Code" width="114">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="UOM" width="44">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="ItemName" title="Operation #" width="80">
+                            </kendo-grid-column>         
+                          </kendo-grid>
+                        </div>
+                      </div>
+                    </nb-tab>
+                  </nb-tabset>
                 </nb-card-body>
               </nb-card>
             </div>
           </div>
-        </nb-card-body>
-      </nb-card>
-    </div>
-
-
-    <div class="analysis-accordian expanded" id="analysis-accordian">
-      <nb-card accent="primary" size="xsmall" [nbSpinner]="Analysisloading" nbSpinnerStatus="primary" nbSpinnerSize="xlarge" nbSpinnerMessage="Waiting">
-        <nb-card-header class="border-bottom d-flex" id="analysis-accordian-trigger"
-          (click)="customAccordianAnalysis($event)">
-          <i data-eva="layers" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="mr-2"></i>
-          <span>Analysis View</span>
-          <i data-eva="arrow-ios-downward" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="ml-auto cursor-pointer"></i>
-        </nb-card-header>
-        <nb-card-body id="analysis-accordian-body" class="overflow-auto">
-        <div id="chart-container"></div>
-         <!--<div class="node-wrapper-box">
-            <div class="single-node node purReceipt" *ngFor="let data of AnalysisData; let i = index">
-              <div class="title">{{data.DistNumber}} (Doc Entry:{{data.DocEntry}})</div>
-              <div class="second-menu">
-                <div class="node-content">
-                  <div class="node-img">
-                    <img class="node-avatar" src="./assets/images/images.png">
-                  </div>
-                  <div class="node-data">
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Item
-                      </div>
-                      <div class="data-content">
-                          {{data.ItemCode}}
-                      </div>
-                    </div>
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Warehouse
-                      </div>
-                      <div class="data-content">
-                          {{data.Warehouse}}
-                      </div>
-                    </div>
-
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Lot #
-                      </div>
-                      <div class="data-content">
-                          {{data.DistNumber}}
-                      </div>
-                    </div>
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Expiry Date
-                      </div>
-                      <div class="data-content">
-                          {{data.ExpDate | date: 'dd/MM/yyyy'}}                      </div>
-                    </div>
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Receipt Date
-                      </div>
-                      <div class="data-content">
-                          {{data.CreateDate | date: 'dd/MM/yyyy'}}
-                      </div>
-                    </div>
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Lot Status
-                      </div>
-                      <div class="data-content">
-                        {{data.Status}}
-                        
-                        </div>
-                    </div>
-                    <div class="data-column">
-                      <div class="data-heading">
-                        Quantity
-                      </div>
-                      <div class="data-content">
-                          {{data.Quantity}}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="node-footer">
-                  <div class="footer-column">
-                    <div class="column-heading">
-                      Total Received
-                    </div>
-                    <div class="column-content">
-                        {{data.TOTALRECEIVE}}
-                    </div>
-                  </div>
-                  <div class="footer-column">
-                    <div class="column-heading">
-                      Total Issued
-                    </div>
-                    <div class="column-content">
-                        {{data.TOTALISSUE}}
-                    </div>
-                  </div>
-                  <div class="footer-column">
-                    <div class="column-heading">
-                      Onhand
-                    </div>
-                    <div class="column-content">
-                        {{data.ONHAND}}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>-->
         </nb-card-body>
       </nb-card>
     </div>

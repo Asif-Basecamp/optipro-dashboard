@@ -17,7 +17,7 @@
       font-family: nb-theme(tabs-font-family);
       font-size: nb-theme(tabs-font-size);
 
-      padding: 0 nb-theme(tabs-padding);
+      padding: 0 15px !important;
       border-bottom: 1px solid nb-theme(tabs-separator);
 
       .tab {
@@ -50,6 +50,9 @@
           a {
             font-weight: nb-theme(tabs-active-font-weight);
             color: nb-theme(tabs-fg-heading);
+            &:before{
+              height: 4px !important;
+            }
           }
         }
 

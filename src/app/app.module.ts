@@ -13,7 +13,7 @@ import { GridModule } from '@progress/kendo-angular-grid';
 //import { ItemLookupComponent } from './lookup/item-lookup/item-lookup.component';
 //import { WarehouseLookupComponent } from './lookup/warehouse-lookup/warehouse-lookup.component';
 //import { LotNumberLookupComponent } from './lookup/lot-number-lookup/lot-number-lookup.component';
-import { NbOverlayModule, NbToastrModule } from '@nebular/theme';
+import { NbOverlayModule, NbToastrModule, NbDatepickerModule } from '@nebular/theme';
 
 
 @NgModule({
@@ -34,6 +34,7 @@ import { NbOverlayModule, NbToastrModule } from '@nebular/theme';
     CoreModule.forRoot(),
     GridModule,
     NbOverlayModule,
+    NbDatepickerModule.forRoot(),
     NbToastrModule.forRoot(),
   ],
   bootstrap: [AppComponent],

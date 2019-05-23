@@ -41,7 +41,22 @@
   overflow: hidden;
   position: relative
 }
-
+.k-grid .k-grid-header{
+  border-radius:nb-theme(card-border-radius) nb-theme(card-border-radius) 0 0;
+}
+.k-grid kendo-grid-toolbar + .k-grid-aria-root .k-grid-header{
+  border-radius:0;
+}
+.k-pager-wrap {
+  padding: 8px 8px;
+  border-width: 1px;
+  line-height: 1.4285714286;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  cursor: default;
+  flex: 0 0 auto;
+}
 .k-grid .k-grid-aria-root {
   border-color: inherit;
   display: -ms-flexbox;
@@ -50,7 +65,8 @@
   flex-direction: column;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
-  overflow: hidden
+  overflow: hidden;
+  border-radius: 0 0 nb-theme(card-border-radius) nb-theme(card-border-radius);
 }
 
 .k-grid table {
@@ -82,7 +98,8 @@
   font-weight: inherit;
   text-align: inherit;
   overflow: hidden;
-  text-overflow: ellipsis
+  text-overflow: ellipsis;
+  font-size:12px;
 }
 
 .k-grid th:first-child,.k-grid td:first-child {
@@ -542,7 +559,7 @@ div.k-grid-header,div.k-grid-footer {
 
 .k-grid-header .k-header {
   position: relative;
-  vertical-align: bottom
+  vertical-align: middle;
 }
 
 .k-grid-header .k-header:first-child {

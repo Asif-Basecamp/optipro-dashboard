@@ -2,6 +2,7 @@
     padding-right:5px;
     height: calc(100vh - 65px); 
     width: 265px;
+    flex: 1 1 266px;
     & > nb-card{
         height:100%;
     }
@@ -10,7 +11,7 @@
         & > nb-card{
             cursor: pointer;
             & > nb-card-header{
-                transform: rotateZ(-90deg) translateX(-171px) translateY(2px);
+                transform: rotateZ(-90deg) translateX(-180px) translateY(2px);
                 transform-origin: left top;
                 white-space: nowrap;
                 width: 180px;
@@ -31,16 +32,17 @@
     }
 }
 .dashboard-right{
-    flex:1;
+    flex:1 1 100%;
     padding-left:5px; 
     height: calc(100vh - 65px);
+    max-width: calc(100% - 266px);
     & .custom-accordian {
         flex-direction: column;
         flex: 1;
         display: flex;
         height: calc(100vh - 65px);
         
-        & .grid-accordian, & .analysis-accordian {
+        & .grid-accordian {
             display: flex;
             flex: 1 1 0;
             flex-basis:0;
@@ -61,10 +63,10 @@
                 }
             }
         }
-        & .grid-accordian.expanded, & .analysis-accordian.expanded {
+        & .grid-accordian.expanded {
             
             & > nb-card{
-                height: calc(100% - 5px);
+                height: 100%;
                 & > nb-card-header{
                     border-bottom: 1px solid #d5dbe0 !important;
                     & > .eva-arrow-ios-downward{
@@ -86,25 +88,11 @@
                 margin-top: 5px;
             }
         }
-        &.analysis-accordian-open.grid-accordian-open{
-            & .grid-accordian.expanded, & .analysis-accordian.expanded {
-                max-height:50%;
-                flex: 1 1 50%;
-                flex-basis:50%;
-            }
-        }
-        &.analysis-accordian-open{
-            & .analysis-accordian.expanded {
-                flex: 1 1 100%;
-                flex-basis:100%;
-                max-height:calc(100% - 45px);
-            }
-        }
         &.grid-accordian-open{
-            & .grid-accordian.expanded{
+            & .grid-accordian.expanded {
+                max-height:100%;
                 flex: 1 1 100%;
                 flex-basis:100%;
-                max-height:calc(100% - 45px);
             }
         }
     }

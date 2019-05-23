@@ -11,6 +11,7 @@
       width: nb-theme(calendar-width);
 
       nb-card-body {
+        padding: 10px 10px 5px;
         height: nb-theme(calendar-body-height);
       }
     }
@@ -25,11 +26,12 @@
 
     nb-card {
       margin: 0;
+      font-size: nb-theme(font-size-sm);
     }
 
     nb-card-body {
       & > nb-calendar-pageable-navigation, & > nb-calendar-navigation {
-        padding: 0 1rem 1.5rem;
+        padding:0 0 .6rem;
       }
     }
   }

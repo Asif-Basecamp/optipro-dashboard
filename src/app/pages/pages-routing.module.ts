@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { GenealogyComponent } from './genealogy/genealogy.component';
 import { DefaultComponent } from './default/default.component';
+import { ProductionComponent } from './production/production.component';
 
 const routes: Routes = [{
   path: '',
@@ -11,6 +12,10 @@ const routes: Routes = [{
     {
       path: 'genealogy',
       component: GenealogyComponent,
+    },
+    {
+      path: 'production',
+      component: ProductionComponent,
     },
     {
       path: 'home',

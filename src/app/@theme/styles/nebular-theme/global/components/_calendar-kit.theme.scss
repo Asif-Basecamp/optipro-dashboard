@@ -46,9 +46,13 @@
 
   nb-calendar-navigation button[nbButton] {
     width: nb-theme(calendar-navigation-button-width);
+    font-size: nb-theme(font-size-sm);
+    width: auto;
+    height: auto;
+    padding: 6px 10px;
 
     @include nb-for-theme(default) {
-      @include btn-success();
+      @include btn-primary();
     }
   }
 
@@ -104,7 +108,7 @@
       font-weight: nb-theme(font-weight-bold);
 
       @include nb-for-theme(cosmic) {
-        @include btn-hero-success-gradient();
+        @include btn-hero-primary-gradient();
       }
     }
 
@@ -153,7 +157,7 @@
       font-weight: nb-theme(font-weight-bold);
 
       @include nb-for-theme(cosmic) {
-        @include btn-hero-success-gradient();
+        @include btn-hero-primary-gradient();
       }
     }
 
@@ -200,7 +204,7 @@
       font-weight: nb-theme(font-weight-bold);
 
       @include nb-for-theme(cosmic) {
-        @include btn-hero-success-gradient();
+        @include btn-hero-primary-gradient();
       }
     }
 
