@@ -29,6 +29,7 @@ export class SigninComponent implements OnInit {
   public listItems: any = [] = this.defaultCompnyComboValue;
   public selectedValue: any = [];
   public InvalidActiveUser: boolean = false;
+  public loading: boolean = false;
 
   constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastrService: NbToastrService) {}
   
@@ -131,6 +132,7 @@ export class SigninComponent implements OnInit {
 
     OnSignIn(){
       this.router.navigateByUrl('/pages');
+      this.loading = true;
       window.localStorage.setItem('CompanyDB', JSON.stringify(this.selectedValue.OPTM_COMPID));
       window.localStorage.setItem('Username', JSON.stringify(this.loginId));
       window.localStorage.setItem('Userpwd', JSON.stringify(this.password));
