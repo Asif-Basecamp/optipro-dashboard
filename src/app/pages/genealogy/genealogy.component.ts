@@ -8,7 +8,7 @@
  import { GridComponent } from '@progress/kendo-angular-grid';
  import { State } from '@progress/kendo-data-query';
  import OrgChart from '../../@core/org-chart/orgchart.js';
-
+ 
  var nodeName = '';
  
  @Component({
@@ -30,8 +30,8 @@
   public whse: boolean = false;
   public LotFrom: boolean = false;
   public LotTo: boolean = false;
-  public DistNumFrom: any;
-  public DistNumTo: any;
+  public DistNumFrom: any = '';
+  public DistNumTo: any = '';
   public trackName: any;
   public gridStatus: boolean = true;
   public nodes1: any = [];
@@ -69,14 +69,18 @@
   public orgchart: any;
   public nodes3: any;
   public nodes4: any;
+  public language: any;
 
   constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
  
   ngOnInit() {
    this.arrConfigData = JSON.parse(window.localStorage.getItem('arrConfigData'));
+   
    this.CompanyDB = JSON.parse(window.localStorage.getItem('CompanyDB'));
    this.Username = JSON.parse(window.localStorage.getItem('Username'));
    this.Userpwd = JSON.parse(window.localStorage.getItem('Userpwd'));
+   this.language = JSON.parse(window.localStorage.getItem('language'));
+
    this.getItemCodeData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
    this.getWarehouseCodeData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB); 
  
@@ -103,7 +107,6 @@
       this.lookUpHeading = 'Item Code';
       this.gridData = this.ItemCodeData;
       this.dialogService.open(dialog);
-     // this.disableLotNumber = false;
     }
   }
 
@@ -180,38 +183,41 @@
   /*-- Lot From function on blur --*/
 
   onLotFromNumberBlur(LotNum) {
-   this.dash.GetLotNumber(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.trackName).subscribe(
-    data => {
-     let DistNum = '';
-     let LotFromCode = [];
-      DistNum = this.DistNumFrom;
-    
-
-      if(DistNum){
-        for(var i in data){
-          if(DistNum == data[i].DistNumber){
-            LotFromCode.push(data[i]);
+  
+  if(this.DistNumFrom.trim() != ""){
+    this.dash.GetLotNumber(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.trackName).subscribe(
+      data => {
+       let DistNum = '';
+       let LotFromCode = [];
+        DistNum = this.DistNumFrom.trim();  
+  
+        if(DistNum){
+          for(var i in data){
+            if(DistNum == data[i].DistNumber){
+              LotFromCode.push(data[i]);
+            }
           }
-        }
-        if(LotFromCode.length>0){
-          this.LotFromStatus = false;
+          if(LotFromCode.length>0){
+            this.LotFromStatus = false;
+          }else{
+            this.LotFromStatus = true;
+          }
         }else{
-          this.LotFromStatus = true;
+           this.LotFromStatus = false;
         }
-      }else{
-         this.LotFromStatus = false;
-      }
-    });
+      });
+    }  
   }
 
   /*-- Lot To function on blur --*/
 
   onLotToNumberBlur(LotNum) {
+    if(this.DistNumTo.trim() != ""){
     this.dash.GetLotNumber(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.trackName).subscribe(
      data => {
       let DistNums = '';
       let LotToCode = [];
-      DistNums = this.DistNumTo;
+      DistNums = this.DistNumTo.trim();
        if(DistNums){
          for(var i in data){
            if(DistNums == data[i].DistNumber){
@@ -227,6 +233,7 @@
           this.LotToStatus = false;
        }
      });
+    }
    }
  
   /*-- open Lot From lookup on click --*/ 
@@ -243,7 +250,7 @@
      this.dialogService.open(dialog);
     },
     error => {
-     this.toastrService.danger("No Record Found!");    
+     this.toastrService.danger(this.language.no_record_found);    
     }
    )
   }
@@ -264,7 +271,7 @@
      this.dialogService.open(dialog);
     },
     error => {
-     this.toastrService.danger("No Record Found!");    
+     this.toastrService.danger(this.language.no_record_found);    
     }
     
    )
@@ -289,6 +296,16 @@
    /*-- get data on grid view after click on process --*/
 
    GetExplosion() {
+
+    if(this.DistNumFrom.trim() != "" && this.DistNumTo.trim() == ""){
+      this.toastrService.danger(this.language.error_enter_lot_to);
+      return;
+    }
+    else if(this.DistNumTo.trim() != "" && this.DistNumFrom.trim() == ""){
+      this.toastrService.danger(this.language.error_enter_lot_from);
+      return;
+    }
+
      this.loading = true;
     if (this.radioExplode == 'Lot Explosion')
      this.explodeDirection = 'DOWN';
@@ -304,12 +321,19 @@
      data => {
      if(!data){
        this.loading = false;
-       this.toastrService.danger("No Record Found!");
+       this.toastrService.danger(this.language.no_record_found);
        this.AnalysisData = [];
        this.nodes1 = [];
        this.nodes2 = [];
      }else{
       this.data = data;
+
+      if(data.length <= 0){
+        this.loading = false;
+        this.toastrService.danger(this.language.no_record_found);    
+        return;
+      }
+      
       let Arr = [];
       for (var i = 0; i < this.data.length; i++) {
        if (this.data[i].GroupId == '') {
@@ -327,7 +351,7 @@
     },
      error => {
        this.loading = false;
-       this.toastrService.danger("No Record Found!");    
+       this.toastrService.danger(this.language.no_record_found);    
      }
     )
       this.searchCriteriaToggle(event);
@@ -340,7 +364,6 @@
     this.ItemValue = evt.selectedRows[0].dataItem.ItemCode;
     this.ItemDesc = evt.selectedRows[0].dataItem.ItemName;
     this.disableLotNumber = false;
-    //this.DfltWarehouse = evt.selectedRows[0].dataItem.DfltWH;
     if (evt.selectedRows[0].dataItem.ManBtchNum == 'Y') {
      this.trackName = 'Batch'
     } else {
@@ -364,8 +387,7 @@
      }
     }).forEach(function(d) {
      var cd = d;
-     cd.children = this.getHierarchyTransaction(dataa, d.SeqNo);
-     
+     cd.children = this.getHierarchyTransaction(dataa, d.SeqNo);     
      return node1.push(cd);
     }.bind(this))
     return node1;
@@ -408,15 +430,18 @@
      this.DocEntryArrNode = [];
      this.nodes1 = [];
      this.transactions = data;
-     let name = fullName;
-     let childrens = [];
 
     this.setTransactionDetailParam(this.transactions.Table);
     this.nodes1 =  this.getHierarchyTransaction(data.Table,'-1');
     } 
+    else{
+     this.loading = false;
+     this.toastrService.danger(this.language.no_record_found);  
+    }
     },
     error => {
-     this.toastrService.danger("No Record Found!");    
+     this.loading = false;
+     this.toastrService.danger(this.language.no_record_found);    
     }
    )
   }
@@ -431,6 +456,10 @@
        }
       }).forEach(function(d) {
        var cd = d;
+       if(cd.DocEntry != null)
+       cd["name"] = cd.DistNumber + ` (Doc Entry: ${cd.DocEntry})`;
+       else
+       cd["name"] = cd.DistNumber;
        cd.children = this.getAnalysisHierarchy(data, d.SeqNo);
        return nodess.push(cd);
       }.bind(this))
@@ -479,14 +508,13 @@
             if(k==0) 
             node = "'"+Array[k].key+"'";
             else
-            node = node + ", '" + Array[k].key+"'";     
+            node = node + ",'" + Array[k].key+"'";     
          }
         }
         else{
           node = "'"+Item+"'";
-        }     
-
-     }
+        }  
+    }
    });
    }  
 
@@ -501,6 +529,7 @@
      for (var i=0; i<this.nodes3.length; i++) {
         result = this.nodes3[i];
      }
+
      this.orgchart = new OrgChart({
       'chartContainer': '#chart-container',
       'data' : result,
@@ -537,7 +566,7 @@
                   Lot #
                 </div>
                 <div class="data-content">
-                  Lot
+                ${data.DistNumber}
                 </div>
               </div>
               <div class="data-column">
@@ -545,7 +574,7 @@
                   Expiry Date
                 </div>
                 <div class="data-content">
-                  ${data.ExpDate}
+                  ${data.EXPDATE}
                 </div>
               </div>
               <div class="data-column">
@@ -553,7 +582,7 @@
                   Receipt Date
                 </div>
                 <div class="data-content">
-                  ${data.CreateDate}
+                  ${data.CREATEDATE}
                 </div>
               </div>
               <div class="data-column">
@@ -607,9 +636,14 @@
       }
     });
     } 
-    },
+   else{
+    this.Analysisloading = false;
+    this.toastrService.danger(this.language.no_record_found); 
+   }
+  },
   error => {
-     this.toastrService.danger("No Record Found!");    
+     this.Analysisloading = false;
+     this.toastrService.danger(this.language.no_record_found);    
     }
    )
   }
@@ -634,7 +668,7 @@
      if (test != '' && test != " " && test != undefined && test != null) {
       test = test.trim();
      } else {
-      this.toastrService.danger('Item is None Tracked');
+      this.toastrService.danger(this.language.error_item_none_tracked);
       this.loading = false;
       return;
      }
