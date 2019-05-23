@@ -49,6 +49,7 @@
     "show_parent_lot": "Show Data of all parents of lots",
     "show_immediate_lot": " Show Data of all immediate of lots",
     "transaction_type": "Transaction Type",
-    "analysis_view": "Analysis View"
+    "analysis_view": "Analysis View",
+    "please_wait": "Please wait"
       
  }
