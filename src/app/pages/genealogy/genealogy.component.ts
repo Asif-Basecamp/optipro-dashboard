@@ -546,18 +546,18 @@
             <div class="node-data">
               <div class="data-column">
                 <div class="data-heading">
-                  Item
+                Item
                 </div>
                 <div class="data-content">
-                  ${data.ItemCode}
+                  ${data.ItemCode ? data.ItemCode : ''}
                 </div>
               </div>
               <div class="data-column">
                 <div class="data-heading">
-                  Warehouse
+                  Warehouse 
                 </div>
                 <div class="data-content">
-                  ${data.Warehouse}
+                  ${data.Warehouse ? data.Warehouse : ''}
                 </div>
               </div>
               
@@ -566,7 +566,7 @@
                   Lot #
                 </div>
                 <div class="data-content">
-                ${data.DistNumber}
+                ${data.DistNumber ? data.DistNumber : ''}
                 </div>
               </div>
               <div class="data-column">
@@ -574,7 +574,7 @@
                   Expiry Date
                 </div>
                 <div class="data-content">
-                  ${data.EXPDATE}
+                  ${data.EXPDATE ? data.EXPDATE : ''}
                 </div>
               </div>
               <div class="data-column">
@@ -582,7 +582,7 @@
                   Receipt Date
                 </div>
                 <div class="data-content">
-                  ${data.CREATEDATE}
+                  ${data.CREATEDATE ? data.CREATEDATE : ''}
                 </div>
               </div>
               <div class="data-column">
@@ -590,7 +590,7 @@
                   Lot Status
                 </div>
                 <div class="data-content">
-                  ${data.Status}
+                  ${data.Status ? data.Status : ''}
                 </div>
               </div>
               <div class="data-column">
@@ -598,7 +598,7 @@
                   Quantity
                 </div>
                 <div class="data-content">
-                  ${data.Quantity}
+                  ${data.Quantity ? data.Quantity : ''}
                 </div>
               </div>
             </div>
@@ -609,7 +609,7 @@
                 Total Received
               </div>
               <div class="column-content">
-                ${data.TOTALRECEIVE}
+                ${data.TOTALRECEIVE ? data.TOTALRECEIVE : ''}
               </div>
             </div>
             <div class="footer-column">
@@ -617,7 +617,7 @@
                 Total Issued
               </div>
               <div class="column-content">
-                ${data.TOTALISSUE}
+                ${data.TOTALISSUE ? data.TOTALISSUE : ''}
               </div>
             </div>
             <div class="footer-column">
@@ -625,7 +625,7 @@
                 Onhand
               </div>
               <div class="column-content">
-                ${data.ONHAND}
+                ${data.ONHAND ? data.ONHAND : ''}
               </div>
             </div>
           </div>

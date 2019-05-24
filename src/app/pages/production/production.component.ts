@@ -3,7 +3,9 @@
  import * as eva from 'eva-icons';
  import { GridComponent } from '@progress/kendo-angular-grid';
  import { State } from '@progress/kendo-data-query';
-
+ import {DashboardService} from 'src/app/service/dashboard.service';
+ import { ProductionService } from 'src/app/service/production.service';
+ import {NbToastrService} from '@nebular/theme';
  
  @Component({
   selector: 'ngx-production',
@@ -12,22 +14,34 @@
  })
  
  export class ProductionComponent implements OnInit {
-   ItemCodeData: any;
+   public language: any;
+   public ItemData: any;
    gridStatus: boolean;
    searchCriteria: boolean;
    serviceData: any;
    selectedValues: any;
-
-  constructor(private dialogService: NbDialogService) {}
+   public arrConfigData: any;
+   public CompanyDB: any;
+   public lookUpHeading: any;
+   public gridData: any[];
+   public ItemFrom: boolean = false;
+   public ItemTo: boolean = false; 
+   public ItemCodeFrom: any = '';
+   public ItemCodeTo: any = '';
+   
+  constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
     { value: 'SimpleView', label: 'Simple View' },
     { value: 'DetailedView', label: 'Detailed View' },
   ];
   viewOption = 'SimpleView';
-
   materialViewOption = 'Show Immediate Components'; 
 
   ngOnInit() { 
+   this.language = JSON.parse(window.localStorage.getItem('language'));
+   this.arrConfigData = JSON.parse(window.localStorage.getItem('arrConfigData'));   
+   this.CompanyDB = JSON.parse(window.localStorage.getItem('CompanyDB'));
+   this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
    eva.replace()
   }
  
@@ -38,7 +52,59 @@
   process() {
    this.gridStatus = !this.gridStatus;
   }
+
+  getItemData(api, companyDB){
+    this.dash.GetItemList(api, companyDB).subscribe(
+      data => {
+        this.ItemData = data;
+      });    
+  }
+
+  openItemFromLookup(dialog: TemplateRef<any>){
+    if(!this.ItemData){
+      this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
+    }        
+      this.lookUpHeading = 'Item From';
+      this.gridData = this.ItemData;
+      this.dialogService.open(dialog);
+      this.ItemFrom = true;
+      this.ItemTo = false;
+  }
  
+  openItemToLookup(dialog: TemplateRef<any>){
+    if(!this.ItemData){
+      this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
+    }        
+      this.lookUpHeading = 'Item To';
+      this.gridData = this.ItemData;
+      this.dialogService.open(dialog);
+      this.ItemFrom = false;
+      this.ItemTo = true;
+  }
+
+  gridRowSelectionChange(evt, ref) {
+    if (this.ItemFrom) {
+     //this.dataGridSelectNum = evt.selectedRows[0].index;
+     this.ItemCodeFrom = evt.selectedRows[0].dataItem.ItemCode;
+    }
+    else if (this.ItemTo) {
+     this.ItemCodeTo = evt.selectedRows[0].dataItem.ItemCode;
+    } 
+    ref.close();
+   }
+
+   GetExplosion() {
+
+    this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, '01', this.ItemCodeFrom, this.ItemCodeTo, this.viewOption).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        this.toastrService.danger(this.language.no_record_found);    
+      })
+    
+   }
+
   //Search criteria expand-shrink function  
   searchCriteriaToggle(event) {
    event.stopPropagation();

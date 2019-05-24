@@ -3,7 +3,7 @@
 
     <nb-card-header class="border-bottom d-flex">
       <i data-eva="search" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="mr-2"></i>
-      <span>Selection Criteria</span>
+      <span>{{language.selection_criteria}}</span>
     </nb-card-header>
 
     <nb-card-body id="selection-criteria-body" class="pt-0 d-flex justify-content-between flex-direction-column">
@@ -24,9 +24,10 @@
               <label for="ItemFrom" class="form-label">Item From</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input nbInput fieldSize="small" type="text" name="ItemFrom" id="ItemFrom" class="form-control" placeholder="Item From" autocomplete="off">
+                  <input nbInput fieldSize="small" type="text" name="ItemCodeFrom" id="ItemCodeFrom" class="form-control"
+                     #ItemCF=ngModel [(ngModel)]="ItemCodeFrom" placeholder="Item From" autocomplete="off">
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"><i class="nb-menu"></i></button>
+                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemFromLookup(dialog)"><i class="nb-menu"></i></button>
                   </div>
                 </div>
               </div>              
@@ -35,16 +36,17 @@
               <label for="ItemTo" class="form-label">Item To</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input nbInput fieldSize="small" type="text" name="ItemTo" id="ItemTo" class="form-control" placeholder="Item To" autocomplete="off">
+                  <input nbInput fieldSize="small" type="text" name="ItemCodeTo" id="ItemCodeTo" class="form-control" 
+                   #ItemCT=ngModel [(ngModel)]="ItemCodeTo" placeholder="Item To" autocomplete="off">
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"><i class="nb-menu"></i></button>
+                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemToLookup(dialog)"><i class="nb-menu"></i></button>
                   </div>
                 </div>
               </div>              
             </div>
 
             <div class="form-group">
-              <label for="inputPassword" class="form-label">Lot From</label>
+              <label for="inputPassword" class="form-label">Date From</label>
               <div class="w-100">
                 <input fieldSize="small" nbInput type="text" class="form-control datepicker" [nbDatepicker]="fromPicker">
                 <nb-datepicker #fromPicker></nb-datepicker>
@@ -52,7 +54,7 @@
             </div>
 
             <div class="form-group">
-              <label for="inputPassword3" class="form-label">Lot To</label>
+              <label for="inputPassword3" class="form-label">Date To</label>
               <div class="w-100">
                 <input fieldSize="small" nbInput type="text" class="form-control datepicker" [nbDatepicker]="toPicker">
                 <nb-datepicker #toPicker></nb-datepicker>
@@ -88,7 +90,7 @@
     <nb-card-footer class="text-center py-2">
       <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small">Process <i
           data-eva="arrow-forward" data-eva-height="18" data-eva-width="18" data-eva-fill="#fff"
-          class="ml-2"></i></button>
+          class="ml-2" (click)="GetExplosion($event)"></i></button>
     </nb-card-footer>
   </nb-card>
 
@@ -169,7 +171,8 @@
         <nb-card-body class="py-0" id="grid-accordian-body">
           <div class="row h-100 flex-100">
             <div class="col-sm-4 border-right overflow-auto h-100">
-              <div class="simpleView pt-3" *ngIf="viewOption == 'SimpleView'">
+              <div class="
+              View pt-3" *ngIf="viewOption == 'SimpleView'">
                 <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
                   [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                   (selectionChange)="gridRowSelectionChange($event,ref)"

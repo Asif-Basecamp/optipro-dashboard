@@ -7,13 +7,10 @@
     "password_required":"Password required",
     "password_activeuser": "You are not active user",
     "password_placeholder": "Enter Password",
-    "company_placeholder": "Select Company",   
-    
-    "company": "Company",
-    
+    "company_placeholder": "Select Company",    
+    "company": "Company",    
     "login": "Login",
     "productcode": "Product Code",
-
     "error_reading_file": "Error in reading locale file",
     "error_some_error": "There is some error",
     "password_incorrect": "Incorrect username or password", 
@@ -22,7 +19,6 @@
     "error_item_none_tracked": "Item is None Tracked",
     "error_enter_lot_to": "Please enter Lot To",
     "error_enter_lot_from": "Please enter Lot From",
-
     "lotexplosion": "Lot Explosion",
     "whereused": "Where Used",
     "select": "Select",
@@ -50,6 +46,7 @@
     "show_immediate_lot": " Show Data of all immediate of lots",
     "transaction_type": "Transaction Type",
     "analysis_view": "Analysis View",
-    "please_wait": "Please wait"
+    "please_wait": "Please wait",
+    "selection_criteria": "Selection Criteria"
       
  }
