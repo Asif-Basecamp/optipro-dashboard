@@ -3,7 +3,7 @@
 
     <nb-card-header class="border-bottom d-flex">
       <i data-eva="search" data-eva-height="18" data-eva-width="18" data-eva-fill="#2a2a2a" class="mr-2"></i>
-      <span>Selection Criteria</span>
+      <span>{{language.selection_criteria}}</span>
     </nb-card-header>
 
     <nb-card-body id="selection-criteria-body" class="pt-0 d-flex justify-content-between flex-direction-column">
@@ -24,9 +24,10 @@
               <label for="ItemFrom" class="form-label">Item From</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input nbInput fieldSize="small" type="text" name="ItemFrom" id="ItemFrom" class="form-control" placeholder="Item From" autocomplete="off">
+                  <input nbInput fieldSize="small" type="text" name="ItemCodeFrom" id="ItemCodeFrom" class="form-control"
+                     #ItemCF=ngModel [(ngModel)]="ItemCodeFrom" placeholder="Item From" autocomplete="off">
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"><i class="nb-menu"></i></button>
+                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemFromLookup(dialog)"><i class="nb-menu"></i></button>
                   </div>
                 </div>
               </div>              
@@ -35,16 +36,17 @@
               <label for="ItemTo" class="form-label">Item To</label>
               <div class="w-100">
                 <div class="input-group">
-                  <input nbInput fieldSize="small" type="text" name="ItemTo" id="ItemTo" class="form-control" placeholder="Item To" autocomplete="off">
+                  <input nbInput fieldSize="small" type="text" name="ItemCodeTo" id="ItemCodeTo" class="form-control" 
+                   #ItemCT=ngModel [(ngModel)]="ItemCodeTo" placeholder="Item To" autocomplete="off">
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall"><i class="nb-menu"></i></button>
+                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemToLookup(dialog)"><i class="nb-menu"></i></button>
                   </div>
                 </div>
               </div>              
             </div>
 
             <div class="form-group">
-              <label for="inputPassword" class="form-label">Lot From</label>
+              <label for="inputPassword" class="form-label">Date From</label>
               <div class="w-100">
                 <input fieldSize="small" nbInput type="text" class="form-control datepicker" [nbDatepicker]="fromPicker">
                 <nb-datepicker #fromPicker></nb-datepicker>
@@ -52,7 +54,7 @@
             </div>
 
             <div class="form-group">
-              <label for="inputPassword3" class="form-label">Lot To</label>
+              <label for="inputPassword3" class="form-label">Date To</label>
               <div class="w-100">
                 <input fieldSize="small" nbInput type="text" class="form-control datepicker" [nbDatepicker]="toPicker">
                 <nb-datepicker #toPicker></nb-datepicker>
@@ -86,7 +88,7 @@
 
     </nb-card-body>
     <nb-card-footer class="text-center py-2">
-      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small">Process <i
+      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small" (click)="GetExplosionData($event)">Process <i
           data-eva="arrow-forward" data-eva-height="18" data-eva-width="18" data-eva-fill="#fff"
           class="ml-2"></i></button>
     </nb-card-footer>
@@ -169,43 +171,22 @@
         <nb-card-body class="py-0" id="grid-accordian-body">
           <div class="row h-100 flex-100">
             <div class="col-sm-4 border-right overflow-auto h-100">
-              <div class="simpleView pt-3" *ngIf="viewOption == 'SimpleView'">
-                <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+              <div class="
+              View pt-3" *ngIf="viewOption == 'SIMPLE'">
+                <kendo-grid [kendoGridBinding]="gridViewData" [selectable]="selectableSettings" [filterable]=isColumnFilter
                   [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
-                  (selectionChange)="gridRowSelectionChange($event,ref)"
+                  (selectionChange)="gridRowSelectFG($event)"
                   [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
-                  <!-- grid template start -->
-                  <!-- <ng-template kendoGridToolbarTemplate>
-                    <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
-                      <div class="k-form-field d-flex">
-                        <input #chkFilter type="checkbox" (change)="onFilterChange(chkFilter,gridItem)"
-                          id="opti_SalesOrderListColumnFilterID" [(ngModel)]="isColumnFilter" class="k-checkbox"
-                          name="columnfilter" />
-                        <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">Enable Filter</label>
-                      </div>
-                    </form>
-      
-                  </ng-template>
-                  <kendo-grid-checkbox-column *ngIf="showSelection==true" title="Select" [width]="25">
-                    <ng-template kendoGridCellTemplate let-idx='rowIndex' let-di='dataItem'>
-                      <div class="k-form-field d-flex center-checkbox">
-                        <input #chkSelection type="checkbox" [disabled]='di.OldData' [checked]='di.OldData'
-                          (change)="onCheckboxClick(chkSelection.checked,idx)" id="chkbox-{{idx}}" class="k-checkbox"
-                          name="columnfilter" />      
-                        <label class="k-checkbox-label" for="chkbox-{{idx}}"></label>
-                      </div>
-                    </ng-template>
-                  </kendo-grid-checkbox-column> -->
       
                   <kendo-grid-column field="ItemCode" title="Item" width="80">
                   </kendo-grid-column>      
-                  <kendo-grid-column field="ItemName" title="In Stock" width="80">
+                  <kendo-grid-column field="AVAILABLE" title="In Stock" width="80">
                   </kendo-grid-column>
-                  <kendo-grid-column field="ItemName" title="Committed" width="80">
+                  <kendo-grid-column field="IsCommited" title="Committed" width="80">
                   </kendo-grid-column>
-                  <kendo-grid-column field="ItemName" title="On Order" width="80">
+                  <kendo-grid-column field="OnOrder" title="On Order" width="80">
                   </kendo-grid-column>
-                  <kendo-grid-column field="ItemName" title="Avl Qty" width="80">
+                  <kendo-grid-column field="AVAILABLE" title="Avl Qty" width="80">
                   </kendo-grid-column>
 
                 </kendo-grid>
@@ -216,6 +197,7 @@
               </div>
 
             </div>
+
             <div class="col-sm-8 pt-3 overflow-auto h-100">
               <div>
                   <nb-radio-group class="d-flex">
@@ -225,11 +207,10 @@
               </div>
 
               <div class="mt-4">
-                <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                <kendo-grid [kendoGridBinding]="gridDatas" [selectable]="selectableSettings" [filterable]=isColumnFilter
                   [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                   (selectionChange)="gridRowSelectionChange($event,ref)"
                   [ngStyle]="{ 'max-height':'490px'}">
-                  <!-- grid template start -->
                   <ng-template kendoGridToolbarTemplate>
                     <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                       <div class="k-form-field d-flex">
@@ -314,11 +295,10 @@
                             </nb-radio-group>
                         </div>
                         <div class="mt-4" *ngIf="materialViewOption == 'Show Immediate Components'">
-                          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                          <kendo-grid [kendoGridBinding]="gridDatas" [selectable]="selectableSettings" [filterable]=isColumnFilter
                             [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                             (selectionChange)="gridRowSelectionChange($event,ref)"
                             [ngStyle]="{ 'max-height':'490px'}">
-                            <!-- grid template start -->
                             <ng-template kendoGridToolbarTemplate>
                               <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                                 <div class="k-form-field d-flex">
@@ -386,11 +366,10 @@
                         </kendo-grid>
                         </div>
                         <div class="mt-4" *ngIf="materialViewOption == 'Show Components for all the Subassemblies'">
-                            <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                            <kendo-grid [kendoGridBinding]="gridDatas" [selectable]="selectableSettings" [filterable]=isColumnFilter
                               [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                               (selectionChange)="gridRowSelectionChange($event,ref)"
                               [ngStyle]="{ 'max-height':'490px'}">
-                              <!-- grid template start -->
                               <ng-template kendoGridToolbarTemplate>
                                 <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                                   <div class="k-form-field d-flex">
@@ -470,11 +449,10 @@
                     <nb-tab tabTitle="Operations">
                       <div class="py-3 px-2">
                         <div class="">
-                          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                          <kendo-grid [kendoGridBinding]="gridDatas" [selectable]="selectableSettings" [filterable]=isColumnFilter
                             [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                             (selectionChange)="gridRowSelectionChange($event,ref)"
                             [ngStyle]="{ 'max-height':'490px'}">
-                            <!-- grid template start -->
                             <ng-template kendoGridToolbarTemplate>
                               <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                                 <div class="k-form-field d-flex">
@@ -540,11 +518,10 @@
                     <nb-tab tabTitle="Resources">
                       <div class="py-3 px-2">
                         <div class="">
-                          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                          <kendo-grid [kendoGridBinding]="gridDatas" [selectable]="selectableSettings" [filterable]=isColumnFilter
                             [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                             (selectionChange)="gridRowSelectionChange($event,ref)"
                             [ngStyle]="{ 'max-height':'490px'}">
-                            <!-- grid template start -->
                             <ng-template kendoGridToolbarTemplate>
                               <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                                 <div class="k-form-field d-flex">
