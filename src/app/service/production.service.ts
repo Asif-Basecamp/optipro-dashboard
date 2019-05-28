@@ -25,7 +25,7 @@ export class ProductionService {
       ItemTo: ItemTo,
       SelectionCriteria: SelectionCriteria  
   }]) };
-  return this.httpClient.post(optiProDashboardAPIURL +"/ProductionDashboard/GetFinishedGoodsList",jObject,this.httpOptions);
+  return this.httpClient.post(optiProDashboardAPIURL +"ProductionDashboard/GetFinishedGoodsList",jObject,this.httpOptions);
  } 
 
 }

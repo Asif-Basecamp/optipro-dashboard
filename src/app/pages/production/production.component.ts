@@ -31,10 +31,10 @@
    
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
-    { value: 'SimpleView', label: 'Simple View' },
+    { value: 'SIMPLE', label: 'Simple View' },
     { value: 'DetailedView', label: 'Detailed View' },
   ];
-  viewOption = 'SimpleView';
+  viewOption = 'SIMPLE';
   materialViewOption = 'Show Immediate Components'; 
 
   ngOnInit() { 
@@ -93,11 +93,16 @@
     ref.close();
    }
 
-   GetExplosion() {
+   gridRowSelectFG(evt){
+   // evt.selectedRows[0].dataItem.ItemCode
+   }
+
+   GetExplosionData() {
 
     this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, '01', this.ItemCodeFrom, this.ItemCodeTo, this.viewOption).subscribe(
       data => {
         console.log(data);
+        this.gridData = data;
       },
       error => {
         this.toastrService.danger(this.language.no_record_found);    
