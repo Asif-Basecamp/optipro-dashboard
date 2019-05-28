@@ -23,7 +23,7 @@
     { value: 'SimpleView', label: 'Simple View' },
     { value: 'DetailedView', label: 'Detailed View' },
   ];
-  viewOption = 'SimpleView';
+  viewOption = 'DetailedView';
 
   materialViewOption = 'Show Immediate Components'; 
 
