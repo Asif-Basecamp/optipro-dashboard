@@ -91,7 +91,7 @@
   }
 
    /*-- Item Code functions --*/
-   getItemCodeData(api, companyDB){
+  getItemCodeData(api, companyDB){
     this.dash.GetItemList(api, companyDB).subscribe(
       data => {
         this.ItemCodeData = data;

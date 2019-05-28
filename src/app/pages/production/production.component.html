@@ -173,7 +173,7 @@
             <div class="col-sm-4 border-right overflow-auto h-100">
               <div class="
               View pt-3" *ngIf="viewOption == 'SIMPLE'">
-                <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                <kendo-grid [kendoGridBinding]="gridViewData" [selectable]="selectableSettings" [filterable]=isColumnFilter
                   [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                   (selectionChange)="gridRowSelectFG($event)"
                   [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
@@ -210,6 +210,7 @@
               </div>
 
             </div>
+
             <div class="col-sm-8 pt-3 overflow-auto h-100">
               <div>
                   <nb-radio-group class="d-flex">
@@ -219,11 +220,10 @@
               </div>
 
               <div class="mt-4">
-                <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                <kendo-grid [kendoGridBinding]="gridDatas" [selectable]="selectableSettings" [filterable]=isColumnFilter
                   [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                   (selectionChange)="gridRowSelectionChange($event,ref)"
                   [ngStyle]="{ 'max-height':'490px'}">
-                  <!-- grid template start -->
                   <ng-template kendoGridToolbarTemplate>
                     <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                       <div class="k-form-field d-flex">
@@ -308,11 +308,10 @@
                             </nb-radio-group>
                         </div>
                         <div class="mt-4" *ngIf="materialViewOption == 'Show Immediate Components'">
-                          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                          <kendo-grid [kendoGridBinding]="gridDatas" [selectable]="selectableSettings" [filterable]=isColumnFilter
                             [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                             (selectionChange)="gridRowSelectionChange($event,ref)"
                             [ngStyle]="{ 'max-height':'490px'}">
-                            <!-- grid template start -->
                             <ng-template kendoGridToolbarTemplate>
                               <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                                 <div class="k-form-field d-flex">
@@ -380,11 +379,10 @@
                         </kendo-grid>
                         </div>
                         <div class="mt-4" *ngIf="materialViewOption == 'Show Components for all the Subassemblies'">
-                            <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                            <kendo-grid [kendoGridBinding]="gridDatas" [selectable]="selectableSettings" [filterable]=isColumnFilter
                               [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                               (selectionChange)="gridRowSelectionChange($event,ref)"
                               [ngStyle]="{ 'max-height':'490px'}">
-                              <!-- grid template start -->
                               <ng-template kendoGridToolbarTemplate>
                                 <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                                   <div class="k-form-field d-flex">
@@ -464,11 +462,10 @@
                     <nb-tab tabTitle="Operations">
                       <div class="py-3 px-2">
                         <div class="">
-                          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                          <kendo-grid [kendoGridBinding]="gridDatas" [selectable]="selectableSettings" [filterable]=isColumnFilter
                             [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                             (selectionChange)="gridRowSelectionChange($event,ref)"
                             [ngStyle]="{ 'max-height':'490px'}">
-                            <!-- grid template start -->
                             <ng-template kendoGridToolbarTemplate>
                               <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                                 <div class="k-form-field d-flex">
@@ -534,11 +531,10 @@
                     <nb-tab tabTitle="Resources">
                       <div class="py-3 px-2">
                         <div class="">
-                          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                          <kendo-grid [kendoGridBinding]="gridDatas" [selectable]="selectableSettings" [filterable]=isColumnFilter
                             [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                             (selectionChange)="gridRowSelectionChange($event,ref)"
                             [ngStyle]="{ 'max-height':'490px'}">
-                            <!-- grid template start -->
                             <ng-template kendoGridToolbarTemplate>
                               <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                                 <div class="k-form-field d-flex">

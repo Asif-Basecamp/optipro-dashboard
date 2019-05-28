@@ -24,10 +24,13 @@
    public CompanyDB: any;
    public lookUpHeading: any;
    public gridData: any[];
+   public gridViewData: any[];
    public ItemFrom: boolean = false;
    public ItemTo: boolean = false; 
    public ItemCodeFrom: any = '';
    public ItemCodeTo: any = '';
+   public nodes2: any = [];
+
    
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
@@ -60,7 +63,7 @@
       });    
   }
 
-  openItemFromLookup(dialog: TemplateRef<any>){
+  openItemFromLookup(dialog: TemplateRef<any>){ 
     if(!this.ItemData){
       this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
     }        
@@ -97,12 +100,27 @@
    // evt.selectedRows[0].dataItem.ItemCode
    }
 
-   GetExplosionData() {
+   getHierarchy(data, parentId){
+    let node = [];
+    data.filter(function(d) {
+     if (d.ParantId == parentId) {
+      return d.ParantId == parentId
+     }
+    }).forEach(function(d) {
+     var cd = d;
+     cd.children = this.getHierarchy(data, d.SeqNo);
+     return node.push(cd);
+    }.bind(this))
+    console.log(JSON.stringify(node));
+    return node;
+   }
 
+   GetExplosionData() {
     this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, '01', this.ItemCodeFrom, this.ItemCodeTo, this.viewOption).subscribe(
       data => {
-        console.log(data);
-        this.gridData = data;
+        console.log(JSON.stringify(data));
+        this.gridViewData = data;
+        this.nodes2 = this.getHierarchy(data, '-1');
       },
       error => {
         this.toastrService.danger(this.language.no_record_found);    
