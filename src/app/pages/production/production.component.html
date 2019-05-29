@@ -193,20 +193,41 @@
               </div>
 
               <div class="tree-wrapper pt-3" *ngIf="viewOption == 'DetailedView'">
-                <tree-root id="tree2" [focused]="true" [nodes]="nodes2" (click)="clickTransaction($event)">
-                  <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
-                    <div class="tree-node">
-                      <tree-node-expander [node]="node"></tree-node-expander>
-                      <div class="node-content-wrapper">
-                        <span>{{node.data.OPTM_ITEMCODE}} - {{node.data.OPTM_BTCHSERNO }}</span>
-                      </div>
-                      <div class="node-content-wrapper">
-                        <span>{{node.data.OPTM_ITEMCODE}} - {{node.data.OPTM_PARENTBTCHSERNO }}</span>
-                      </div>
-                      <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
-                    </div>
-                  </ng-template>
-                </tree-root>
+                <!--<app-treetable></app-treetable>-->
+                <div class="content-section implementation">  
+                  <p-treeTable [value]="files2" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" columnResizeMode="expand">
+                    <ng-template pTemplate="colgroup">
+                      <colgroup>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                      </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th ttResizableColumn>Item</th>
+                            <th ttResizableColumn>In Stock</th>
+                            <th ttResizableColumn>Commited</th>
+                            <th ttResizableColumn>On Order</th>
+                            <th ttResizableColumn>Avl Qty</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowNode let-rowNodeIndex="rowNodeIndex"  let-rowData="rowData">
+                        <tr [ttRow]="rowNode">
+                            <td>
+                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                {{rowData.ItemCode}}
+                            </td>
+                            <td>2</td>
+                            <td>{{rowData.IsCommited}}</td>
+                            <td>{{rowData.OnOrder}}</td>
+                            <td>{{rowData.AVAILABLE}}</td>
+                        </tr>
+                    </ng-template>
+                </p-treeTable>
+                </div>
               </div>
 
             </div>
@@ -608,3 +629,5 @@
     </div>
   </div>
 </div>
+
+
