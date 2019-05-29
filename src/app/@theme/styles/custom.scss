@@ -2697,10 +2697,18 @@ body .ui-treetable .ui-column-resizer-helper {
     -moz-osx-font-smoothing: grayscale;
 }
 .pi-chevron-right:before{
-  content: '\e959';
+  content: "";
+  width:16px;
+  height:16px;
+  display: inline-block;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='inherit'%3E%3Cg data-name='Layer 2'%3E%3Cg data-name='arrow-ios-forward'%3E%3Crect width='24' height='24' transform='rotate(-90 12 12)' opacity='0'%3E%3C/rect%3E%3Cpath d='M10 19a1 1 0 0 1-.64-.23 1 1 0 0 1-.13-1.41L13.71 12 9.39 6.63a1 1 0 0 1 .15-1.41 1 1 0 0 1 1.46.15l4.83 6a1 1 0 0 1 0 1.27l-5 6A1 1 0 0 1 10 19z'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 .pi-chevron-down:before{
-  content: '\e960';
+  content: '';
+  width:16px;
+  height:16px;
+  display: inline-block;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%23000'%3E%3Cg data-name='Layer 2'%3E%3Cg data-name='arrow-ios-downward'%3E%3Crect width='24' height='24' opacity='0'%3E%3C/rect%3E%3Cpath d='M12 16a1 1 0 0 1-.64-.23l-6-5a1 1 0 1 1 1.28-1.54L12 13.71l5.36-4.32a1 1 0 0 1 1.41.15 1 1 0 0 1-.14 1.46l-6 4.83A1 1 0 0 1 12 16z'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 @media screen and (max-width: 40em) {
   .ui-treetable-responsive .ui-treetable-tfoot>tr>td,.ui-treetable-responsive .ui-treetable-thead>tr>th {
