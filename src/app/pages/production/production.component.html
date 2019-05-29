@@ -195,14 +195,23 @@
               <div class="tree-wrapper pt-3" *ngIf="viewOption == 'DetailedView'">
                 <!--<app-treetable></app-treetable>-->
                 <div class="content-section implementation">  
-                  <p-treeTable [value]="files2">
+                  <p-treeTable [value]="files2" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" columnResizeMode="expand">
+                    <ng-template pTemplate="colgroup">
+                      <colgroup>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                          <col>
+                      </colgroup>
+                    </ng-template>
                     <ng-template pTemplate="header">
                         <tr>
-                            <th>Item</th>
-                            <th>In Stock</th>
-                            <th>Commited</th>
-                            <th>On Order</th>
-                            <th>Avl Qty</th>
+                            <th ttResizableColumn>Item</th>
+                            <th ttResizableColumn>In Stock</th>
+                            <th ttResizableColumn>Commited</th>
+                            <th ttResizableColumn>On Order</th>
+                            <th ttResizableColumn>Avl Qty</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-rowNode let-rowNodeIndex="rowNodeIndex"  let-rowData="rowData">
