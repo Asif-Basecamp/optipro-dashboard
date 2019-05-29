@@ -149,8 +149,7 @@
       error => {
         this.toastrService.danger(this.language.no_record_found);    
       })
-    
-   }
+    }
 
   //Search criteria expand-shrink function  
   searchCriteriaToggle(event) {

@@ -10,14 +10,13 @@ import { TreeModule } from 'angular-tree-component';
 import { DefaultComponent } from './default/default.component';
 import { ProductionComponent } from './production/production.component';
 import { TreeTableModule } from 'primeng/components/treetable/treetable';
-import { TreetableDemoComponent } from '../@core/treetable/treetable.component';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
 ];
 
 @NgModule({
-  declarations: [GenealogyComponent, PagesComponent, DefaultComponent, ProductionComponent, TreetableDemoComponent],
+  declarations: [GenealogyComponent, PagesComponent, DefaultComponent, ProductionComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,
