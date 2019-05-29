@@ -43,11 +43,22 @@
    public lookUpHeading: any;
    public gridData: any[];
    public gridViewData: any[];
+   public gridWOFG: any[];
+   public gridMaterial: any[];
+   public gridOperation: any[];
+   public gridResource: any[];   
    public ItemFrom: boolean = false;
-   public ItemTo: boolean = false; 
+   public ItemTo: boolean = false; ks
    public ItemCodeFrom: any = '';
    public ItemCodeTo: any = '';
    public nodes2: any = [];
+   public RadioBtnWO: any = 'simple';
+   public materialViewOption: any = 'IMMEDIATE';
+   public FromDate: any ;
+   public ToDate: any ;
+  // FromDate = new Date().toLocaleString();
+   //ToDate = new Date().toLocaleString();
+   
    public tableTreeData: any = [];
    files2: TreeNode[];
  
@@ -57,14 +68,17 @@
     { value: 'DetailedView', label: 'Detailed View' },
   ];
   viewOption = 'SIMPLE';
-  materialViewOption = 'Show Immediate Components'; 
-
+   
+  
   ngOnInit() { 
    this.language = JSON.parse(window.localStorage.getItem('language'));
    this.arrConfigData = JSON.parse(window.localStorage.getItem('arrConfigData'));   
    this.CompanyDB = JSON.parse(window.localStorage.getItem('CompanyDB'));
+   this.FromDate = new Date().toLocaleString();
+   this.ToDate = new Date().toLocaleString();
+   
    this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
-   eva.replace()
+   eva.replace()   
   }
  
   open(dialog: TemplateRef < any > ) {
@@ -116,7 +130,69 @@
    }
 
    gridRowSelectFG(evt){
-   // evt.selectedRows[0].dataItem.ItemCode
+     let name = evt.selectedRows[0].dataItem.ItemCode;
+     this.getWorkOrder(name);
+   }
+
+   gridRowSelectDocEntry(evt){
+    let docentry = evt.selectedRows[0].dataItem.DocEntry;
+    this.getMaterials(docentry,'');
+  }
+
+   getWorkOrder(itemName){
+
+    this.prod.GetWorkOrderFG(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemName, this.RadioBtnWO,'1,6,4,3', this.FromDate, this.ToDate).subscribe(
+      data => {
+        console.log(data);
+          this.gridWOFG = data;          
+          this.getMaterials(this.gridWOFG[0].DocEntry,this.gridWOFG[0].ItemCode);
+          this.getOperations(this.gridWOFG[0].DocEntry);
+          this.getResources(this.gridWOFG[0].U_O_PRODID);
+      },
+      error => {
+        this.toastrService.danger(this.language.no_record_found);    
+     })
+   }
+
+   getMaterials(DocEntry,ItemCode){
+    
+      this.prod.GetMaterialData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry, ItemCode, this.materialViewOption,
+        this.FromDate, this.ToDate, '1,6,4,3').subscribe(
+        data => {
+          console.log(data);
+            this.gridMaterial = data;       
+            
+        },
+        error => {
+          this.toastrService.danger(this.language.no_record_found);    
+      })    
+   }
+
+   getOperations(DocEntry){
+    
+      this.prod.GetOperationData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
+        data => {
+          console.log(data);
+            this.gridOperation = data;       
+            
+        },
+        error => {
+          this.toastrService.danger(this.language.no_record_found);    
+      })    
+   }
+
+   getResources(DocEntry){
+
+    this.prod.GetResourceData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
+      data => {
+        console.log(data);
+          this.gridResource = data;       
+          
+      },
+      error => {
+        this.toastrService.danger(this.language.no_record_found);    
+    })  
+
    }
 
    getHierarchy(dataa, Seq){
@@ -134,7 +210,12 @@
   }
 
    GetExplosionData() {
-    this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, '01', this.ItemCodeFrom, this.ItemCodeTo, this.viewOption).subscribe(
+
+  //  this.FromDate = new Date().toLocaleString();
+  //  this.ToDate = new Date().toLocaleString();
+    
+    console.log(this.FromDate);
+    this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemCodeFrom, this.ItemCodeTo, this.viewOption, this.FromDate, this.ToDate).subscribe(
       data => {
         this.gridViewData = data;
         let Arr = [];
@@ -240,3 +321,4 @@
    e.currentTarget.nextSibling.style = '';
   }
  }
+ 
