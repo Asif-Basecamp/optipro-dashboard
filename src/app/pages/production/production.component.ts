@@ -7,6 +7,24 @@
  import { ProductionService } from 'src/app/service/production.service';
  import {NbToastrService} from '@nebular/theme';
  
+ export interface TreeNode {
+  label?: string;
+  data?: any;
+  icon?: any;
+  expandedIcon?: any;
+  collapsedIcon?: any;
+  children?: TreeNode[];
+  leaf?: boolean;
+  expanded?: boolean;
+  type?: string;
+  parent?: TreeNode;
+  partialSelected?: boolean;
+  styleClass?: string;
+  draggable?: boolean;
+  droppable?: boolean;
+  selectable?: boolean;
+}
+
  @Component({
   selector: 'ngx-production',
   styleUrls: ['./production.component.scss'],
@@ -30,8 +48,9 @@
    public ItemCodeFrom: any = '';
    public ItemCodeTo: any = '';
    public nodes2: any = [];
-
-   
+   public tableTreeData: any = [];
+   files2: TreeNode[];
+ 
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
     { value: 'SIMPLE', label: 'Simple View' },
@@ -100,27 +119,32 @@
    // evt.selectedRows[0].dataItem.ItemCode
    }
 
-   getHierarchy(data, parentId){
+   getHierarchy(dataa, Seq){
     let node = [];
-    data.filter(function(d) {
-     if (d.ParantId == parentId) {
-      return d.ParantId == parentId
-     }
-    }).forEach(function(d) {
+    dataa.filter(function(d){
+      if(d.data.ParantId == Seq){
+        return d.data.ParantId == Seq
+      }
+    }).forEach(function(d){
      var cd = d;
-     cd.children = this.getHierarchy(data, d.SeqNo);
+     cd.children = this.getHierarchy(dataa, d.data.SeqNo);
      return node.push(cd);
-    }.bind(this))
-    console.log(JSON.stringify(node));
+   }.bind(this))
     return node;
-   }
+  }
 
    GetExplosionData() {
     this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, '01', this.ItemCodeFrom, this.ItemCodeTo, this.viewOption).subscribe(
       data => {
-        console.log(JSON.stringify(data));
         this.gridViewData = data;
-        this.nodes2 = this.getHierarchy(data, '-1');
+        let Arr = [];
+        for(var i=0; i<this.gridViewData.length; i++){
+         if(this.gridViewData[i]){
+             Arr.push({data : this.gridViewData[i]});
+         }
+        } 
+        this.nodes2 = this.getHierarchy(Arr, '-1');
+        this.files2 = this.nodes2;
       },
       error => {
         this.toastrService.danger(this.language.no_record_found);    

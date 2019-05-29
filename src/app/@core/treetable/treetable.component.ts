@@ -43,223 +43,268 @@ export class TreetableDemoComponent implements OnInit {
     }
 
     // tslint:disable-next-line:member-ordering
-    myfiles: TreeNode[] = [
+   /* myfiles: TreeNode[] = [
         {
-            data: {
-                item: 'Cloud',
-                inStock: '20mb',
-                commited: 'Folder',
+          data: {
+            item: 'Cloud',
+            inStock: '20mb',
+            commited: 'Folder',
+            onOrder: '4',
+            avlQty: '5'
+          },
+          children: [
+            {
+              data: {
+                item: 'backup-1.zip',
+                inStock: '10mb',
+                commited: 'Zip',
                 onOrder: '4',
                 avlQty: '5'
-            },
-            children: [
+              },
+              children: [
                 {
-                    data: {
+                  data: {
+                    item: 'backup-1.zip',
+                    inStock: '10mb',
+                    commited: 'Zip',
+                    onOrder: '4',
+                    avlQty: '5'
+                  },
+                  children: [
+                    {
+                      data: {
                         item: 'backup-1.zip',
                         inStock: '10mb',
                         commited: 'Zip',
                         onOrder: '4',
                         avlQty: '5'
+                      },
+                      
                     },
-                    children: [
-                        {
-                            data: {
-                                item: 'backup-1.zip',
-                                inStock: '10mb',
-                                commited: 'Zip',
-                                onOrder: '4',
-                                avlQty: '5'
-                            },
-                            children: [
-                                {
-                                    data: {
-                                        item: 'backup-1.zip',
-                                        inStock: '10mb',
-                                        commited: 'Zip',
-                                        onOrder: '4',
-                                        avlQty: '5'
-                                    },
-                                },
-                                {
-                                    data: {
-                                        item: 'backup-2.zip',
-                                        inStock: '10mb',
-                                        commited: 'Zip',
-                                        onOrder: '4',
-                                        avlQty: '5'
-                                    },
-                                    children: [
-                                        {
-                                            data: {
-                                                item: 'backup-1.zip',
-                                                inStock: '10mb',
-                                                commited: 'Zip',
-                                                onOrder: '4',
-                                                avlQty: '5'
-                                            },
-                                            children: [
-                                                {
-                                                    data: {
-                                                        item: 'backup-1.zip',
-                                                        inStock: '10mb',
-                                                        commited: 'Zip',
-                                                        onOrder: '4',
-                                                        avlQty: '5'
-                                                    },
-                                                    children: [
-                                                        {
-                                                            data: {
-                                                                item: 'backup-1.zip',
-                                                                inStock: '10mb',
-                                                                commited: 'Zip',
-                                                                onOrder: '4',
-                                                                avlQty: '5'
-                                                            },
-                                                        },
-                                                        {
-                                                            data: {
-                                                                item: 'backup-2.zip',
-                                                                inStock: '10mb',
-                                                                commited: 'Zip',
-                                                                onOrder: '4',
-                                                                avlQty: '5'
-                                                            },
-
-                                                        },
-                                                        {
-                                                            data: {
-                                                                item: 'backup-1.zip',
-                                                                inStock: '10mb',
-                                                                commited: 'Zip',
-                                                                onOrder: '4',
-                                                                avlQty: '5'
-                                                            },
-                                                        },
-                                                        {
-                                                            data: {
-                                                                item: 'backup-2.zip',
-                                                                inStock: '10mb',
-                                                                commited: 'Zip',
-                                                                onOrder: '4',
-                                                                avlQty: '5'
-                                                            },
-
-                                                        },
-                                                    ],
-                                                },
-                                                {
-                                                    data: {
-                                                        item: 'backup-2.zip',
-                                                        inStock: '10mb',
-                                                        commited: 'Zip',
-                                                        onOrder: '4',
-                                                        avlQty: '5'
-                                                    },
-                                                },
-                                            ],
-                                        },
-                                        {
-                                            data: {
-                                                item: 'backup-2.zip',
-                                                inStock: '10mb',
-                                                commited: 'Zip',
-                                                onOrder: '4',
-                                                avlQty: '5'
-                                            },
-                                        },
-                                    ],
-
-                                },
-                            ],
-                        },
-                        {
-                            data: {
-                                item: 'backup-2.zip',
-                                inStock: '10mb',
-                                commited: 'Zip',
-                                onOrder: '4',
-                                avlQty: '5'
-                            },
-                        },
-                    ],
-                },
-                {
-                    data: {
+                    {
+                      data: {
                         item: 'backup-2.zip',
                         inStock: '10mb',
                         commited: 'Zip',
                         onOrder: '4',
                         avlQty: '5'
+                      },
+                      children: [
+                        {
+                          data: {
+                            item: 'backup-1.zip',
+                            inStock: '10mb',
+                            commited: 'Zip',
+                            onOrder: '4',
+                            avlQty: '5'
+                          },
+                          children: [
+                            {
+                              data: {
+                                item: 'backup-1.zip',
+                                inStock: '10mb',
+                                commited: 'Zip',
+                                onOrder: '4',
+                                avlQty: '5'
+                              },
+                              children: [
+                                {
+                                  data: {
+                                    item: 'backup-1.zip',
+                                    inStock: '10mb',
+                                    commited: 'Zip',
+                                    onOrder: '4',
+                                    avlQty: '5'
+                                  },
+                                  
+                                },
+                                {
+                                  data: {
+                                    item: 'backup-2.zip',
+                                    inStock: '10mb',
+                                    commited: 'Zip',
+                                    onOrder: '4',
+                                    avlQty: '5'
+                                  },
+                                  
+                                },
+                                {
+                                  data: {
+                                    item: 'backup-1.zip',
+                                    inStock: '10mb',
+                                    commited: 'Zip',
+                                    onOrder: '4',
+                                    avlQty: '5'
+                                  },
+                                  
+                                },
+                                {
+                                  data: {
+                                    item: 'backup-2.zip',
+                                    inStock: '10mb',
+                                    commited: 'Zip',
+                                    onOrder: '4',
+                                    avlQty: '5'
+                                  },
+                                  
+                                },
+                                
+                              ],
+                              
+                            },
+                            {
+                              data: {
+                                item: 'backup-2.zip',
+                                inStock: '10mb',
+                                commited: 'Zip',
+                                onOrder: '4',
+                                avlQty: '5'
+                              },
+                              
+                            },
+                            
+                          ],
+                          
+                        },
+                        {
+                          data: {
+                            item: 'backup-2.zip',
+                            inStock: '10mb',
+                            commited: 'Zip',
+                            onOrder: '4',
+                            avlQty: '5'
+                          },
+                          
+                        },
+                        
+                      ],
+                      
                     },
+                    
+                  ],
+                  
                 },
                 {
-                    data: {
-                        item: 'backup-3.zip',
-                        inStock: '10mb',
-                        commited: 'Zip',
-                        onOrder: '4',
-                        avlQty: '5'
-                    },
+                  data: {
+                    item: 'backup-2.zip',
+                    inStock: '10mb',
+                    commited: 'Zip',
+                    onOrder: '4',
+                    avlQty: '5'
+                  },
+                  
                 },
-                {
-                    data: {
-                        item: 'backup-4.zip',
-                        inStock: '10mb',
-                        commited: 'Zip',
-                        onOrder: '4',
-                        avlQty: '5'
-                    },
-                },
-            ],
+                
+              ],
+              
+            },
+            {
+              data: {
+                item: 'backup-2.zip',
+                inStock: '10mb',
+                commited: 'Zip',
+                onOrder: '4',
+                avlQty: '5'
+              },
+              
+            },
+            {
+              data: {
+                item: 'backup-3.zip',
+                inStock: '10mb',
+                commited: 'Zip',
+                onOrder: '4',
+                avlQty: '5'
+              },
+              
+            },
+            {
+              data: {
+                item: 'backup-4.zip',
+                inStock: '10mb',
+                commited: 'Zip',
+                onOrder: '4',
+                avlQty: '5'
+              },
+              
+            },
+            
+          ],
+          
         },
         {
-            data: {
-                item: 'Desktop',
-                inStock: '20mb',
-                commited: 'Folder',
+          data: {
+            item: 'Desktop',
+            inStock: '20mb',
+            commited: 'Folder',
+            onOrder: '4',
+            avlQty: '5'
+          },
+          children: [
+            {
+              data: {
+                item: 'backup-1.zip',
+                inStock: '10mb',
+                commited: 'Zip',
                 onOrder: '4',
                 avlQty: '5'
+              },
+              children: [
+                {
+                  data: {
+                    item: 'backup-1.zip',
+                    inStock: '10mb',
+                    commited: 'Zip',
+                    onOrder: '4',
+                    avlQty: '5'
+                  },
+                  
+                },
+                {
+                  data: {
+                    item: 'backup-2.zip',
+                    inStock: '10mb',
+                    commited: 'Zip',
+                    onOrder: '4',
+                    avlQty: '5'
+                  },
+                  
+                },
+                
+              ],
+              
             },
-            children: [
-                {
-                    data: {
-                        item: 'backup-1.zip',
-                        inStock: '10mb',
-                        commited: 'Zip',
-                        onOrder: '4',
-                        avlQty: '5'
-                    },
-                    children: [
-                        {
-                            data: {
-                                item: 'backup-1.zip',
-                                inStock: '10mb',
-                                commited: 'Zip',
-                                onOrder: '4',
-                                avlQty: '5'
-                            },
-                        },
-                        {
-                            data: {
-                                item: 'backup-2.zip',
-                                inStock: '10mb',
-                                commited: 'Zip',
-                                onOrder: '4',
-                                avlQty: '5'
-                            },
-                        },
-                    ],
-                },
-                {
-                    data: {
-                        item: 'backup-2.zip',
-                        inStock: '10mb',
-                        commited: 'Zip',
-                        onOrder: '4',
-                        avlQty: '5'
-                    },
-                },
-            ],
+            {
+              data: {
+                item: 'backup-2.zip',
+                inStock: '10mb',
+                commited: 'Zip',
+                onOrder: '4',
+                avlQty: '5'
+              },
+              
+            },
+            
+          ],
+          
         }
-    ];
+      ];*/
+
+    myfiles: TreeNode[] = [{
+         data: {
+                item: 'backup-2.zip',
+                inStock: '10mb',
+                commited: 'Zip',
+                onOrder: '4',
+                avlQty: '5'
+        },children: [{
+            data: {
+                    item: 'backup-1.zip',
+                    inStock: '10mb',
+                    commited: 'Zip',
+                    onOrder: '4',
+                    avlQty: '5'
+            },
+        }] 
+    }]; 
 }

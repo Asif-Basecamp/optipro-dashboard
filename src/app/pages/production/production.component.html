@@ -193,7 +193,32 @@
               </div>
 
               <div class="tree-wrapper pt-3" *ngIf="viewOption == 'DetailedView'">
-                <app-treetable></app-treetable>
+                <!--<app-treetable></app-treetable>-->
+                <div class="content-section implementation">  
+                  <p-treeTable [value]="files2">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Item</th>
+                            <th>In Stock</th>
+                            <th>Commited</th>
+                            <th>On Order</th>
+                            <th>Avl Qty</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowNode let-rowNodeIndex="rowNodeIndex"  let-rowData="rowData">
+                        <tr [ttRow]="rowNode">
+                            <td>
+                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                {{rowData.ItemCode}}
+                            </td>
+                            <td>2</td>
+                            <td>{{rowData.IsCommited}}</td>
+                            <td>{{rowData.OnOrder}}</td>
+                            <td>{{rowData.AVAILABLE}}</td>
+                        </tr>
+                    </ng-template>
+                </p-treeTable>
+                </div>
               </div>
 
             </div>
@@ -586,3 +611,5 @@
     </div>
   </div>
 </div>
+
+
