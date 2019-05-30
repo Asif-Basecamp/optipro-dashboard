@@ -1263,7 +1263,8 @@ col.k-sorted,th.k-sorted {
   justify-content: center;
   overflow: hidden;
   position: absolute;
-  top: 0;
+  top: 50%;
+  transform: translateY(-50%);
   left: 0;
 }
 .k-checkbox-label::before, .k-radio-label::before {
@@ -1281,7 +1282,7 @@ col.k-sorted,th.k-sorted {
 }
 .k-checkbox:checked + .k-checkbox-label::after {
   border-radius: .25rem;
-  transform:scale(0.75);
+  transform:scale(0.75) translateY(-50%);
   color: #fff;
 }
 .k-checkbox:focus + .k-checkbox-label::before {
@@ -1301,13 +1302,13 @@ col.k-sorted,th.k-sorted {
   content: "\e118";
   width: 16px;
   height: 16px;
-  transform: scale(0);
+  transform: scale(0) translateY(-60%);
 }
 .k-checkbox-label, .k-radio-label {
   margin: 0;
   padding-left: calc( 16px + 0.5rem);
   min-height: 16px;
-  line-height: 17px;
+  line-height: 16px;
   vertical-align: text-top;
   display: inline-flex;
   align-items: flex-start;

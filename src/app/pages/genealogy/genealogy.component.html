@@ -31,8 +31,8 @@
                   </div>
                 </div>
               </div>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="ItemVal.errors?.required && !itemStatus && ItemVal.touched" class="float-right opti_error-msg">{{language.item_code_req}}</small>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="itemStatus && ItemVal.touched" class="float-right opti_error-msg">{{language.correct_item_code}}</small>  
+              <small id="emailHelp" class="form-text text-muted opti_error-msg text-right" *ngIf="ItemVal.errors?.required && !itemStatus && ItemVal.touched">{{language.item_code_req}}</small>
+              <small id="emailHelp" class="form-text text-muted opti_error-msg text-right" *ngIf="itemStatus && ItemVal.touched">{{language.correct_item_code}}</small>  
             </div>
             
             <div class="form-group">
@@ -58,8 +58,8 @@
                   </div>
                 </div>
               </div>
-              <small id="emalHelp" class="form-text text-muted opti_error-msg" *ngIf="Whse.errors?.required && !WarehouseStatus && Whse.touched" class="float-right opti_error-msg">{{language.warehouse_code_req}}</small>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="WarehouseStatus && Whse.touched" class="float-right opti_error-msg">{{language.correct_warehouse_code}}</small>
+              <small id="emalHelp" class="form-text text-muted text-right opti_error-msg" *ngIf="Whse.errors?.required && !WarehouseStatus && Whse.touched">{{language.warehouse_code_req}}</small>
+              <small id="emailHelp" class="form-text text-muted text-right opti_error-msg" *ngIf="WarehouseStatus && Whse.touched">{{language.correct_warehouse_code}}</small>
             </div>
 
             <div class="form-group">
@@ -74,7 +74,12 @@
                   </div>
                 </div>
               </div>
+<<<<<<< HEAD
+              <small id="emailHelp" class="form-text text-muted text-right opti_error-msg" *ngIf="LotFromStatus && LotF.touched">{{language.correct_lot_from}}</small>
+
+=======
               <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="LotFromStatus && LotF.touched" class="float-right opti_error-msg">{{language.correct_lot_from}}</small>
+>>>>>>> ea0a48051e348aba7b7ac60c9dd64cd6d685c7e5
             </div>
             
             <div class="form-group">
@@ -89,7 +94,7 @@
                   </div>
                 </div>
               </div>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="LotToStatus && LotT.touched" class="float-right opti_error-msg">{{language.correct_lot_to}}</small>
+              <small id="emailHelp" class="form-text text-muted opti_error-msg text-right" *ngIf="LotToStatus && LotT.touched">{{language.correct_lot_to}}</small>
 
             </div>
             <fieldset class="form-group px-0">

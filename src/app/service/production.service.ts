@@ -79,4 +79,61 @@ GetResourceData(optiProDashboardAPIURL:string,CompanyDBID:string,DocEntry:string
 return this.httpClient.post(optiProDashboardAPIURL +"ProductionDashboard/GetResourceData",jObject,this.httpOptions);
 } 
 
+
+GetCompletedQtyDetails(optiProDashboardAPIURL:string,CompanyDBID:string,WONumber:string):Observable<any>{
+  let jObject:any={ GetData: JSON.stringify([{ 
+    CompanyDBID: CompanyDBID,
+    WONumber: WONumber
+    
+}]) };
+return this.httpClient.post(optiProDashboardAPIURL +"ProductionDashboard/GetCompletedQtyDetails",jObject,this.httpOptions);
+} 
+
+GetIssuedQtyDetails(optiProDashboardAPIURL:string,CompanyDBID:string,ItemCode:string):Observable<any>{
+  let jObject:any={ GetData: JSON.stringify([{ 
+    CompanyDBID: CompanyDBID,
+    ItemCode: ItemCode
+    
+}]) };
+return this.httpClient.post(optiProDashboardAPIURL +"ProductionDashboard/GetIssuedQtyDetails",jObject,this.httpOptions);
+} 
+
+GetOnOrderQtyDetails(optiProDashboardAPIURL:string,CompanyDBID:string,ItemCode:string):Observable<any>{
+  let jObject:any={ GetData: JSON.stringify([{ 
+    CompanyDBID: CompanyDBID,
+    ItemCode: ItemCode
+    
+}]) };
+return this.httpClient.post(optiProDashboardAPIURL +"ProductionDashboard/GetOnOrderQtyDetails",jObject,this.httpOptions);
+} 
+
+GetWarehouseWiseOnOrderQtyDetails(optiProDashboardAPIURL:string,CompanyDBID:string,ItemCode:string,Warehouse:string):Observable<any>{
+  let jObject:any={ GetData: JSON.stringify([{ 
+    CompanyDBID: CompanyDBID,
+    ItemCode: ItemCode,
+    Warehouse: Warehouse    
+}]) };
+return this.httpClient.post(optiProDashboardAPIURL +"ProductionDashboard/GetWarehouseWiseOnOrderQtyDetails",jObject,this.httpOptions);
+}
+
+GetWarehouseWiseInStockQtyDetails(optiProDashboardAPIURL:string,CompanyDBID:string,ItemCode:string,Warehouse:string,ItemType:string):Observable<any>{
+  let jObject:any={ GetData: JSON.stringify([{ 
+    CompanyDBID: CompanyDBID,
+    ItemCode: ItemCode,
+    Warehouse: Warehouse,
+    ItemType:ItemType    
+}]) };
+return this.httpClient.post(optiProDashboardAPIURL +"ProductionDashboard/GetWarehouseWiseInStockQtyDetails",jObject,this.httpOptions);
+}
+
+GetInStockQtyDetails(optiProDashboardAPIURL:string,CompanyDBID:string,ItemCode:string,Warehouse:string,ItemType:string):Observable<any>{
+  let jObject:any={ GetData: JSON.stringify([{ 
+    CompanyDBID: CompanyDBID,
+    ItemCode: ItemCode,
+    Warehouse: Warehouse,
+    ItemType: ItemType    
+}]) };
+return this.httpClient.post(optiProDashboardAPIURL +"ProductionDashboard/GetInStockQtyDetails",jObject,this.httpOptions);
+}
+
 }
