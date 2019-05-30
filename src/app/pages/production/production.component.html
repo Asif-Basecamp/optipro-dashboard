@@ -240,12 +240,12 @@
                       </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-rowNode let-rowNodeIndex="rowNodeIndex"  let-rowData="rowData">
-                        <tr [ttRow]="rowNode">
+                        <tr [ttRow]="rowNode" (click)="ItemRowSelect(rowData)">
                             <td>
-                                <p-treeTableToggler [rowNode]="rowNode" (click)="ItemRowSelect()"></p-treeTableToggler>
+                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                                 {{rowData.ItemCode}}
                             </td>
-                            <td>2</td>
+                            <td>{{rowData.OnHand}}</td>
                             <td>{{rowData.IsCommited}}</td>
                             <td>{{rowData.OnOrder}}</td>
                             <td>{{rowData.AVAILABLE}}</td>
@@ -646,29 +646,29 @@
                             </kendo-grid-column>      
                             <kendo-grid-column field="U_O_RESDESC" title="Description" width="78">
                             </kendo-grid-column>
-                            <kendo-grid-column field="U_O_RESTYPE" title="Resource Type" width="96">
+                            <kendo-grid-column field="RESOURCE_TYPE" title="Resource Type" width="96">
                             </kendo-grid-column>
-                            <kendo-grid-column field="ItemName" title="No of Resource" width="100">
+                            <kendo-grid-column field="NO_OF_RESOURCES" title="No of Resource" width="100">
                             </kendo-grid-column>
-                            <kendo-grid-column field="ItemName" title="Usage Per BOM Qty." width="124">
+                            <kendo-grid-column field="USAGE_PER_BOM_QTY" title="Usage Per BOM Qty." width="124">
                             </kendo-grid-column>
-                            <kendo-grid-column field="ItemCode" title="Usage Basis" width="83">
+                            <kendo-grid-column field="USAGE_BASIS" title="Usage Basis" width="83">
                             </kendo-grid-column>      
-                            <kendo-grid-column field="ItemName" title="Total Usage" width="81">
+                            <kendo-grid-column field="TOTAL_USAGE" title="Total Usage" width="81">
                             </kendo-grid-column>
-                            <kendo-grid-column field="ItemName" title="Balance Usage" width="97">
+                            <kendo-grid-column field="BAL_USAGE" title="Balance Usage" width="97">
                             </kendo-grid-column>
-                            <kendo-grid-column field="ItemName" title="Actual Usage" width="88">
+                            <kendo-grid-column field="ACTUAL_USAGE" title="Actual Usage" width="88">
                             </kendo-grid-column>
-                            <kendo-grid-column field="ItemName" title="Planned Resource" width="114">
+                            <kendo-grid-column field="PLANNED_RESOURCE" title="Planned Resource" width="114">
                             </kendo-grid-column>
-                            <kendo-grid-column field="U_O_CONSTYPE" title="Consumption Type" width="118">
+                            <kendo-grid-column field="CONSUMPTION_TYPE" title="Consumption Type" width="118">
                             </kendo-grid-column>      
                             <kendo-grid-column field="U_O_WC_ID" title="Work Center Code" width="114">
                             </kendo-grid-column>
                             <kendo-grid-column field="U_O_UOM" title="UOM" width="44">
                             </kendo-grid-column>
-                            <kendo-grid-column field="U_O_ISSTOOPER" title="Operation #" width="80">
+                            <kendo-grid-column field="OPERATION" title="Operation #" width="80">
                             </kendo-grid-column>         
                           </kendo-grid>
                         </div>

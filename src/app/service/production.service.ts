@@ -89,10 +89,11 @@ GetCompletedQtyDetails(optiProDashboardAPIURL:string,CompanyDBID:string,WONumber
 return this.httpClient.post(optiProDashboardAPIURL +"ProductionDashboard/GetCompletedQtyDetails",jObject,this.httpOptions);
 } 
 
-GetIssuedQtyDetails(optiProDashboardAPIURL:string,CompanyDBID:string,ItemCode:string):Observable<any>{
+GetIssuedQtyDetails(optiProDashboardAPIURL:string,CompanyDBID:string,ItemCode:string,DocEntry:string):Observable<any>{
   let jObject:any={ GetData: JSON.stringify([{ 
     CompanyDBID: CompanyDBID,
-    ItemCode: ItemCode
+    ItemCode: ItemCode,
+    DocEntry:DocEntry
     
 }]) };
 return this.httpClient.post(optiProDashboardAPIURL +"ProductionDashboard/GetIssuedQtyDetails",jObject,this.httpOptions);

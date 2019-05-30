@@ -117,7 +117,7 @@ export interface TreeNode {
  }
 
  showDetailsIssuedLookup(data){
-   this.prod.GetIssuedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID).subscribe(
+   this.prod.GetIssuedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID,data.DocEntry).subscribe(
      data => {
        console.log("GetIssued - ");
        console.log(data);
@@ -169,7 +169,7 @@ export interface TreeNode {
  }
 
   ItemRowSelect(itemName){
-    this.getWorkOrder(itemName);
+    this.getWorkOrder(itemName.ItemCode);
   }
 
    
