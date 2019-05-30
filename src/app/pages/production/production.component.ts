@@ -7,6 +7,24 @@
  import { ProductionService } from 'src/app/service/production.service';
  import {NbToastrService} from '@nebular/theme';
  
+ export interface TreeNode {
+  label?: string;
+  data?: any;
+  icon?: any;
+  expandedIcon?: any;
+  collapsedIcon?: any;
+  children?: TreeNode[];
+  leaf?: boolean;
+  expanded?: boolean;
+  type?: string;
+  parent?: TreeNode;
+  partialSelected?: boolean;
+  styleClass?: string;
+  draggable?: boolean;
+  droppable?: boolean;
+  selectable?: boolean;
+}
+
  @Component({
   selector: 'ngx-production',
   styleUrls: ['./production.component.scss'],
@@ -25,27 +43,45 @@
    public lookUpHeading: any;
    public gridData: any[];
    public gridViewData: any[];
+   public gridWOFG: any[];
+   public gridMaterial: any[];
+   public gridOperation: any[];
+   public gridResource: any[];   
    public ItemFrom: boolean = false;
    public ItemTo: boolean = false; 
    public ItemCodeFrom: any = '';
    public ItemCodeTo: any = '';
    public nodes2: any = [];
+   public RadioBtnWO: any = 'simple';
+   public materialViewOption: any = 'IMMEDIATE';
+   public FromDate: any ;
+   public ToDate: any ;
+   public itemFromStatus:boolean = false;
+   public itemToStatus:boolean = false;
 
+  // FromDate = new Date().toLocaleString();
+   //ToDate = new Date().toLocaleString();
    
+   public tableTreeData: any = [];
+   files2: TreeNode[];
+ 
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
     { value: 'SIMPLE', label: 'Simple View' },
     { value: 'DetailedView', label: 'Detailed View' },
   ];
   viewOption = 'SIMPLE';
-  materialViewOption = 'Show Immediate Components'; 
-
+   
+  
   ngOnInit() { 
    this.language = JSON.parse(window.localStorage.getItem('language'));
    this.arrConfigData = JSON.parse(window.localStorage.getItem('arrConfigData'));   
    this.CompanyDB = JSON.parse(window.localStorage.getItem('CompanyDB'));
+   this.FromDate = new Date().toLocaleString();
+   this.ToDate = new Date().toLocaleString();
+   
    this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
-   eva.replace()
+   eva.replace()   
   }
  
   open(dialog: TemplateRef < any > ) {
@@ -73,6 +109,25 @@
       this.ItemFrom = true;
       this.ItemTo = false;
   }
+
+  onItemFromBlur(){
+    let item = this.ItemCodeFrom;
+    let itemFromArray = [];
+    if(item){
+      for(var i in this.ItemData){
+        if(item === this.ItemData[i].ItemCode){
+          itemFromArray.push(this.ItemData[i]);
+        }
+      }
+      if(itemFromArray.length>0){
+        this.itemFromStatus = false;
+      }else{
+        this.itemFromStatus = true;
+      }
+    }else{
+        this.itemFromStatus = false;
+    } 
+  }
  
   openItemToLookup(dialog: TemplateRef<any>){
     if(!this.ItemData){
@@ -83,6 +138,25 @@
       this.dialogService.open(dialog);
       this.ItemFrom = false;
       this.ItemTo = true;
+  }
+
+  onItemToBlur(){
+    let items = this.ItemCodeTo;
+    let itemToArray = [];
+    if(items){
+      for(var i in this.ItemData){
+        if(items === this.ItemData[i].ItemCode){
+          itemToArray.push(this.ItemData[i]);
+        }
+      }
+      if(itemToArray.length>0){
+        this.itemToStatus = false;
+      }else{
+        this.itemToStatus = true;
+      }
+    }else{
+        this.itemToStatus = false;
+    } 
   }
 
   gridRowSelectionChange(evt, ref) {
@@ -97,36 +171,103 @@
    }
 
    gridRowSelectFG(evt){
-   // evt.selectedRows[0].dataItem.ItemCode
+     let name = evt.selectedRows[0].dataItem.ItemCode;
+     this.getWorkOrder(name);
    }
 
-   getHierarchy(data, parentId){
-    let node = [];
-    data.filter(function(d) {
-     if (d.ParantId == parentId) {
-      return d.ParantId == parentId
-     }
-    }).forEach(function(d) {
-     var cd = d;
-     cd.children = this.getHierarchy(data, d.SeqNo);
-     return node.push(cd);
-    }.bind(this))
-    console.log(JSON.stringify(node));
-    return node;
+   gridRowSelectDocEntry(evt){
+    let docentry = evt.selectedRows[0].dataItem.DocEntry;
+    this.getMaterials(docentry,'');
+  }
+
+   getWorkOrder(itemName){
+
+    this.prod.GetWorkOrderFG(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemName, this.RadioBtnWO,'1,6,4,3', this.FromDate, this.ToDate).subscribe(
+      data => {
+          this.gridWOFG = data;          
+          this.getMaterials(this.gridWOFG[0].DocEntry,this.gridWOFG[0].ItemCode);
+          this.getOperations(this.gridWOFG[0].DocEntry);
+          this.getResources(this.gridWOFG[0].U_O_PRODID);
+      },
+      error => {
+        this.toastrService.danger(this.language.no_record_found);    
+     })
    }
+
+   getMaterials(DocEntry,ItemCode){
+    
+      this.prod.GetMaterialData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry, ItemCode, this.materialViewOption,
+        this.FromDate, this.ToDate, '1,6,4,3').subscribe(
+        data => {
+            this.gridMaterial = data;       
+        },
+        error => {
+          this.toastrService.danger(this.language.no_record_found);    
+      })    
+   }
+
+   getOperations(DocEntry){
+    
+      this.prod.GetOperationData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
+        data => {
+            this.gridOperation = data;       
+            
+        },
+        error => {
+          this.toastrService.danger(this.language.no_record_found);    
+      })    
+   }
+
+   getResources(DocEntry){
+
+    this.prod.GetResourceData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
+      data => {
+          this.gridResource = data;       
+          
+      },
+      error => {
+        this.toastrService.danger(this.language.no_record_found);    
+    })  
+
+   }
+
+   getHierarchy(dataa, Seq){
+    let node = [];
+    dataa.filter(function(d){
+      if(d.data.ParantId == Seq){
+        return d.data.ParantId == Seq
+      }
+    }).forEach(function(d){
+     var cd = d;
+     cd.children = this.getHierarchy(dataa, d.data.SeqNo);
+     return node.push(cd);
+   }.bind(this))
+    return node;
+  }
 
    GetExplosionData() {
-    this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, '01', this.ItemCodeFrom, this.ItemCodeTo, this.viewOption).subscribe(
+
+  //  this.FromDate = new Date().toLocaleString();
+  //  this.ToDate = new Date().toLocaleString();
+    
+    this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemCodeFrom, this.ItemCodeTo, this.viewOption, this.FromDate, this.ToDate).subscribe(
       data => {
-        console.log(JSON.stringify(data));
         this.gridViewData = data;
-        this.nodes2 = this.getHierarchy(data, '-1');
+        let Arr = [];
+        if(this.gridViewData){
+        for(var i=0; i<this.gridViewData.length; i++){
+         if(this.gridViewData[i]){
+             Arr.push({data : this.gridViewData[i]});
+         }
+        } 
+        }
+        this.nodes2 = this.getHierarchy(Arr, '-1');
+        this.files2 = this.nodes2;
       },
       error => {
         this.toastrService.danger(this.language.no_record_found);    
       })
-    
-   }
+    }
 
   //Search criteria expand-shrink function  
   searchCriteriaToggle(event) {
@@ -217,3 +358,4 @@
    e.currentTarget.nextSibling.style = '';
   }
  }
+ 
