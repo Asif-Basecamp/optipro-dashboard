@@ -184,6 +184,33 @@ export interface TreeNode {
   }
 
    
+  // multiple checkbox selection criteria 
+  checkUncheckAll() {
+    for (var i = 0; i < this.checklist.length; i++) {
+      this.checklist[i].isSelected = this.masterSelected;
+    }
+    this.getCheckedItemList();
+  }
+  
+  isAllSelected() {
+    this.masterSelected = this.checklist.every(function(item:any) {
+        return item.isSelected == true;
+      })
+    this.getCheckedItemList();
+  }
+  
+  getCheckedItemList(){
+    this.checkedList = [];
+    for (var i = 0; i < this.checklist.length; i++) {
+      if(this.checklist[i].isSelected)
+      this.checkedList.push(this.checklist[i].value);
+    }
+    if(this.checkedList.length<=0){
+      this.checkboxStatus =  true;
+    }else{
+      this.checkboxStatus =  false;
+    }
+  } 
 
    getWorkOrder(itemName){
     this.loading = true; 
@@ -382,37 +409,8 @@ export interface TreeNode {
    }.bind(this))
     return node;
   }
-  
-  // multiple checkbox selection criteria 
-  checkUncheckAll() {
-    for (var i = 0; i < this.checklist.length; i++) {
-      this.checklist[i].isSelected = this.masterSelected;
-    }
-    this.getCheckedItemList();
-  }
-  
-  isAllSelected() {
-    this.masterSelected = this.checklist.every(function(item:any) {
-        return item.isSelected == true;
-      })
-    this.getCheckedItemList();
-  }
-  
-  getCheckedItemList(){
-    this.checkedList = [];
-    for (var i = 0; i < this.checklist.length; i++) {
-      if(this.checklist[i].isSelected)
-      this.checkedList.push(this.checklist[i].value);
-    }
-    if(this.checkedList.length<=0){
-      this.checkboxStatus =  true;
-    }else{
-      this.checkboxStatus =  false;
-    }
-  }
 
    GetExplosionData() {
-
     if(this.viewOption == "SIMPLE")
       this.showView = 'simple';
          
