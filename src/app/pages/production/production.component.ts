@@ -61,10 +61,13 @@ export interface TreeNode {
    showLookup: boolean = false;
    public itemFromStatus:boolean = false;
    public itemToStatus:boolean = false;
+   loading = false;
+   loadingFG = false;
    public showView: any = '';
    public showMaterialView: any = '';
    public tableTreeData: any = [];
    files2: TreeNode[];
+   
  
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
@@ -172,14 +175,19 @@ export interface TreeNode {
    
 
    getWorkOrder(itemName){
-
+    this.loading = true; 
     this.prod.GetWorkOrderFG(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemName, this.RadioBtnWO,'1,6,4,3', this.FromDate, this.ToDate).subscribe(
       data => {
-        console.log(data);
-          this.gridWOFG = data; 
-          this.getMaterials(this.gridWOFG[0].DocEntry,this.gridWOFG[0].U_O_PRODID);
-          this.getOperations(this.gridWOFG[0].DocEntry);
-          this.getResources(this.gridWOFG[0].U_O_PRODID);
+        console.log(data);       
+          if(!data){
+            this.loading = false;
+           }else{
+            this.loading = false;
+            this.gridWOFG = data; 
+            this.getMaterials(this.gridWOFG[0].DocEntry,this.gridWOFG[0].U_O_PRODID);
+            this.getOperations(this.gridWOFG[0].DocEntry);
+            this.getResources(this.gridWOFG[0].U_O_PRODID);
+           }
       },
       error => {
         this.toastrService.danger(this.language.no_record_found);    
@@ -375,24 +383,30 @@ export interface TreeNode {
          
     else 
       this.showView = 'detail'; 
-   
+
+    this.loading = true;   
     this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemCodeFrom, this.ItemCodeTo, this.viewOption, this.FromDate, this.ToDate).subscribe(
       data => {
-        this.gridViewData = data;
-        if(data.length > 0){
-          let Arr = [];
-          for(var i=0; i<this.gridViewData.length; i++){
-           if(this.gridViewData[i]){
-               Arr.push({data : this.gridViewData[i]});
-           }
-          } 
-          this.nodes2 = this.getHierarchy(Arr, '-1');
-          this.files2 = this.nodes2;
-        }
-        else {
-         // this.toastrService.danger(this.language.no_record_found);    
-        }
-        
+         if(!data){
+            this.loading = false;
+           // this.toastrService.danger('No Record Found');
+          }else{
+            this.gridViewData = data;
+            this.loading = false;
+            if(data.length > 0){
+              let Arr = [];
+              for(var i=0; i<this.gridViewData.length; i++){
+               if(this.gridViewData[i]){
+                   Arr.push({data : this.gridViewData[i]});
+               }
+              } 
+              this.nodes2 = this.getHierarchy(Arr, '-1');
+              this.files2 = this.nodes2;
+            }
+            else {
+             // this.toastrService.danger(this.language.no_record_found);    
+            }
+          }  
       },
       error => {
         this.toastrService.danger(this.language.no_record_found);    
@@ -415,6 +429,7 @@ export interface TreeNode {
     this.searchCriteria = true;
    }
   }
+
   searchCriteriaExpand() {
    if (this.searchCriteria && document.getElementById("dashboard-left").classList.contains('shrink')) {
     document.getElementById("dashboard-left").classList.remove('shrink');
