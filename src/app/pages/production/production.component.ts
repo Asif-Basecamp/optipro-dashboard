@@ -61,9 +61,12 @@ export class ProductionComponent implements OnInit {
   showLookup: boolean = false;
   public itemFromStatus:boolean = false;
   public itemToStatus:boolean = false;
-  loading = false;
-  loadingFG = false;
+  public checkboxStatus:boolean = true;
 
+  loading = false;
+  masterSelected:boolean;
+  checklist:any;
+  checkedList:any;
 
   public tableTreeData: any = [];
   files2: TreeNode[];
@@ -82,10 +85,47 @@ export class ProductionComponent implements OnInit {
   this.CompanyDB = JSON.parse(window.localStorage.getItem('CompanyDB'));
   this.FromDate = new Date();
   this.ToDate = new Date();
+
+  this.masterSelected = false;
+  this.checklist = [
+    {id:1, name:'In Process', value: '6', isSelected:false},
+    {id:2, name:'New', value: '1', isSelected:false},
+    {id:3, name:'Close', value: '4', isSelected:false},
+    {id:4, name:'Cancel', value: '3', isSelected:false}
+  ];
+ 
+  this.getCheckedItemList();
   
   this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
   eva.replace()   
  }
+
+ checkUncheckAll() {
+  for (var i = 0; i < this.checklist.length; i++) {
+    this.checklist[i].isSelected = this.masterSelected;
+  }
+  this.getCheckedItemList();
+}
+
+isAllSelected() {
+  this.masterSelected = this.checklist.every(function(item:any) {
+      return item.isSelected == true;
+    })
+  this.getCheckedItemList();
+}
+
+getCheckedItemList(){
+  this.checkedList = [];
+  for (var i = 0; i < this.checklist.length; i++) {
+    if(this.checklist[i].isSelected)
+    this.checkedList.push(this.checklist[i].value);
+  }
+  if(this.checkedList.length<=0){
+    this.checkboxStatus =  true;
+  }else{
+    this.checkboxStatus =  false;
+  }
+}
 
  open(dialog: TemplateRef < any > ) {
   this.dialogService.open(dialog);
@@ -107,8 +147,6 @@ export class ProductionComponent implements OnInit {
  showDetailCompleteLookup(data){
    this.prod.GetCompletedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_ORDRNO).subscribe(
      data => {
-       console.log("GetCompleted - ");
-       console.log(data);
        this.showLookup = true;
        this.serviceApiData = data;
        this.lookupfor = "showCompleteLookup";
@@ -121,8 +159,6 @@ export class ProductionComponent implements OnInit {
  showDetailsIssuedLookup(data){
    this.prod.GetIssuedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID).subscribe(
      data => {
-       console.log("GetIssued - ");
-       console.log(data);
        this.showLookup = true;
        this.serviceApiData = data;
        this.lookupfor = "showIssuedLookup";
@@ -144,8 +180,6 @@ export class ProductionComponent implements OnInit {
    if(check == 'WH'){
      this.prod.GetWarehouseWiseInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID, data.U_O_ISSWH,ItemType).subscribe(
        data => {
-         console.log("GetOnOrder - ");
-         console.log(data);
          this.showLookup = true;
          this.serviceApiData = data;
          this.lookupfor = "showIssuedLookup";
@@ -157,8 +191,6 @@ export class ProductionComponent implements OnInit {
    else  if(check == 'CP'){
      this.prod.GetInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID, data.U_O_ISSWH,ItemType).subscribe(
        data => {
-         console.log("GetOnOrder - ");
-         console.log(data);
          this.showLookup = true;
          this.serviceApiData = data;
          this.lookupfor = "showIssuedLookup";
@@ -175,8 +207,6 @@ export class ProductionComponent implements OnInit {
      
      this.prod.GetWarehouseWiseOnOrderQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID, data.U_O_ISSWH).subscribe(
        data => {
-         console.log("GetOnOrder - ");
-         console.log(data);
          this.showLookup = true;
          this.serviceApiData = data;
          this.lookupfor = "showOnOrderLookup";
@@ -189,8 +219,6 @@ export class ProductionComponent implements OnInit {
    else if(check == 'CP'){
      this.prod.GetOnOrderQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID).subscribe(
        data => {
-         console.log("GetOnOrder - ");
-         console.log(data);
          this.showLookup = true;
          this.serviceApiData = data;
          this.lookupfor = "showOnOrderLookup";
@@ -264,7 +292,6 @@ export class ProductionComponent implements OnInit {
 
  gridRowSelectionChange(evt, ref) {
    if (this.ItemFrom) {
-    //this.dataGridSelectNum = evt.selectedRows[0].index;
     this.ItemCodeFrom = evt.selectedRows[0].dataItem.ItemCode;
    }
    else if (this.ItemTo) {
@@ -303,25 +330,6 @@ export class ProductionComponent implements OnInit {
     })
   }
 
-  getLookupValue($event) {
-
- }
-
- //  getPopUp1(wono){
- //   this.prod.GetCompletedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, wono).subscribe(
- //     data => {
- //       console.log("GetCompleted - ");
- //       console.log(data);
- //       this.showLookup = true;
- //       this.serviceApiData = data;
- //       this.lookupfor = "showCompleteLookup";
- //     },
- //     error => {
- //       this.toastrService.danger(this.language.no_record_found);    
- //    })
-
- //  }
-
   getPopUp2(ItemCode){
    this.prod.GetIssuedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, ItemCode).subscribe(
      data => {
@@ -354,7 +362,6 @@ export class ProductionComponent implements OnInit {
          console.log(data);
            this.gridMaterial = data; 
            this.getPopUp2(this.gridMaterial[0].U_O_COMPID);
-           //this.getPopUp3(this.gridMaterial[0].U_O_COMPID);
            this.getPopUp3('Bearing_B');
            
        },
@@ -403,11 +410,11 @@ export class ProductionComponent implements OnInit {
 
   GetExplosionData() {
     this.loading = true;
+    console.log(this.checkedList);
      this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemCodeFrom, this.ItemCodeTo, this.viewOption, this.FromDate, this.ToDate).subscribe(
      data => {
       if(!data){
         this.loading = false;
-       // this.toastrService.danger('No Record Found');
       }else{
         this.gridViewData = data;
         this.loading = false;

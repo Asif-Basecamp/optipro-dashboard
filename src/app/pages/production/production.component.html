@@ -72,25 +72,16 @@
 
             <div class="form-group mt-3 px-0 d-flex flex-wrap">
               <div class="k-form-field pr-4 pb-2">
-                <input type="checkbox" id="all" class="k-checkbox" name="WO_Status" />
-                <label class="k-checkbox-label" for="all">All</label>
-              </div>
-              <div class="k-form-field pr-4 pb-2">
-                <input type="checkbox" id="in_Progress" class="k-checkbox" name="WO_Status" />
-                <label class="k-checkbox-label" for="in_Progress">In Progress</label>
-              </div>
-              <div class="k-form-field pr-4 pb-2">
-                <input type="checkbox" id="new" class="k-checkbox" name="WO_Status" />
-                <label class="k-checkbox-label" for="new">New</label>
-              </div>
-              <div class="k-form-field pr-4 pb-2">
-                <input type="checkbox" id="close" class="k-checkbox" name="WO_Status" />
-                <label class="k-checkbox-label" for="close">Close</label>
-              </div>
-              <div class="k-form-field">
-                <input type="checkbox" id="cancel" class="k-checkbox" name="WO_Status" />
-                <label class="k-checkbox-label" for="cancel">Cancel</label>
-              </div>
+                  <input type="checkbox" id="all" class="k-checkbox" name="WO_Status" [(ngModel)]="masterSelected" (change)="checkUncheckAll()"
+                  />
+                  <label class="k-checkbox-label" for="all">All</label>
+                </div>
+                <div class="k-form-field pr-4 pb-2" *ngFor="let item of checklist">
+                  <input type="checkbox" id="{{item.id}}" class="k-checkbox" [(ngModel)]="item.isSelected" name="list_name" value="{{item.id}}" (change)="isAllSelected()"/>
+
+                  <label class="k-checkbox-label" for="{{item.id}}">{{item.name}}</label>
+                </div>
+                <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="checkboxStatus" class="float-right opti_error-msg">Select at least one WO status</small>
             </div> 
           </form>
         </div>
@@ -108,7 +99,7 @@
 
     </nb-card-body>
     <nb-card-footer class="text-center py-2">
-      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small" (click)="GetExplosionData($event)" [disabled]="!criteriaForm.form.valid || (itemFromStatus || itemToStatus)">Process <i
+      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small" (click)="GetExplosionData($event)" [disabled]="!criteriaForm.form.valid || (itemFromStatus || itemToStatus || checkboxStatus)">Process <i
           data-eva="arrow-forward" data-eva-height="18" data-eva-width="18" data-eva-fill="#fff"
           class="ml-2"></i></button>
     </nb-card-footer>
