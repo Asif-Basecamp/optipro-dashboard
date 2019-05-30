@@ -17,7 +17,7 @@ import { ColumnSetting } from 'src/app/Data/CommonData';
 @Component({
   selector: 'app-lookup',
   templateUrl: './lookup.component.html',
-  // styleUrls: ['./lookup.component.scss']
+  styleUrls: ['./lookup.component.scss']
 })
 export class LookupComponent implements OnInit {
   @ViewChild("lookupsearch") _el: ElementRef;
@@ -58,6 +58,9 @@ export class LookupComponent implements OnInit {
     } else {
       this.dialogOpened = false;
     }
+  }
+  close_dialog() {
+    this.dialogOpened = false;
   }
   public state: State = {
     skip: 0,

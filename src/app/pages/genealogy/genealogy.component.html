@@ -74,7 +74,7 @@
                   </div>
                 </div>
               </div>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="LotFromStatus && LotF.touched" class="float-right opti_error-msg">{{language.correct_lot_from}}</small>
+              <small id="emailHelp" class="form-text text-muted opti_error-msg text-right" *ngIf="LotFromStatus && LotF.touched">{{language.correct_lot_from}}</small>
             </div>
             
             <div class="form-group">
@@ -276,7 +276,7 @@
                 </tree-root>
               </div>
             </div>
-            <div class="col-sm-8 pt-3 overflow-auto h-100">
+            <div class="col-sm-8 pt-2 overflow-auto h-100">
               <nb-card>
                 <nb-card-body>
                   <nb-radio-group class="d-flex" [(ngModel)]="radioTransaction" name="radioTransaction">
@@ -290,7 +290,7 @@
                 </nb-card-body>
               </nb-card>
 
-              <nb-card class="mb-4">
+              <nb-card class="mb-2">
                 <nb-card-header>{{language.transaction_type}}</nb-card-header>
                 <nb-card-body>
                   <!--<tree-root id="tree2" [focused]="true" [nodes]="nodes1" (click)="clickTransactionDetails($event)">

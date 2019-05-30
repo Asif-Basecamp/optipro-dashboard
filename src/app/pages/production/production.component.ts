@@ -429,6 +429,7 @@ export class ProductionComponent implements OnInit {
      error => {
        this.toastrService.danger(this.language.no_record_found);    
      })
+     this.searchCriteriaToggle(event);
    }
 
  //Search criteria expand-shrink function  
