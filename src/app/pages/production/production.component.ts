@@ -70,8 +70,7 @@ export interface TreeNode {
    masterSelected:boolean;
    checklist:any;
    checkedList:any;
-   
- 
+  
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
     { value: 'SIMPLE', label: 'Simple View' },
@@ -214,7 +213,7 @@ export interface TreeNode {
 
    getWorkOrder(itemName){
     this.loading = true; 
-    this.prod.GetWorkOrderFG(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemName, this.RadioBtnWO,'1,6,4,3', this.FromDate, this.ToDate).subscribe(
+    this.prod.GetWorkOrderFG(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemName, this.RadioBtnWO, "'"+this.checkedList.toString()+"'", this.FromDate, this.ToDate).subscribe(
       data => {
         console.log(data);       
           if(!data){
@@ -359,7 +358,7 @@ export interface TreeNode {
       this.showMaterialView = 'all';
         
       this.prod.GetMaterialData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry, ItemCode, this.materialViewOption,
-        this.FromDate, this.ToDate, '1,6,4,3').subscribe(
+        this.FromDate, this.ToDate, "'"+this.checkedList.toString()+"'").subscribe(
         data => {
           console.log(data);
             this.gridMaterial = data; 
