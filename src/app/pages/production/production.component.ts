@@ -61,12 +61,15 @@ export interface TreeNode {
    showLookup: boolean = false;
    public itemFromStatus:boolean = false;
    public itemToStatus:boolean = false;
+   public checkboxStatus:boolean = true;
    loading = false;
-   loadingFG = false;
    public showView: any = '';
    public showMaterialView: any = '';
    public tableTreeData: any = [];
    files2: TreeNode[];
+   masterSelected:boolean;
+   checklist:any;
+   checkedList:any;
    
  
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
@@ -82,7 +85,15 @@ export interface TreeNode {
    this.CompanyDB = JSON.parse(window.localStorage.getItem('CompanyDB'));
    this.FromDate = new Date();
    this.ToDate = new Date();
-   
+   this.masterSelected = false;
+   this.checklist = [
+     {id:1, name:'In Process', value: '6', isSelected:false},
+     {id:2, name:'New', value: '1', isSelected:false},
+     {id:3, name:'Close', value: '4', isSelected:false},
+     {id:4, name:'Cancel', value: '3', isSelected:false}
+   ];
+  
+   this.getCheckedItemList();
    this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
    eva.replace()   
   }
@@ -173,6 +184,33 @@ export interface TreeNode {
   }
 
    
+  // multiple checkbox selection criteria 
+  checkUncheckAll() {
+    for (var i = 0; i < this.checklist.length; i++) {
+      this.checklist[i].isSelected = this.masterSelected;
+    }
+    this.getCheckedItemList();
+  }
+  
+  isAllSelected() {
+    this.masterSelected = this.checklist.every(function(item:any) {
+        return item.isSelected == true;
+      })
+    this.getCheckedItemList();
+  }
+  
+  getCheckedItemList(){
+    this.checkedList = [];
+    for (var i = 0; i < this.checklist.length; i++) {
+      if(this.checklist[i].isSelected)
+      this.checkedList.push(this.checklist[i].value);
+    }
+    if(this.checkedList.length<=0){
+      this.checkboxStatus =  true;
+    }else{
+      this.checkboxStatus =  false;
+    }
+  } 
 
    getWorkOrder(itemName){
     this.loading = true; 
@@ -371,13 +409,8 @@ export interface TreeNode {
    }.bind(this))
     return node;
   }
-  
-  getLookupValue($event) {
-
- }
 
    GetExplosionData() {
-
     if(this.viewOption == "SIMPLE")
       this.showView = 'simple';
          
