@@ -58,7 +58,10 @@
    public ToDate: any ;
    public itemFromStatus:boolean = false;
    public itemToStatus:boolean = false;
-
+   public selected:boolean = true;
+   public checkboxValue: any;
+   public checkboxStatus:boolean = false;
+   public arr = [];
   // FromDate = new Date().toLocaleString();
    //ToDate = new Date().toLocaleString();
    
@@ -79,9 +82,28 @@
    this.CompanyDB = JSON.parse(window.localStorage.getItem('CompanyDB'));
    this.FromDate = new Date().toLocaleString();
    this.ToDate = new Date().toLocaleString();
-   
+   this.checkCheckBoxvalue(true, ["0","1","3","4","6"]);
    this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
    eva.replace()   
+  }
+
+  checkCheckBoxvalue(e, value){
+    console.log(value);
+    if(e == true && value){
+        this.arr.push(value);
+    }else if(e == false && value){
+      const index: number = this.arr.indexOf(value);
+      if (index !== -1) {
+          this.arr.splice(index, 1);
+      }     
+  } 
+  //console.log(this.arr);
+     /* if(value && value == '0'){
+        this.checkboxValue = [0,1,3,4,6];
+      }else{
+        this.checkboxValue = value;
+      }
+      this.checkboxStatus = false;*/
   }
  
   open(dialog: TemplateRef < any > ) {

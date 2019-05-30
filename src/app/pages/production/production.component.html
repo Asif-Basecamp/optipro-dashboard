@@ -79,12 +79,14 @@
             </fieldset>-->
 
             <fieldset class="form-group px-0">
-                <nb-checkbox [value]="true">All</nb-checkbox>
-                <nb-checkbox>In Progress</nb-checkbox>
-                <nb-checkbox>New</nb-checkbox>
-                <nb-checkbox>Close</nb-checkbox>
-                <nb-checkbox>Cancel</nb-checkbox>
-            </fieldset>  
+                <nb-checkbox (change)="checkCheckBoxvalue($event.returnValue,'0')" [value]="selected">All</nb-checkbox>
+                <nb-checkbox (change)="checkCheckBoxvalue($event.returnValue,'6')" [value]="selected">In Progress</nb-checkbox>
+                <nb-checkbox (change)="checkCheckBoxvalue($event.returnValue,'1')" [value]="selected">New</nb-checkbox>
+                <nb-checkbox (change)="checkCheckBoxvalue($event.returnValue,'4')" [value]="selected">Close</nb-checkbox>
+                <nb-checkbox (change)="checkCheckBoxvalue($event.returnValue,'3')" [value]="selected">Cancel</nb-checkbox>
+                <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="checkboxStatus" class="float-right opti_error-msg">Select at least one checkbox</small>
+            </fieldset>
+  
           </form>
         </div>
       </div>
@@ -101,7 +103,7 @@
 
     </nb-card-body>
     <nb-card-footer class="text-center py-2">
-      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small" (click)="GetExplosionData($event)" [disabled]="!criteriaForm.form.valid || (itemFromStatus || itemToStatus)">Process <i
+      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small" (click)="GetExplosionData($event)" [disabled]="!criteriaForm.form.valid || (itemFromStatus || itemToStatus || checkboxStatus)">Process <i
           data-eva="arrow-forward" data-eva-height="18" data-eva-width="18" data-eva-fill="#fff"
           class="ml-2"></i></button>
     </nb-card-footer>
