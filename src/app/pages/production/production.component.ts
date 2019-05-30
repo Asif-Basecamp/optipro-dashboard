@@ -50,7 +50,7 @@
    public gridOperation: any[];
    public gridResource: any[];   
    public ItemFrom: boolean = false;
-   public ItemTo: boolean = false; ks
+   public ItemTo: boolean = false; 
    public ItemCodeFrom: any = '';
    public ItemCodeTo: any = '';
    public nodes2: any = [];
@@ -59,6 +59,9 @@
    public FromDate: any ;
    public ToDate: any ;
    showLookup: boolean = false;
+   public itemFromStatus:boolean = false;
+   public itemToStatus:boolean = false;
+
   // FromDate = new Date().toLocaleString();
    //ToDate = new Date().toLocaleString();
    
@@ -209,6 +212,25 @@
       this.ItemFrom = true;
       this.ItemTo = false;
   }
+
+  onItemFromBlur(){
+    let item = this.ItemCodeFrom;
+    let itemFromArray = [];
+    if(item){
+      for(var i in this.ItemData){
+        if(item === this.ItemData[i].ItemCode){
+          itemFromArray.push(this.ItemData[i]);
+        }
+      }
+      if(itemFromArray.length>0){
+        this.itemFromStatus = false;
+      }else{
+        this.itemFromStatus = true;
+      }
+    }else{
+        this.itemFromStatus = false;
+    } 
+  }
  
   openItemToLookup(dialog: TemplateRef<any>){
     if(!this.ItemData){
@@ -219,6 +241,25 @@
       this.dialogService.open(dialog);
       this.ItemFrom = false;
       this.ItemTo = true;
+  }
+
+  onItemToBlur(){
+    let items = this.ItemCodeTo;
+    let itemToArray = [];
+    if(items){
+      for(var i in this.ItemData){
+        if(items === this.ItemData[i].ItemCode){
+          itemToArray.push(this.ItemData[i]);
+        }
+      }
+      if(itemToArray.length>0){
+        this.itemToStatus = false;
+      }else{
+        this.itemToStatus = true;
+      }
+    }else{
+        this.itemToStatus = false;
+    } 
   }
 
   gridRowSelectionChange(evt, ref) {
@@ -309,9 +350,9 @@
         data => {
           console.log(data);
             this.gridMaterial = data; 
-            this.getPopUp2(this.gridMaterial[0].U_O_COMPID);
+           // this.getPopUp2(this.gridMaterial[0].U_O_COMPID);
             //this.getPopUp3(this.gridMaterial[0].U_O_COMPID);
-            this.getPopUp3('Bearing_B');
+           // this.getPopUp3('Bearing_B');
             
         },
         error => {
@@ -323,7 +364,6 @@
     
       this.prod.GetOperationData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
         data => {
-          console.log(data);
             this.gridOperation = data;       
             
         },
@@ -336,7 +376,6 @@
 
     this.prod.GetResourceData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
       data => {
-        console.log(data);
           this.gridResource = data;       
           
       },
@@ -384,8 +423,7 @@
       error => {
         this.toastrService.danger(this.language.no_record_found);    
       })
-    
-   }
+    }
 
   //Search criteria expand-shrink function  
   searchCriteriaToggle(event) {
