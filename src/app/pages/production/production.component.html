@@ -6,7 +6,7 @@
       <span>{{language.selection_criteria}}</span>
     </nb-card-header>
 
-    <nb-card-body id="selection-criteria-body" class="pt-0 d-flex justify-content-between flex-direction-column">
+    <nb-card-body id="selection-criteria-body" class="pt-0 justify-content-between flex-direction-column">
       <div class="row">
         <div class="col-sm-12">
           <form #criteriaForm="ngForm">
@@ -282,7 +282,7 @@
                 </nb-radio-group>
               </div>
 
-              <div class="mt-4">
+              <div class="mt-2">
                 <kendo-grid [kendoGridBinding]="gridWOFG" [selectable]="selectableSettings" [filterable]=isColumnFilter
                   [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                   (selectionChange)="gridRowSelectDocEntry($event)"
@@ -684,9 +684,9 @@
       </nb-card>
     </div>
   </div>
-  <span *ngIf="showLookup">
+  <div *ngIf="showLookup">
       <app-lookup [lookupfor]='lookupfor' [serviceData]='serviceApiData' (lookupvalue)="getLookupValue($event)"></app-lookup>
-  </span>
+  </div>
 </div>
 
 

@@ -32,7 +32,11 @@
 .k-grid.k-display-block {
   display: block
 }
-
+ul.k-pager-numbers.k-reset {
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
 .k-grid .k-grid-container {
   display: -ms-flexbox;
   display: flex;
@@ -1282,7 +1286,7 @@ col.k-sorted,th.k-sorted {
 }
 .k-checkbox:checked + .k-checkbox-label::after {
   border-radius: .25rem;
-  transform:scale(0.75) translateY(-50%);
+  transform:scale(0.75) translateY(-63%);
   color: #fff;
 }
 .k-checkbox:focus + .k-checkbox-label::before {
@@ -1302,7 +1306,7 @@ col.k-sorted,th.k-sorted {
   content: "\e118";
   width: 16px;
   height: 16px;
-  transform: scale(0) translateY(-60%);
+  transform: scale(0) translateY(-63%);
 }
 .k-checkbox-label, .k-radio-label {
   margin: 0;

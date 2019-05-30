@@ -422,7 +422,8 @@
       },
       error => {
         this.toastrService.danger(this.language.no_record_found);    
-      })
+      });
+      this.searchCriteriaToggle(event);
     }
 
   //Search criteria expand-shrink function  
@@ -485,6 +486,7 @@
       filters: []
     };
   }
+
   //Custom accordian function
   customAccordianGrid(e) {
    if (document.getElementById("grid-accordian").classList.contains('expanded')) {
