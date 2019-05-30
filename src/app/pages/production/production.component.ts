@@ -48,7 +48,7 @@
    public gridOperation: any[];
    public gridResource: any[];   
    public ItemFrom: boolean = false;
-   public ItemTo: boolean = false; ks
+   public ItemTo: boolean = false; 
    public ItemCodeFrom: any = '';
    public ItemCodeTo: any = '';
    public nodes2: any = [];
@@ -56,6 +56,9 @@
    public materialViewOption: any = 'IMMEDIATE';
    public FromDate: any ;
    public ToDate: any ;
+   public itemFromStatus:boolean = false;
+   public itemToStatus:boolean = false;
+
   // FromDate = new Date().toLocaleString();
    //ToDate = new Date().toLocaleString();
    
@@ -106,6 +109,25 @@
       this.ItemFrom = true;
       this.ItemTo = false;
   }
+
+  onItemFromBlur(){
+    let item = this.ItemCodeFrom;
+    let itemFromArray = [];
+    if(item){
+      for(var i in this.ItemData){
+        if(item === this.ItemData[i].ItemCode){
+          itemFromArray.push(this.ItemData[i]);
+        }
+      }
+      if(itemFromArray.length>0){
+        this.itemFromStatus = false;
+      }else{
+        this.itemFromStatus = true;
+      }
+    }else{
+        this.itemFromStatus = false;
+    } 
+  }
  
   openItemToLookup(dialog: TemplateRef<any>){
     if(!this.ItemData){
@@ -116,6 +138,25 @@
       this.dialogService.open(dialog);
       this.ItemFrom = false;
       this.ItemTo = true;
+  }
+
+  onItemToBlur(){
+    let items = this.ItemCodeTo;
+    let itemToArray = [];
+    if(items){
+      for(var i in this.ItemData){
+        if(items === this.ItemData[i].ItemCode){
+          itemToArray.push(this.ItemData[i]);
+        }
+      }
+      if(itemToArray.length>0){
+        this.itemToStatus = false;
+      }else{
+        this.itemToStatus = true;
+      }
+    }else{
+        this.itemToStatus = false;
+    } 
   }
 
   gridRowSelectionChange(evt, ref) {

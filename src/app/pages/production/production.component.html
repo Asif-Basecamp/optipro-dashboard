@@ -25,13 +25,14 @@
               <div class="w-100">
                 <div class="input-group">
                   <input nbInput fieldSize="small" type="text" name="ItemCodeFrom" id="ItemCodeFrom" class="form-control"
-                     #ItemCF=ngModel [(ngModel)]="ItemCodeFrom" placeholder="Item From" required autocomplete="off">
+                     #ItemCF=ngModel [(ngModel)]="ItemCodeFrom" placeholder="Item From" (blur)="onItemFromBlur()" required autocomplete="off">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemFromLookup(dialog)"><i class="nb-menu"></i></button>
                   </div>
                 </div>
               </div> 
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="ItemCF.errors?.required && ItemCF.touched" class="float-right opti_error-msg">Item From Required</small>
+              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="ItemCF.errors?.required && !itemFromStatus && ItemCF.touched" class="float-right opti_error-msg">Item From Required</small>
+              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="itemFromStatus && ItemCF.touched" class="float-right opti_error-msg">Enter correct item code</small>  
             </div>
 
             <div class="form-group">
@@ -39,13 +40,14 @@
               <div class="w-100">
                 <div class="input-group">
                   <input nbInput fieldSize="small" type="text" name="ItemCodeTo" id="ItemCodeTo" class="form-control" 
-                   #ItemCT=ngModel [(ngModel)]="ItemCodeTo" placeholder="Item To" required autocomplete="off">
+                   #ItemCT=ngModel [(ngModel)]="ItemCodeTo" placeholder="Item To" (blur)="onItemToBlur()" required autocomplete="off">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemToLookup(dialog)"><i class="nb-menu"></i></button>
                   </div>
                 </div>
               </div>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="ItemCT.errors?.required && ItemCT.touched" class="float-right opti_error-msg">Item To Required</small>
+              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="ItemCT.errors?.required && !itemToStatus && ItemCT.touched" class="float-right opti_error-msg">Item To Required</small>
+              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="itemToStatus && ItemCT.touched" class="float-right opti_error-msg">Enter correct item code</small>  
             </div>
 
             <div class="form-group">
@@ -99,7 +101,7 @@
 
     </nb-card-body>
     <nb-card-footer class="text-center py-2">
-      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small" (click)="GetExplosionData($event)" [disabled]="!criteriaForm.form.valid">Process <i
+      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small" (click)="GetExplosionData($event)" [disabled]="!criteriaForm.form.valid || (itemFromStatus || itemToStatus)">Process <i
           data-eva="arrow-forward" data-eva-height="18" data-eva-width="18" data-eva-fill="#fff"
           class="ml-2"></i></button>
     </nb-card-footer>
