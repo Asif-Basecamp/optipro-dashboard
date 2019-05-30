@@ -52,13 +52,13 @@ export class LookupComponent implements OnInit {
 
   }
 
-  close_kendo_dialog() {
-    if (this.lookupfor == "PhyCntItemList") {
-      this.router.navigate(['home/dashboard']);
-    } else {
-      this.dialogOpened = false;
-    }
-  }
+  // close_kendo_dialog() {
+  //   if (this.lookupfor == "PhyCntItemList") {
+  //     this.router.navigate(['home/dashboard']);
+  //   } else {
+  //     this.dialogOpened = false;
+  //   }
+  // }
   close_dialog() {
     this.dialogOpened = false;
   }

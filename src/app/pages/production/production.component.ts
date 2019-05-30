@@ -100,33 +100,6 @@ export class ProductionComponent implements OnInit {
   eva.replace()   
  }
 
- checkUncheckAll() {
-  for (var i = 0; i < this.checklist.length; i++) {
-    this.checklist[i].isSelected = this.masterSelected;
-  }
-  this.getCheckedItemList();
-}
-
-isAllSelected() {
-  this.masterSelected = this.checklist.every(function(item:any) {
-      return item.isSelected == true;
-    })
-  this.getCheckedItemList();
-}
-
-getCheckedItemList(){
-  this.checkedList = [];
-  for (var i = 0; i < this.checklist.length; i++) {
-    if(this.checklist[i].isSelected)
-    this.checkedList.push(this.checklist[i].value);
-  }
-  if(this.checkedList.length<=0){
-    this.checkboxStatus =  true;
-  }else{
-    this.checkboxStatus =  false;
-  }
-}
-
  open(dialog: TemplateRef < any > ) {
   this.dialogService.open(dialog);
  }
@@ -407,6 +380,35 @@ getCheckedItemList(){
   }.bind(this))
    return node;
  }
+
+ // check box selection code 
+ 
+  checkUncheckAll() {
+    for (var i = 0; i < this.checklist.length; i++) {
+      this.checklist[i].isSelected = this.masterSelected;
+    }
+    this.getCheckedItemList();
+  }
+
+  isAllSelected() {
+    this.masterSelected = this.checklist.every(function(item:any) {
+        return item.isSelected == true;
+      })
+    this.getCheckedItemList();
+  }
+
+  getCheckedItemList(){
+    this.checkedList = [];
+    for (var i = 0; i < this.checklist.length; i++) {
+      if(this.checklist[i].isSelected)
+      this.checkedList.push(this.checklist[i].value);
+    }
+    if(this.checkedList.length<=0){
+      this.checkboxStatus =  true;
+    }else{
+      this.checkboxStatus =  false;
+    }
+  }
 
   GetExplosionData() {
     this.loading = true;
