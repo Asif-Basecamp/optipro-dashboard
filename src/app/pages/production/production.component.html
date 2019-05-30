@@ -1,3 +1,5 @@
+<!-- selection criteria -->
+
 <div class="dashboard-left" id="dashboard-left">
   <nb-card accent="primary" id="selection-criteria-section" (click)="searchCriteriaExpand()">
 
@@ -67,6 +69,7 @@
             </div>
 
             <h6 class="border-bottom pb-1 mb-1 mt-3">WO Status</h6>
+
             <div class="form-group mt-3 px-0 d-flex flex-wrap">
               <div class="k-form-field pr-4 pb-2">
                 <input type="checkbox" id="all" class="k-checkbox" name="WO_Status" />
@@ -105,7 +108,7 @@
 
     </nb-card-body>
     <nb-card-footer class="text-center py-2">
-      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small" (click)="GetExplosionData($event)" [disabled]="!criteriaForm.form.valid || (itemFromStatus || itemToStatus || checkboxStatus)">Process <i
+      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small" (click)="GetExplosionData($event)" [disabled]="!criteriaForm.form.valid || (itemFromStatus || itemToStatus)">Process <i
           data-eva="arrow-forward" data-eva-height="18" data-eva-width="18" data-eva-fill="#fff"
           class="ml-2"></i></button>
     </nb-card-footer>
@@ -173,6 +176,9 @@
     </nb-card>
   </ng-template>
 </div>
+<!--End selection criteria -->
+
+
 
 <div class="dashboard-right">
   <div class="custom-accordian grid-accordian-open" id="custom-accordian">
@@ -187,6 +193,9 @@
         </nb-card-header>
         <nb-card-body class="py-0" id="grid-accordian-body">
           <div class="row h-100 flex-100">
+
+            <!-- Start Grid View -->
+
             <div class="col-sm-4 border-right overflow-auto h-100">
               <div class="
               View pt-3" *ngIf="viewOption == 'SIMPLE'">
@@ -248,15 +257,11 @@
               </div>
 
             </div>
+            <!-- End Grid View -->
+
+            <!-- Selected FG Grid-->
 
             <div class="col-sm-8 pt-3 overflow-auto h-100">
-              <!-- <div>
-                  <nb-radio-group class="d-flex">
-                    <nb-radio>Show WO for selected FG</nb-radio>
-                    <nb-radio>Show WOs for all sub assemblies for selected FG</nb-radio>
-                  </nb-radio-group>
-              </div> -->
-
               <div>
                 <nb-radio-group class="d-flex flex-wrap" [(ngModel)]="RadioBtnWO" name="RadioBtnWO">
                   <nb-radio [value]="'simple'">Show WO for selected FG</nb-radio>
@@ -346,6 +351,8 @@
                 </kendo-grid>
               </div>
               
+              <!-- Grid -->
+
               <nb-card class="mt-4 no-shadow border border-light-gray">
                 <nb-card-body class="p-0">
                   <nb-tabset>
@@ -660,7 +667,14 @@
                   </nb-tabset>
                 </nb-card-body>
               </nb-card>
+
+              <!-- End Grid -->
+
             </div>
+
+            <!-- End FG Grid-->
+
+
           </div>
         </nb-card-body>
       </nb-card>

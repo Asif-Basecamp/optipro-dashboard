@@ -61,10 +61,10 @@ export class ProductionComponent implements OnInit {
   showLookup: boolean = false;
   public itemFromStatus:boolean = false;
   public itemToStatus:boolean = false;
+  loading = false;
+  loadingFG = false;
 
- // FromDate = new Date().toLocaleString();
-  //ToDate = new Date().toLocaleString();
-  
+
   public tableTreeData: any = [];
   files2: TreeNode[];
 
@@ -285,15 +285,18 @@ export class ProductionComponent implements OnInit {
  }
 
   getWorkOrder(itemName){
-
+   this.loading = true; 
    this.prod.GetWorkOrderFG(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemName, this.RadioBtnWO,'1,6,4,3', this.FromDate, this.ToDate).subscribe(
      data => {
-       console.log(data);
-         this.gridWOFG = data; 
-        // this.getPopUp1(this.gridWOFG[0].U_O_POSTEDQTY, this.gridWOFG[0].U_O_ORDRNO);    
-         this.getMaterials(this.gridWOFG[0].DocEntry,this.gridWOFG[0].U_O_PRODID);
-         this.getOperations(this.gridWOFG[0].DocEntry);
-         this.getResources(this.gridWOFG[0].U_O_PRODID);
+       if(!data){
+        this.loading = false;
+       }else{
+        this.loading = false;
+        this.gridWOFG = data; 
+        this.getMaterials(this.gridWOFG[0].DocEntry,this.gridWOFG[0].U_O_PRODID);
+        this.getOperations(this.gridWOFG[0].DocEntry);
+        this.getResources(this.gridWOFG[0].U_O_PRODID);
+       }
      },
      error => {
        this.toastrService.danger(this.language.no_record_found);    
@@ -399,26 +402,30 @@ export class ProductionComponent implements OnInit {
  }
 
   GetExplosionData() {
-  
-   console.log(this.FromDate);
-   this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemCodeFrom, this.ItemCodeTo, this.viewOption, this.FromDate, this.ToDate).subscribe(
+    this.loading = true;
+     this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemCodeFrom, this.ItemCodeTo, this.viewOption, this.FromDate, this.ToDate).subscribe(
      data => {
-       this.gridViewData = data;
-       if(data.lenghth > 0){
-         let Arr = [];
-         for(var i=0; i<this.gridViewData.length; i++){
-          if(this.gridViewData[i]){
-              Arr.push({data : this.gridViewData[i]});
-          }
-         } 
-         this.nodes2 = this.getHierarchy(Arr, '-1');
-         this.files2 = this.nodes2;
-       }
-       else {
-        // this.toastrService.danger(this.language.no_record_found);    
-       }
-       
-     },
+      if(!data){
+        this.loading = false;
+       // this.toastrService.danger('No Record Found');
+      }else{
+        this.gridViewData = data;
+        this.loading = false;
+        if(data.lenghth > 0){
+          let Arr = [];
+          for(var i=0; i<this.gridViewData.length; i++){
+           if(this.gridViewData[i]){
+               Arr.push({data : this.gridViewData[i]});
+           }
+          } 
+          this.nodes2 = this.getHierarchy(Arr, '-1');
+          this.files2 = this.nodes2;
+        }
+        else {
+         // this.toastrService.danger(this.language.no_record_found);    
+        }
+      }  
+    },
      error => {
        this.toastrService.danger(this.language.no_record_found);    
      })
@@ -449,7 +456,6 @@ export class ProductionComponent implements OnInit {
 
 
  onCheckboxClick(checked: any, index: number) {
-
    let servivceItem: any = this.serviceData[index];
    if (checked) {
      this.selectedValues.push(servivceItem);
