@@ -127,24 +127,23 @@
       </nb-card-header>
       <nb-card-body>
         <div>
-          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter
+          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter1
             [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
             (selectionChange)="gridRowSelectionChange($event,ref)"
             [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
             <!-- grid template start -->
             <ng-template kendoGridToolbarTemplate>
-
               <!-- checkbox -->
               <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                 <div class="k-form-field d-flex">
-                  <input #chkFilter type="checkbox" (change)="onFilterChange(chkFilter,gridItem)"
-                    id="opti_SalesOrderListColumnFilterID" [(ngModel)]="isColumnFilter" class="k-checkbox"
+                  <input #chkFilter1 type="checkbox" (change)="onFilterChange(chkFilter1,gridItem1)"
+                    id="opti_SalesOrderListColumnFilterID1" [(ngModel)]="isColumnFilter1" class="k-checkbox"
                     name="columnfilter" />
-                  <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">Enable Filter</label>
+                  <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID1">Enable Filter</label>
                 </div>
               </form>
-
             </ng-template>
+            
             <kendo-grid-checkbox-column *ngIf="showSelection==true" title="Select" [width]="25">
               <ng-template kendoGridCellTemplate let-idx='rowIndex' let-di='dataItem'>
                 <div class="k-form-field d-flex center-checkbox">
@@ -190,8 +189,7 @@
             <div class="col-sm-4 border-right overflow-auto h-100">
               <div class="
               View pt-3" *ngIf="viewOption == 'SIMPLE'">
-                <kendo-grid [kendoGridBinding]="gridViewData" [selectable]="selectableSettings" [filterable]=isColumnFilter
-                  [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
+                <kendo-grid [kendoGridBinding]="gridViewData" [selectable]="selectableSettings" [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort" [resizable]="true"
                   (selectionChange)="gridRowSelectFG($event)"
                   [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
       
@@ -215,33 +213,33 @@
                   <p-treeTable [value]="files2" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" columnResizeMode="expand">
                     <ng-template pTemplate="colgroup">
                       <colgroup>
-                          <col>
-                          <col>
-                          <col>
-                          <col>
-                          <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
                       </colgroup>
                     </ng-template>
                     <ng-template pTemplate="header">
-                        <tr>
-                            <th ttResizableColumn>Item</th>
-                            <th ttResizableColumn>In Stock</th>
-                            <th ttResizableColumn>Commited</th>
-                            <th ttResizableColumn>On Order</th>
-                            <th ttResizableColumn>Avl Qty</th>
-                        </tr>
+                      <tr>
+                        <th ttResizableColumn>Item</th>
+                        <th ttResizableColumn>In Stock</th>
+                        <th ttResizableColumn>Commited</th>
+                        <th ttResizableColumn>On Order</th>
+                        <th ttResizableColumn>Avl Qty</th>
+                      </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-rowNode let-rowNodeIndex="rowNodeIndex"  let-rowData="rowData">
-                        <tr [ttRow]="rowNode">
-                            <td>
-                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-                                {{rowData.ItemCode}}
-                            </td>
-                            <td>2</td>
-                            <td>{{rowData.IsCommited}}</td>
-                            <td>{{rowData.OnOrder}}</td>
-                            <td>{{rowData.AVAILABLE}}</td>
-                        </tr>
+                      <tr [ttRow]="rowNode">
+                        <td>
+                            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                            {{rowData.ItemCode}}
+                        </td>
+                        <td>2</td>
+                        <td>{{rowData.IsCommited}}</td>
+                        <td>{{rowData.OnOrder}}</td>
+                        <td>{{rowData.AVAILABLE}}</td>
+                      </tr>
                     </ng-template>
                 </p-treeTable>
                 </div>
@@ -265,17 +263,17 @@
               </div>
 
               <div class="mt-2">
-                <kendo-grid [kendoGridBinding]="gridWOFG" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                <kendo-grid [kendoGridBinding]="gridWOFG" [selectable]="selectableSettings" [filterable]=isColumnFilter2
                   [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                   (selectionChange)="gridRowSelectDocEntry($event)"
                   [ngStyle]="{ 'max-height':'490px'}">
                   <ng-template kendoGridToolbarTemplate>
                     <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                       <div class="k-form-field d-flex">
-                        <input #chkFilter type="checkbox" (change)="onFilterChange(chkFilter,gridItem)"
-                          id="opti_SalesOrderListColumnFilterID" [(ngModel)]="isColumnFilter" class="k-checkbox"
+                        <input #chkFilter2 type="checkbox" (change)="onFilterChange(chkFilter2,gridWOFG)"
+                          id="opti_SalesOrderListColumnFilterID2" [(ngModel)]="isColumnFilter2" class="k-checkbox"
                           name="columnfilter" />
-                        <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">Enable Filter</label>
+                        <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID2">Enable Filter</label>
                       </div>
                     </form>
       
@@ -358,17 +356,17 @@
                             </nb-radio-group>
                         </div>
                         <div class="mt-4" *ngIf="materialViewOption == 'IMMEDIATE'">
-                          <kendo-grid [kendoGridBinding]="gridMaterial" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                          <kendo-grid [kendoGridBinding]="gridMaterial" [selectable]="selectableSettings" [filterable]=isColumnFilter3
                             [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                             (selectionChange)="gridRowSelectionChange1($event,ref)"
                             [ngStyle]="{ 'max-height':'490px'}">
                             <ng-template kendoGridToolbarTemplate>
                               <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                                 <div class="k-form-field d-flex">
-                                  <input #chkFilter type="checkbox" (change)="onFilterChange(chkFilter,gridItem)"
-                                    id="opti_SalesOrderListColumnFilterID" [(ngModel)]="isColumnFilter" class="k-checkbox"
+                                  <input #chkFilter3 type="checkbox" (change)="onFilterChange(chkFilter3,gridMaterial)"
+                                    id="opti_SalesOrderListColumnFilterID3" [(ngModel)]="isColumnFilter3" class="k-checkbox"
                                     name="columnfilter" />
-                                  <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">Enable Filter</label>
+                                  <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID3">Enable Filter</label>
                                 </div>
                               </form>                
                             </ng-template>
@@ -444,17 +442,17 @@
                         </kendo-grid>
                         </div>
                         <div class="mt-4" *ngIf="materialViewOption == 'ALL'">
-                            <kendo-grid [kendoGridBinding]="gridDatas" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                            <kendo-grid [kendoGridBinding]="gridDatas" [selectable]="selectableSettings" [filterable]=isColumnFilter4
                               [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                               (selectionChange)="gridRowSelectionChange($event,ref)"
                               [ngStyle]="{ 'max-height':'490px'}">
                               <ng-template kendoGridToolbarTemplate>
                                 <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                                   <div class="k-form-field d-flex">
-                                    <input #chkFilter type="checkbox" (change)="onFilterChange(chkFilter,gridItem)"
-                                      id="opti_SalesOrderListColumnFilterID" [(ngModel)]="isColumnFilter" class="k-checkbox"
+                                    <input #chkFilter4 type="checkbox" (change)="onFilterChange(chkFilter4,gridDatas)"
+                                      id="opti_SalesOrderListColumnFilterID4" [(ngModel)]="isColumnFilter4" class="k-checkbox"
                                       name="columnfilter" />
-                                    <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">Enable Filter</label>
+                                    <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID4">Enable Filter</label>
                                   </div>
                                 </form>                
                               </ng-template>
@@ -530,17 +528,17 @@
                     <nb-tab tabTitle="Operations">
                       <div class="py-3 px-2">
                         <div class="">
-                          <kendo-grid [kendoGridBinding]="gridOperation" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                          <kendo-grid [kendoGridBinding]="gridOperation" [selectable]="selectableSettings" [filterable]=isColumnFilter5
                             [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                             (selectionChange)="gridRowSelectionChange($event,ref)"
                             [ngStyle]="{ 'max-height':'490px'}">
                             <ng-template kendoGridToolbarTemplate>
                               <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                                 <div class="k-form-field d-flex">
-                                  <input #chkFilter type="checkbox" (change)="onFilterChange(chkFilter,gridItem)"
-                                    id="opti_OperationsListColumnFilterID" [(ngModel)]="isColumnFilter" class="k-checkbox"
+                                  <input #chkFilter5 type="checkbox" (change)="onFilterChange(chkFilter5,gridOperation)"
+                                    id="opti_OperationsListColumnFilterID5" [(ngModel)]="isColumnFilter5" class="k-checkbox"
                                     name="columnfilter" />
-                                  <label class="k-checkbox-label" for="opti_OperationsListColumnFilterID">Enable Filter</label>
+                                  <label class="k-checkbox-label" for="opti_OperationsListColumnFilterID5">Enable Filter</label>
                                 </div>
                               </form>
                 
@@ -599,17 +597,17 @@
                     <nb-tab tabTitle="Resources">
                       <div class="py-3 px-2">
                         <div class="">
-                          <kendo-grid [kendoGridBinding]="gridResource" [selectable]="selectableSettings" [filterable]=isColumnFilter
+                          <kendo-grid [kendoGridBinding]="gridResource" [selectable]="selectableSettings" [filterable]=isColumnFilter6
                             [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                             (selectionChange)="gridRowSelectionChange($event,ref)"
                             [ngStyle]="{ 'max-height':'490px'}">
                             <ng-template kendoGridToolbarTemplate>
                               <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                                 <div class="k-form-field d-flex">
-                                  <input #chkFilter type="checkbox" (change)="onFilterChange(chkFilter,gridItem)"
-                                    id="opti_ResourcesListColumnFilterID" [(ngModel)]="isColumnFilter" class="k-checkbox"
+                                  <input #chkFilter6 type="checkbox" (change)="onFilterChange(chkFilter6,gridResource)"
+                                    id="opti_ResourcesListColumnFilterID6" [(ngModel)]="isColumnFilter6" class="k-checkbox"
                                     name="columnfilter" />
-                                  <label class="k-checkbox-label" for="opti_ResourcesListColumnFilterID">Enable Filter</label>
+                                  <label class="k-checkbox-label" for="opti_ResourcesListColumnFilterID6">Enable Filter</label>
                                 </div>
                               </form>
                 
