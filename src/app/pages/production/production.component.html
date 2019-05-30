@@ -25,30 +25,33 @@
               <div class="w-100">
                 <div class="input-group">
                   <input nbInput fieldSize="small" type="text" name="ItemCodeFrom" id="ItemCodeFrom" class="form-control"
-                     #ItemCF=ngModel [(ngModel)]="ItemCodeFrom" placeholder="Item From" autocomplete="off">
+                     #ItemCF=ngModel [(ngModel)]="ItemCodeFrom" placeholder="Item From" required autocomplete="off">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemFromLookup(dialog)"><i class="nb-menu"></i></button>
                   </div>
                 </div>
-              </div>              
+              </div> 
+              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="ItemCF.errors?.required && ItemCF.touched" class="float-right opti_error-msg">Item From Required</small>
             </div>
+
             <div class="form-group">
               <label for="ItemTo" class="form-label">Item To</label>
               <div class="w-100">
                 <div class="input-group">
                   <input nbInput fieldSize="small" type="text" name="ItemCodeTo" id="ItemCodeTo" class="form-control" 
-                   #ItemCT=ngModel [(ngModel)]="ItemCodeTo" placeholder="Item To" autocomplete="off">
+                   #ItemCT=ngModel [(ngModel)]="ItemCodeTo" placeholder="Item To" required autocomplete="off">
                   <div class="input-group-append">
                     <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemToLookup(dialog)"><i class="nb-menu"></i></button>
                   </div>
                 </div>
-              </div>              
+              </div>
+              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="ItemCT.errors?.required && ItemCT.touched" class="float-right opti_error-msg">Item To Required</small>
             </div>
 
             <div class="form-group">
               <label for="fromDate" class="form-label">Date From</label>
               <div class="w-100">
-                <input name="fromDate" id="fromDate" fieldSize="small" nbInput type="text" class="form-control datepicker" [nbDatepicker]="fromPicker" [(ngModel)]="FromDate">
+                <input name="fromDate" id="fromDate" fieldSize="small" nbInput type="text" class="form-control datepicker" [nbDatepicker]="fromPicker" [(ngModel)]="FromDate" readonly>
                 <nb-datepicker #fromPicker></nb-datepicker>
               </div>
             </div>
@@ -56,14 +59,14 @@
             <div class="form-group">
               <label for="inputPassword3" class="form-label">Date To</label>
               <div class="w-100">
-                <input fieldSize="small" nbInput type="text" name="fromTo" id="fromTo" class="form-control datepicker" [nbDatepicker]="toPicker" [(ngModel)]="ToDate">
+                <input fieldSize="small" nbInput type="text" name="fromTo" id="fromTo" class="form-control datepicker" [nbDatepicker]="toPicker" [(ngModel)]="ToDate" readonly>
                 <nb-datepicker #toPicker></nb-datepicker>
               </div>
             </div>
 
             <h6 class="border-bottom pb-1 mb-1 mt-3">WO Status</h6>
 
-            <fieldset class="form-group px-0">
+            <!--<fieldset class="form-group px-0">
               <nb-radio-group class="d-flex flex-wrap" [(ngModel)]="radioLevel" name="radioLevel">
                 <nb-radio [value]="'All'">All</nb-radio>
                 <nb-radio [value]="'In Progress'">In Progress</nb-radio>  
@@ -71,7 +74,15 @@
                 <nb-radio [value]="'Close'">Close </nb-radio>                              
                 <nb-radio [value]="'Cancel'">Cancel</nb-radio>
               </nb-radio-group>
-            </fieldset>
+            </fieldset>-->
+
+            <fieldset class="form-group px-0">
+                <nb-checkbox [value]="true">All</nb-checkbox>
+                <nb-checkbox>In Progress</nb-checkbox>
+                <nb-checkbox>New</nb-checkbox>
+                <nb-checkbox>Close</nb-checkbox>
+                <nb-checkbox>Cancel</nb-checkbox>
+            </fieldset>  
           </form>
         </div>
       </div>
@@ -88,7 +99,7 @@
 
     </nb-card-body>
     <nb-card-footer class="text-center py-2">
-      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small" (click)="GetExplosionData($event)">Process <i
+      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small" (click)="GetExplosionData($event)" [disabled]="!criteriaForm.form.valid">Process <i
           data-eva="arrow-forward" data-eva-height="18" data-eva-width="18" data-eva-fill="#fff"
           class="ml-2"></i></button>
     </nb-card-footer>

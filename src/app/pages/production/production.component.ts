@@ -143,7 +143,6 @@
 
     this.prod.GetWorkOrderFG(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemName, this.RadioBtnWO,'1,6,4,3', this.FromDate, this.ToDate).subscribe(
       data => {
-        console.log(data);
           this.gridWOFG = data;          
           this.getMaterials(this.gridWOFG[0].DocEntry,this.gridWOFG[0].ItemCode);
           this.getOperations(this.gridWOFG[0].DocEntry);
@@ -159,9 +158,7 @@
       this.prod.GetMaterialData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry, ItemCode, this.materialViewOption,
         this.FromDate, this.ToDate, '1,6,4,3').subscribe(
         data => {
-          console.log(data);
             this.gridMaterial = data;       
-            
         },
         error => {
           this.toastrService.danger(this.language.no_record_found);    
@@ -172,7 +169,6 @@
     
       this.prod.GetOperationData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
         data => {
-          console.log(data);
             this.gridOperation = data;       
             
         },
@@ -185,7 +181,6 @@
 
     this.prod.GetResourceData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
       data => {
-        console.log(data);
           this.gridResource = data;       
           
       },
@@ -214,16 +209,17 @@
   //  this.FromDate = new Date().toLocaleString();
   //  this.ToDate = new Date().toLocaleString();
     
-    console.log(this.FromDate);
     this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemCodeFrom, this.ItemCodeTo, this.viewOption, this.FromDate, this.ToDate).subscribe(
       data => {
         this.gridViewData = data;
         let Arr = [];
+        if(this.gridViewData){
         for(var i=0; i<this.gridViewData.length; i++){
          if(this.gridViewData[i]){
              Arr.push({data : this.gridViewData[i]});
          }
         } 
+        }
         this.nodes2 = this.getHierarchy(Arr, '-1');
         this.files2 = this.nodes2;
       },
