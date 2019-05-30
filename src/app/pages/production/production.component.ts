@@ -61,20 +61,17 @@
    showLookup: boolean = false;
    public itemFromStatus:boolean = false;
    public itemToStatus:boolean = false;
-
-  // FromDate = new Date().toLocaleString();
-   //ToDate = new Date().toLocaleString();
-   
+   public showView: any = '';
+   public showMaterialView: any = '';
    public tableTreeData: any = [];
    files2: TreeNode[];
  
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
     { value: 'SIMPLE', label: 'Simple View' },
-    { value: 'DetailedView', label: 'Detailed View' },
+    { value: 'Multi', label: 'Detailed View' },
   ];
-  viewOption = 'SIMPLE';
-   
+  viewOption = 'SIMPLE';   
   
   ngOnInit() { 
    this.language = JSON.parse(window.localStorage.getItem('language'));
@@ -100,9 +97,7 @@
       data => {
         this.ItemData = data;
       });    
-  }
-
- 
+  } 
 
   showDetailCompleteLookup(data){
     this.prod.GetCompletedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_ORDRNO).subscribe(
@@ -278,6 +273,10 @@
      this.getWorkOrder(name);
    }
 
+  ItemRowSelect(itemName){
+    this.getWorkOrder(itemName);
+  }
+
    gridRowSelectDocEntry(evt){
     let docentry = evt.selectedRows[0].dataItem.DocEntry;
     let itemcode = evt.selectedRows[0].dataItem.U_O_PRODID;
@@ -290,7 +289,6 @@
       data => {
         console.log(data);
           this.gridWOFG = data; 
-         // this.getPopUp1(this.gridWOFG[0].U_O_POSTEDQTY, this.gridWOFG[0].U_O_ORDRNO);    
           this.getMaterials(this.gridWOFG[0].DocEntry,this.gridWOFG[0].U_O_PRODID);
           this.getOperations(this.gridWOFG[0].DocEntry);
           this.getResources(this.gridWOFG[0].U_O_PRODID);
@@ -303,35 +301,8 @@
    getLookupValue($event) {
 
   }
-
-  //  getPopUp1(wono){
-  //   this.prod.GetCompletedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, wono).subscribe(
-  //     data => {
-  //       console.log("GetCompleted - ");
-  //       console.log(data);
-  //       this.showLookup = true;
-  //       this.serviceApiData = data;
-  //       this.lookupfor = "showCompleteLookup";
-  //     },
-  //     error => {
-  //       this.toastrService.danger(this.language.no_record_found);    
-  //    })
-
-  //  }
-
-   getPopUp2(ItemCode){
-    this.prod.GetIssuedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, ItemCode).subscribe(
-      data => {
-        console.log("GetIssued - ");
-        console.log(data);
-      },
-      error => {
-        this.toastrService.danger(this.language.no_record_found);    
-     })
-
-   }
-
-   getPopUp3(ItemCode){
+  
+  getPopUp3(ItemCode){
     this.prod.GetOnOrderQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, ItemCode).subscribe(
       data => {
         console.log("GetOnOrder - ");
@@ -344,15 +315,19 @@
    }
 
    getMaterials(DocEntry,ItemCode){
-    
+
+      if(this.materialViewOption == 'IMMEDIATE')
+      this.showMaterialView = 'immediate';
+      else 
+      this.showMaterialView = 'all';
+        
       this.prod.GetMaterialData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry, ItemCode, this.materialViewOption,
         this.FromDate, this.ToDate, '1,6,4,3').subscribe(
         data => {
           console.log(data);
             this.gridMaterial = data; 
-           // this.getPopUp2(this.gridMaterial[0].U_O_COMPID);
             //this.getPopUp3(this.gridMaterial[0].U_O_COMPID);
-           // this.getPopUp3('Bearing_B');
+            this.getPopUp3('Bearing_B');
             
         },
         error => {
@@ -364,8 +339,7 @@
     
       this.prod.GetOperationData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
         data => {
-            this.gridOperation = data;       
-            
+            this.gridOperation = data;     
         },
         error => {
           this.toastrService.danger(this.language.no_record_found);    
@@ -400,12 +374,18 @@
   }
 
    GetExplosionData() {
+
+    if(this.viewOption == "SIMPLE")
+      this.showView = 'simple';
+         
+    else 
+      this.showView = 'detail';     
+      
    
-    console.log(this.FromDate);
     this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemCodeFrom, this.ItemCodeTo, this.viewOption, this.FromDate, this.ToDate).subscribe(
       data => {
         this.gridViewData = data;
-        if(data.lenghth > 0){
+        if(data.length > 0){
           let Arr = [];
           for(var i=0; i<this.gridViewData.length; i++){
            if(this.gridViewData[i]){

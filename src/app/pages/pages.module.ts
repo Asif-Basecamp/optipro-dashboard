@@ -10,7 +10,7 @@ import { TreeModule } from 'angular-tree-component';
 import { DefaultComponent } from './default/default.component';
 import { ProductionComponent } from './production/production.component';
 import { TreeTableModule } from 'primeng/components/treetable/treetable';
-import { TreetableDemoComponent } from '../@core/treetable/treetable.component';
+//import { TreetableDemoComponent } from '../@core/treetable/treetable.component';
 import { LookupComponent } from './lookup/lookup.component';
 import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { GridModule } from '@progress/kendo-angular-grid';
@@ -20,7 +20,8 @@ const PAGES_COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: [GenealogyComponent, PagesComponent, DefaultComponent, ProductionComponent, TreetableDemoComponent, LookupComponent],
+ // declarations: [GenealogyComponent, PagesComponent, DefaultComponent, ProductionComponent, TreetableDemoComponent, LookupComponent],
+  declarations: [GenealogyComponent, PagesComponent, DefaultComponent, ProductionComponent, LookupComponent],
   imports: [
     CommonModule,
     GridModule,
