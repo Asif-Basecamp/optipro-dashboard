@@ -12,7 +12,6 @@ import { ProductionComponent } from './production/production.component';
 import { TreeTableModule } from 'primeng/components/treetable/treetable';
 //import { TreetableDemoComponent } from '../@core/treetable/treetable.component';
 import { LookupComponent } from './lookup/lookup.component';
-import { DialogsModule } from '@progress/kendo-angular-dialog';
 import { GridModule } from '@progress/kendo-angular-grid';
 
 const PAGES_COMPONENTS = [
@@ -25,7 +24,6 @@ const PAGES_COMPONENTS = [
   imports: [
     CommonModule,
     GridModule,
-    DialogsModule,
     PagesRoutingModule,
     NbLayoutModule,
     ThemeModule,

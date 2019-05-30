@@ -2,12 +2,13 @@
     padding-right:5px;
     height: calc(100vh - 65px); 
     width: 265px;
-    flex: 1 1 266px;
+    flex: 1 1 265px;
     & > nb-card{
         height:100%;
     }
     &.shrink{
-        width: 45px;    
+        width: 45px; 
+        flex: 1 1 45px;   
         & > nb-card{
             cursor: pointer;
             & > nb-card-header{
@@ -28,6 +29,9 @@
             & > nb-card-footer{
                 display: none;
             }
+        }
+        & + .dashboard-right{
+            max-width: calc(100% - 45px);
         }
     }
 }

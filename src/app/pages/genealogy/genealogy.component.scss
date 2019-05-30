@@ -7,7 +7,8 @@
         height:100%;
     }
     &.shrink{
-        width: 45px;    
+        width: 45px; 
+        flex: 1 1 45px;   
         & > nb-card{
             cursor: pointer;
             & > nb-card-header{
@@ -28,6 +29,9 @@
             & > nb-card-footer{
                 display: none;
             }
+        }
+        & + .dashboard-right{
+            max-width: calc(100% - 45px);
         }
     }
 }

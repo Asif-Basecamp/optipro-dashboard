@@ -162,7 +162,7 @@
 
   //dialouge box css
 
-  nb-dialog-container nb-card{
+  nb-dialog-container nb-card, .dialog-container nb-card{
     border-top: nb-theme(card-border-radius) nb-theme(card-border-type) nb-theme(card-header-primary-bg);  
   }
 
