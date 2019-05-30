@@ -94,7 +94,7 @@ label{
     line-height: 15px;
 }
 .d-flex.flex-wrap {
-    & label {
+    & > label {
         padding: 0.375rem 1.4rem 0.375rem 0 !important;
     }
 }
