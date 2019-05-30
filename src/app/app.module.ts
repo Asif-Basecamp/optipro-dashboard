@@ -14,6 +14,8 @@ import { GridModule } from '@progress/kendo-angular-grid';
 //import { WarehouseLookupComponent } from './lookup/warehouse-lookup/warehouse-lookup.component';
 //import { LotNumberLookupComponent } from './lookup/lot-number-lookup/lot-number-lookup.component';
 import { NbOverlayModule, NbToastrModule, NbDatepickerModule } from '@nebular/theme';
+import { DialogsModule } from '@progress/kendo-angular-dialog';
+
 
 
 @NgModule({
@@ -28,6 +30,7 @@ import { NbOverlayModule, NbToastrModule, NbDatepickerModule } from '@nebular/th
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    DialogsModule,
     BrowserAnimationsModule,
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
@@ -36,6 +39,7 @@ import { NbOverlayModule, NbToastrModule, NbDatepickerModule } from '@nebular/th
     NbOverlayModule,
     NbDatepickerModule.forRoot(),
     NbToastrModule.forRoot(),
+    DialogsModule,
   ],
   bootstrap: [AppComponent],
   providers: [
