@@ -37,6 +37,8 @@
    gridStatus: boolean;
    searchCriteria: boolean;
    serviceData: any;
+   serviceApiData: any[];
+   lookupfor: string;
    selectedValues: any;
    public arrConfigData: any;
    public CompanyDB: any;
@@ -56,6 +58,7 @@
    public materialViewOption: any = 'IMMEDIATE';
    public FromDate: any ;
    public ToDate: any ;
+   showLookup: boolean = false;
    public itemFromStatus:boolean = false;
    public itemToStatus:boolean = false;
 
@@ -77,8 +80,8 @@
    this.language = JSON.parse(window.localStorage.getItem('language'));
    this.arrConfigData = JSON.parse(window.localStorage.getItem('arrConfigData'));   
    this.CompanyDB = JSON.parse(window.localStorage.getItem('CompanyDB'));
-   this.FromDate = new Date().toLocaleString();
-   this.ToDate = new Date().toLocaleString();
+   this.FromDate = new Date();
+   this.ToDate = new Date();
    
    this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
    eva.replace()   
@@ -97,6 +100,106 @@
       data => {
         this.ItemData = data;
       });    
+  }
+
+ 
+
+  showDetailCompleteLookup(data){
+    this.prod.GetCompletedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_ORDRNO).subscribe(
+      data => {
+        console.log("GetCompleted - ");
+        console.log(data);
+        this.showLookup = true;
+        this.serviceApiData = data;
+        this.lookupfor = "showCompleteLookup";
+      },
+      error => {
+        this.toastrService.danger(this.language.no_record_found);    
+     })
+  }
+
+  showDetailsIssuedLookup(data){
+    this.prod.GetIssuedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID).subscribe(
+      data => {
+        console.log("GetIssued - ");
+        console.log(data);
+        this.showLookup = true;
+        this.serviceApiData = data;
+        this.lookupfor = "showIssuedLookup";
+      },
+      error => {
+        this.toastrService.danger(this.language.no_record_found);    
+     })
+  }
+
+  showDetailsInStockLookup(data,check){
+    let ItemType = '';
+    if(data.ISSERIALTRACKED == 'Y'){
+      ItemType = 'serial';
+    }
+    else if(data.ISBATCHTRACKED == 'Y'){
+      ItemType = 'batch';
+    }
+
+    if(check == 'WH'){
+      this.prod.GetWarehouseWiseInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID, data.U_O_ISSWH,ItemType).subscribe(
+        data => {
+          console.log("GetOnOrder - ");
+          console.log(data);
+          this.showLookup = true;
+          this.serviceApiData = data;
+          this.lookupfor = "showIssuedLookup";
+        },
+        error => {
+          this.toastrService.danger(this.language.no_record_found);    
+       })
+    }
+    else  if(check == 'CP'){
+      this.prod.GetInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID, data.U_O_ISSWH,ItemType).subscribe(
+        data => {
+          console.log("GetOnOrder - ");
+          console.log(data);
+          this.showLookup = true;
+          this.serviceApiData = data;
+          this.lookupfor = "showIssuedLookup";
+        },
+        error => {
+          this.toastrService.danger(this.language.no_record_found);    
+       })
+    }
+    
+  }
+
+  showDetailsOnOrderLookup(data,check){
+    if(check == 'WH'){
+      
+      this.prod.GetWarehouseWiseOnOrderQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID, data.U_O_ISSWH).subscribe(
+        data => {
+          console.log("GetOnOrder - ");
+          console.log(data);
+          this.showLookup = true;
+          this.serviceApiData = data;
+          this.lookupfor = "showOnOrderLookup";
+        },
+        error => {
+          this.toastrService.danger(this.language.no_record_found);    
+       })
+
+    }
+    else if(check == 'CP'){
+      this.prod.GetOnOrderQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID).subscribe(
+        data => {
+          console.log("GetOnOrder - ");
+          console.log(data);
+          this.showLookup = true;
+          this.serviceApiData = data;
+          this.lookupfor = "showOnOrderLookup";
+        },
+        error => {
+          this.toastrService.danger(this.language.no_record_found);    
+       })
+    }
+    
   }
 
   openItemFromLookup(dialog: TemplateRef<any>){ 
@@ -177,15 +280,18 @@
 
    gridRowSelectDocEntry(evt){
     let docentry = evt.selectedRows[0].dataItem.DocEntry;
-    this.getMaterials(docentry,'');
+    let itemcode = evt.selectedRows[0].dataItem.U_O_PRODID;
+    this.getMaterials(docentry,itemcode);
   }
 
    getWorkOrder(itemName){
 
     this.prod.GetWorkOrderFG(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemName, this.RadioBtnWO,'1,6,4,3', this.FromDate, this.ToDate).subscribe(
       data => {
-          this.gridWOFG = data;          
-          this.getMaterials(this.gridWOFG[0].DocEntry,this.gridWOFG[0].ItemCode);
+        console.log(data);
+          this.gridWOFG = data; 
+         // this.getPopUp1(this.gridWOFG[0].U_O_POSTEDQTY, this.gridWOFG[0].U_O_ORDRNO);    
+          this.getMaterials(this.gridWOFG[0].DocEntry,this.gridWOFG[0].U_O_PRODID);
           this.getOperations(this.gridWOFG[0].DocEntry);
           this.getResources(this.gridWOFG[0].U_O_PRODID);
       },
@@ -194,12 +300,60 @@
      })
    }
 
+   getLookupValue($event) {
+
+  }
+
+  //  getPopUp1(wono){
+  //   this.prod.GetCompletedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, wono).subscribe(
+  //     data => {
+  //       console.log("GetCompleted - ");
+  //       console.log(data);
+  //       this.showLookup = true;
+  //       this.serviceApiData = data;
+  //       this.lookupfor = "showCompleteLookup";
+  //     },
+  //     error => {
+  //       this.toastrService.danger(this.language.no_record_found);    
+  //    })
+
+  //  }
+
+   getPopUp2(ItemCode){
+    this.prod.GetIssuedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, ItemCode).subscribe(
+      data => {
+        console.log("GetIssued - ");
+        console.log(data);
+      },
+      error => {
+        this.toastrService.danger(this.language.no_record_found);    
+     })
+
+   }
+
+   getPopUp3(ItemCode){
+    this.prod.GetOnOrderQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, ItemCode).subscribe(
+      data => {
+        console.log("GetOnOrder - ");
+        console.log(data);
+      },
+      error => {
+        this.toastrService.danger(this.language.no_record_found);    
+     })
+
+   }
+
    getMaterials(DocEntry,ItemCode){
     
       this.prod.GetMaterialData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry, ItemCode, this.materialViewOption,
         this.FromDate, this.ToDate, '1,6,4,3').subscribe(
         data => {
-            this.gridMaterial = data;       
+          console.log(data);
+            this.gridMaterial = data; 
+           // this.getPopUp2(this.gridMaterial[0].U_O_COMPID);
+            //this.getPopUp3(this.gridMaterial[0].U_O_COMPID);
+           // this.getPopUp3('Bearing_B');
+            
         },
         error => {
           this.toastrService.danger(this.language.no_record_found);    
@@ -246,23 +400,25 @@
   }
 
    GetExplosionData() {
-
-  //  this.FromDate = new Date().toLocaleString();
-  //  this.ToDate = new Date().toLocaleString();
-    
+   
+    console.log(this.FromDate);
     this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemCodeFrom, this.ItemCodeTo, this.viewOption, this.FromDate, this.ToDate).subscribe(
       data => {
         this.gridViewData = data;
-        let Arr = [];
-        if(this.gridViewData){
-        for(var i=0; i<this.gridViewData.length; i++){
-         if(this.gridViewData[i]){
-             Arr.push({data : this.gridViewData[i]});
-         }
-        } 
+        if(data.lenghth > 0){
+          let Arr = [];
+          for(var i=0; i<this.gridViewData.length; i++){
+           if(this.gridViewData[i]){
+               Arr.push({data : this.gridViewData[i]});
+           }
+          } 
+          this.nodes2 = this.getHierarchy(Arr, '-1');
+          this.files2 = this.nodes2;
         }
-        this.nodes2 = this.getHierarchy(Arr, '-1');
-        this.files2 = this.nodes2;
+        else {
+         // this.toastrService.danger(this.language.no_record_found);    
+        }
+        
       },
       error => {
         this.toastrService.danger(this.language.no_record_found);    
