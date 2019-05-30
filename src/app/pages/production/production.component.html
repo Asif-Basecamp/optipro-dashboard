@@ -206,7 +206,7 @@
       
                   <kendo-grid-column field="ItemCode" title="Item" width="80">
                   </kendo-grid-column>      
-                  <kendo-grid-column field="AVAILABLE" title="In Stock" width="80">
+                  <kendo-grid-column field="OnHand" title="In Stock" width="80">
                   </kendo-grid-column>
                   <kendo-grid-column field="IsCommited" title="Committed" width="80">
                   </kendo-grid-column>
@@ -243,7 +243,7 @@
                     <ng-template pTemplate="body" let-rowNode let-rowNodeIndex="rowNodeIndex"  let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
-                                <p-treeTableToggler [rowNode]="rowNode" (click)="ItemRowSelect(rowData.ItemCode)"></p-treeTableToggler>
+                                <p-treeTableToggler [rowNode]="rowNode" (click)="ItemRowSelect()"></p-treeTableToggler>
                                 {{rowData.ItemCode}}
                             </td>
                             <td>2</td>
