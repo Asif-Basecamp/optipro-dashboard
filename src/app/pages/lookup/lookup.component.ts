@@ -99,6 +99,9 @@ export class LookupComponent implements OnInit {
     } else if (this.lookupfor == "showOnOrderLookup") {
       this.showOnOrderLookup();
     } 
+    else if(this.lookupfor == "showInStockLookup"){
+      this.showInStockLookup();
+    }
     this.clearFilters();
     this.isColumnFilter = false
   }
@@ -106,13 +109,19 @@ export class LookupComponent implements OnInit {
   showCompleteLookup() {
     this.table_head = [
       {
+        field: 'SNO',
+        title: '#',
+        type: 'text',
+        width: '100'
+      },
+      {
         field: 'OPTM_BTCHSERNO',
         title: 'Serial/Batch',
         type: 'text',
         width: '100'
       },
       {
-        field: 'OPTM_POSTED',
+        field: 'OPTM_QUANTITY',
         title: 'QTY ACC',
         type: 'text',
         width: '100'
@@ -133,9 +142,57 @@ export class LookupComponent implements OnInit {
     }
   }
 
+  showInStockLookup(){
+    this.table_head = [
+      {
+        field: 'SNO',
+        title: '#',
+        type: 'text',
+        width: '100'
+      },
+      {
+        field: 'IntrSerial',
+        title: 'Serial/Batch',
+        type: 'text',
+        width: '100'
+      },
+      {
+        field: 'WhsCode',
+        title: 'Issue WH',
+        type: 'text',
+        width: '100'
+      },
+      {
+        field: 'BinCode',
+        title: 'Issue Bin',
+        type: 'text',
+        width: '100'
+      },
+      {
+        field: 'Quantity',
+        title: 'Issue Qty',
+        type: 'text',
+        width: '100'
+      }
+      
+    ];
+    this.lookupTitle = 'In Stock';
+    if (this.serviceData !== undefined) {
+      if (this.serviceData.length > 0) {
+        this.dialogOpened = true;
+      }
+    }
+  }
+
 
   showIssuedLookup() {
     this.table_head = [
+      {
+        field: 'SNO',
+        title: '#',
+        type: 'text',
+        width: '100'
+      },
       {
         field: 'DistNumber',
         title: 'Serial/Batch',
@@ -179,38 +236,38 @@ export class LookupComponent implements OnInit {
         width: '100'
       },
       {
-        field: 'OPTM_POSTED',
+        field: 'VENDOR',
         title: 'Vendor',
         type: 'text',
         width: '100'
       },
       {
-        field: 'REJECTEDQTY',
+        field: 'WHCODE',
         title: 'Warehouse',
         type: 'text',
         width: '100'
       },
       {
-        field: 'REJECTEDQTY',
+        field: 'UOM',
         title: 'UOM',
         type: 'text',
         width: '100'
       },
       {
-        field: 'REJECTEDQTY',
+        field: 'ORDERED_QTY',
         title: 'Qty Order',
         type: 'text',
         width: '100'
       },
       {
-        field: 'REJECTEDQTY',
-        title: 'QTy Rec',
+        field: 'RECEIVE_QTY',
+        title: 'Qty Receive',
         type: 'text',
         width: '100'
       },
       {
-        field: 'REJECTEDQTY',
-        title: 'Rec Date',
+        field: 'RECV_DATE',
+        title: 'Receive Date',
         type: 'text',
         width: '100'
       }

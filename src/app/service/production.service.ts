@@ -127,11 +127,10 @@ GetWarehouseWiseInStockQtyDetails(optiProDashboardAPIURL:string,CompanyDBID:stri
 return this.httpClient.post(optiProDashboardAPIURL +"ProductionDashboard/GetWarehouseWiseInStockQtyDetails",jObject,this.httpOptions);
 }
 
-GetInStockQtyDetails(optiProDashboardAPIURL:string,CompanyDBID:string,ItemCode:string,Warehouse:string,ItemType:string):Observable<any>{
+GetInStockQtyDetails(optiProDashboardAPIURL:string,CompanyDBID:string,ItemCode:string,ItemType:string):Observable<any>{
   let jObject:any={ GetData: JSON.stringify([{ 
     CompanyDBID: CompanyDBID,
-    ItemCode: ItemCode,
-    Warehouse: Warehouse,
+    ItemCode: ItemCode,    
     ItemType: ItemType    
 }]) };
 return this.httpClient.post(optiProDashboardAPIURL +"ProductionDashboard/GetInStockQtyDetails",jObject,this.httpOptions);

@@ -157,20 +157,20 @@ export interface TreeNode {
          console.log(data);
          this.showLookup = true;
          this.serviceApiData = data;
-         this.lookupfor = "showIssuedLookup";
+         this.lookupfor = "showInStockLookup";
        },
        error => {
          this.toastrService.danger(this.language.no_record_found);    
       })
    }
    else  if(check == 'CP'){
-     this.prod.GetInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID, data.U_O_ISSWH,ItemType).subscribe(
+     this.prod.GetInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID,ItemType).subscribe(
        data => {
          console.log("GetOnOrder - ");
          console.log(data);
          this.showLookup = true;
          this.serviceApiData = data;
-         this.lookupfor = "showIssuedLookup";
+         this.lookupfor = "showInStockLookup";
        },
        error => {
          this.toastrService.danger(this.language.no_record_found);    
@@ -224,7 +224,7 @@ export interface TreeNode {
             this.gridWOFG = data; 
             this.getMaterials(this.gridWOFG[0].DocEntry,this.gridWOFG[0].U_O_PRODID);
             this.getOperations(this.gridWOFG[0].DocEntry);
-            this.getResources(this.gridWOFG[0].U_O_PRODID);
+            this.getResources(this.gridWOFG[0].DocEntry);
            }
       },
       error => {
