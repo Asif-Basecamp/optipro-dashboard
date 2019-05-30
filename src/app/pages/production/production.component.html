@@ -67,24 +67,6 @@
             </div>
 
             <h6 class="border-bottom pb-1 mb-1 mt-3">WO Status</h6>
-
-            <!--<fieldset class="form-group px-0">
-              <nb-radio-group class="d-flex flex-wrap" [(ngModel)]="radioLevel" name="radioLevel">
-                <nb-radio [value]="'All'">All</nb-radio>
-                <nb-radio [value]="'In Progress'">In Progress</nb-radio>  
-                <nb-radio [value]="'Single Level'">New </nb-radio>
-                <nb-radio [value]="'Close'">Close </nb-radio>                              
-                <nb-radio [value]="'Cancel'">Cancel</nb-radio>
-              </nb-radio-group>
-            </fieldset>-->
-
-            <!-- <fieldset class="form-group px-0">
-                <nb-checkbox [value]="true">All</nb-checkbox>
-                <nb-checkbox>In Progress</nb-checkbox>
-                <nb-checkbox>New</nb-checkbox>
-                <nb-checkbox>Close</nb-checkbox>
-                <nb-checkbox>Cancel</nb-checkbox>
-            </fieldset>   -->
             <div class="form-group mt-3 px-0 d-flex flex-wrap">
               <div class="k-form-field pr-4 pb-2">
                 <input type="checkbox" id="all" class="k-checkbox" name="WO_Status" />
@@ -123,7 +105,7 @@
 
     </nb-card-body>
     <nb-card-footer class="text-center py-2">
-      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small" (click)="GetExplosionData($event)" [disabled]="!criteriaForm.form.valid || (itemFromStatus || itemToStatus)">Process <i
+      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small" (click)="GetExplosionData($event)" [disabled]="!criteriaForm.form.valid || (itemFromStatus || itemToStatus || checkboxStatus)">Process <i
           data-eva="arrow-forward" data-eva-height="18" data-eva-width="18" data-eva-fill="#fff"
           class="ml-2"></i></button>
     </nb-card-footer>
