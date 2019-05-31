@@ -304,11 +304,22 @@ export interface TreeNode {
    else if(check == 'CP'){
      this.prod.GetOnOrderQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID).subscribe(
        data => {
-         console.log("GetOnOrder - ");
-         console.log(data);
-         this.showLookup = true;
-         this.serviceApiData = data;
-         this.lookupfor = "showOnOrderLookup";
+        console.log("GetOnOrder - ");
+        console.log(data);
+        if(data != undefined && data != null){
+          if(data.length > 0){
+            this.showLookup = true;
+            this.serviceApiData = data;
+            this.lookupfor = "showOnOrderLookup";
+          }
+          else {
+            this.toastrService.danger(this.language.no_record_found);    
+          }
+        }
+        else {
+          this.toastrService.danger(this.language.no_record_found);    
+        }        
+        
        },
        error => {
          this.toastrService.danger(this.language.no_record_found);    
@@ -401,7 +412,7 @@ export interface TreeNode {
    let itemcode = evt.selectedRows[0].dataItem.U_O_PRODID;
    this.getMaterials(docentry,itemcode);
    this.getOperations(docentry);
-   this.getResources(itemcode);
+   this.getResources(docentry);
  }
 
    getMaterials(DocEntry,ItemCode){
@@ -411,11 +422,7 @@ export interface TreeNode {
       else 
       this.showMaterialView = 'all';
         
-<<<<<<< HEAD
-      this.prod.GetMaterialData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry, this.materialViewOption, ItemCode, 
-=======
-      this.prod.GetMaterialData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry, ItemCode, this.materialViewOption,
->>>>>>> 56dc355a5e56c1b881aca8f1d644ff5fb1447bac
+      this.prod.GetMaterialData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry,this.materialViewOption, ItemCode, 
         this.FromDate, this.ToDate, this.checkedList.toString()).subscribe(
         data => {
           console.log("Get Materials -");
@@ -492,6 +499,7 @@ export interface TreeNode {
               } 
               this.nodes2 = this.getHierarchy(Arr, '-1');
               this.files2 = this.nodes2;
+              this.getWorkOrder(this.gridViewData[0].ItemCode);
             }
             else {
              this.toastrService.danger(this.language.no_record_found);    

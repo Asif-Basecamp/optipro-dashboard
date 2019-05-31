@@ -151,7 +151,7 @@ export class LookupComponent implements OnInit {
         width: '100'
       },
       {
-        field: 'IntrSerial',
+        field: 'BATCHSERNO',
         title: 'Serial/Batch',
         type: 'text',
         width: '100'
@@ -162,15 +162,10 @@ export class LookupComponent implements OnInit {
         type: 'text',
         width: '100'
       },
+      
       {
-        field: 'BinCode',
-        title: 'Issue Bin',
-        type: 'text',
-        width: '100'
-      },
-      {
-        field: 'Quantity',
-        title: 'Issue Qty',
+        field: 'QUANTITY',
+        title: 'Quantity',
         type: 'text',
         width: '100'
       }

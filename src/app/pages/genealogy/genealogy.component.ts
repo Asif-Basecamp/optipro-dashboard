@@ -129,14 +129,19 @@
          }
         this.disableLotNumber = false;
         this.itemStatus = false;
+        
       }else{
         this.ItemDesc = '';
         this.itemStatus = true;
         this.disableLotNumber = true;
+        this.DistNumFrom = '';
+        this.DistNumTo = '';
       }
     }else{
         this.itemStatus = false;
         this.ItemDesc = '';
+        this.DistNumFrom = '';
+        this.DistNumTo = '';
     } 
   }
 
@@ -364,6 +369,8 @@
     this.ItemValue = evt.selectedRows[0].dataItem.ItemCode;
     this.ItemDesc = evt.selectedRows[0].dataItem.ItemName;
     this.disableLotNumber = false;
+    this.DistNumFrom = '';
+    this.DistNumTo = '';
     if (evt.selectedRows[0].dataItem.ManBtchNum == 'Y') {
      this.trackName = 'Batch'
     } else {
