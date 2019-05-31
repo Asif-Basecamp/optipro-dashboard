@@ -345,8 +345,9 @@
 
               <nb-card class="mt-4 no-shadow border border-light-gray">
                 <nb-card-body class="p-0">
-                  <nb-tabset>
-                    <nb-tab tabTitle="Material">
+                  <nb-tabset (changeTab)="toggleLoadingAnimation()">
+                    <nb-tab tabTitle="Material" [nbSpinner]="Tabloading" nbSpinnerStatus="primary" nbSpinnerSize="xxlarge"
+                    nbSpinnerMessage="Waiting">
                       <div class="py-3 px-2">
                         <div class="pl-2">
                             <nb-radio-group class="d-flex" [(ngModel)]="materialViewOption">
@@ -535,7 +536,8 @@
                       </div>
                     </nb-tab>
 
-                    <nb-tab tabTitle="Operations">
+                    <nb-tab tabTitle="Operations" [nbSpinner]="Tabloading" nbSpinnerStatus="primary" nbSpinnerSize="xxlarge"
+                    nbSpinnerMessage="Waiting">
                       <div class="py-3 px-2">
                         <div class="">
                           <kendo-grid [kendoGridBinding]="gridOperation" [selectable]="selectableSettings" [filterable]=isColumnFilter5
@@ -604,7 +606,9 @@
                         </div>
                       </div>
                     </nb-tab>
-                    <nb-tab tabTitle="Resources">
+
+                    <nb-tab tabTitle="Resources" [nbSpinner]="Tabloading" nbSpinnerStatus="primary" nbSpinnerSize="xxlarge"
+                    nbSpinnerMessage="Waiting">
                       <div class="py-3 px-2">
                         <div class="">
                           <kendo-grid [kendoGridBinding]="gridResource" [selectable]="selectableSettings" [filterable]=isColumnFilter6

@@ -70,6 +70,7 @@ export interface TreeNode {
    masterSelected:boolean;
    checklist:any;
    checkedList:any;
+   public Tabloading:boolean = false;
   
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
@@ -213,7 +214,7 @@ export interface TreeNode {
 
    getWorkOrder(itemName){
     this.loading = true; 
-    this.prod.GetWorkOrderFG(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemName, this.RadioBtnWO, "'"+this.checkedList.toString()+"'", this.FromDate, this.ToDate).subscribe(
+    this.prod.GetWorkOrderFG(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemName, this.RadioBtnWO, this.checkedList.toString(), this.FromDate, this.ToDate).subscribe(
       data => {
         console.log(data);       
           if(!data){
@@ -358,7 +359,7 @@ export interface TreeNode {
       this.showMaterialView = 'all';
         
       this.prod.GetMaterialData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry, ItemCode, this.materialViewOption,
-        this.FromDate, this.ToDate, "'"+this.checkedList.toString()+"'").subscribe(
+        this.FromDate, this.ToDate, this.checkedList.toString()).subscribe(
         data => {
           console.log(data);
             this.gridMaterial = data; 
@@ -527,5 +528,10 @@ export interface TreeNode {
  expandAcordian(e: any) {
   e.currentTarget.parentElement.parentElement.classList.add('expanded')
   e.currentTarget.nextSibling.style = '';
+ }
+
+ toggleLoadingAnimation() {
+  this.Tabloading = true;
+  setTimeout(() => this.Tabloading = false, 1000)
  }
 }
