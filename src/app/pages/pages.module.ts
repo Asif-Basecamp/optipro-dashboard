@@ -13,6 +13,7 @@ import { TreeTableModule } from 'primeng/components/treetable/treetable';
 //import { TreetableDemoComponent } from '../@core/treetable/treetable.component';
 import { LookupComponent } from './lookup/lookup.component';
 import { GridModule } from '@progress/kendo-angular-grid';
+import { ResizableModule } from 'angular-resizable-element';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -33,7 +34,8 @@ const PAGES_COMPONENTS = [
     FormsModule,
     TreeTableModule,
     NbTabsetModule,
-    TreeModule.forRoot() 
+    TreeModule.forRoot(),
+    ResizableModule
   ],
   providers: [...PAGES_COMPONENTS,]
 })

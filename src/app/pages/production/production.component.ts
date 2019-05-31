@@ -1,11 +1,11 @@
 import {Component,OnInit,TemplateRef} from '@angular/core';
 import {NbDialogService} from '@nebular/theme';
-import * as eva from 'eva-icons';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { State } from '@progress/kendo-data-query';
 import {DashboardService} from 'src/app/service/dashboard.service';
 import { ProductionService } from 'src/app/service/production.service';
 import {NbToastrService} from '@nebular/theme';
+import { ResizeEvent } from 'angular-resizable-element';
 
 export interface TreeNode {
  label?: string;
@@ -93,8 +93,7 @@ export interface TreeNode {
    ];
   
    this.getCheckedItemList();
-   this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
-   eva.replace()   
+   this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);  
   }
  
   open(dialog: TemplateRef < any > ) {
@@ -528,4 +527,7 @@ export interface TreeNode {
   e.currentTarget.parentElement.parentElement.classList.add('expanded')
   e.currentTarget.nextSibling.style = '';
  }
+ onResizeEnd(event: ResizeEvent): void {
+  console.log('Element was resized', event);
+}
 }

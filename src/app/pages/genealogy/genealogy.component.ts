@@ -1,10 +1,9 @@
  import {Component,OnInit,TemplateRef, Input} from '@angular/core';
- import {TreeNode,TreeModel,TREE_ACTIONS,KEYS,IActionMapping,ITreeOptions} from 'angular-tree-component';
+//  import {TreeNode,TreeModel,TREE_ACTIONS,KEYS,IActionMapping,ITreeOptions} from 'angular-tree-component';
  import {NbDialogService} from '@nebular/theme';
  import {DashboardService} from 'src/app/service/dashboard.service';
  import {Router} from '@angular/router';
  import {NbToastrService} from '@nebular/theme';
- import * as eva from 'eva-icons';
  import { GridComponent } from '@progress/kendo-angular-grid';
  import { State } from '@progress/kendo-data-query';
  import OrgChart from '../../@core/org-chart/orgchart.js';
@@ -87,7 +86,6 @@
    this.radioExplode = 'Lot Explosion';
    this.radioLevel = 'Single Level';
    this.radioTransaction = 'ParentLot';
-   eva.replace()
   }
 
    /*-- Item Code functions --*/
