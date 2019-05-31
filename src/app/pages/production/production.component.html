@@ -29,8 +29,8 @@
                   <input nbInput fieldSize="small" type="text" name="ItemCodeFrom" id="ItemCodeFrom" class="form-control"
                      #ItemCF=ngModel [(ngModel)]="ItemCodeFrom" placeholder="Item From" (blur)="onItemFromBlur()" required autocomplete="off">
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemFromLookup(dialog)"><i class="nb-menu"></i></button>
-                  </div>
+                    <button type="submit" class="btn btn-primary btn-icon-with-input cursor-pointer" nbButton size="xsmall" (click)="openItemFromLookup(dialog)"><i class="nb-menu"></i></button>
+                  </div> 
                 </div>
               </div> 
               <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="ItemCF.errors?.required && !itemFromStatus && ItemCF.touched" class="float-right opti_error-msg">Item From Required</small>
@@ -44,7 +44,7 @@
                   <input nbInput fieldSize="small" type="text" name="ItemCodeTo" id="ItemCodeTo" class="form-control" 
                    #ItemCT=ngModel [(ngModel)]="ItemCodeTo" placeholder="Item To" (blur)="onItemToBlur()" required autocomplete="off">
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary btn-icon-with-input" nbButton size="xsmall" (click)="openItemToLookup(dialog)"><i class="nb-menu"></i></button>
+                    <button type="submit" class="btn btn-primary btn-icon-with-input cursor-pointer" nbButton size="xsmall" (click)="openItemToLookup(dialog)"><i class="nb-menu"></i></button>
                   </div>
                 </div>
               </div>
@@ -263,7 +263,7 @@
                 <kendo-grid [kendoGridBinding]="gridWOFG" [selectable]="selectableSettings" [filterable]=isColumnFilter2
                   [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                   (selectionChange)="gridRowSelectDocEntry($event)"
-                  [ngStyle]="{ 'max-height':'490px'}">
+                  [ngStyle]="{ 'cursor': 'pointer', 'max-height':'490px'}">
                   <ng-template kendoGridToolbarTemplate>
                     <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                       <div class="k-form-field d-flex">
@@ -303,8 +303,14 @@
                   <kendo-grid-column field="ItemName" title="Customer" width="70">
                   </kendo-grid-column>
                   <kendo-grid-column field="U_O_STARTDATE" title="Sch. Start Date" width="97">
+                      <ng-template kendoGridCellTemplate let-dataItem>
+                          {{dataItem.U_O_STARTDATE | date: 'MM/dd/yyyy'}}
+                      </ng-template>
                   </kendo-grid-column>
                   <kendo-grid-column field="U_O_ENDDATE" title="Sch. End Date" width="97">
+                      <ng-template kendoGridCellTemplate let-dataItem>
+                          {{dataItem.U_O_ENDDATE | date: 'MM/dd/yyyy'}}
+                      </ng-template>
                   </kendo-grid-column>
                   <kendo-grid-column field="U_O_UOM" title="UOM" width="44">
                   </kendo-grid-column>
@@ -312,7 +318,7 @@
                   </kendo-grid-column>      
                   <kendo-grid-column field="U_O_POSTEDQTY" title="Qty Complete" width="90">
                       <ng-template kendoGridCellTemplate let-dataItem>
-                          <a (click)="showDetailCompleteLookup(dataItem)">{{dataItem.U_O_POSTEDQTY}}</a>
+                          <a class="cursor-pointer" (click)="showDetailCompleteLookup(dataItem)">{{dataItem.U_O_POSTEDQTY}}</a> 
                       </ng-template>
                   </kendo-grid-column>
                   <kendo-grid-column field="U_O_PASSEDQTY" title="Qty Accp" width="65">
@@ -357,7 +363,7 @@
                         <div class="mt-4" *ngIf="showMaterialView == 'immediate'">
                           <kendo-grid [kendoGridBinding]="gridMaterial" [selectable]="selectableSettings" [filterable]=isColumnFilter3
                             [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
-                            [ngStyle]="{ 'max-height':'490px'}">
+                            [ngStyle]="{ 'max-height':'490px'}"> 
                             <ng-template kendoGridToolbarTemplate>
                               <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                                 <div class="k-form-field d-flex">
@@ -390,12 +396,15 @@
                             </kendo-grid-column>
                             <kendo-grid-column field="U_O_ACTISSQTY" title="Qty Issued" width="74">
                                 <ng-template kendoGridCellTemplate let-dataItem>
-                                    <a (click)="showDetailsIssuedLookup(dataItem)">{{dataItem.U_O_ACTISSQTY}}</a>
+                                    <a class="cursor-pointer" (click)="showDetailsIssuedLookup(dataItem)">{{dataItem.U_O_ACTISSQTY}}</a>
                                 </ng-template>
                             </kendo-grid-column>
                             <kendo-grid-column field="U_O_BALQTY" title="Qty Bal" width="55">
                             </kendo-grid-column>      
                             <kendo-grid-column field="U_O_ISSUEDATE" title="Issue Date" width="74">
+                                <ng-template kendoGridCellTemplate let-dataItem>
+                                    {{dataItem.U_O_ISSUEDATE | date: 'MM/dd/yyyy'}}
+                                </ng-template>
                             </kendo-grid-column>
                             <kendo-grid-column field="U_O_ISSWH" title="Issue WH" width="68">
                             </kendo-grid-column>
@@ -408,14 +417,14 @@
                             <kendo-grid-column-group headerClass="text-center"  title="Quantities at WH XXXX" [width]="300">
                                 <kendo-grid-column field="WH_INSTOCK_QTY" title="Qty In Stock" [width]="81">  
                                     <ng-template kendoGridCellTemplate let-dataItem>
-                                        <a (click)="showDetailsInStockLookup(dataItem,'WH')">{{dataItem.WH_INSTOCK_QTY}}</a>
+                                        <a class="cursor-pointer" (click)="showDetailsInStockLookup(dataItem,'WH')">{{dataItem.WH_INSTOCK_QTY}}</a>
                                     </ng-template>                                  
                                 </kendo-grid-column>
                                 <kendo-grid-column field="WH_COMMITED_QTY" title="Qty Commit" [width]="81" >
                                 </kendo-grid-column>
                                 <kendo-grid-column field="WH_ONORDER_QTY" title="Qty On Order" [width]="86" [locked]="false">
                                     <ng-template kendoGridCellTemplate let-dataItem>
-                                        <a (click)="showDetailsOnOrderLookup(dataItem,'WH')">{{dataItem.WH_ONORDER_QTY}}</a>
+                                        <a class="cursor-pointer" (click)="showDetailsOnOrderLookup(dataItem,'WH')">{{dataItem.WH_ONORDER_QTY}}</a>
                                     </ng-template>
                                 </kendo-grid-column>
                                 <kendo-grid-column field="WH_AVAILABLE_QTY" title="Qty Aval" [width]="61" [locked]="false">
@@ -424,14 +433,14 @@
                             <kendo-grid-column-group headerClass="text-center" title="Quantities at Company Lvl" [width]="300">
                                 <kendo-grid-column field="COM_INSTOCK_QTY" title="Qty In Stock" [width]="81">    
                                     <ng-template kendoGridCellTemplate let-dataItem>
-                                        <a (click)="showDetailsInStockLookup(dataItem,'CP')">{{dataItem.COM_INSTOCK_QTY}}</a>
+                                        <a class="cursor-pointer" (click)="showDetailsInStockLookup(dataItem,'CP')">{{dataItem.COM_INSTOCK_QTY}}</a>
                                     </ng-template>                                 
                                 </kendo-grid-column>
                                 <kendo-grid-column field="COM_COMMITED_QTY" title="Qty Commit" [width]="81" >
                                 </kendo-grid-column>
                                 <kendo-grid-column field="COM_ONORDER_QTY" title="Qty On Order" [width]="86" [locked]="false">
                                     <ng-template kendoGridCellTemplate let-dataItem>
-                                        <a (click)="showDetailsOnOrderLookup(dataItem,'CP')">{{dataItem.COM_ONORDER_QTY}}</a>
+                                        <a class="cursor-pointer" (click)="showDetailsOnOrderLookup(dataItem,'CP')">{{dataItem.COM_ONORDER_QTY}}</a>
                                     </ng-template>
                                 </kendo-grid-column>
                                 <kendo-grid-column field="COM_AVAILABLE_QTY" title="Qty Aval" [width]="61" [locked]="false">
@@ -440,14 +449,14 @@
                         </kendo-grid>
                         </div>
                         <div class="mt-4" *ngIf="showMaterialView == 'all'">
-                            <kendo-grid [kendoGridBinding]="gridDatas" [selectable]="selectableSettings" [filterable]=isColumnFilter4
+                            <kendo-grid [kendoGridBinding]="gridMaterial" [selectable]="selectableSettings" [filterable]=isColumnFilter4
                               [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                               (selectionChange)="gridRowSelectionChange($event,ref)"
-                              [ngStyle]="{ 'max-height':'490px'}">
+                              [ngStyle]="{ 'max-height':'490px'}">  
                               <ng-template kendoGridToolbarTemplate>
                                 <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                                   <div class="k-form-field d-flex">
-                                    <input #chkFilter4 type="checkbox" (change)="onFilterChange(chkFilter4,gridDatas)"
+                                    <input #chkFilter4 type="checkbox" (change)="onFilterChange(chkFilter4,gridMaterial)"
                                       id="opti_SalesOrderListColumnFilterID4" [(ngModel)]="isColumnFilter4" class="k-checkbox"
                                       name="columnfilter" />
                                     <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID4">Enable Filter</label>
@@ -482,12 +491,15 @@
                               </kendo-grid-column>
                               <kendo-grid-column field="U_O_ACTISSQTY" title="Qty Issued" width="74">
                                   <ng-template kendoGridCellTemplate let-dataItem>
-                                      <a (click)="showDetailsIssuedLookup(dataItem)">{{dataItem.U_O_ACTISSQTY}}</a>
+                                      <a class="cursor-pointer" (click)="showDetailsIssuedLookup(dataItem)">{{dataItem.U_O_ACTISSQTY}}</a>
                                   </ng-template>
                               </kendo-grid-column>
                               <kendo-grid-column field="U_O_BALQTY" title="Qty Bal" width="55">
                               </kendo-grid-column>
                               <kendo-grid-column field="U_O_ISSUEDATE" title="Issue Date" width="74">
+                                  <ng-template kendoGridCellTemplate let-dataItem>
+                                      {{dataItem.U_O_ISSUEDATE | date: 'MM/dd/yyyy'}}
+                                  </ng-template>
                               </kendo-grid-column>
                               <kendo-grid-column field="U_O_ISSWH" title="Issue WH" width="68">
                               </kendo-grid-column>   
@@ -500,14 +512,14 @@
                               <kendo-grid-column-group headerClass="text-center"  title="Quantities at WH XXXX" [width]="300">
                                   <kendo-grid-column field="WH_INSTOCK_QTY" title="Qty In Stock" [width]="81">
                                       <ng-template kendoGridCellTemplate let-dataItem>
-                                          <a (click)="showDetailsInStockLookup(dataItem,'WH')">{{dataItem.WH_INSTOCK_QTY}}</a>
+                                          <a class="cursor-pointer" (click)="showDetailsInStockLookup(dataItem,'WH')">{{dataItem.WH_INSTOCK_QTY}}</a>
                                       </ng-template>                                     
                                   </kendo-grid-column>
                                   <kendo-grid-column field="WH_COMMITED_QTY" title="Qty Commit" [width]="81" >
                                   </kendo-grid-column>
                                   <kendo-grid-column field="WH_ONORDER_QTY" title="Qty On Order" [width]="86" [locked]="false">
                                       <ng-template kendoGridCellTemplate let-dataItem>
-                                          <a (click)="showDetailsOnOrderLookup(dataItem,'CP')">{{dataItem.WH_ONORDER_QTY}}</a>
+                                          <a class="cursor-pointer" (click)="showDetailsOnOrderLookup(dataItem,'CP')">{{dataItem.WH_ONORDER_QTY}}</a>
                                       </ng-template>
                                   </kendo-grid-column>
                                   <kendo-grid-column field="WH_AVAILABLE_QTY" title="Qty Aval" [width]="61" [locked]="false">
@@ -516,14 +528,14 @@
                               <kendo-grid-column-group headerClass="text-center" title="Quantities at Company Lvl" [width]="300">
                                   <kendo-grid-column field="COM_INSTOCK_QTY" title="Qty In Stock" [width]="81">  
                                       <ng-template kendoGridCellTemplate let-dataItem>
-                                          <a (click)="showDetailsInStockLookup(dataItem,'CP')">{{dataItem.COM_INSTOCK_QTY}}</a>
+                                          <a class="cursor-pointer" (click)="showDetailsInStockLookup(dataItem,'CP')">{{dataItem.COM_INSTOCK_QTY}}</a>
                                       </ng-template>                                  
                                   </kendo-grid-column>
                                   <kendo-grid-column field="COM_COMMITED_QTY" title="Qty Commit" [width]="81" >
                                   </kendo-grid-column>
                                   <kendo-grid-column field="COM_ONORDER_QTY" title="Qty On Order" [width]="86" [locked]="false">
                                       <ng-template kendoGridCellTemplate let-dataItem>
-                                          <a (click)="showDetailsOnOrderLookup(dataItem,'CP')">{{dataItem.COM_ONORDER_QTY}}</a>
+                                          <a class="cursor-pointer" (click)="showDetailsOnOrderLookup(dataItem,'CP')">{{dataItem.COM_ONORDER_QTY}}</a>
                                       </ng-template>
                                   </kendo-grid-column>
                                   <kendo-grid-column field="COM_AVAILABLE_QTY" title="Qty Aval" [width]="61" [locked]="false">
@@ -573,8 +585,14 @@
                             <kendo-grid-column field="U_O_OPERCMPFLG" title="Opn Complt" width="81">
                             </kendo-grid-column>
                             <kendo-grid-column field="U_OPTM_OPSDATE" title="Opn Start Dt/Time" width="115">
+                              <ng-template kendoGridCellTemplate let-dataItem>
+                                  {{dataItem.U_OPTM_OPSDATE | date: 'MM/dd/yyyy'}}
+                              </ng-template>
                             </kendo-grid-column>
                             <kendo-grid-column field="U_OPTM_OPEDATE" title="Opn End Dt/Time" width="109">
+                              <ng-template kendoGridCellTemplate let-dataItem>
+                                  {{dataItem.U_OPTM_OPEDATE | date: 'MM/dd/yyyy'}}
+                              </ng-template>
                             </kendo-grid-column>      
                             <kendo-grid-column field="U_O_OPR_TYPE" title="Opn Type" width="68">
                             </kendo-grid-column>

@@ -19,9 +19,7 @@ export class ProductionService {
 
   GetItemExplosionData(optiProDashboardAPIURL:string,CompanyDBID:string,ItemFrom:string,ItemTo:string,SelectionCriteria:string,
     FromDate:Date, ToDate:Date):Observable<any>{
-     // let sFromDate = new Date(FromDate).toLocaleString;
-      //let sToDate = new Date(ToDate).toLocaleString;
-
+     
     let jObject:any={ GetData: JSON.stringify([{ 
       CompanyDBID: CompanyDBID,
       ItemFrom: ItemFrom,
@@ -34,14 +32,13 @@ export class ProductionService {
  } 
  
  GetWorkOrderFG(optiProDashboardAPIURL:string,CompanyDBID:string,Item:string,SelectionCriteria:string,WOStatus:string,FromDate:Date, ToDate:Date):Observable<any>{
-  //let sFromDate = new Date(FromDate).toLocaleString;
-  //let sToDate = new Date(ToDate).toLocaleString;
 
   let jObject:any={ GetData: JSON.stringify([{ 
     CompanyDBID: CompanyDBID,
     ItemCode: Item,
     SelectionCriteria: SelectionCriteria,
-    WOStatus: WOStatus,
+   // WOStatus: WOStatus,
+    WOStatus: '1,6,4,3',
     FromDate: FromDate,
     ToDate: ToDate
 }]) };
@@ -56,7 +53,8 @@ GetMaterialData(optiProDashboardAPIURL:string,CompanyDBID:string,DocEntry:string
     ItemCode: ItemCode,   
     FromDate: FromDate,
     ToDate: ToDate,
-    WOStatus: WOStatus, 
+    //WOStatus: WOStatus, 
+    WOStatus: '1,6,4,3'
 }]) };
 return this.httpClient.post(optiProDashboardAPIURL +"ProductionDashboard/GetMaterialData",jObject,this.httpOptions);
 } 
