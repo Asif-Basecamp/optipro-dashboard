@@ -70,6 +70,7 @@ export interface TreeNode {
    masterSelected:boolean;
    checklist:any;
    checkedList:any;
+   public Tabloading:boolean = false;
   
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
@@ -410,7 +411,11 @@ export interface TreeNode {
       else 
       this.showMaterialView = 'all';
         
+<<<<<<< HEAD
       this.prod.GetMaterialData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry, this.materialViewOption, ItemCode, 
+=======
+      this.prod.GetMaterialData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry, ItemCode, this.materialViewOption,
+>>>>>>> 56dc355a5e56c1b881aca8f1d644ff5fb1447bac
         this.FromDate, this.ToDate, this.checkedList.toString()).subscribe(
         data => {
           console.log("Get Materials -");
@@ -580,5 +585,10 @@ export interface TreeNode {
  expandAcordian(e: any) {
   e.currentTarget.parentElement.parentElement.classList.add('expanded')
   e.currentTarget.nextSibling.style = '';
+ }
+
+ toggleLoadingAnimation() {
+  this.Tabloading = true;
+  setTimeout(() => this.Tabloading = false, 1000)
  }
 }
