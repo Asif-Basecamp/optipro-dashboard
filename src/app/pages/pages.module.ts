@@ -36,7 +36,7 @@ const PAGES_COMPONENTS = [
     TreeTableModule,
     NbTabsetModule,
     TreeModule.forRoot(),
-    CountdownModule
+    CountdownModule,
     ResizableModule
   ],
   providers: [...PAGES_COMPONENTS,]

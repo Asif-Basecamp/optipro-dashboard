@@ -616,6 +616,9 @@ export interface TreeNode {
    if(this.time>0 && this.time<61){
       this.times = this.time*60;
       this.timeError = false;
+      setTimeout(function() {
+        alert('hello');
+      }, 1000);  
    }else{
       this.timeError = true;
    }
