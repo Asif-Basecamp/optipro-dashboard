@@ -618,7 +618,7 @@ export interface TreeNode {
       this.timeError = false;
       setTimeout(function() {
         alert('hello');
-      }, 1000);  
+      },this.times*1000);  
    }else{
       this.timeError = true;
    }
