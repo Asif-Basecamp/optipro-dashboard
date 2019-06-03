@@ -464,6 +464,16 @@
        cd["name"] = cd.DistNumber + ` (Doc Entry: ${cd.DocEntry})`;
        else
        cd["name"] = cd.DistNumber;
+       if(cd.ObjectTypeDesc != null){
+         let desc = '';
+         desc =  cd.ObjectTypeDesc.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '')
+        desc = desc.replace(/\s/g, '');
+        cd["className"] = desc.toUpperCase();
+       }       
+       else{
+        cd["className"] = cd.ObjectTypeDesc;
+       }
+      
        cd.children = this.getAnalysisHierarchy(data, d.SeqNo);
        return nodess.push(cd);
       }.bind(this))

@@ -32,6 +32,9 @@
     nb-card-body {
       & > nb-calendar-pageable-navigation, & > nb-calendar-navigation {
         padding:0 0 .6rem;
+        & i{
+          font-size:1rem !important;
+        }
       }
     }
   }
