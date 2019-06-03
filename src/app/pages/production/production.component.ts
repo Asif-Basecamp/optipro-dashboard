@@ -1,10 +1,11 @@
-import {Component,OnInit,TemplateRef} from '@angular/core';
+import {Component,OnInit,TemplateRef,ViewChild} from '@angular/core';
 import {NbDialogService} from '@nebular/theme';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { State } from '@progress/kendo-data-query';
 import {DashboardService} from 'src/app/service/dashboard.service';
 import { ProductionService } from 'src/app/service/production.service';
 import {NbToastrService} from '@nebular/theme';
+import { CountdownComponent } from 'ngx-countdown';
 
 export interface TreeNode {
  label?: string;
@@ -70,7 +71,12 @@ export interface TreeNode {
    checklist:any;
    checkedList:any;
    public Tabloading:boolean = false;
-  
+   public refreshStatus:boolean = false;
+   @ViewChild('countdown') counter: CountdownComponent;
+   times: any;
+   time: any;
+   timeError: boolean = false;
+
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
     { value: 'SIMPLE', label: 'Simple View' },
@@ -91,7 +97,6 @@ export interface TreeNode {
      {id:3, name:'Close', value: '4', isSelected:false},
      {id:4, name:'Cancel', value: '3', isSelected:false}
    ];
-  
    this.getCheckedItemList();
    this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);  
   }
@@ -596,5 +601,26 @@ export interface TreeNode {
  toggleLoadingAnimation() {
   this.Tabloading = true;
   setTimeout(() => this.Tabloading = false, 1000)
+ }
+
+ refreshEvent(e){
+  if(e.target.checked == true){
+    this.refreshStatus = true;
+  }else{
+    this.refreshStatus = false;
+    this.time = '';
+  }
+ }
+
+ autoRefresh(){
+   if(this.time>0 && this.time<61){
+      this.times = this.time*60;
+      this.timeError = false;
+      setTimeout(function() {
+        alert('hello');
+      },this.times*1000);  
+   }else{
+      this.timeError = true;
+   }
  }
 }

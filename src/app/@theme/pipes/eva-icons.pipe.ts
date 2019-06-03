@@ -6,7 +6,7 @@
 
 import { DomSanitizer } from '@angular/platform-browser';
 import { Pipe, PipeTransform } from '@angular/core';
-import { icons } from 'eva-icons';
+// import { icons } from 'eva-icons';
 
 @Pipe({ name: 'eva' })
 export class EvaIconsPipe implements PipeTransform {
@@ -21,7 +21,7 @@ export class EvaIconsPipe implements PipeTransform {
 
   constructor(private sanitizer: DomSanitizer) {}
 
-  transform(icon: string,
+  transform(
             options: {
               height: number;
               width: number;
@@ -40,11 +40,11 @@ export class EvaIconsPipe implements PipeTransform {
       { type: animationType, hover: animationHover, infinite: animationInfinity } :
       null;
 
-    return this.sanitizer.bypassSecurityTrustHtml(icons[icon].toSvg({
-      width,
-      height,
-      fill,
-      animation,
-    }));
+    // return this.sanitizer.bypassSecurityTrustHtml(icons[icon].toSvg({
+    //   width,
+    //   height,
+    //   fill,
+    //   animation,
+    // }));
   }
 }

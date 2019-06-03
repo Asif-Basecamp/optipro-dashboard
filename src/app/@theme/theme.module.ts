@@ -58,7 +58,7 @@ import {
   RoundPipe,
   TimingPipe,
   NumberWithCommasPipe,
-  EvaIconsPipe,
+  // EvaIconsPipe,
 } from './pipes';
 
 import {
@@ -133,7 +133,7 @@ const PIPES = [
   RoundPipe,
   TimingPipe,
   NumberWithCommasPipe,
-  EvaIconsPipe,
+  // EvaIconsPipe,
 ];
 
 const NB_THEME_PROVIDERS = [
