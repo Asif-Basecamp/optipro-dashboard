@@ -1247,7 +1247,7 @@ col.k-sorted,th.k-sorted {
 .k-column-menu .k-menu:not(.k-context-menu) {
   font-weight: 400
 }
-.k-checkbox, .k-radio {
+.k-checkbox {
   margin: 0;
   padding: 0;
   clip: rect(0, 0, 0, 0);
@@ -1257,9 +1257,9 @@ col.k-sorted,th.k-sorted {
   -webkit-appearance: none;
   pointer-events: none;
 }
-.k-checkbox-label::before, .k-checkbox-label::after, .k-radio-label::before, .k-radio-label::after {
+.k-checkbox-label::before {
   font-size: 16px;
-  font-family: "WebComponentsIcons";
+  font-family: nb-theme(font-icon);
   box-sizing: border-box;
   text-align: center;
   display: inline-flex;
@@ -1270,45 +1270,21 @@ col.k-sorted,th.k-sorted {
   top: 50%;
   transform: translateY(-50%);
   left: 0;
+  color: nb-theme(form-control-border-color);
+  content: "\e91c";
+  font-size: 15px;
 }
-.k-checkbox-label::before, .k-radio-label::before {
-  content: "";
-  width: 16px;
-  height: 16px;
-  border: 1px solid nb-theme(form-control-border-color);
-}
-.k-checkbox-label::before {
-  border-radius: 0.25rem;
-}
+
 .k-checkbox:checked + .k-checkbox-label::before {
-  border-color: nb-theme(color-primary);
-  background-color: nb-theme(color-primary);
+  color: nb-theme(color-primary);
+  content: "\e91f";
 }
-.k-checkbox:checked + .k-checkbox-label::after {
-  border-radius: .25rem;
-  transform:scale(0.75) translateY(-63%);
-  color: #fff;
-}
-.k-checkbox:focus + .k-checkbox-label::before {
-  box-shadow: 0 0 0 1px #ffffff, 0 0 0 3px nb-theme(color-primary);
-  background-color: rgba(48, 54, 60, 0.15);
-  border-color: rgba(48, 54, 60, 0.15);
-  border-radius: 0.25rem;
-}
+
 .k-checkbox:checked + .k-checkbox-label::before, .k-checkbox:checked:focus + .k-checkbox-label::before {
-  border-color: nb-theme(color-primary);
-  background-color: nb-theme(color-primary);
+  color: nb-theme(color-primary);
 }
 .k-checkbox-label {
   cursor: pointer;
-}
-.k-checkbox-label::after {
-  content: "\e118";
-  width: 16px;
-  height: 16px;
-  transform: scale(0) translateY(-63%);
-}
-.k-checkbox-label, .k-radio-label {
   margin: 0;
   padding-left: calc( 16px + 0.5rem);
   min-height: 16px;
@@ -1318,6 +1294,15 @@ col.k-sorted,th.k-sorted {
   align-items: flex-start;
   position: relative;
   cursor: pointer;
+  &:hover:not(:disabled){
+    &:before{
+      color: nb-theme(color-primary);
+    }
+  }
+  
+}
+.k-checkbox:disabled + .k-checkbox-label::befor {
+  color: #d4d4d4;
 }
 .k-grid-norecords td{
   font-size: 16px;

@@ -3,13 +3,13 @@ import { NbMenuItem } from '@nebular/theme';
 export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Lot Genealogy',
-    icon: 'nb-bar-chart',
+    icon: 'optipro-icon-tree-structure',
     link: '/pages/genealogy',
     home: true,
   },
   {
     title: 'Production',
-    icon: 'nb-bar-chart',
+    icon: 'optipro-icon-factory',
     link: '/pages/production',
     home: true,
   }

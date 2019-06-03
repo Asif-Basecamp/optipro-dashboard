@@ -1,6 +1,5 @@
 import {Component,OnInit,TemplateRef,ViewChild} from '@angular/core';
 import {NbDialogService} from '@nebular/theme';
-import * as eva from 'eva-icons';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { State } from '@progress/kendo-data-query';
 import {DashboardService} from 'src/app/service/dashboard.service';
@@ -99,8 +98,7 @@ export interface TreeNode {
      {id:4, name:'Cancel', value: '3', isSelected:false}
    ];
    this.getCheckedItemList();
-   this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
-   eva.replace()   
+   this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);  
   }
  
   open(dialog: TemplateRef < any > ) {
@@ -123,9 +121,15 @@ export interface TreeNode {
      data => {
        console.log("GetCompleted - ");
        console.log(data);
-       this.showLookup = true;
-       this.serviceApiData = data;
-       this.lookupfor = "showCompleteLookup";
+       if(data != undefined && data != null){
+        this.showLookup = true;
+        this.serviceApiData = data;
+        this.lookupfor = "showCompleteLookup";
+       }
+       else {
+        this.toastrService.danger(this.language.no_record_found);    
+       }
+       
      },
      error => {
        this.toastrService.danger(this.language.no_record_found);    
@@ -133,13 +137,26 @@ export interface TreeNode {
  }
 
  showDetailsIssuedLookup(data){
-   this.prod.GetIssuedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID).subscribe(
+   this.prod.GetIssuedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID,data.DocEntry).subscribe(
      data => {
        console.log("GetIssued - ");
        console.log(data);
-       this.showLookup = true;
-       this.serviceApiData = data;
-       this.lookupfor = "showIssuedLookup";
+       
+
+       if(data != undefined && data != null){
+         if(data.length > 0){
+          this.showLookup = true;
+          this.serviceApiData = data;
+          this.lookupfor = "showIssuedLookup";
+         }
+         else {
+          this.toastrService.danger(this.language.no_record_found);    
+         }
+       
+       }
+       else {
+        this.toastrService.danger(this.language.no_record_found);    
+       }
      },
      error => {
        this.toastrService.danger(this.language.no_record_found);    
@@ -159,23 +176,46 @@ export interface TreeNode {
      this.prod.GetWarehouseWiseInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID, data.U_O_ISSWH,ItemType).subscribe(
        data => {
          console.log("GetOnOrder - ");
-         console.log(data);
-         this.showLookup = true;
-         this.serviceApiData = data;
-         this.lookupfor = "showIssuedLookup";
+         console.log(data);         
+
+         if(data != undefined && data != null){
+           if(data.length > 0){
+            this.showLookup = true;
+            this.serviceApiData = data;
+            this.lookupfor = "showInStockLookup";
+           }
+           else {
+            this.toastrService.danger(this.language.no_record_found);    
+           }
+          
+         }
+         else {
+          this.toastrService.danger(this.language.no_record_found);    
+         }
        },
        error => {
          this.toastrService.danger(this.language.no_record_found);    
       })
    }
    else  if(check == 'CP'){
-     this.prod.GetInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID, data.U_O_ISSWH,ItemType).subscribe(
+     this.prod.GetInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID,ItemType).subscribe(
        data => {
          console.log("GetOnOrder - ");
          console.log(data);
-         this.showLookup = true;
-         this.serviceApiData = data;
-         this.lookupfor = "showIssuedLookup";
+         
+         if(data != undefined && data != null){
+           if(data.length > 0){
+            this.showLookup = true;
+            this.serviceApiData = data;
+            this.lookupfor = "showInStockLookup"; 
+           }
+           else {
+            this.toastrService.danger(this.language.no_record_found);    
+           }           
+         }
+         else {
+          this.toastrService.danger(this.language.no_record_found);    
+         }
        },
        error => {
          this.toastrService.danger(this.language.no_record_found);    
@@ -185,7 +225,7 @@ export interface TreeNode {
  }
 
   ItemRowSelect(itemName){
-    this.getWorkOrder(itemName);
+    this.getWorkOrder(itemName.ItemCode);
   }
 
    
@@ -229,7 +269,7 @@ export interface TreeNode {
             this.gridWOFG = data; 
             this.getMaterials(this.gridWOFG[0].DocEntry,this.gridWOFG[0].U_O_PRODID);
             this.getOperations(this.gridWOFG[0].DocEntry);
-            this.getResources(this.gridWOFG[0].U_O_PRODID);
+            this.getResources(this.gridWOFG[0].DocEntry);
            }
       },
       error => {
@@ -242,11 +282,22 @@ export interface TreeNode {
      
      this.prod.GetWarehouseWiseOnOrderQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID, data.U_O_ISSWH).subscribe(
        data => {
-         console.log("GetOnOrder - ");
-         console.log(data);
-         this.showLookup = true;
-         this.serviceApiData = data;
-         this.lookupfor = "showOnOrderLookup";
+        console.log("GetOnOrder - ");
+        console.log(data);
+        if(data != undefined && data != null){
+          if(data.length > 0){
+            this.showLookup = true;
+            this.serviceApiData = data;
+            this.lookupfor = "showOnOrderLookup";
+          }
+          else {
+            this.toastrService.danger(this.language.no_record_found);    
+          }
+        }
+        else {
+          this.toastrService.danger(this.language.no_record_found);    
+        }         
+        
        },
        error => {
          this.toastrService.danger(this.language.no_record_found);    
@@ -256,11 +307,22 @@ export interface TreeNode {
    else if(check == 'CP'){
      this.prod.GetOnOrderQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID).subscribe(
        data => {
-         console.log("GetOnOrder - ");
-         console.log(data);
-         this.showLookup = true;
-         this.serviceApiData = data;
-         this.lookupfor = "showOnOrderLookup";
+        console.log("GetOnOrder - ");
+        console.log(data);
+        if(data != undefined && data != null){
+          if(data.length > 0){
+            this.showLookup = true;
+            this.serviceApiData = data;
+            this.lookupfor = "showOnOrderLookup";
+          }
+          else {
+            this.toastrService.danger(this.language.no_record_found);    
+          }
+        }
+        else {
+          this.toastrService.danger(this.language.no_record_found);    
+        }        
+        
        },
        error => {
          this.toastrService.danger(this.language.no_record_found);    
@@ -344,8 +406,8 @@ export interface TreeNode {
   }
 
   gridRowSelectFG(evt){
-    let name = evt.selectedRows[0].dataItem.ItemCode;
-    this.getWorkOrder(name);
+    let name = evt.selectedRows[0].dataItem.ItemCode;    
+    this.getWorkOrder(name);    
   }
 
   gridRowSelectDocEntry(evt){
@@ -353,7 +415,7 @@ export interface TreeNode {
    let itemcode = evt.selectedRows[0].dataItem.U_O_PRODID;
    this.getMaterials(docentry,itemcode);
    this.getOperations(docentry);
-   this.getResources(itemcode);
+   this.getResources(docentry);
  }
 
    getMaterials(DocEntry,ItemCode){
@@ -363,14 +425,12 @@ export interface TreeNode {
       else 
       this.showMaterialView = 'all';
         
-      this.prod.GetMaterialData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry, ItemCode, this.materialViewOption,
+      this.prod.GetMaterialData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry,this.materialViewOption, ItemCode, 
         this.FromDate, this.ToDate, this.checkedList.toString()).subscribe(
         data => {
+          console.log("Get Materials -");
           console.log(data);
             this.gridMaterial = data; 
-            //this.getPopUp3(this.gridMaterial[0].U_O_COMPID);
-           // this.getPopUp3('Bearing_B');
-            
         },
         error => {
           this.toastrService.danger(this.language.no_record_found);    
@@ -381,6 +441,7 @@ export interface TreeNode {
     
       this.prod.GetOperationData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
         data => {
+            console.log("Get Operations -");
             this.gridOperation = data;     
         },
         error => {
@@ -392,6 +453,7 @@ export interface TreeNode {
 
     this.prod.GetResourceData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
       data => {
+          console.log("Get Resource -");
           this.gridResource = data;       
           
       },
@@ -427,7 +489,7 @@ export interface TreeNode {
       data => {
          if(!data){
             this.loading = false;
-           // this.toastrService.danger('No Record Found');
+            this.toastrService.danger('No Record Found');
           }else{
             this.gridViewData = data;
             this.loading = false;
@@ -440,9 +502,10 @@ export interface TreeNode {
               } 
               this.nodes2 = this.getHierarchy(Arr, '-1');
               this.files2 = this.nodes2;
+              this.getWorkOrder(this.gridViewData[0].ItemCode);
             }
             else {
-             // this.toastrService.danger(this.language.no_record_found);    
+             this.toastrService.danger(this.language.no_record_found);    
             }
           }  
       },

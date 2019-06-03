@@ -56,7 +56,7 @@
             <kendo-grid  [kendoGridBinding]="serviceData"
                 [filterable]=isColumnFilter [groupable]=isColumnGroup [selectable]="true" [pageable]="pagable" [sort]="state.sort"
                 [filter]="state.filter" [resizable]="true" [skip]="skip" (selectionChange)="on_item_select($event)" [pageSize]="pagesize"
-                style="max-height:400px" class="no-shadow">
+                style="cursor: pointer ; max-height:400px" class="no-shadow">
         
                 <ng-template kendoPagerTemplate let-totalPages="totalPages" let-currentPage="1">
                     <kendo-pager-prev-buttons></kendo-pager-prev-buttons>
