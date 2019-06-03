@@ -1,14 +1,13 @@
- import {Component,OnInit,TemplateRef, Input} from '@angular/core';
+ import { Component, OnInit, TemplateRef, Input } from '@angular/core';
 //  import {TreeNode,TreeModel,TREE_ACTIONS,KEYS,IActionMapping,ITreeOptions} from 'angular-tree-component';
- import {NbDialogService} from '@nebular/theme';
- import {DashboardService} from 'src/app/service/dashboard.service';
- import {Router} from '@angular/router';
- import {NbToastrService} from '@nebular/theme';
+ import { NbDialogService } from '@nebular/theme';
+ import { DashboardService } from 'src/app/service/dashboard.service';
+ import { Router } from '@angular/router';
+ import { NbToastrService } from '@nebular/theme';
  import { GridComponent } from '@progress/kendo-angular-grid';
  import { State } from '@progress/kendo-data-query';
  import OrgChart from '../../@core/org-chart/orgchart.js';
  
- var nodeName = '';
  
  @Component({
   selector: 'ngx-genealogy',
@@ -540,6 +539,8 @@
       'data' : result,
       'depth': 1,
       'direction': 'l2r',
+      // 'chartClass':'ItemCode',
+      // 'nodeID': 'id',
       'createNode': function(node, data) {
         let secondMenu = document.createElement('div');
         secondMenu.setAttribute('class', 'second-menu');
@@ -564,8 +565,7 @@
                 <div class="data-content">
                   ${data.Warehouse ? data.Warehouse : ''}
                 </div>
-              </div>
-              
+              </div>              
               <div class="data-column">
                 <div class="data-heading">
                   Lot #
