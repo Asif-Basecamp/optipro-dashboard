@@ -91,7 +91,7 @@
       <div class="row ">
         <div class="col-12 d-flex justify-content-between align-items-center">
             <div class="k-form-field d-flex align-items-center">
-              <input type="checkbox" class="k-checkbox" id="autorefreshTime" name="autorefreshTime" (click)="refreshEvent($event)"/>
+              <input type="checkbox" class="k-checkbox" id="autorefreshTime" name="autorefreshTime" [(ngModel)]="refreshCheck" (click)="refreshEvent($event)"/>
               <label class="k-checkbox-label d-flex align-items-center" for="autorefreshTime">Auto refresh time 
                 <input name="customTime" [(ngModel)]="time" min="0" max="99" id="customTime" fieldSize="small" nbInput type="text" class="form-control w-auto text-center" style="padding: 0 2px;max-width: 20px;height: 20px;margin: 0 5px;" [disabled]="!refreshStatus"> minute.</label>
             </div>
