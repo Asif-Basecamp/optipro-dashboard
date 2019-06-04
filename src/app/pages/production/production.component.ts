@@ -61,7 +61,7 @@ export interface TreeNode {
    showLookup: boolean = false;
    public itemFromStatus:boolean = false;
    public itemToStatus:boolean = false;
-   public checkboxStatus:boolean = true;
+   public checkboxStatus:boolean = false;
    loading = false;
    public showView: any = '';
    public showMaterialView: any = '';
@@ -91,7 +91,7 @@ export interface TreeNode {
    this.CompanyDB = JSON.parse(window.localStorage.getItem('CompanyDB'));
    this.FromDate = new Date();
    this.ToDate = new Date();
-   this.masterSelected = false;
+   this.masterSelected = true;
    this.checklist = [
      {id:1, name:'In Process', value: '6', isSelected:false},
      {id:2, name:'New', value: '1', isSelected:false},
@@ -99,6 +99,7 @@ export interface TreeNode {
      {id:4, name:'Cancel', value: '3', isSelected:false}
    ];
    this.getCheckedItemList();
+   this.checkUncheckAll();
    this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);  
   }
  
@@ -191,10 +192,7 @@ export interface TreeNode {
    }
    else  if(check == 'CP'){
      this.prod.GetInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID,ItemType).subscribe(
-       data => {
-         console.log("GetOnOrder - ");
-         console.log(data);
-         
+       data => {         
          if(data != undefined && data != null){
            if(data.length > 0){
             this.showLookup = true;
@@ -242,9 +240,7 @@ export interface TreeNode {
       if(this.checklist[i].isSelected)
       this.checkedList.push(this.checklist[i].value);
     }
-    if(this.checkedList.length<=0){
-      this.checkboxStatus =  true;
-    }else{
+    if(this.checkedList.length>0){
       this.checkboxStatus =  false;
     }
   } 
@@ -253,7 +249,6 @@ export interface TreeNode {
     this.loading = true; 
     this.prod.GetWorkOrderFG(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemName, this.RadioBtnWO, this.checkedList.toString(), this.FromDate, this.ToDate).subscribe(
       data => {
-        console.log(data);       
           if(!data){
             this.loading = false;
            }else{
@@ -274,8 +269,6 @@ export interface TreeNode {
      
      this.prod.GetWarehouseWiseOnOrderQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID, data.U_O_ISSWH).subscribe(
        data => {
-        console.log("GetOnOrder - ");
-        console.log(data);
         if(data != undefined && data != null){
           if(data.length > 0){
             this.showLookup = true;
@@ -299,8 +292,6 @@ export interface TreeNode {
    else if(check == 'CP'){
      this.prod.GetOnOrderQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID).subscribe(
        data => {
-        console.log("GetOnOrder - ");
-        console.log(data);
         if(data != undefined && data != null){
           if(data.length > 0){
             this.showLookup = true;
@@ -465,12 +456,16 @@ export interface TreeNode {
   }
 
    GetExplosionData() {
+    if(this.checkedList.length<=0){
+      this.checkboxStatus =  true;
+    }else{
+      this.checkboxStatus =  false; 
     if(this.viewOption == "SIMPLE")
       this.showView = 'simple';
          
     else 
-      this.showView = 'detail'; 
-
+    this.showView = 'detail'; 
+    this.times = '';  
     this.loading = true;   
     this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemCodeFrom, this.ItemCodeTo, this.viewOption, this.FromDate, this.ToDate).subscribe(
       data => {
@@ -499,7 +494,8 @@ export interface TreeNode {
       error => {
         this.toastrService.danger(this.language.no_record_found);    
       })
-      this.searchCriteriaToggle(event)
+      this.searchCriteriaToggle(event);
+    } 
     }
 
   //Search criteria expand-shrink function  

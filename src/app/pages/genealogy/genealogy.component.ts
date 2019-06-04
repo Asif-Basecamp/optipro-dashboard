@@ -131,12 +131,14 @@
         this.ItemDesc = '';
         this.itemStatus = true;
         this.disableLotNumber = true;
+        this.DfltWarehouse = '';
         this.DistNumFrom = '';
         this.DistNumTo = '';
       }
     }else{
         this.itemStatus = false;
         this.ItemDesc = '';
+        this.DfltWarehouse = '';
         this.DistNumFrom = '';
         this.DistNumTo = '';
     } 
@@ -368,6 +370,7 @@
     this.disableLotNumber = false;
     this.DistNumFrom = '';
     this.DistNumTo = '';
+    this.DfltWarehouse = '';
     if (evt.selectedRows[0].dataItem.ManBtchNum == 'Y') {
      this.trackName = 'Batch'
     } else {
