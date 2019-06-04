@@ -16,7 +16,6 @@ import { GridModule } from '@progress/kendo-angular-grid';
 import { NbOverlayModule, NbToastrModule, NbDatepickerModule } from '@nebular/theme';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +35,8 @@ import { NbOverlayModule, NbToastrModule, NbDatepickerModule } from '@nebular/th
     GridModule,
     NbOverlayModule,
     NbDatepickerModule.forRoot(),
-    NbToastrModule.forRoot()    
+    NbToastrModule.forRoot(),
+     
   ],
   bootstrap: [AppComponent],
   providers: [
