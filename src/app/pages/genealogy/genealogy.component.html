@@ -276,21 +276,21 @@
                 </tree-root>
               </div>
             </div>
-            <div class="col-sm-8 pt-2 overflow-auto h-100">
-              <nb-card>
-                <nb-card-body>
-                  <nb-radio-group class="d-flex" [(ngModel)]="radioTransaction" name="radioTransaction">
-                    <nb-radio [value]="'ParentLot'">
-                      {{language.show_parent_lot}}
-                    </nb-radio>
-                    <nb-radio [value]="'ImmediateLot'">
-                     {{language.show_immediate_lot}}
-                  </nb-radio>
-                  </nb-radio-group>
-                </nb-card-body>
-              </nb-card>
+            <div class="col-sm-8 p-2 overflow-auto h-100 d-flex flex-column">
+              <div class="clearfix mb-2">
+                <div class="col-12 p-0">
+                    <nb-radio-group class="d-flex" [(ngModel)]="radioTransaction" name="radioTransaction">
+                      <nb-radio [value]="'ParentLot'">
+                        {{language.show_parent_lot}}
+                      </nb-radio>
+                      <nb-radio [value]="'ImmediateLot'">
+                        {{language.show_immediate_lot}}
+                      </nb-radio>
+                    </nb-radio-group>
+                </div>
+              </div>
 
-              <nb-card class="mb-2">
+              <nb-card class="mb-0 no-shadow-card flex-100">
                 <nb-card-header>{{language.transaction_type}}</nb-card-header>
                 <nb-card-body>
                   <!--<tree-root id="tree2" [focused]="true" [nodes]="nodes1" (click)="clickTransactionDetails($event)">
