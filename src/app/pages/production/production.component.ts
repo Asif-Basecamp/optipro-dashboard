@@ -51,8 +51,8 @@ export interface TreeNode {
    public gridResource: any[];   
    public ItemFrom: boolean = false;
    public ItemTo: boolean = false; 
-   public ItemCodeFrom: any = '';
-   public ItemCodeTo: any = '';
+   public ItemCodeFrom: any;
+   public ItemCodeTo: any;
    public nodes2: any = [];
    public RadioBtnWO: any = 'simple';
    public materialViewOption: any = 'IMMEDIATE';
@@ -76,6 +76,7 @@ export interface TreeNode {
    times: any;
    time: any;
    timeError: boolean = false;
+   refreshCheck: any;
 
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
@@ -616,8 +617,18 @@ export interface TreeNode {
    if(this.time>0 && this.time<61){
       this.times = this.time*60;
       this.timeError = false;
-      setTimeout(function() {
-        alert('hello');
+      setTimeout(() => {
+        this.ItemCodeFrom = '';
+        this.itemFromStatus = false;
+        this.ItemCodeTo = '';
+        this.itemToStatus = false;
+        this.FromDate = new Date();
+        this.ToDate = new Date();
+        this.times = '';
+        this.time = '';
+        this.refreshCheck = '';
+        this.viewOption = 'SIMPLE'; 
+        this.ngOnInit();
       },this.times*1000);  
    }else{
       this.timeError = true;

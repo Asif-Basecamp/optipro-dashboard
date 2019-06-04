@@ -5,13 +5,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Lot Genealogy',
     icon: 'optipro-icon-tree-structure',
     link: '/pages/genealogy',
-    home: true,
+    // home: true,
   },
   {
     title: 'Production',
     icon: 'optipro-icon-factory',
     link: '/pages/production',
-    home: true,
+    // home: true,
   }
   // {
   //   title: 'FEATURES',

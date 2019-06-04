@@ -10,6 +10,9 @@ export class DefaultComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if(document.body.contains(document.querySelector(".menu-item > a.active"))){
+      document.querySelector(".menu-item > a.active").classList.remove('active');
+    }
   }
 
 }

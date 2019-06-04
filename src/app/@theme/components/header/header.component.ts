@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NbMenuService, NbSidebarService } from '@nebular/theme';
+import { NbSidebarService } from '@nebular/theme';
 import { UserData } from '../../../@core/data/users';
 // import { AnalyticsService } from '../../../@core/utils';
 import { Router } from '@angular/router';
@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
   user: any;
   userMenu = [{ title: 'Log out' }];
 
-  constructor(private sidebarService: NbSidebarService,private menuService: NbMenuService,private userService: UserData,private router: Router,private toastrService: NbToastrService) {
+  constructor(private sidebarService: NbSidebarService,private userService: UserData,private router: Router,private toastrService: NbToastrService) {
     if(window.localStorage.getItem('Username') == null || window.localStorage.getItem('Username') == undefined) {
          this.router.navigateByUrl('/auth/signin');
     }
@@ -37,7 +37,10 @@ export class HeaderComponent implements OnInit {
   }
 
   goToHome() {
-    this.menuService.navigateHome();
+    this.router.navigateByUrl('/pages');    
+    if(document.body.contains(document.querySelector(".menu-item > a.active"))){
+      document.querySelector(".menu-item > a.active").classList.remove('active');
+    }
   }
 
   LogOut(position){
