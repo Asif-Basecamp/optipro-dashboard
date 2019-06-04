@@ -328,14 +328,18 @@
        this.nodes1 = [];
        this.nodes2 = [];
      }else{
-      this.data = data;
+      
 
       if(data.length <= 0){
         this.loading = false;
-        this.toastrService.danger(this.language.no_record_found);    
+        this.toastrService.danger(this.language.no_record_found);  
+        this.AnalysisData = [];
+        this.nodes1 = [];
+        this.nodes2 = [];  
         return;
       }
       
+      this.data = data;
       let Arr = [];
       for (var i = 0; i < this.data.length; i++) {
        if (this.data[i].GroupId == '') {
@@ -464,15 +468,15 @@
        cd["name"] = cd.DistNumber + ` (Doc Entry: ${cd.DocEntry})`;
        else
        cd["name"] = cd.DistNumber;
-       if(cd.ObjectTypeDesc != null){
-         let desc = '';
-         desc =  cd.ObjectTypeDesc.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '')
-        desc = desc.replace(/\s/g, '');
-        cd["className"] = desc.toUpperCase();
-       }       
-       else{
-        cd["className"] = cd.ObjectTypeDesc;
-       }
+      //  if(cd.ObjectTypeDesc != null){
+      //    let desc = '';
+      //    desc =  cd.ObjectTypeDesc.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '')
+      //   desc = desc.replace(/\s/g, '');
+      //   cd["className"] = desc.toUpperCase();
+      //  }       
+      //  else{
+      //   cd["className"] = cd.ObjectTypeDesc;
+      //  }
       
        cd.children = this.getAnalysisHierarchy(data, d.SeqNo);
        return nodess.push(cd);

@@ -37,8 +37,7 @@ export class ProductionService {
     CompanyDBID: CompanyDBID,
     ItemCode: Item,
     SelectionCriteria: SelectionCriteria,
-   // WOStatus: WOStatus,
-    WOStatus: '1,6,4,3',
+    WOStatus: WOStatus,
     FromDate: FromDate,
     ToDate: ToDate
 }]) };
@@ -53,8 +52,7 @@ GetMaterialData(optiProDashboardAPIURL:string,CompanyDBID:string,DocEntry:string
     ItemCode: ItemCode,   
     FromDate: FromDate,
     ToDate: ToDate,
-    //WOStatus: WOStatus, 
-    WOStatus: '1,6,4,3'
+    WOStatus: WOStatus, 
 }]) };
 return this.httpClient.post(optiProDashboardAPIURL +"ProductionDashboard/GetMaterialData",jObject,this.httpOptions);
 } 
