@@ -1671,8 +1671,8 @@ col.k-sorted,th.k-sorted {
   }
   
   .orgchart .node {
-    -webkit-transition: all 0.3s;
-    transition: all 0.3s;
+    -webkit-transition: all 0.1s;
+    transition: all 0.1s;
     top: 0;
     left: 0;
   }
@@ -2790,27 +2790,27 @@ i.edge.horizontalEdge.rightEdge.fa {
     -webkit-font-smoothing: antialiased;
   }
   & .title{
-    transform: rotate(-90deg) translate(-60px, -63px) rotateY(180deg);
-    width: 163px;
-    transition: all 0.3s;
-    filter: blur(-2px);
+    transform: rotate(-90deg) translate(2px, -2px) rotateY(180deg);
+    width: 164px;
+    transition: all 0.1s;
+    transform-origin: 0 0;
   }
   & .node-avatar {
     width: 30px;
     height: 30px;
-    transition: all 0.3s;
+    transition: all 0.1s;
   }
   & .node-footer{
     display: none;
-    transition: all 0.3s;
+    transition: all 0.1s;
   }
   & .second-menu {
     transform:rotate(-90deg) translate(-61px, -63px) rotateY(180deg);
     width: 164px;
-    transition: all 0.3s;
+    transition: all 0.1s;
     & .node-data .data-column{
       display: none;
-      transition: all 0.3s;
+      transition: all 0.1s;
       &:nth-of-type(1), &:nth-of-type(2),
       &:nth-of-type(3), &:nth-of-type(4),&:nth-of-type(5){
         display: flex;
@@ -2826,8 +2826,8 @@ i.edge.horizontalEdge.rightEdge.fa {
       height: 60px;
     }
     & .title{
-      transform: rotate(-90deg) translate(-100px, -100px) rotateY(180deg);
-      width: 240px;
+      transform:rotate(-90deg) translate(1px, -1px) rotateY(180deg);
+      width: 242px;
     }
     & .second-menu {
       width: 240px;
