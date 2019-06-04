@@ -27,6 +27,7 @@ $theme: (
 
   font-size-xlg: 1.25rem,
   font-size-lg: 1.125rem,
+  font-size-1rem: 1rem,
   font-size: 14px,
   font-size-sm: 12px,
   font-size-xs: 0.75rem,
@@ -103,7 +104,7 @@ $theme: (
   card-padding: 15px,
   card-margin: margin,
   card-header-font-family: font-secondary,
-  card-header-font-size: font-size-lg,
+  card-header-font-size: font-size-1rem,
   card-header-font-weight: font-weight-bold,
   card-separator: separator,
   card-header-fg: color-fg, // TODO: not used
@@ -203,7 +204,7 @@ $theme: (
   tabs-content-font-size: font-size-sm,
   tabs-active-bg: transparent,
   tabs-active-font-weight: card-header-font-weight,
-  tabs-padding: 0.8rem 1rem,
+  tabs-padding: 0.5rem 1rem,
   tabs-content-padding: 0,
   tabs-header-bg: transparent,
   tabs-separator: separator,
