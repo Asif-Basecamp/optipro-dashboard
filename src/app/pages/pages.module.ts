@@ -13,8 +13,8 @@ import { TreeTableModule } from 'primeng/components/treetable/treetable';
 //import { TreetableDemoComponent } from '../@core/treetable/treetable.component';
 import { LookupComponent } from './lookup/lookup.component';
 import { GridModule } from '@progress/kendo-angular-grid';
-//import { ResizableModule } from 'angular-resizable-element';
 import { CountdownModule } from 'ngx-countdown';
+import { AngularSplitModule } from 'angular-split';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -36,8 +36,8 @@ const PAGES_COMPONENTS = [
     TreeTableModule,
     NbTabsetModule,
     TreeModule.forRoot(),
-    //ResizableModule
-    CountdownModule
+    CountdownModule,
+    AngularSplitModule.forRoot()  
   ],
   providers: [...PAGES_COMPONENTS,]
 })

@@ -61,7 +61,7 @@ export interface TreeNode {
    showLookup: boolean = false;
    public itemFromStatus:boolean = false;
    public itemToStatus:boolean = false;
-   public checkboxStatus:boolean = true;
+   public checkboxStatus:boolean = false;
    loading = false;
    public showView: any = '';
    public showMaterialView: any = '';
@@ -75,7 +75,6 @@ export interface TreeNode {
    @ViewChild('countdown') counter: CountdownComponent;
    times: any;
    time: any;
-   timeError: boolean = false;
    refreshCheck: any;
 
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
@@ -91,7 +90,7 @@ export interface TreeNode {
    this.CompanyDB = JSON.parse(window.localStorage.getItem('CompanyDB'));
    this.FromDate = new Date();
    this.ToDate = new Date();
-   this.masterSelected = false;
+   this.masterSelected = true;
    this.checklist = [
      {id:1, name:'In Process', value: '6', isSelected:false},
      {id:2, name:'New', value: '1', isSelected:false},
@@ -99,6 +98,7 @@ export interface TreeNode {
      {id:4, name:'Cancel', value: '3', isSelected:false}
    ];
    this.getCheckedItemList();
+   this.checkUncheckAll();
    this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);  
   }
  
@@ -120,8 +120,6 @@ export interface TreeNode {
  showDetailCompleteLookup(data){
    this.prod.GetCompletedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_ORDRNO).subscribe(
      data => {
-       console.log("GetCompleted - ");
-       console.log(data);
        if(data != undefined && data != null){
         this.showLookup = true;
         this.serviceApiData = data;
@@ -140,11 +138,7 @@ export interface TreeNode {
  showDetailsIssuedLookup(data){
    this.prod.GetIssuedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID,data.DocEntry).subscribe(
      data => {
-       console.log("GetIssued - ");
-       console.log(data);
-       
-
-       if(data != undefined && data != null){
+        if(data != undefined && data != null){
          if(data.length > 0){
           this.showLookup = true;
           this.serviceApiData = data;
@@ -176,10 +170,7 @@ export interface TreeNode {
    if(check == 'WH'){
      this.prod.GetWarehouseWiseInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID, data.U_O_ISSWH,ItemType).subscribe(
        data => {
-         console.log("GetOnOrder - ");
-         console.log(data);         
-
-         if(data != undefined && data != null){
+          if(data != undefined && data != null){
            if(data.length > 0){
             this.showLookup = true;
             this.serviceApiData = data;
@@ -200,10 +191,7 @@ export interface TreeNode {
    }
    else  if(check == 'CP'){
      this.prod.GetInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID,ItemType).subscribe(
-       data => {
-         console.log("GetOnOrder - ");
-         console.log(data);
-         
+       data => {         
          if(data != undefined && data != null){
            if(data.length > 0){
             this.showLookup = true;
@@ -251,9 +239,7 @@ export interface TreeNode {
       if(this.checklist[i].isSelected)
       this.checkedList.push(this.checklist[i].value);
     }
-    if(this.checkedList.length<=0){
-      this.checkboxStatus =  true;
-    }else{
+    if(this.checkedList.length>0){
       this.checkboxStatus =  false;
     }
   } 
@@ -262,7 +248,6 @@ export interface TreeNode {
     this.loading = true; 
     this.prod.GetWorkOrderFG(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemName, this.RadioBtnWO, this.checkedList.toString(), this.FromDate, this.ToDate).subscribe(
       data => {
-        console.log(data);       
           if(!data){
             this.loading = false;
            }else{
@@ -283,8 +268,6 @@ export interface TreeNode {
      
      this.prod.GetWarehouseWiseOnOrderQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID, data.U_O_ISSWH).subscribe(
        data => {
-        console.log("GetOnOrder - ");
-        console.log(data);
         if(data != undefined && data != null){
           if(data.length > 0){
             this.showLookup = true;
@@ -308,8 +291,6 @@ export interface TreeNode {
    else if(check == 'CP'){
      this.prod.GetOnOrderQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID).subscribe(
        data => {
-        console.log("GetOnOrder - ");
-        console.log(data);
         if(data != undefined && data != null){
           if(data.length > 0){
             this.showLookup = true;
@@ -332,7 +313,7 @@ export interface TreeNode {
    
  }
 
- openItemFromLookup(dialog: TemplateRef<any>){ 
+  openItemFromLookup(dialog: TemplateRef<any>){ 
    if(!this.ItemData){
      this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
    }        
@@ -341,12 +322,9 @@ export interface TreeNode {
      this.dialogService.open(dialog);
      this.ItemFrom = true;
      this.ItemTo = false;
-
   }
   
- 
-
- onItemFromBlur(){
+  onItemFromBlur(){
    let item = this.ItemCodeFrom;
    let itemFromArray = [];
    if(item){
@@ -397,7 +375,6 @@ export interface TreeNode {
 
  gridRowSelectionChange(evt, ref) {
    if (this.ItemFrom) {
-    //this.dataGridSelectNum = evt.selectedRows[0].index;
     this.ItemCodeFrom = evt.selectedRows[0].dataItem.ItemCode;
    }
    else if (this.ItemTo) {
@@ -429,8 +406,6 @@ export interface TreeNode {
       this.prod.GetMaterialData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry,this.materialViewOption, ItemCode, 
         this.FromDate, this.ToDate, this.checkedList.toString()).subscribe(
         data => {
-          console.log("Get Materials -");
-          console.log(data);
             this.gridMaterial = data; 
         },
         error => {
@@ -442,7 +417,6 @@ export interface TreeNode {
     
       this.prod.GetOperationData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
         data => {
-            console.log("Get Operations -");
             this.gridOperation = data;     
         },
         error => {
@@ -454,7 +428,6 @@ export interface TreeNode {
 
     this.prod.GetResourceData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
       data => {
-          console.log("Get Resource -");
           this.gridResource = data;       
           
       },
@@ -479,12 +452,16 @@ export interface TreeNode {
   }
 
    GetExplosionData() {
+    if(this.checkedList.length<=0){
+      this.checkboxStatus =  true;
+    }else{
+      this.checkboxStatus =  false; 
     if(this.viewOption == "SIMPLE")
       this.showView = 'simple';
          
     else 
-      this.showView = 'detail'; 
-
+    this.showView = 'detail'; 
+    this.times = '';  
     this.loading = true;   
     this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemCodeFrom, this.ItemCodeTo, this.viewOption, this.FromDate, this.ToDate).subscribe(
       data => {
@@ -513,7 +490,8 @@ export interface TreeNode {
       error => {
         this.toastrService.danger(this.language.no_record_found);    
       })
-      this.searchCriteriaToggle(event)
+      this.searchCriteriaToggle(event);
+    } 
     }
 
   //Search criteria expand-shrink function  
@@ -614,9 +592,7 @@ export interface TreeNode {
  }
 
  autoRefresh(){
-   if(this.time>0 && this.time<61){
       this.times = this.time*60;
-      this.timeError = false;
       setTimeout(() => {
         this.ItemCodeFrom = '';
         this.itemFromStatus = false;
@@ -630,8 +606,5 @@ export interface TreeNode {
         this.viewOption = 'SIMPLE'; 
         this.ngOnInit();
       },this.times*1000);  
-   }else{
-      this.timeError = true;
-   }
  }
 }

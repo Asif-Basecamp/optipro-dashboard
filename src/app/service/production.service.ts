@@ -52,7 +52,7 @@ GetMaterialData(optiProDashboardAPIURL:string,CompanyDBID:string,DocEntry:string
     ItemCode: ItemCode,   
     FromDate: FromDate,
     ToDate: ToDate,
-    WOStatus: WOStatus, 
+    WOStatus: WOStatus 
 }]) };
 return this.httpClient.post(optiProDashboardAPIURL +"ProductionDashboard/GetMaterialData",jObject,this.httpOptions);
 } 
