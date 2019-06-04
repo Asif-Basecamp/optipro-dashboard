@@ -619,7 +619,9 @@ export interface TreeNode {
       this.timeError = false;
       setTimeout(() => {
         this.ItemCodeFrom = '';
+        this.itemFromStatus = false;
         this.ItemCodeTo = '';
+        this.itemToStatus = false;
         this.FromDate = new Date();
         this.ToDate = new Date();
         this.times = '';
