@@ -315,7 +315,7 @@
                   </kendo-grid-column>      
                   <kendo-grid-column field="U_O_POSTEDQTY" title="Qty Complete" width="90">
                       <ng-template kendoGridCellTemplate let-dataItem>
-                          <a (click)="showDetailCompleteLookup(dataItem)">{{dataItem.U_O_POSTEDQTY}}</a>
+                          <a class="cursor-pointer text-primary" (click)="showDetailCompleteLookup(dataItem)">{{dataItem.U_O_POSTEDQTY}}</a>
                       </ng-template>
                   </kendo-grid-column>
                   <kendo-grid-column field="U_O_PASSEDQTY" title="Qty Accp" width="65">
@@ -394,7 +394,7 @@
                             </kendo-grid-column>
                             <kendo-grid-column field="ISSUED_QTY" title="Qty Issued" width="74">
                                 <ng-template kendoGridCellTemplate let-dataItem>
-                                    <a (click)="showDetailsIssuedLookup(dataItem)">{{dataItem.ISSUED_QTY}}</a>
+                                    <a class="cursor-pointer text-primary" (click)="showDetailsIssuedLookup(dataItem)">{{dataItem.ISSUED_QTY}}</a>
                                 </ng-template>
                             </kendo-grid-column>
                             <kendo-grid-column field="U_O_BALQTY" title="Qty Bal" width="55">
@@ -412,14 +412,14 @@
                             <kendo-grid-column-group headerClass="text-center"  title="Quantities at WH XXXX" [width]="300">
                                 <kendo-grid-column field="WH_INSTOCK_QTY" title="Qty In Stock" [width]="81">  
                                     <ng-template kendoGridCellTemplate let-dataItem>
-                                        <a (click)="showDetailsInStockLookup(dataItem,'WH')">{{dataItem.WH_INSTOCK_QTY}}</a>
+                                        <a class="cursor-pointer text-primary" (click)="showDetailsInStockLookup(dataItem,'WH')">{{dataItem.WH_INSTOCK_QTY}}</a>
                                     </ng-template>                                  
                                 </kendo-grid-column>
                                 <kendo-grid-column field="WH_COMMITED_QTY" title="Qty Commit" [width]="81" >
                                 </kendo-grid-column>
                                 <kendo-grid-column field="WH_ONORDER_QTY" title="Qty On Order" [width]="86" [locked]="false">
                                     <ng-template kendoGridCellTemplate let-dataItem>
-                                        <a (click)="showDetailsOnOrderLookup(dataItem,'WH')">{{dataItem.WH_ONORDER_QTY}}</a>
+                                        <a class="cursor-pointer text-primary" (click)="showDetailsOnOrderLookup(dataItem,'WH')">{{dataItem.WH_ONORDER_QTY}}</a>
                                     </ng-template>
                                 </kendo-grid-column>
                                 <kendo-grid-column field="WH_AVAILABLE_QTY" title="Qty Aval" [width]="61" [locked]="false">
@@ -428,14 +428,14 @@
                             <kendo-grid-column-group headerClass="text-center" title="Quantities at Company Lvl" [width]="300">
                                 <kendo-grid-column field="COM_INSTOCK_QTY" title="Qty In Stock" [width]="81">    
                                     <ng-template kendoGridCellTemplate let-dataItem>
-                                        <a (click)="showDetailsInStockLookup(dataItem,'CP')">{{dataItem.COM_INSTOCK_QTY}}</a>
+                                        <a class="cursor-pointer text-primary" (click)="showDetailsInStockLookup(dataItem,'CP')">{{dataItem.COM_INSTOCK_QTY}}</a>
                                     </ng-template>                                 
                                 </kendo-grid-column>
                                 <kendo-grid-column field="COM_COMMITED_QTY" title="Qty Commit" [width]="81" >
                                 </kendo-grid-column>
                                 <kendo-grid-column field="COM_ONORDER_QTY" title="Qty On Order" [width]="86" [locked]="false">
                                     <ng-template kendoGridCellTemplate let-dataItem>
-                                        <a (click)="showDetailsOnOrderLookup(dataItem,'CP')">{{dataItem.COM_ONORDER_QTY}}</a>
+                                        <a class="cursor-pointer text-primary" (click)="showDetailsOnOrderLookup(dataItem,'CP')">{{dataItem.COM_ONORDER_QTY}}</a>
                                     </ng-template>
                                 </kendo-grid-column>
                                 <kendo-grid-column field="COM_AVAILABLE_QTY" title="Qty Aval" [width]="61" [locked]="false">
@@ -486,7 +486,7 @@
                               </kendo-grid-column>
                               <kendo-grid-column field="ISSUED_QTY" title="Qty Issued" width="74">
                                   <ng-template kendoGridCellTemplate let-dataItem>
-                                      <a (click)="showDetailsIssuedLookup(dataItem)">{{dataItem.ISSUED_QTY}}</a>
+                                      <a class="cursor-pointer text-primary" (click)="showDetailsIssuedLookup(dataItem)">{{dataItem.ISSUED_QTY}}</a>
                                   </ng-template>
                               </kendo-grid-column>
                               <kendo-grid-column field="U_O_BALQTY" title="Qty Bal" width="55">
@@ -504,14 +504,14 @@
                               <kendo-grid-column-group headerClass="text-center"  title="Quantities at WH XXXX" [width]="300">
                                   <kendo-grid-column field="WH_INSTOCK_QTY" title="Qty In Stock" [width]="81">
                                       <ng-template kendoGridCellTemplate let-dataItem>
-                                          <a (click)="showDetailsInStockLookup(dataItem,'WH')">{{dataItem.WH_INSTOCK_QTY}}</a>
+                                          <a class="cursor-pointer text-primary" (click)="showDetailsInStockLookup(dataItem,'WH')">{{dataItem.WH_INSTOCK_QTY}}</a>
                                       </ng-template>                                     
                                   </kendo-grid-column>
                                   <kendo-grid-column field="WH_COMMITED_QTY" title="Qty Commit" [width]="81" >
                                   </kendo-grid-column>
                                   <kendo-grid-column field="WH_ONORDER_QTY" title="Qty On Order" [width]="86" [locked]="false">
                                       <ng-template kendoGridCellTemplate let-dataItem>
-                                          <a (click)="showDetailsOnOrderLookup(dataItem,'CP')">{{dataItem.WH_ONORDER_QTY}}</a>
+                                          <a class="cursor-pointer text-primary" (click)="showDetailsOnOrderLookup(dataItem,'CP')">{{dataItem.WH_ONORDER_QTY}}</a>
                                       </ng-template>
                                   </kendo-grid-column>
                                   <kendo-grid-column field="WH_AVAILABLE_QTY" title="Qty Aval" [width]="61" [locked]="false">
@@ -520,14 +520,14 @@
                               <kendo-grid-column-group headerClass="text-center" title="Quantities at Company Lvl" [width]="300">
                                   <kendo-grid-column field="COM_INSTOCK_QTY" title="Qty In Stock" [width]="81">  
                                       <ng-template kendoGridCellTemplate let-dataItem>
-                                          <a (click)="showDetailsInStockLookup(dataItem,'CP')">{{dataItem.COM_INSTOCK_QTY}}</a>
+                                          <a class="cursor-pointer text-primary" (click)="showDetailsInStockLookup(dataItem,'CP')">{{dataItem.COM_INSTOCK_QTY}}</a>
                                       </ng-template>                                  
                                   </kendo-grid-column>
                                   <kendo-grid-column field="COM_COMMITED_QTY" title="Qty Commit" [width]="81" >
                                   </kendo-grid-column>
                                   <kendo-grid-column field="COM_ONORDER_QTY" title="Qty On Order" [width]="86" [locked]="false">
                                       <ng-template kendoGridCellTemplate let-dataItem>
-                                          <a (click)="showDetailsOnOrderLookup(dataItem,'CP')">{{dataItem.COM_ONORDER_QTY}}</a>
+                                          <a class="cursor-pointer text-primary" (click)="showDetailsOnOrderLookup(dataItem,'CP')">{{dataItem.COM_ONORDER_QTY}}</a>
                                       </ng-template>
                                   </kendo-grid-column>
                                   <kendo-grid-column field="COM_AVAILABLE_QTY" title="Qty Aval" [width]="61" [locked]="false">
