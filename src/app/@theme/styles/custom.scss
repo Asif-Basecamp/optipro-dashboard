@@ -1312,10 +1312,7 @@ col.k-sorted,th.k-sorted {
 //orgchart css
 .orgchart {
     display: inline-block;
-    min-height: 202px;
-    min-width: 202px;
     user-select: none;
-    padding: 20px;
   }
   
   .orgchart .hidden, .orgchart~.hidden {
@@ -1455,8 +1452,7 @@ col.k-sorted,th.k-sorted {
   }
   
   .orgchart.l2r .node {
-    width: 170px;
-    height: 250px;
+    
     border-radius: 6px;
     border: 2px solid #999;
     margin: 0 5px;   
@@ -1506,12 +1502,11 @@ col.k-sorted,th.k-sorted {
     background-color: rgba(0,0,0,0.3);
     color: #fff;
     border-radius: 4px 4px 0 0; 
+    cursor: pointer;
   }
   
   .orgchart.l2r .node .title {
-    transform: rotate(-90deg) translate(-100px, -100px) rotateY(180deg);
     transform-origin: bottom center;
-    width: 240px;
   }
   
   .orgchart .node .title .symbol {
@@ -1723,9 +1718,8 @@ col.k-sorted,th.k-sorted {
 .orgchart .node .second-menu {
   z-index: 10;
   position:relative;
-  transform: rotate(-90deg) translate(-100px, -100px) rotateY(180deg);
+  
   transform-origin: top center;
-  width: 240px;
   display: flex;
   font-size: nb-theme(font-size-sm);
   flex-direction: column;
@@ -1737,8 +1731,6 @@ col.k-sorted,th.k-sorted {
   padding:5px 8px 0 5px;
 }
 .orgchart .node .second-menu .node-avatar {
-  width: 60px;
-  height: 60px;
 }
 .orgchart .node .second-menu .node-data  {
   display: flex;
@@ -1762,7 +1754,6 @@ col.k-sorted,th.k-sorted {
   font-size: 0.78rem;
 }
 .orgchart .node .second-menu .node-footer{
-  display: flex;
   flex-direction: row;
   margin-top: 5px;
   align-items: center;
@@ -2777,5 +2768,76 @@ body .ui-treetable .ui-column-resizer-helper {
 @media screen and (min-width:1025px){
   body *:focus{
     outline:0 !important;
+  }
+}
+
+
+//top and bottom clip disabled
+
+i.edge.horizontalEdge.leftEdge.fa {
+  display: none;
+}
+i.edge.horizontalEdge.rightEdge.fa {
+  display: none;
+}
+
+//custom shrink function of node css
+
+.orgchart.l2r .node {
+  width: 108px;
+  height: 170px;
+  & *{
+    -webkit-font-smoothing: antialiased;
+  }
+  & .title{
+    transform: rotate(-90deg) translate(-60px, -63px) rotateY(180deg);
+    width: 163px;
+    transition: all 0.3s;
+    filter: blur(-2px);
+  }
+  & .node-avatar {
+    width: 30px;
+    height: 30px;
+    transition: all 0.3s;
+  }
+  & .node-footer{
+    display: none;
+    transition: all 0.3s;
+  }
+  & .second-menu {
+    transform:rotate(-90deg) translate(-61px, -63px) rotateY(180deg);
+    width: 164px;
+    transition: all 0.3s;
+    & .node-data .data-column{
+      display: none;
+      transition: all 0.3s;
+      &:nth-of-type(1), &:nth-of-type(2),
+      &:nth-of-type(3), &:nth-of-type(4),&:nth-of-type(5){
+        display: flex;
+      }
+    }
+  }
+
+  &.expanded {
+    width: 170px;
+    height: 250px;
+    & .node-avatar {
+      width: 60px;
+      height: 60px;
+    }
+    & .title{
+      transform: rotate(-90deg) translate(-100px, -100px) rotateY(180deg);
+      width: 240px;
+    }
+    & .second-menu {
+      width: 240px;
+      transform: rotate(-90deg) translate(-100px, -100px) rotateY(180deg);
+      & .node-data .data-column{
+        display: flex;
+      }
+    }
+    & .node-footer{
+      display: flex;
+    }
   }
 }

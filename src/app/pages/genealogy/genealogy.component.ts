@@ -559,6 +559,9 @@
       // 'chartClass':'ItemCode',
       // 'nodeID': 'id',
       'createNode': function(node, data) {
+        node.getElementsByClassName('title')[0].addEventListener('click', () => {
+          node.classList.toggle("expanded");   
+        });
         let secondMenu = document.createElement('div');
         secondMenu.setAttribute('class', 'second-menu');
         secondMenu.innerHTML = `
@@ -812,5 +815,8 @@
    e.currentTarget.parentElement.parentElement.classList.add('expanded')
    e.currentTarget.nextSibling.style.height = '100%';
    e.currentTarget.nextSibling.style.display = 'flex';
+  }
+  toggleNodeClass(e: any){
+    e.currentTarget.classList.toggle("shrink");    
   }
  }
