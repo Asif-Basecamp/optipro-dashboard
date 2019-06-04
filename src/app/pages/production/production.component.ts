@@ -75,7 +75,6 @@ export interface TreeNode {
    @ViewChild('countdown') counter: CountdownComponent;
    times: any;
    time: any;
-   timeError: boolean = false;
    refreshCheck: any;
 
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
@@ -314,7 +313,7 @@ export interface TreeNode {
    
  }
 
- openItemFromLookup(dialog: TemplateRef<any>){ 
+  openItemFromLookup(dialog: TemplateRef<any>){ 
    if(!this.ItemData){
      this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
    }        
@@ -323,12 +322,9 @@ export interface TreeNode {
      this.dialogService.open(dialog);
      this.ItemFrom = true;
      this.ItemTo = false;
-
   }
   
- 
-
- onItemFromBlur(){
+  onItemFromBlur(){
    let item = this.ItemCodeFrom;
    let itemFromArray = [];
    if(item){
@@ -596,9 +592,7 @@ export interface TreeNode {
  }
 
  autoRefresh(){
-   if(this.time>0 && this.time<61){
       this.times = this.time*60;
-      this.timeError = false;
       setTimeout(() => {
         this.ItemCodeFrom = '';
         this.itemFromStatus = false;
@@ -612,8 +606,5 @@ export interface TreeNode {
         this.viewOption = 'SIMPLE'; 
         this.ngOnInit();
       },this.times*1000);  
-   }else{
-      this.timeError = true;
-   }
  }
 }
