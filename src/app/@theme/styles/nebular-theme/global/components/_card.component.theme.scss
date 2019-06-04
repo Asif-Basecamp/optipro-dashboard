@@ -5,7 +5,7 @@
  */
 
 @mixin nb-card-header() {
-  padding: 8px 10px;
+  padding:5px;
   border-bottom-width: nb-theme(card-header-border-width);
   border-bottom-style: nb-theme(card-header-border-type);
   border-bottom-color: nb-theme(card-header-border-color);

@@ -8,14 +8,14 @@
       <div class="row">
         <div class="col-sm-12">
           <form #criteriaForm="ngForm">
-            <fieldset class="form-group px-0 mb-2">
+            <fieldset class="form-group px-0 mb-0">
               <nb-radio-group class="d-flex" [(ngModel)]="radioExplode" name="radioExplode">
                 <nb-radio [value]="'Lot Explosion'">{{language.lotexplosion}}
                 </nb-radio>
                 <nb-radio [value]="'Where Used'">{{language.whereused}}</nb-radio>
               </nb-radio-group>
             </fieldset>
-            <h6 class="border-bottom pb-1 mb-3">{{language.select}}</h6>
+            <h6 class="border-bottom pb-1 mb-2">{{language.select}}</h6>
             
             <div class="form-group">
               <label for="inputPassword3" class="form-label">{{language.item}}</label>
