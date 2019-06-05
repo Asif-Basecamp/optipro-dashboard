@@ -124,13 +124,17 @@ export class LookupComponent implements OnInit {
         field: 'OPTM_QUANTITY',
         title: 'Quantity Accept',
         type: 'text',
-        width: '100'
+        width: '100',
+       // headerClass: 'text-right',
+       // class: 'text-right'
       },
       {
         field: 'REJECTEDQTY',
         title: 'Quantity Reject',
         type: 'text',
-        width: '100'
+        width: '100',
+       // headerClass: 'text-right',
+       // class: 'text-right'
       }
       
     ];
