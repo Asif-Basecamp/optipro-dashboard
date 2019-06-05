@@ -51,8 +51,8 @@ export interface TreeNode {
    public gridResource: any[];   
    public ItemFrom: boolean = false;
    public ItemTo: boolean = false; 
-   public ItemCodeFrom: any;
-   public ItemCodeTo: any;
+   public ItemCodeFrom: any = '';
+   public ItemCodeTo: any = '';
    public nodes2: any = [];
    public RadioBtnWO: any = 'simple';
    public materialViewOption: any = 'IMMEDIATE';
