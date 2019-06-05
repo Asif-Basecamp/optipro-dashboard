@@ -232,7 +232,7 @@
                         <tr [ttRow]="rowNode" (click)="ItemRowSelect(rowData)">
                             <td>
                                 <p-treeTableToggler [rowNode]="rowNode" class="cursor-pointer"></p-treeTableToggler>
-                                {{rowData.ItemCode}}
+                                <span class="cursor-pointer">{{rowData.ItemCode}}</span>
                             </td>
                             <td>{{rowData.OnHand}}</td>
                             <td>{{rowData.IsCommited}}</td>
