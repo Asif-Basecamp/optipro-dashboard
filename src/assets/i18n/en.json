@@ -27,6 +27,7 @@
     "item_code_req": "Item Code Required",
     "correct_item_code": "Enter Correct Item Code",
     "description": "Description",
+    "Lot_From": "Serial/Batch No.",
     "warehouse": "Warehouse",
     "select_warehouse": "Select Warehouse",
     "warehouse_code_req": "Warehouse Code Required",

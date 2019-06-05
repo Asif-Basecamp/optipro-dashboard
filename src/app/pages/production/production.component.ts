@@ -462,7 +462,13 @@ export interface TreeNode {
     else 
     this.showView = 'detail'; 
     this.times = '';  
-    this.loading = true;   
+    this.loading = true; 
+    if(this.ItemCodeFrom == 'undefined' || this.ItemCodeFrom == undefined){
+      this.ItemCodeFrom = '';
+    }
+    if(this.ItemCodeTo == 'undefined' || this.ItemCodeTo == undefined){
+      this.ItemCodeTo = '';
+    }  
     this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemCodeFrom, this.ItemCodeTo, this.viewOption, this.FromDate, this.ToDate).subscribe(
       data => {
          if(!data){
