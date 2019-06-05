@@ -7,15 +7,15 @@
         height:100%;
     }
     &.shrink{
-        width: 45px; 
-        flex: 1 1 45px;   
+        width: 36px; 
+        flex: 1 1 36px;   
         & > nb-card{
             cursor: pointer;
             & > nb-card-header{
-                transform: rotateZ(-90deg) translateX(-180px) translateY(2px);
+                transform: rotateZ(-90deg) translateX(-150px) translateY(2px);
                 transform-origin: left top;
                 white-space: nowrap;
-                width: 180px;
+                width: 156px;
                 border-bottom: none !important;
                 & > span{
                     margin-right: 10px;
@@ -31,7 +31,7 @@
             }
         }
         & + .dashboard-right{
-            max-width: calc(100% - 45px);
+            max-width: calc(100% - 36px);
         }
     }
 }
@@ -50,7 +50,7 @@
             display: flex;
             flex: 1 1 0;
             flex-basis:0;
-            max-height:45px;
+            max-height:38px;
             & > nb-card{
                 width: 100%;
                 margin-bottom: 0;
@@ -103,14 +103,14 @@
             & .analysis-accordian.expanded {
                 flex: 1 1 100%;
                 flex-basis:100%;
-                max-height:calc(100% - 45px);
+                max-height:calc(100% - 36px);
             }
         }
         &.grid-accordian-open{
             & .grid-accordian.expanded{
                 flex: 1 1 100%;
                 flex-basis:100%;
-                max-height:calc(100% - 45px);
+                max-height:calc(100% - 36px);
             }
         }
     }

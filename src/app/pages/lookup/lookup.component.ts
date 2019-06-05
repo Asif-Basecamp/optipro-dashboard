@@ -112,7 +112,7 @@ export class LookupComponent implements OnInit {
         field: 'SNO',
         title: '#',
         type: 'text',
-        width: '100'
+        width: '20'
       },
       {
         field: 'OPTM_BTCHSERNO',
@@ -148,7 +148,7 @@ export class LookupComponent implements OnInit {
         field: 'SNO',
         title: '#',
         type: 'text',
-        width: '100'
+        width: '20'
       },
       {
         field: 'BATCHSERNO',
@@ -186,7 +186,7 @@ export class LookupComponent implements OnInit {
         field: 'SNO',
         title: '#',
         type: 'text',
-        width: '100'
+        width: '20'
       },
       {
         field: 'DistNumber',

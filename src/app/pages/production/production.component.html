@@ -229,10 +229,10 @@
                       </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-rowNode let-rowNodeIndex="rowNodeIndex"  let-rowData="rowData">
-                        <tr [ttRow]="rowNode">
+                        <tr [ttRow]="rowNode" (click)="ItemRowSelect(rowData)">
                             <td>
-                                <p-treeTableToggler [rowNode]="rowNode" (click)="ItemRowSelect()"></p-treeTableToggler>
-                                {{rowData.ItemCode}}
+                                <p-treeTableToggler [rowNode]="rowNode" class="cursor-pointer"></p-treeTableToggler>
+                                <span class="cursor-pointer">{{rowData.ItemCode}}</span>
                             </td>
                             <td class="text-right" headerClass="text-right">{{rowData.OnHand}}</td>
                             <td class="text-right" headerClass="text-right">{{rowData.IsCommited}}</td>
@@ -300,9 +300,15 @@
                   </kendo-grid-column>      
                   <kendo-grid-column field="ItemName" title="Customer" width="70">
                   </kendo-grid-column>
-                  <kendo-grid-column field="U_O_STARTDATE" title="Schedule Start Date" width="97">
+                  <kendo-grid-column field="U_O_STARTDATE" title="Sch. Start Date" width="97">
+                      <ng-template kendoGridCellTemplate let-dataItem>
+                          {{dataItem.U_O_STARTDATE | date: 'MM/dd/yyyy'}}
+                      </ng-template>
                   </kendo-grid-column>
-                  <kendo-grid-column field="U_O_ENDDATE" title="Schedule End Date" width="97">
+                  <kendo-grid-column field="U_O_ENDDATE" title="Sch. End Date" width="97">
+                      <ng-template kendoGridCellTemplate let-dataItem>
+                          {{dataItem.U_O_ENDDATE | date: 'MM/dd/yyyy'}}
+                      </ng-template>
                   </kendo-grid-column>
                   <kendo-grid-column field="U_O_UOM" title="UOM" width="44">
                   </kendo-grid-column>
@@ -395,6 +401,9 @@
                             <kendo-grid-column field="U_O_BALQTY" title="Quantity Balance" width="55" class="text-right" headerClass="text-right">
                             </kendo-grid-column>      
                             <kendo-grid-column field="U_O_ISSUEDATE" title="Issue Date" width="74">
+                                <ng-template kendoGridCellTemplate let-dataItem>
+                                    {{dataItem.U_O_ISSUEDATE | date: 'MM/dd/yyyy'}}
+                                </ng-template>
                             </kendo-grid-column>
                             <kendo-grid-column field="U_O_ISSWH" title="Issue Warehouse" width="68" class="text-right" headerClass="text-right">
                             </kendo-grid-column>
@@ -487,6 +496,9 @@
                               <kendo-grid-column field="U_O_BALQTY" title="Quantity Balance" width="55">
                               </kendo-grid-column>
                               <kendo-grid-column field="U_O_ISSUEDATE" title="Issue Date" width="74">
+                                  <ng-template kendoGridCellTemplate let-dataItem>
+                                      {{dataItem.U_O_ISSUEDATE | date: 'MM/dd/yyyy'}}
+                                  </ng-template>
                               </kendo-grid-column>
                               <kendo-grid-column field="U_O_ISSWH" title="Issue Warehouse" width="68">
                               </kendo-grid-column>   
@@ -572,9 +584,15 @@
                             </kendo-grid-column>
                             <kendo-grid-column field="U_O_OPERCMPFLG" title="Open Complete" width="81">
                             </kendo-grid-column>
-                            <kendo-grid-column field="U_OPTM_OPSDATE" title="Open Start Date/Time" width="115">
+                            <kendo-grid-column field="U_OPTM_OPSDATE" title="Opn Start Dt/Time" width="115">
+                              <ng-template kendoGridCellTemplate let-dataItem>
+                                  {{dataItem.U_OPTM_OPSDATE | date: 'MM/dd/yyyy'}}
+                              </ng-template>
                             </kendo-grid-column>
-                            <kendo-grid-column field="U_OPTM_OPEDATE" title="Open End Date/Time" width="109">
+                            <kendo-grid-column field="U_OPTM_OPEDATE" title="Opn End Dt/Time" width="109">
+                              <ng-template kendoGridCellTemplate let-dataItem>
+                                  {{dataItem.U_OPTM_OPEDATE | date: 'MM/dd/yyyy'}}
+                              </ng-template>
                             </kendo-grid-column>      
                             <kendo-grid-column field="U_O_OPR_TYPE" title="Open Type" width="68">
                             </kendo-grid-column>
@@ -639,30 +657,30 @@
                             </kendo-grid-column>      
                             <kendo-grid-column field="U_O_RESDESC" title="Description" width="78">
                             </kendo-grid-column>
-                            <kendo-grid-column field="U_O_RESTYPE" title="Resource Type" width="96">
+                            <kendo-grid-column field="RESOURCE_TYPE" title="Resource Type" width="96">
                             </kendo-grid-column>
-                            <kendo-grid-column field="ItemName" title="No. of Resource" width="100" class="text-right" headerClass="text-right">
+                            <kendo-grid-column field="NO_OF_RESOURCES" title="No of Resource" width="100">
                             </kendo-grid-column>
-                            <kendo-grid-column field="ItemName" title="Usage Per BOM Quantity" width="124" class="text-right" headerClass="text-right">
+                            <kendo-grid-column field="USAGE_PER_BOM_QTY" title="Usage Per BOM Qty." width="124">
                             </kendo-grid-column>
-                            <kendo-grid-column field="ItemCode" title="Usage Basis" width="83">
+                            <kendo-grid-column field="USAGE_BASIS" title="Usage Basis" width="83">
                             </kendo-grid-column>      
-                            <kendo-grid-column field="ItemName" title="Total Usage" width="81" class="text-right" headerClass="text-right">
+                            <kendo-grid-column field="TOTAL_USAGE" title="Total Usage" width="81">
                             </kendo-grid-column>
-                            <kendo-grid-column field="ItemName" title="Balance Usage" width="97" class="text-right" headerClass="text-right">
+                            <kendo-grid-column field="BAL_USAGE" title="Balance Usage" width="97">
                             </kendo-grid-column>
-                            <kendo-grid-column field="ItemName" title="Actual Usage" width="88" class="text-right" headerClass="text-right">
+                            <kendo-grid-column field="ACTUAL_USAGE" title="Actual Usage" width="88">
                             </kendo-grid-column>
-                            <kendo-grid-column field="ItemName" title="Planned Resource" width="114">
+                            <kendo-grid-column field="PLANNED_RESOURCE" title="Planned Resource" width="114">
                             </kendo-grid-column>
-                            <kendo-grid-column field="U_O_CONSTYPE" title="Consumption Type" width="118">
+                            <kendo-grid-column field="CONSUMPTION_TYPE" title="Consumption Type" width="118">
                             </kendo-grid-column>      
                             <kendo-grid-column field="U_O_WC_ID" title="Work Center Code" width="114">
                             </kendo-grid-column>
                             <kendo-grid-column field="U_O_UOM" title="UOM" width="44">
                             </kendo-grid-column>
-                            <kendo-grid-column field="U_O_ISSTOOPER" title="Operation #" width="80" class="text-right" headerClass="text-right">
-                            </kendo-grid-column>         
+                            <kendo-grid-column field="OPERATION" title="Operation #" width="80">
+                            </kendo-grid-column>        
                           </kendo-grid>
                         </div>
                       </div>

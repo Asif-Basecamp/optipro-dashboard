@@ -500,3 +500,12 @@
 .orgchart.l2r .node.slide-left, .orgchart.r2l .node.slide-left {
   left: -40px;
 }
+
+//top and bottom clip disabled
+
+i.edge.horizontalEdge.leftEdge.fa {
+  display: none;
+}
+i.edge.horizontalEdge.rightEdge.fa {
+  display: none;
+}
