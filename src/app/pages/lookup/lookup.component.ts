@@ -116,25 +116,25 @@ export class LookupComponent implements OnInit {
       },
       {
         field: 'OPTM_BTCHSERNO',
-        title: 'Serial/Batch',
+        title: 'Serial/Batch No.',
         type: 'text',
         width: '100'
       },
       {
         field: 'OPTM_QUANTITY',
-        title: 'QTY ACC',
+        title: 'Quantity Accept',
         type: 'text',
         width: '100'
       },
       {
         field: 'REJECTEDQTY',
-        title: 'REJ QTY',
+        title: 'Quantity Reject',
         type: 'text',
         width: '100'
       }
       
     ];
-    this.lookupTitle = 'Qty Complete';
+    this.lookupTitle = 'Quantity Complete';
     if (this.serviceData !== undefined) {
       if (this.serviceData.length > 0) {
         this.dialogOpened = true;
@@ -152,13 +152,13 @@ export class LookupComponent implements OnInit {
       },
       {
         field: 'BATCHSERNO',
-        title: 'Serial/Batch',
+        title: 'Serial/Batch No.',
         type: 'text',
         width: '100'
       },
       {
         field: 'WhsCode',
-        title: 'Issue WH',
+        title: 'Issue Warehouse',
         type: 'text',
         width: '100'
       },
@@ -190,13 +190,13 @@ export class LookupComponent implements OnInit {
       },
       {
         field: 'DistNumber',
-        title: 'Serial/Batch',
+        title: 'Serial/Batch No.',
         type: 'text',
         width: '100'
       },
       {
         field: 'Warehouse',
-        title: 'Issue WH',
+        title: 'Issue Warehouse',
         type: 'text',
         width: '100'
       },
@@ -208,13 +208,13 @@ export class LookupComponent implements OnInit {
       },
       {
         field: 'Quantity',
-        title: 'Issue Qty',
+        title: 'Issue Quantity',
         type: 'text',
         width: '100'
       }
       
     ];
-    this.lookupTitle = 'Qty Issued';
+    this.lookupTitle = 'Quantity Issued';
     if (this.serviceData !== undefined) {
       if (this.serviceData.length > 0) {
         this.dialogOpened = true;
@@ -250,13 +250,13 @@ export class LookupComponent implements OnInit {
       },
       {
         field: 'ORDERED_QTY',
-        title: 'Qty Order',
+        title: 'Quantity Order',
         type: 'text',
         width: '100'
       },
       {
         field: 'RECEIVE_QTY',
-        title: 'Qty Receive',
+        title: 'Quantity Received',
         type: 'text',
         width: '100'
       },
@@ -268,7 +268,7 @@ export class LookupComponent implements OnInit {
       }
       
     ];
-    this.lookupTitle = 'Qty On Order';
+    this.lookupTitle = 'Quantity On Order';
     if (this.serviceData !== undefined) {
       if (this.serviceData.length > 0) {
         this.dialogOpened = true;
