@@ -686,5 +686,7 @@ getMaterialRadioClick(evt){
     this.getMaterials(this.DocEntry,this.ItemCode);  
   }  
  }
+
+
 }
 

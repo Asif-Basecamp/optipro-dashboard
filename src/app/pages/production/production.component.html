@@ -71,8 +71,7 @@
 
             <div class="form-group mt-3 px-0 d-flex flex-wrap">
               <div class="k-form-field pr-4 pb-2">
-                  <input type="checkbox" id="all" class="k-checkbox" name="WO_Status" [(ngModel)]="masterSelected" (change)="checkUncheckAll()"
-                  />
+                  <input type="checkbox" id="all" class="k-checkbox" name="WO_Status" [(ngModel)]="masterSelected" (change)="checkUncheckAll()"/>
                   <label class="k-checkbox-label" for="all">{{language.all}}</label>
                 </div>
                 <div class="k-form-field pr-4 pb-2" *ngFor="let item of checklist">

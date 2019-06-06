@@ -71,6 +71,7 @@
   public wareHouseSelected: any;
   public lotSelected: any;
   public NodeName:any = '';
+  public vendor: boolean = false;
 
   constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
 
@@ -91,7 +92,8 @@
 
    /*-- Item Code functions --*/
   getItemCodeData(api, companyDB){
-    this.dash.GetItemList(api, companyDB).subscribe(
+    let PrcrmntMtd = "'B','M'";
+    this.dash.GetItemList(api, companyDB, PrcrmntMtd).subscribe(
       data => {
         this.ItemCodeData = data;
       });    
@@ -105,15 +107,26 @@
     }else{
       this.isItemCodeSelected = (e: RowArgs) => select.indexOf(e.dataItem.ItemCode) >=0 ;
     }
-    if(this.ItemCodeData){
-      this.Item = true;
-      this.whse = false;
-      this.LotTo = false;
-      this.LotFrom = false;
-      this.lookUpHeading = 'Item Code';
-      this.gridData = this.ItemCodeData;
-      this.dialogService.open(dialog);
+
+    if(this.vendor){
+      let PrcrmntMtd = "'B'";
+      this.dash.GetItemList(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, PrcrmntMtd).subscribe(
+        data => {
+          this.ItemCodeData = data;
+        });
     }
+    else{
+      if(this.ItemCodeData){
+        this.Item = true;
+        this.whse = false;
+        this.LotTo = false;
+        this.LotFrom = false;
+        this.lookUpHeading = 'Item Code';
+        this.gridData = this.ItemCodeData;
+        this.dialogService.open(dialog);
+      }
+    }
+   
   }
 
   onItemCodeBlur(){
@@ -859,6 +872,16 @@
       this.GetTransaction(this.NodeName);
       document.getElementById('chart-container').innerHTML = "";
     }  
+  }
+
+  VendorCheck(evt){
+    if(this.vendor){
+      this.radioExplode = 'Where Used';
+      this.ItemValue = '';
+    }
+    else {
+
+    }
   }
 
  }
