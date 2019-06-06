@@ -67,10 +67,10 @@
   public nodes3: any;
   public nodes4: any;
   public language: any;
-  public mySelection: any = [];
-  public isRowSelected: any;
+  public isItemCodeSelected: any;
+  public wareHouseSelected: any;
+  public lotSelected: any;
   public NodeName:any = '';
-  public checkboxOnly = false;
 
   constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
 
@@ -98,16 +98,12 @@
   }
 
   openItemLookup(dialog: TemplateRef<any>){
+    let select = [];
     if(this.ItemValue){
-      let select = [];
-      this.mySelection = this.ItemValue;
-      select.push(this.mySelection);
-      this.isRowSelected = (e: RowArgs) => select.indexOf(e.dataItem.ItemCode) >=0 ;
+      select.push(this.ItemValue);
+      this.isItemCodeSelected = (e: RowArgs) => select.indexOf(e.dataItem.ItemCode) >=0 ;
     }else{
-      let select = [];
-      this.mySelection = '';
-      select.push(this.mySelection);
-      this.isRowSelected = (e: RowArgs) => select.indexOf(e.dataItem.ItemCode) >=0 ;
+      this.isItemCodeSelected = (e: RowArgs) => select.indexOf(e.dataItem.ItemCode) >=0 ;
     }
     if(this.ItemCodeData){
       this.Item = true;
@@ -167,6 +163,13 @@
   }
 
   openWarehouseLookup(dialog: TemplateRef<any>){
+    let warehouse = [];
+    if(this.DfltWarehouse){
+      warehouse.push(this.DfltWarehouse);
+      this.wareHouseSelected = (e: RowArgs) => warehouse.indexOf(e.dataItem.WhsCode) >=0 ;
+    }else{
+      this.wareHouseSelected = (e: RowArgs) => warehouse.indexOf(e.dataItem.WhsCode) >=0 ;
+    }
     if(this.WarehouseData){
       this.gridData = this.WarehouseData;
       this.Item = false;
@@ -256,6 +259,13 @@
   /*-- open Lot From lookup on click --*/ 
 
   openLotFromLookup(dialog: TemplateRef < any > ) {
+    let LotFromSelect = [];
+    if(this.DistNumFrom){
+      LotFromSelect.push(this.DistNumFrom);
+      this.lotSelected = (e: RowArgs) => LotFromSelect.indexOf(e.dataItem.DistNumber) >=0 ;
+    }else{
+      this.lotSelected = (e: RowArgs) => LotFromSelect.indexOf(e.dataItem.DistNumber) >=0 ;
+    } 
    this.dash.GetLotNumber(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.trackName).subscribe(
     data => {
      this.gridData = data;
@@ -275,7 +285,13 @@
   /*-- open Lot To lookup on click --*/
 
   openLotToLookup(dialog: TemplateRef < any > ) {
- 
+    let LotToSelect = [];
+    if(this.DistNumTo){
+      LotToSelect.push(this.DistNumTo);
+      this.lotSelected = (e: RowArgs) => LotToSelect.indexOf(e.dataItem.DistNumber) >=0 ;
+    }else{
+      this.lotSelected = (e: RowArgs) => LotToSelect.indexOf(e.dataItem.DistNumber) >=0 ;
+    } 
    this.dash.GetLotNumber(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.trackName).subscribe(
     data => {
      this.gridData = data;
