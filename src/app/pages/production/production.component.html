@@ -120,8 +120,8 @@
       </nb-card-header>
       <nb-card-body>
         <div>
-          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter1
-            [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
+          <kendo-grid [kendoGridBinding]="gridData" [filterable]=isColumnFilter1
+            [groupable]=isColumnGroup [selectable]="true" [rowSelected]="ItemCodeSelected" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
             (selectionChange)="gridRowSelectionChange($event,ref)"
             [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
             <!-- grid template start -->
