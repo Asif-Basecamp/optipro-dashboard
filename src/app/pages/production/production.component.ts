@@ -55,7 +55,7 @@ export interface TreeNode {
    public ItemCodeTo: any = '';
    public nodes2: any = [];
    public RadioBtnWO: any = 'simple';
-   public materialViewOption: any = 'IMMEDIATE';
+   public materialViewOption: any = 'immediate';
    public FromDate: any ;
    public ToDate: any ;
    showLookup: boolean = false;
@@ -76,6 +76,9 @@ export interface TreeNode {
    times: any;
    time: any;
    refreshCheck: any;
+   public itemName: any = '';
+   public DocEntry: any = '';
+   public ItemCode: any = '';
 
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
@@ -246,6 +249,7 @@ export interface TreeNode {
 
    getWorkOrder(itemName){
     this.loading = true; 
+    this.itemName = itemName;
     this.prod.GetWorkOrderFG(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemName, this.RadioBtnWO, this.checkedList.toString(), this.FromDate, this.ToDate).subscribe(
       data => {
           if(!data){
@@ -398,7 +402,11 @@ export interface TreeNode {
 
    getMaterials(DocEntry,ItemCode){
 
-      if(this.materialViewOption == 'IMMEDIATE')
+    this.loading = true;
+    this.DocEntry = DocEntry;
+    this.ItemCode = ItemCode;
+
+      if(this.materialViewOption == 'immediate')
       this.showMaterialView = 'immediate';
       else 
       this.showMaterialView = 'all';
@@ -407,31 +415,37 @@ export interface TreeNode {
         this.FromDate, this.ToDate, this.checkedList.toString()).subscribe(
         data => {
             this.gridMaterial = data; 
+            this.loading = false;
         },
         error => {
+          this.loading = false;
           this.toastrService.danger(this.language.no_record_found);    
       })    
    }
 
    getOperations(DocEntry){
-    
+      this.loading = true; 
       this.prod.GetOperationData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
         data => {
-            this.gridOperation = data;     
+            this.gridOperation = data;  
+            this.loading = false;    
         },
         error => {
+          this.loading = false;       
           this.toastrService.danger(this.language.no_record_found);    
       })    
    }
 
    getResources(DocEntry){
-
+    this.loading = true; 
     this.prod.GetResourceData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
       data => {
-          this.gridResource = data;       
+          this.gridResource = data;
+          this.loading = false;       
           
       },
       error => {
+        this.loading = false;       
         this.toastrService.danger(this.language.no_record_found);    
     })  
  
@@ -613,4 +627,20 @@ export interface TreeNode {
         this.ngOnInit();
       },this.times*1000);  
  }
+
+ getWoRadioClick(evt){    
+  if(this.itemName != ''){
+    this.loading = true;
+    this.RadioBtnWO = evt;
+    this.getWorkOrder(this.itemName);  
+  }  
 }
+
+getMaterialRadioClick(evt){
+  if(this.DocEntry != '' && this.ItemCode != ''){
+    this.materialViewOption = evt;
+    this.getMaterials(this.DocEntry,this.ItemCode);  
+  }  
+ }
+}
+
