@@ -6,7 +6,8 @@
  import { GridComponent } from '@progress/kendo-angular-grid';
  import { State } from '@progress/kendo-data-query';
  import OrgChart from '../../@core/org-chart/orgchart.js';
- 
+ import { RowArgs } from '@progress/kendo-angular-grid';
+
  @Component({
   selector: 'ngx-genealogy',
   styleUrls: ['./genealogy.component.scss'],
@@ -66,7 +67,8 @@
   public nodes3: any;
   public nodes4: any;
   public language: any;
-  public checkboxOnly = false;
+  public mySelection: any = [];
+  public isRowSelected: any;
 
   constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
 
@@ -94,10 +96,18 @@
   }
 
   openItemLookup(dialog: TemplateRef<any>){
+    if(this.ItemValue){
+      let select = [];
+      this.mySelection = this.ItemValue;
+      select.push(this.mySelection);
+      this.isRowSelected = (e: RowArgs) => select.indexOf(e.dataItem.ItemCode) >=0 ;
+    }else{
+      let select = [];
+      this.mySelection = '';
+      select.push(this.mySelection);
+      this.isRowSelected = (e: RowArgs) => select.indexOf(e.dataItem.ItemCode) >=0 ;
+    }
     if(this.ItemCodeData){
-      if(this.ItemValue){
-        this.ItemValue = this.ItemValue;
-      }
       this.Item = true;
       this.whse = false;
       this.LotTo = false;
