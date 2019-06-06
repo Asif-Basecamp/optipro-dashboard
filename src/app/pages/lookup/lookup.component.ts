@@ -103,16 +103,14 @@ export class LookupComponent implements OnInit {
         title: 'Quantity Accept',
         type: 'text',
         width: '100',
-       // headerClass: 'text-right',
-       // class: 'text-right'
+        class: 'text-right'
       },
       {
         field: 'REJECTEDQTY',
         title: 'Quantity Reject',
         type: 'text',
         width: '100',
-       // headerClass: 'text-right',
-       // class: 'text-right'
+        class: 'text-right'
       }
       
     ];
@@ -149,7 +147,8 @@ export class LookupComponent implements OnInit {
         field: 'QUANTITY',
         title: 'Quantity',
         type: 'text',
-        width: '100'
+        width: '100',
+        class: 'text-right'
       }
       
     ];
@@ -192,7 +191,8 @@ export class LookupComponent implements OnInit {
         field: 'Quantity',
         title: 'Issue Quantity',
         type: 'text',
-        width: '100'
+        width: '100',
+        class: 'text-right'
       }
       
     ];
@@ -234,19 +234,22 @@ export class LookupComponent implements OnInit {
         field: 'ORDERED_QTY',
         title: 'Quantity Order',
         type: 'text',
-        width: '100'
+        width: '100',
+        class: 'text-right'
       },
       {
         field: 'RECEIVE_QTY',
         title: 'Quantity Received',
         type: 'text',
-        width: '100'
+        width: '100',
+        class: 'text-right'
       },
       {
         field: 'RECV_DATE',
         title: 'Receive Date',
         type: 'text',
         width: '100'
+        //format: '{0: MM/dd/yyyy}'
       }
       
     ];

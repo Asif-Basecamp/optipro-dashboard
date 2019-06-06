@@ -276,7 +276,7 @@
             <div class="col-sm-8 p-2 overflow-auto h-100 d-flex flex-column">
               <div class="clearfix mb-2">
                 <div class="col-12 p-0">
-                    <nb-radio-group class="d-flex" [(ngModel)]="radioTransaction" name="radioTransaction">
+                    <nb-radio-group class="d-flex" [(ngModel)]="radioTransaction" name="radioTransaction" (valueChange)="getTransactionRadioClick($event)" >
                       <nb-radio [value]="'ParentLot'">
                         {{language.show_parent_lot}}
                       </nb-radio>

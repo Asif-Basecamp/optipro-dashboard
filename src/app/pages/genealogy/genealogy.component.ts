@@ -69,6 +69,8 @@
   public language: any;
   public mySelection: any = [];
   public isRowSelected: any;
+  public NodeName:any = '';
+  public checkboxOnly = false;
 
   constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
 
@@ -340,15 +342,20 @@
        this.AnalysisData = [];
        this.nodes1 = [];
        this.nodes2 = [];
-     }else{
-      this.data = data;
+       document.getElementById('chart-container').innerHTML = "";
+     }else{     
 
       if(data.length <= 0){
         this.loading = false;
-        this.toastrService.danger(this.language.no_record_found);    
+        this.toastrService.danger(this.language.no_record_found);  
+        this.AnalysisData = [];
+        this.nodes1 = [];
+        this.nodes2 = []; 
+        document.getElementById('chart-container').innerHTML = ""; 
         return;
       }
       
+      this.data = data;
       let Arr = [];
       for (var i = 0; i < this.data.length; i++) {
        if (this.data[i].GroupId == '') {
@@ -433,14 +440,16 @@
  
   /*-- get transaction type on click items of grid view --*/
 
-  GetTransaction(NodeName, fullName) {
+  GetTransaction(NodeName) {
 
+   this.NodeName = NodeName;
+    
    if (this.radioTransaction == 'ParentLot')
     this.explodeTransaction = 'ParentLot';
    else
     this.explodeTransaction = 'ImmediateLot';
 
-   this.dash.GetTransaction(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, NodeName,this.DfltWarehouse,this.explodeTransaction).subscribe(
+   this.dash.GetTransaction(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.NodeName,this.DfltWarehouse,this.explodeTransaction).subscribe(
     data => {
     if(data){
      this.loading = false;
@@ -475,7 +484,7 @@
       }).forEach(function(d) {
        var cd = d;
        if(cd.DocEntry != null)
-       cd["name"] = cd.DistNumber + ` (Doc Entry: ${cd.DocEntry})`;
+       cd["name"] = cd.DistNumber + ` ( ${cd.ObjectTypeDesc} (${cd.DocEntry})  )`;
        else
        cd["name"] = cd.DistNumber;
        if(cd.ObjectTypeDesc != null){
@@ -690,7 +699,7 @@
  
   clickTransaction(evt) {
    let test = evt.srcElement.textContent;
-   let name = evt.srcElement.textContent;
+  // let name = evt.srcElement.textContent;
    if (test == "" || test == undefined) {
     return;
    } else {
@@ -705,7 +714,7 @@
       return;
      }
     }
-    this.GetTransaction(test, name);
+    this.GetTransaction(test);
    }
   }
  
@@ -826,4 +835,14 @@
   toggleNodeClass(e: any){
     e.currentTarget.classList.toggle("shrink");    
   }
+
+  getTransactionRadioClick(evt){    
+    if(this.NodeName != ''){
+      this.loading = true;
+      this.radioTransaction = evt;
+      this.GetTransaction(this.NodeName);
+      document.getElementById('chart-container').innerHTML = "";
+    }  
+  }
+
  }
