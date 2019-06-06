@@ -256,13 +256,8 @@
               </div>
 
               <div class="mt-2">
-<<<<<<< HEAD
                 <kendo-grid [kendoGridBinding]="gridWOFG" [filterable]=isColumnFilter2
-                  [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [rowSelected]="WOSelected" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
-=======
-                <kendo-grid [kendoGridBinding]="gridWOFG" [selectable]="selectableSettings" [filterable]=isColumnFilter2
-                  [groupable]=isColumnGroup [pageable]="showgridWOPage" [pageSize]="5" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
->>>>>>> 9a039b31dca8529c64fc8a67c420010bbdab05b2
+                  [groupable]=isColumnGroup [pageable]="showgridWOPage" [pageSize]="5" [selectable]="true" [rowSelected]="WOSelected" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                   (selectionChange)="gridRowSelectDocEntry($event)"
                   [ngStyle]="{ 'cursor': 'pointer', 'max-height':'490px'}">
                   <ng-template kendoGridToolbarTemplate>
@@ -293,13 +288,7 @@
                   </kendo-grid-column>      
                   <kendo-grid-column field="U_O_ORDRNO" title="{{language.wo}}" width="44" class="text-right" headerClass="text-right">
                   </kendo-grid-column>
-<<<<<<< HEAD
-                  <kendo-grid-column field="WO_STATUS" title="WO Status" width="70" class="text-right" headerClass="text-right">
-=======
-                  <!-- <kendo-grid-column field="Status" title="Status" width="52">
-                  </kendo-grid-column> -->
                   <kendo-grid-column field="WO_STATUS" title="{{language.doc_entry}}" width="70" class="text-right" headerClass="text-right">
->>>>>>> 9a039b31dca8529c64fc8a67c420010bbdab05b2
                     </kendo-grid-column>
                   <kendo-grid-column field="U_O_PRODID" title="{{language.product_no}}" width="81">
                   </kendo-grid-column>
@@ -369,13 +358,8 @@
                             </nb-radio-group>
                         </div>
                         <div class="mt-4" *ngIf="showMaterialView == 'immediate'">
-<<<<<<< HEAD
-                          <kendo-grid [kendoGridBinding]="gridMaterial" [filterable]=isColumnFilter3
-                            [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
-=======
                           <kendo-grid [kendoGridBinding]="gridMaterial" [selectable]="selectableSettings" [filterable]=isColumnFilter3
-                            [groupable]=isColumnGroup [pageable]="showgridMaterialPage" [pageSize]="5" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
->>>>>>> 9a039b31dca8529c64fc8a67c420010bbdab05b2
+                            [groupable]=isColumnGroup [pageable]="showgridMaterialPage" [pageSize]="5" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                             [ngStyle]="{ 'max-height':'490px'}">
                             <ng-template kendoGridToolbarTemplate>
                               <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
