@@ -85,6 +85,8 @@ export interface TreeNode {
    public showgridOperationPage: boolean = false;
    public showgridResourcePage: boolean = false;
    public ItemCodeSelected: any;
+   public GridViewSelected: any;
+   public WOSelected: any;
 
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
@@ -109,6 +111,9 @@ export interface TreeNode {
    this.getCheckedItemList();
    this.checkUncheckAll();
    this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);  
+  
+   let WoSelect = [];
+   this.WOSelected = (e: RowArgs) => WoSelect.indexOf(e.dataItem.DocEntry) >=0 ;
   }
  
   open(dialog: TemplateRef < any > ) {
@@ -412,13 +417,31 @@ export interface TreeNode {
   }
 
   gridRowSelectFG(evt){
-    let name = evt.selectedRows[0].dataItem.ItemCode;    
+    let name = evt.selectedRows[0].dataItem.ItemCode; 
+    let code = evt.selectedRows[0].dataItem.Code;
+    let WoSelect = [];
+    this.WOSelected = (e: RowArgs) => WoSelect.indexOf(e.dataItem.DocEntry) >=0 ;
+
+    let gridItemSelect = [];
+    if(code){
+      gridItemSelect.push(code);
+      this.GridViewSelected = (e: RowArgs) => gridItemSelect.indexOf(e.dataItem.Code) >=0 ;
+    }else{
+      this.GridViewSelected = (e: RowArgs) => gridItemSelect.indexOf(e.dataItem.Code) >=0 ;
+    }    
     this.getWorkOrder(name);    
   }
 
   gridRowSelectDocEntry(evt){
    let docentry = evt.selectedRows[0].dataItem.DocEntry;
    let itemcode = evt.selectedRows[0].dataItem.U_O_PRODID;
+   let WoSelect = [];
+    if(itemcode){
+      WoSelect.push(docentry);
+      this.WOSelected = (e: RowArgs) => WoSelect.indexOf(e.dataItem.DocEntry) >=0 ;
+    }else{
+      this.WOSelected = (e: RowArgs) => WoSelect.indexOf(e.dataItem.DocEntry) >=0 ;
+    } 
    this.getMaterials(docentry,itemcode);
    this.getOperations(docentry);
    this.getResources(docentry);
@@ -510,6 +533,12 @@ export interface TreeNode {
   }
 
    GetExplosionData() {
+    let gridItemSelect = [];
+    this.GridViewSelected = (e: RowArgs) => gridItemSelect.indexOf(e.dataItem.Code) >=0 ;
+    
+    let WoSelect = [];
+    this.WOSelected = (e: RowArgs) => WoSelect.indexOf(e.dataItem.DocEntry) >=0 ;
+
     if(this.checkedList.length<=0){
       this.checkboxStatus =  true;
     }else{
