@@ -6,6 +6,7 @@ import {DashboardService} from 'src/app/service/dashboard.service';
 import { ProductionService } from 'src/app/service/production.service';
 import {NbToastrService} from '@nebular/theme';
 import { CountdownComponent } from 'ngx-countdown';
+import { RowArgs } from '@progress/kendo-angular-grid';
 
 export interface TreeNode {
  label?: string;
@@ -79,6 +80,7 @@ export interface TreeNode {
    public itemName: any = '';
    public DocEntry: any = '';
    public ItemCode: any = '';
+   public ItemCodeSelected: any;
 
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
@@ -318,6 +320,13 @@ export interface TreeNode {
  }
 
   openItemFromLookup(dialog: TemplateRef<any>){ 
+    let itemFromSelect = [];
+    if(this.ItemCodeFrom){
+      itemFromSelect.push(this.ItemCodeFrom);
+      this.ItemCodeSelected = (e: RowArgs) => itemFromSelect.indexOf(e.dataItem.ItemCode) >=0 ;
+    }else{
+      this.ItemCodeSelected = (e: RowArgs) => itemFromSelect.indexOf(e.dataItem.ItemCode) >=0 ;
+    } 
    if(!this.ItemData){
      this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
    }        
@@ -348,6 +357,13 @@ export interface TreeNode {
  }
 
  openItemToLookup(dialog: TemplateRef<any>){
+  let itemToSelect = [];
+  if(this.ItemCodeTo){
+    itemToSelect.push(this.ItemCodeTo);
+    this.ItemCodeSelected = (e: RowArgs) => itemToSelect.indexOf(e.dataItem.ItemCode) >=0 ;
+  }else{
+    this.ItemCodeSelected = (e: RowArgs) => itemToSelect.indexOf(e.dataItem.ItemCode) >=0 ;
+  } 
    if(!this.ItemData){
      this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
    }        
