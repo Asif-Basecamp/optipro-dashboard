@@ -183,15 +183,10 @@
           <div class="row h-100 flex-100">
 
             <!-- Start Grid View -->
-
             <div class="col-sm-4 border-right overflow-auto h-100">
-              <div class="
-              View pt-3" *ngIf="showView == 'simple'">
-                <kendo-grid [kendoGridBinding]="gridViewData" [selectable]="selectableSettings"
-                  [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort" [resizable]="true"
-                  (selectionChange)="gridRowSelectFG($event)"
-                  [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
-      
+              <div class="View pt-3" *ngIf="showView == 'simple'">
+                <kendo-grid [kendoGridBinding]="gridViewData" [groupable]=isColumnGroup [selectable]="true" [rowSelected]="GridViewSelected" [sort]="state.sort" [resizable]="true"
+                  (selectionChange)="gridRowSelectFG($event)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
                   <kendo-grid-column field="ItemCode" title="Item" width="80">
                   </kendo-grid-column>      
                   <kendo-grid-column field="OnHand" title="In Stock" width="80" class="text-right" headerClass="text-right">
@@ -204,12 +199,10 @@
                   </kendo-grid-column>                  
                   <kendo-grid-column field="U_O_UOM" title="UOM" width="80" class="text-right" headerClass="text-right">
                   </kendo-grid-column>
-
                 </kendo-grid>
               </div>
 
               <div class="tree-wrapper pt-3" *ngIf="showView == 'detail'">
-                <!--<app-treetable></app-treetable>-->
                 <div class="content-section implementation">  
                   <p-treeTable [value]="files2" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" columnResizeMode="expand">
                     <ng-template pTemplate="colgroup">
@@ -234,7 +227,7 @@
                     <ng-template pTemplate="body" let-rowNode let-rowNodeIndex="rowNodeIndex"  let-rowData="rowData">
                         <tr [ttRow]="rowNode" (click)="ItemRowSelect(rowData)">
                             <td>
-                                <p-treeTableToggler [rowNode]="rowNode" class="cursor-pointer"></p-treeTableToggler>
+                              <p-treeTableToggler [rowNode]="rowNode" class="cursor-pointer"></p-treeTableToggler>
                                 <span class="cursor-pointer">{{rowData.ItemCode}}</span>
                             </td>
                             <td class="text-right" headerClass="text-right">{{rowData.OnHand}}</td>
@@ -247,7 +240,6 @@
                 </p-treeTable>
                 </div>
               </div>
-
             </div>
             <!-- End Grid View -->
 
@@ -262,10 +254,10 @@
               </div>
 
               <div class="mt-2">
-                <kendo-grid [kendoGridBinding]="gridWOFG" [selectable]="selectableSettings" [filterable]=isColumnFilter2
-                  [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
+                <kendo-grid [kendoGridBinding]="gridWOFG" [filterable]=isColumnFilter2
+                  [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [rowSelected]="WOSelected" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                   (selectionChange)="gridRowSelectDocEntry($event)"
-                  [ngStyle]="{ 'max-height':'490px'}">
+                  [ngStyle]="{ 'cursor': 'pointer', 'max-height':'490px'}">
                   <ng-template kendoGridToolbarTemplate>
                     <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                       <div class="k-form-field d-flex">
@@ -294,8 +286,6 @@
                   </kendo-grid-column>      
                   <kendo-grid-column field="U_O_ORDRNO" title="WO#" width="44" class="text-right" headerClass="text-right">
                   </kendo-grid-column>
-                  <!-- <kendo-grid-column field="Status" title="Status" width="52">
-                  </kendo-grid-column> -->
                   <kendo-grid-column field="WO_STATUS" title="WO Status" width="70" class="text-right" headerClass="text-right">
                     </kendo-grid-column>
                   <kendo-grid-column field="U_O_PRODID" title="Product No." width="81">
@@ -366,7 +356,7 @@
                             </nb-radio-group>
                         </div>
                         <div class="mt-4" *ngIf="showMaterialView == 'immediate'">
-                          <kendo-grid [kendoGridBinding]="gridMaterial" [selectable]="selectableSettings" [filterable]=isColumnFilter3
+                          <kendo-grid [kendoGridBinding]="gridMaterial" [filterable]=isColumnFilter3
                             [groupable]=isColumnGroup [pageable]="true" [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                             [ngStyle]="{ 'max-height':'490px'}">
                             <ng-template kendoGridToolbarTemplate>
