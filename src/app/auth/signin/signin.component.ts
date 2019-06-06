@@ -30,6 +30,7 @@ export class SigninComponent implements OnInit {
   public selectedValue: any = [];
   public InvalidActiveUser: boolean = false;
   public loading: boolean = false;
+  public  selectedItemNgModel: any ;
 
   constructor(private auth:AuthenticationService,private httpClientSer: HttpClient,private router: Router,private toastrService: NbToastrService) {}
   
@@ -71,8 +72,8 @@ export class SigninComponent implements OnInit {
     this.auth.getPSURL(this.arrConfigData[0].optiProDashboardAPIURL,this.adminDBName).subscribe(
       data => {
         if (data != null) {
-          this.psURL = data;
-         // this.psURL = 'http://172.16.6.147/OptiProAdmin';
+         // this.psURL = data;
+          this.psURL = 'http://172.16.6.140/OptiADMINHANA';
         }
       },
       error => {
@@ -133,11 +134,9 @@ export class SigninComponent implements OnInit {
     OnSignIn(){
       this.router.navigateByUrl('/pages');
       this.loading = true;
-      window.localStorage.setItem('CompanyDB', JSON.stringify(this.selectedValue.OPTM_COMPID));
+      window.localStorage.setItem('CompanyDB', JSON.stringify(this.selectedItemNgModel));
       window.localStorage.setItem('Username', JSON.stringify(this.loginId));
       window.localStorage.setItem('Userpwd', JSON.stringify(this.password));
     }
-   
-   selectedItemNgModel;
    
 }

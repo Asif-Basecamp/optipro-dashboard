@@ -16,9 +16,10 @@ export class DashboardService {
       })
     };
 
-    GetItemList(optiProDashboardAPIURL:string,CompanyDBID:string): Observable<any>{
+    GetItemList(optiProDashboardAPIURL:string,CompanyDBID:string,PrcrmntMtd:string): Observable<any>{
       let jObject:any={ ItemList: JSON.stringify([{ 
-       CompanyDBID: CompanyDBID
+       CompanyDBID: CompanyDBID,
+       PrcrmntMtd: PrcrmntMtd
       }])};
       return this.httpClient.post(optiProDashboardAPIURL +"/Dashboard/GetItemList",jObject,this.httpOptions);
     }

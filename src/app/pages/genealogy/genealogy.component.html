@@ -10,11 +10,18 @@
           <form #criteriaForm="ngForm">
             <fieldset class="form-group px-0 mb-0">
               <nb-radio-group class="d-flex" [(ngModel)]="radioExplode" name="radioExplode">
-                <nb-radio [value]="'Lot Explosion'">{{language.lotexplosion}}
+                <nb-radio [value]="'Lot Explosion'" [disabled]="vendor">{{language.lotexplosion}}
                 </nb-radio>
                 <nb-radio [value]="'Where Used'">{{language.whereused}}</nb-radio>
               </nb-radio-group>
             </fieldset>
+
+            <div>
+                <label>Vendor</label>
+                <input type="checkbox" id="vendor" name="vendor" [(ngModel)]="vendor" (change)="VendorCheck($event)"/>
+            </div>
+            
+
             <h6 class="border-bottom pb-1 mb-2">{{language.select}}</h6>
             
             <div class="form-group">
@@ -63,7 +70,8 @@
             </div>
 
             <div class="form-group">
-              <label for="inputPassword3" class="form-label">{{language.lot_from}}</label>
+              <label for="inputPassword3" class="form-label" *ngIf="!vendor">{{language.lot_from}}</label>
+              <label for="inputPassword3" class="form-label" *ngIf="vendor">{{language.lot_from}}</label>
               <div class="w-100">
                 <div class="input-group">
                   <input fieldSize="small" nbInput type="text" class="form-control" placeholder="{{language.select_lot_from}}"
@@ -124,8 +132,8 @@
       </nb-card-header>
       <nb-card-body>
         <div *ngIf="Item">
-          <kendo-grid [kendoGridBinding]="gridData" [filterable]=isColumnFilter [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort"
-          [filter]="state.filter" [resizable]="true" (selectionChange)="gridRowSelectionChange($event,ref)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
+          <kendo-grid [data]="gridData" [filterable]=isColumnFilter [groupable]=isColumnGroup [selectable]="true" [rowSelected]="isItemCodeSelected" [sort]="state.sort"
+          [filter]="state.filter" [resizable]="true" (selectionChange)="gridRowSelectionChange($event, ref)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
             <ng-template kendoGridToolbarTemplate>
                 <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                     <div class="k-form-field d-flex">
@@ -147,23 +155,17 @@
                 </ng-template>
             </kendo-grid-checkbox-column>
 
-            <kendo-grid-column field="ItemCode" title="Item Code" width="80">
+            <kendo-grid-column field="ItemCode" title="{{language.item_code}}" width="80">
             </kendo-grid-column>
             
-            <kendo-grid-column field="ItemName" title="Description" width="80">
+            <kendo-grid-column field="ItemName" title="{{language.description}}" width="80">
             </kendo-grid-column>
-
-           <!--<kendo-grid-column field="ItemCode" [style]="{'background-color': 'red'}" title="Item Code" width="80">
-            </kendo-grid-column>
-            
-            <kendo-grid-column field="ItemName" [style]="{'background-color': 'red'}" title="Description" width="80">
-            </kendo-grid-column>-->
           </kendo-grid>
         </div>
 
         <div *ngIf="whse">
           
-          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort"
+          <kendo-grid [kendoGridBinding]="gridData" [filterable]=isColumnFilter [groupable]=isColumnGroup [selectable]="true" [rowSelected]="wareHouseSelected" [sort]="state.sort"
           [filter]="state.filter" [resizable]="true" (selectionChange)="gridRowSelectionChange($event,ref)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px' }">
 
             <!-- grid template start -->
@@ -190,16 +192,16 @@
                 </ng-template>
             </kendo-grid-checkbox-column>
 
-            <kendo-grid-column field="WhsCode" title="Warehouse Code" width="80">
+            <kendo-grid-column field="WhsCode" title="{{language.warehouse_code}}" width="80">
             </kendo-grid-column>
-            <kendo-grid-column field="WhsName" title="Description" width="80">
+            <kendo-grid-column field="WhsName" title="{{language.description}}" width="80">
             </kendo-grid-column>
           </kendo-grid>
         </div>
 
         <div *ngIf="LotFrom || LotTo">
 
-          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort"
+          <kendo-grid [kendoGridBinding]="gridData" [filterable]=isColumnFilter [groupable]=isColumnGroup [selectable]="true" [rowSelected]="lotSelected" [sort]="state.sort"
           [filter]="state.filter" [resizable]="true" (selectionChange)="gridRowSelectionChange($event,ref)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px' }">
 
             <!-- grid template start -->
@@ -226,9 +228,9 @@
                 </ng-template>
             </kendo-grid-checkbox-column>
 
-            <kendo-grid-column field="DistNumber" title="Serial/Batch No." width="80">
+            <kendo-grid-column field="DistNumber" title="{{language.serial_batch_no}}" width="80">
             </kendo-grid-column>
-            <kendo-grid-column field="ItemCode" title="Item Code" width="80">
+            <kendo-grid-column field="ItemCode" title="{{language.item_code}}" width="80">
             </kendo-grid-column>
           </kendo-grid>
         </div>
@@ -247,15 +249,14 @@
         <nb-card accent="primary" size="xsmall" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="xlarge" nbSpinnerMessage="{{language.please_wait}}">
           <nb-card-header class="border-bottom d-flex" id="grid-accordian-trigger">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" class="mr-2" fill="#2a2a2a"><rect width="24" height="24" opacity="0"></rect><path d="M9 3H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"></path><path d="M19 3h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"></path><path d="M9 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2z"></path><path d="M19 13h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2z"></path></svg>
-            <span>Grid View</span>
+            <span>{{language.grid_view}}</span>
             <!-- <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" class="eva-arrow-ios-downward ml-auto cursor-pointer" fill="#2a2a2a"><rect width="24" height="24" opacity="0"></rect><path d="M12 16a1 1 0 0 1-.64-.23l-6-5a1 1 0 1 1 1.28-1.54L12 13.71l5.36-4.32a1 1 0 0 1 1.41.15 1 1 0 0 1-.14 1.46l-6 4.83A1 1 0 0 1 12 16z"></path></svg> -->
           </nb-card-header>
           <nb-card-body class="p-0" id="grid-accordian-body">
             <as-split direction="horizontal" restrictMove="true" gutterSize="1">
               <as-split-area size="25" minSize="15">
                 <div class="overflow-auto h-100">
-                  <div class="tree-wrapper pt-3">
-    
+                  <div class="tree-wrapper pt-3">  
                     <tree-root id="tree2" [focused]="true" [nodes]="nodes2" (click)="clickTransaction($event)">
                       <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
                         <div class="tree-node">
@@ -273,8 +274,7 @@
                           <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
                         </div>
                       </ng-template>
-                    </tree-root>
-                    
+                    </tree-root>                        
                   </div>
                 </div>
               </as-split-area>
@@ -282,14 +282,14 @@
                 <div class="p-2 overflow-auto h-100 d-flex flex-column">
                   <div class="clearfix mb-2">
                     <div class="col-12 p-0">
-                        <nb-radio-group class="d-flex" [(ngModel)]="radioTransaction" name="radioTransaction">
-                          <nb-radio [value]="'ParentLot'">
-                            {{language.show_parent_lot}}
-                          </nb-radio>
-                          <nb-radio [value]="'ImmediateLot'">
-                            {{language.show_immediate_lot}}
-                          </nb-radio>
-                        </nb-radio-group>
+                      <nb-radio-group class="d-flex" [(ngModel)]="radioTransaction" name="radioTransaction" (valueChange)="getTransactionRadioClick($event)" >
+                        <nb-radio [value]="'ParentLot'">
+                          {{language.show_parent_lot}}
+                        </nb-radio>
+                        <nb-radio [value]="'ImmediateLot'">
+                          {{language.show_immediate_lot}}
+                        </nb-radio>
+                      </nb-radio-group>
                     </div>
                   </div>
     
@@ -339,3 +339,4 @@
     
   </div>
 </div>
+

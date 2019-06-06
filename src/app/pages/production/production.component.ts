@@ -6,6 +6,7 @@ import {DashboardService} from 'src/app/service/dashboard.service';
 import { ProductionService } from 'src/app/service/production.service';
 import {NbToastrService} from '@nebular/theme';
 import { CountdownComponent } from 'ngx-countdown';
+import { RowArgs } from '@progress/kendo-angular-grid';
 
 export interface TreeNode {
  label?: string;
@@ -51,11 +52,11 @@ export interface TreeNode {
    public gridResource: any[];   
    public ItemFrom: boolean = false;
    public ItemTo: boolean = false; 
-   public ItemCodeFrom: any;
-   public ItemCodeTo: any;
+   public ItemCodeFrom: any = '';
+   public ItemCodeTo: any = '';
    public nodes2: any = [];
    public RadioBtnWO: any = 'simple';
-   public materialViewOption: any = 'IMMEDIATE';
+   public materialViewOption: any = 'immediate';
    public FromDate: any ;
    public ToDate: any ;
    showLookup: boolean = false;
@@ -76,6 +77,16 @@ export interface TreeNode {
    times: any;
    time: any;
    refreshCheck: any;
+   public itemName: any = '';
+   public DocEntry: any = '';
+   public ItemCode: any = '';
+   public showgridWOPage: boolean = false;
+   public showgridMaterialPage: boolean = false;
+   public showgridOperationPage: boolean = false;
+   public showgridResourcePage: boolean = false;
+   public ItemCodeSelected: any;
+   public GridViewSelected: any;
+   public WOSelected: any;
 
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
@@ -100,6 +111,9 @@ export interface TreeNode {
    this.getCheckedItemList();
    this.checkUncheckAll();
    this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);  
+  
+   let WoSelect = [];
+   this.WOSelected = (e: RowArgs) => WoSelect.indexOf(e.dataItem.DocEntry) >=0 ;
   }
  
   open(dialog: TemplateRef < any > ) {
@@ -111,7 +125,7 @@ export interface TreeNode {
   }
 
   getItemData(api, companyDB){
-    this.dash.GetItemList(api, companyDB).subscribe(
+    this.dash.GetItemList(api, companyDB,'').subscribe(
       data => {
         this.ItemData = data;
       });    
@@ -246,6 +260,7 @@ export interface TreeNode {
 
    getWorkOrder(itemName){
     this.loading = true; 
+    this.itemName = itemName;
     this.prod.GetWorkOrderFG(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemName, this.RadioBtnWO, this.checkedList.toString(), this.FromDate, this.ToDate).subscribe(
       data => {
           if(!data){
@@ -253,6 +268,10 @@ export interface TreeNode {
            }else{
             this.loading = false;
             this.gridWOFG = data; 
+            if(this.gridWOFG.length > 10)
+            this.showgridWOPage = true;
+            else
+            this.showgridWOPage = false;
             this.getMaterials(this.gridWOFG[0].DocEntry,this.gridWOFG[0].U_O_PRODID);
             this.getOperations(this.gridWOFG[0].DocEntry);
             this.getResources(this.gridWOFG[0].DocEntry);
@@ -314,6 +333,13 @@ export interface TreeNode {
  }
 
   openItemFromLookup(dialog: TemplateRef<any>){ 
+    let itemFromSelect = [];
+    if(this.ItemCodeFrom){
+      itemFromSelect.push(this.ItemCodeFrom);
+      this.ItemCodeSelected = (e: RowArgs) => itemFromSelect.indexOf(e.dataItem.ItemCode) >=0 ;
+    }else{
+      this.ItemCodeSelected = (e: RowArgs) => itemFromSelect.indexOf(e.dataItem.ItemCode) >=0 ;
+    } 
    if(!this.ItemData){
      this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
    }        
@@ -344,6 +370,13 @@ export interface TreeNode {
  }
 
  openItemToLookup(dialog: TemplateRef<any>){
+  let itemToSelect = [];
+  if(this.ItemCodeTo){
+    itemToSelect.push(this.ItemCodeTo);
+    this.ItemCodeSelected = (e: RowArgs) => itemToSelect.indexOf(e.dataItem.ItemCode) >=0 ;
+  }else{
+    this.ItemCodeSelected = (e: RowArgs) => itemToSelect.indexOf(e.dataItem.ItemCode) >=0 ;
+  } 
    if(!this.ItemData){
      this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
    }        
@@ -384,13 +417,31 @@ export interface TreeNode {
   }
 
   gridRowSelectFG(evt){
-    let name = evt.selectedRows[0].dataItem.ItemCode;    
+    let name = evt.selectedRows[0].dataItem.ItemCode; 
+    let code = evt.selectedRows[0].dataItem.Code;
+    let WoSelect = [];
+    this.WOSelected = (e: RowArgs) => WoSelect.indexOf(e.dataItem.DocEntry) >=0 ;
+
+    let gridItemSelect = [];
+    if(code){
+      gridItemSelect.push(code);
+      this.GridViewSelected = (e: RowArgs) => gridItemSelect.indexOf(e.dataItem.Code) >=0 ;
+    }else{
+      this.GridViewSelected = (e: RowArgs) => gridItemSelect.indexOf(e.dataItem.Code) >=0 ;
+    }    
     this.getWorkOrder(name);    
   }
 
   gridRowSelectDocEntry(evt){
    let docentry = evt.selectedRows[0].dataItem.DocEntry;
    let itemcode = evt.selectedRows[0].dataItem.U_O_PRODID;
+   let WoSelect = [];
+    if(itemcode){
+      WoSelect.push(docentry);
+      this.WOSelected = (e: RowArgs) => WoSelect.indexOf(e.dataItem.DocEntry) >=0 ;
+    }else{
+      this.WOSelected = (e: RowArgs) => WoSelect.indexOf(e.dataItem.DocEntry) >=0 ;
+    } 
    this.getMaterials(docentry,itemcode);
    this.getOperations(docentry);
    this.getResources(docentry);
@@ -398,7 +449,11 @@ export interface TreeNode {
 
    getMaterials(DocEntry,ItemCode){
 
-      if(this.materialViewOption == 'IMMEDIATE')
+    this.loading = true;
+    this.DocEntry = DocEntry;
+    this.ItemCode = ItemCode;
+
+      if(this.materialViewOption == 'immediate')
       this.showMaterialView = 'immediate';
       else 
       this.showMaterialView = 'all';
@@ -407,31 +462,57 @@ export interface TreeNode {
         this.FromDate, this.ToDate, this.checkedList.toString()).subscribe(
         data => {
             this.gridMaterial = data; 
+
+            if(this.gridMaterial != null && this.gridMaterial != undefined){
+              if(this.gridMaterial.length > 10)
+              this.showgridMaterialPage = true;
+              else
+              this.showgridMaterialPage = false;             
+            } 
+            this.loading = false;         
+            
         },
         error => {
+          this.loading = false;
           this.toastrService.danger(this.language.no_record_found);    
       })    
    }
 
    getOperations(DocEntry){
-    
+      this.loading = true; 
       this.prod.GetOperationData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
         data => {
-            this.gridOperation = data;     
+            this.gridOperation = data; 
+            if(this.gridOperation != null && this.gridOperation != undefined){
+              if(this.gridOperation.length > 10)
+              this.showgridOperationPage = true;
+              else
+              this.showgridOperationPage = false;             
+            }  
+            this.loading = false;    
         },
         error => {
+          this.loading = false;       
           this.toastrService.danger(this.language.no_record_found);    
       })    
    }
 
    getResources(DocEntry){
-
+    this.loading = true; 
     this.prod.GetResourceData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
       data => {
-          this.gridResource = data;       
+          this.gridResource = data;
+          if(this.gridResource != null && this.gridResource != undefined){
+            if(this.gridResource.length > 10)
+            this.showgridResourcePage = true;
+            else
+            this.showgridResourcePage = false;             
+          }           
+          this.loading = false;       
           
       },
       error => {
+        this.loading = false;       
         this.toastrService.danger(this.language.no_record_found);    
     })  
  
@@ -452,6 +533,12 @@ export interface TreeNode {
   }
 
    GetExplosionData() {
+    let gridItemSelect = [];
+    this.GridViewSelected = (e: RowArgs) => gridItemSelect.indexOf(e.dataItem.Code) >=0 ;
+    
+    let WoSelect = [];
+    this.WOSelected = (e: RowArgs) => WoSelect.indexOf(e.dataItem.DocEntry) >=0 ;
+
     if(this.checkedList.length<=0){
       this.checkboxStatus =  true;
     }else{
@@ -613,4 +700,21 @@ export interface TreeNode {
         this.ngOnInit();
       },this.times*1000);  
  }
+
+ getWoRadioClick(evt){    
+  if(this.itemName != ''){
+    this.loading = true;
+    this.RadioBtnWO = evt;
+    this.getWorkOrder(this.itemName);  
+  }  
+}
+
+getMaterialRadioClick(evt){
+  if(this.DocEntry != '' && this.ItemCode != ''){
+    this.materialViewOption = evt;
+    this.getMaterials(this.DocEntry,this.ItemCode);  
+  }  
+ }
+
+
 }
