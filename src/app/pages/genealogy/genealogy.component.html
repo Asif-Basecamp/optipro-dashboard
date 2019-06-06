@@ -124,12 +124,9 @@
       </nb-card-header>
       <nb-card-body>
         <div *ngIf="Item">
-          <kendo-grid [kendoGridBinding]="gridData" [selectable]="selectableSettings" [filterable]=isColumnFilter [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort"
+          <kendo-grid [kendoGridBinding]="gridData" [filterable]=isColumnFilter [groupable]=isColumnGroup [selectable]="true" [sort]="state.sort"
           [filter]="state.filter" [resizable]="true" (selectionChange)="gridRowSelectionChange($event,ref)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
-            <!-- grid template start -->
             <ng-template kendoGridToolbarTemplate>
-
-                <!-- checkbox -->
                 <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                     <div class="k-form-field d-flex">
                         <input #chkFilter  type="checkbox" (change)="onFilterChange(chkFilter,gridItem)" id="opti_SalesOrderListColumnFilterID"
@@ -155,6 +152,12 @@
             
             <kendo-grid-column field="ItemName" title="Description" width="80">
             </kendo-grid-column>
+
+           <!--<kendo-grid-column field="ItemCode" [style]="{'background-color': 'red'}" title="Item Code" width="80">
+            </kendo-grid-column>
+            
+            <kendo-grid-column field="ItemName" [style]="{'background-color': 'red'}" title="Description" width="80">
+            </kendo-grid-column>-->
           </kendo-grid>
         </div>
 
@@ -250,20 +253,26 @@
           <div class="row h-100 flex-100">
             <div class="col-sm-4 border-right overflow-auto h-100">
               <div class="tree-wrapper pt-3">
+
                 <tree-root id="tree2" [focused]="true" [nodes]="nodes2" (click)="clickTransaction($event)">
                   <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
                     <div class="tree-node">
                       <tree-node-expander [node]="node"></tree-node-expander>
-                        <div class="node-content-wrapper" *ngIf="explodeDirection == 'DOWN'">
+                        <div class="node-content-wrapper" *ngIf="explodeDirection == 'DOWN'" [class.node-content-wrapper-active]="isActive"
+                        [class.node-content-wrapper-focused]="node.isFocused"
+                        (click)="node.toggleActivated(true)">
                           <span>{{node.data.OPTM_ITEMCODE}} - {{node.data.OPTM_BTCHSERNO }}</span>
                         </div>
-                        <div class="node-content-wrapper" *ngIf="explodeDirection == 'UP'">
+                        <div class="node-content-wrapper" *ngIf="explodeDirection == 'UP'" [class.node-content-wrapper-active]="isActive"
+                        [class.node-content-wrapper-focused]="node.isFocused"
+                        (click)="node.toggleActivated(true)">
                             <span>{{node.data.OPTM_ITEMCODE}} - {{node.data.OPTM_PARENTBTCHSERNO }}</span>
                           </div>
                       <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
                     </div>
                   </ng-template>
                 </tree-root>
+                
               </div>
             </div>
             <div class="col-sm-8 p-2 overflow-auto h-100 d-flex flex-column">
@@ -283,18 +292,19 @@
               <nb-card class="mb-0 no-shadow-card flex-100">
                 <nb-card-header>{{language.transaction_type}}</nb-card-header>
                 <nb-card-body>
-                  <!--<tree-root id="tree2" [focused]="true" [nodes]="nodes1" (click)="clickTransactionDetails($event)">
-                  </tree-root>-->
-
                   <tree-root id="tree2" [focused]="true" [nodes]="nodes1" (click)="clickTransactionDetails($event)">
                     <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
                       <div class="tree-node">
                         <tree-node-expander [node]="node"></tree-node-expander>
-                          <div class="node-content-wrapper" *ngIf="node.data.ObjectTypeDesc == null">
+                          <div class="node-content-wrapper" *ngIf="node.data.ObjectTypeDesc == null" [class.node-content-wrapper-active]="isActive"
+                          [class.node-content-wrapper-focused]="node.isFocused"
+                          (click)="node.toggleActivated(true)">
                             <span>{{node.data.ItemCode}} - {{node.data.DistNumber}}</span>
                           </div>
 
-                          <div class="node-content-wrapper"  *ngIf="node.data.ObjectTypeDesc != null">
+                          <div class="node-content-wrapper"  *ngIf="node.data.ObjectTypeDesc != null" [class.node-content-wrapper-active]="isActive"
+                          [class.node-content-wrapper-focused]="node.isFocused"
+                          (click)="node.toggleActivated(true)">
                             <span>({{node.data.DistNumber}}) Doc Entry:{{node.data.DocEntry}} - {{node.data.ObjectTypeDesc}}</span>
                           </div>
                         <tree-node-children [node]="node" [templates]="templates"></tree-node-children>

@@ -1,5 +1,4 @@
  import { Component, OnInit, TemplateRef, Input } from '@angular/core';
-//  import {TreeNode,TreeModel,TREE_ACTIONS,KEYS,IActionMapping,ITreeOptions} from 'angular-tree-component';
  import { NbDialogService } from '@nebular/theme';
  import { DashboardService } from 'src/app/service/dashboard.service';
  import { Router } from '@angular/router';
@@ -7,7 +6,6 @@
  import { GridComponent } from '@progress/kendo-angular-grid';
  import { State } from '@progress/kendo-data-query';
  import OrgChart from '../../@core/org-chart/orgchart.js';
- 
  
  @Component({
   selector: 'ngx-genealogy',
@@ -69,12 +67,12 @@
   public nodes4: any;
   public language: any;
   public NodeName:any = '';
+  public checkboxOnly = false;
 
   constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
- 
+
   ngOnInit() {
    this.arrConfigData = JSON.parse(window.localStorage.getItem('arrConfigData'));
-   
    this.CompanyDB = JSON.parse(window.localStorage.getItem('CompanyDB'));
    this.Username = JSON.parse(window.localStorage.getItem('Username'));
    this.Userpwd = JSON.parse(window.localStorage.getItem('Userpwd'));
@@ -98,6 +96,9 @@
 
   openItemLookup(dialog: TemplateRef<any>){
     if(this.ItemCodeData){
+      if(this.ItemValue){
+        this.ItemValue = this.ItemValue;
+      }
       this.Item = true;
       this.whse = false;
       this.LotTo = false;

@@ -1,18 +1,9 @@
 import { Component, OnInit, setTestabilityGetter, Input, Output, EventEmitter, ElementRef, ViewChild, HostListener } from '@angular/core';
-// import { CommonService } from '../../../services/common.service';
-// import * as XLSX from 'ts-xlsx';
-// import { FeaturemodelService } from '../../../services/featuremodel.service';
-// import { ModelbomService } from '../../../services/modelbom.service';
-// import { CommonData, ColumnSetting } from "../../../models/CommonData";
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
-//import 'bootstrap';
-// import { ColumnSetting } from '../../models/CommonData';
 import { GridComponent } from '@progress/kendo-angular-grid';
 import { State } from '@progress/kendo-data-query';
 import { ColumnSetting } from 'src/app/Data/CommonData';
-// import { UIHelper } from '../../../helpers/ui.helpers';
-// import { Http, ResponseContentType } from '@angular/http';
 
 @Component({
   selector: 'app-lookup',
@@ -21,7 +12,6 @@ import { ColumnSetting } from 'src/app/Data/CommonData';
 })
 export class LookupComponent implements OnInit {
   @ViewChild("lookupsearch") _el: ElementRef;
-  // input and output emitters
   @Input() serviceData: any;
   @Input() lookupfor: any;
   @Input() fillLookupArray: any;
@@ -46,27 +36,15 @@ export class LookupComponent implements OnInit {
   selectedValues: Array<any> = [];
   public mySelection: number[] = [];
 
+  constructor(private router: Router) {}
 
-
-  constructor(private router: Router) {
-
-  }
-
-  // close_kendo_dialog() {
-  //   if (this.lookupfor == "PhyCntItemList") {
-  //     this.router.navigate(['home/dashboard']);
-  //   } else {
-  //     this.dialogOpened = false;
-  //   }
-  // }
   close_dialog() {
     this.dialogOpened = false;
   }
+
   public state: State = {
     skip: 0,
     take: 5,
-
-    // Initial filter descriptor
     filter: {
       logic: 'and',
       filters: []
