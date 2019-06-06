@@ -125,7 +125,7 @@ export interface TreeNode {
   }
 
   getItemData(api, companyDB){
-    this.dash.GetItemList(api, companyDB).subscribe(
+    this.dash.GetItemList(api, companyDB,'').subscribe(
       data => {
         this.ItemData = data;
       });    
