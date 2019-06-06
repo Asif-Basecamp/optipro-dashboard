@@ -79,6 +79,10 @@ export interface TreeNode {
    public itemName: any = '';
    public DocEntry: any = '';
    public ItemCode: any = '';
+   public showgridWOPage: boolean = false;
+   public showgridMaterialPage: boolean = false;
+   public showgridOperationPage: boolean = false;
+   public showgridResourcePage: boolean = false;
 
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
@@ -257,6 +261,10 @@ export interface TreeNode {
            }else{
             this.loading = false;
             this.gridWOFG = data; 
+            if(this.gridWOFG.length > 10)
+            this.showgridWOPage = true;
+            else
+            this.showgridWOPage = false;
             this.getMaterials(this.gridWOFG[0].DocEntry,this.gridWOFG[0].U_O_PRODID);
             this.getOperations(this.gridWOFG[0].DocEntry);
             this.getResources(this.gridWOFG[0].DocEntry);
@@ -415,7 +423,15 @@ export interface TreeNode {
         this.FromDate, this.ToDate, this.checkedList.toString()).subscribe(
         data => {
             this.gridMaterial = data; 
-            this.loading = false;
+
+            if(this.gridMaterial != null && this.gridMaterial != undefined){
+              if(this.gridMaterial.length > 10)
+              this.showgridMaterialPage = true;
+              else
+              this.showgridMaterialPage = false;             
+            } 
+            this.loading = false;         
+            
         },
         error => {
           this.loading = false;
@@ -427,7 +443,13 @@ export interface TreeNode {
       this.loading = true; 
       this.prod.GetOperationData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
         data => {
-            this.gridOperation = data;  
+            this.gridOperation = data; 
+            if(this.gridOperation != null && this.gridOperation != undefined){
+              if(this.gridOperation.length > 10)
+              this.showgridOperationPage = true;
+              else
+              this.showgridOperationPage = false;             
+            }  
             this.loading = false;    
         },
         error => {
@@ -441,6 +463,12 @@ export interface TreeNode {
     this.prod.GetResourceData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
       data => {
           this.gridResource = data;
+          if(this.gridResource != null && this.gridResource != undefined){
+            if(this.gridResource.length > 10)
+            this.showgridResourcePage = true;
+            else
+            this.showgridResourcePage = false;             
+          }           
           this.loading = false;       
           
       },
