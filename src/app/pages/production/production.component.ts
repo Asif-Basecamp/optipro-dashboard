@@ -87,6 +87,8 @@ export interface TreeNode {
    public ItemCodeSelected: any;
    public GridViewSelected: any;
    public WOSelected: any;
+   public Hour: any;
+   Hours: any;
 
   constructor(private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
@@ -685,9 +687,12 @@ export interface TreeNode {
  }
 
  autoRefresh(){
+      this.Hours = this.Hour;
       this.times = this.time*60;
+
+      alert(this.Hours+'='+this.times);
       setTimeout(() => {
-        this.ItemCodeFrom = '';
+       /* this.ItemCodeFrom = '';
         this.itemFromStatus = false;
         this.ItemCodeTo = '';
         this.itemToStatus = false;
@@ -697,7 +702,8 @@ export interface TreeNode {
         this.time = '';
         this.refreshCheck = '';
         this.viewOption = 'SIMPLE'; 
-        this.ngOnInit();
+        this.ngOnInit();*/
+        window.location.reload();
       },this.times*1000);  
  }
 
