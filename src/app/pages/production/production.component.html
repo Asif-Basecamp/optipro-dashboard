@@ -204,7 +204,7 @@
   
                 <div class="tree-wrapper pt-3" *ngIf="showView == 'detail'">
                   <div class="content-section implementation">  
-                    <p-treeTable [value]="files2" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" columnResizeMode="expand">
+                    <p-treeTable [value]="files2" selectionMode="single" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" columnResizeMode="expand">
                       <ng-template pTemplate="colgroup">
                         <colgroup>
                           <col>
@@ -225,7 +225,7 @@
                         </tr>
                       </ng-template>
                       <ng-template pTemplate="body" let-rowNode let-rowNodeIndex="rowNodeIndex"  let-rowData="rowData">
-                          <tr [ttRow]="rowNode" (click)="ItemRowSelect(rowData)">
+                          <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode" (click)="ItemRowSelect(rowData)">
                               <td>
                                 <p-treeTableToggler [rowNode]="rowNode" class="cursor-pointer"></p-treeTableToggler>
                                   <span class="cursor-pointer">{{rowData.ItemCode}}</span>

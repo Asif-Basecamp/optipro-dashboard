@@ -228,7 +228,6 @@ export interface TreeNode {
  }
 
   ItemRowSelect(itemName){
-    alert('hello');
     this.getWorkOrder(itemName.ItemCode);
   }
 
