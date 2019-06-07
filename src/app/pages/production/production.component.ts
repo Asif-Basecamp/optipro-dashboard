@@ -689,8 +689,6 @@ export interface TreeNode {
  autoRefresh(){
       this.Hours = this.Hour;
       this.times = this.time*60;
-
-      alert(this.Hours+'='+this.times);
       setTimeout(() => {
        /* this.ItemCodeFrom = '';
         this.itemFromStatus = false;
