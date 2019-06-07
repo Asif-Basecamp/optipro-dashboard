@@ -560,7 +560,7 @@ export interface TreeNode {
     }  
     this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemCodeFrom, this.ItemCodeTo, this.viewOption, this.FromDate, this.ToDate).subscribe(
       data => {
-         if(data.length == 0){
+         if(!data){
             this.loading = false;
             this.toastrService.danger('No Record Found');
           }else{
