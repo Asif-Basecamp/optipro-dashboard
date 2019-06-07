@@ -206,7 +206,99 @@
         }
     }
 }
-
+.color-code-wrapper{
+    position: absolute;
+    right: 0px;
+    top: 0;
+    height: 100%;    
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    z-index: 1;
+    background-color: #fff;
+    width:0;      
+    & .color-code-content{
+        position: relative;
+        height: 100%;
+        width: 0;
+        & .color-code-toggle{            
+            width: 0;
+            & > button{
+                background: transparent;
+                height: 50px;
+                width: 20px;
+                border: 1px solid #d5dbe0;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                border-radius: 4px 0 0 4px;
+                border-right: 0;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%)translateX(-20px);
+                background-color: #fff;
+                & > i{
+                } 
+            }
+        }
+        & .color-code-heading{
+            width:100%;
+            font-weight:600;
+            font-size: 12px;
+            margin-bottom: 2px;
+            padding: 8px 0 5px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        & ul{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            display: none;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            width: 100%;
+            max-height:calc(100% - 30px);
+            overflow: auto;
+            li{
+                display: inline-flex;
+                align-items: center;
+                justify-items: center;   
+                padding: 5px;         
+                .color-type{
+                    font-size: 12px;
+                }
+                .color-code{
+                    width:20px;
+                    height:20px;
+                    border:1px solid #d5dbe0;
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+    &.open{
+        width: 250px;
+        border-left: 1px solid #d5dbe0;
+        & .color-code-content{
+            width:100%;
+        }
+        & .color-code-heading, & ul{
+            display: flex !important;
+        }
+        & .color-code-toggle{        
+            & > button{
+                &>i{
+                    &:before{
+                        content: "\e92f";
+                    }
+                }
+            }
+        }
+    } 
+}
 .flex-100{
     flex:1;
 }
