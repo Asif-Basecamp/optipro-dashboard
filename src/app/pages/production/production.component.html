@@ -170,13 +170,13 @@
 
 <div class="dashboard-right">
 <div class="custom-accordian grid-accordian-open" id="custom-accordian">
-  <div class="grid-accordian expanded" id="grid-accordian">
+ 
+  <div class="grid-accordian expanded" id="grid-accordian" *ngIf="gridViewData">
     <nb-card accent="primary" size="xsmall" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="xlarge"
       nbSpinnerMessage="Please Wait">
       <nb-card-header class="border-bottom d-flex" id="grid-accordian-trigger" >
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" class="mr-2" fill="#2a2a2a"><rect width="24" height="24" opacity="0"></rect><path d="M9 3H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"></path><path d="M19 3h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"></path><path d="M9 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2z"></path><path d="M19 13h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2z"></path></svg>
           <span>{{language.grid_view}}</span>
-          <!-- <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" class="eva-arrow-ios-downward ml-auto cursor-pointer" fill="#2a2a2a"><rect width="24" height="24" opacity="0"></rect><path d="M12 16a1 1 0 0 1-.64-.23l-6-5a1 1 0 1 1 1.28-1.54L12 13.71l5.36-4.32a1 1 0 0 1 1.41.15 1 1 0 0 1-.14 1.46l-6 4.83A1 1 0 0 1 12 16z"></path></svg> -->
       </nb-card-header>
       <nb-card-body class="p-0" id="grid-accordian-body">
         <as-split direction="horizontal" restrictMove="true" gutterSize="1">
@@ -692,6 +692,10 @@
       </nb-card-body>
     </nb-card>
   </div>
+
+  <div class="grid-accordian expanded" id="grid-accordian" *ngIf="!gridViewData">
+      <p>fghfggfjgfjgfjgfjgfjgfjj</p>
+  </div>  
 </div>
 <div *ngIf="showLookup">
     <app-lookup [lookupfor]='lookupfor' [serviceData]='serviceApiData' (lookupvalue)="getLookupValue($event)"></app-lookup>
