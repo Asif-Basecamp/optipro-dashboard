@@ -884,4 +884,8 @@ export class GenealogyComponent implements OnInit {
    }
  }
 
+ colorCodeWrapperToggle(e){
+  document.getElementById('color-code-wrapper').classList.toggle('open');
+ }
+
 }
