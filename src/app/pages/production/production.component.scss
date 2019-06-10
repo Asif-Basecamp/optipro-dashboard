@@ -81,16 +81,11 @@
                 }
             }
         }
-        & .grid-accordian{
-            & > nb-card{
-                margin-bottom: 5px;
-            }
-        }
-        & .analysis-accordian {
-            & > nb-card{
-                margin-top: 5px;
-            }
-        }
+        // & .grid-accordian{
+        //     & > nb-card{
+        //         margin-bottom: 5px;
+        //     }
+        // }
         &.grid-accordian-open{
             & .grid-accordian.expanded {
                 max-height:100%;
