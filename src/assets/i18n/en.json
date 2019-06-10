@@ -28,6 +28,7 @@
     "correct_item_code": "Enter Correct Item Code",
     "description": "Description",
     "serial_batch_no": "Serial/Batch No.",
+    "vendor_serial_batch_no": "Vendor Serial/Batch No.",
     "warehouse": "Warehouse",
     "select_warehouse": "Select Warehouse",
     "warehouse_code_req": "Warehouse Code Required",
