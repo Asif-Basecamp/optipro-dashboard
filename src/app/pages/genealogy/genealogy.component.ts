@@ -72,6 +72,7 @@
   public lotSelected: any;
   public NodeName:any = '';
   public vendor: boolean = false;
+  public vendorData: any = [];
 
   constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
 
@@ -99,6 +100,16 @@
       });    
   }
 
+  setParamItemLookup(gridData,dialog){
+    this.Item = true;
+    this.whse = false;
+    this.LotTo = false;
+    this.LotFrom = false;
+    this.lookUpHeading = 'Item Code';
+    this.gridData = gridData;
+    this.dialogService.open(dialog);
+  }
+
   openItemLookup(dialog: TemplateRef<any>){
     let select = [];
     if(this.ItemValue){
@@ -112,32 +123,37 @@
       let PrcrmntMtd = "'B'";
       this.dash.GetItemList(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, PrcrmntMtd).subscribe(
         data => {
-          this.ItemCodeData = data;
+          this.vendorData = data;
+          this.setParamItemLookup(this.vendorData,dialog);
         });
     }
-    else{
-      if(this.ItemCodeData){
-        this.Item = true;
-        this.whse = false;
-        this.LotTo = false;
-        this.LotFrom = false;
-        this.lookUpHeading = 'Item Code';
-        this.gridData = this.ItemCodeData;
-        this.dialogService.open(dialog);
-      }
-    }
-   
+    else
+    {
+      if(this.ItemCodeData)
+      this.setParamItemLookup(this.ItemCodeData,dialog);
+    }  
+         
   }
 
   onItemCodeBlur(){
     let item = this.ItemValue;
     let itemCode = [];
     if(item){
-      for(var i in this.ItemCodeData){
-        if(item === this.ItemCodeData[i].ItemCode){
-          itemCode.push(this.ItemCodeData[i]);
+      if(this.vendor){
+        for(var i in this.vendorData){
+          if(item === this.vendorData[i].ItemCode){
+            itemCode.push(this.vendorData[i]);
+          }
         }
       }
+      else{
+        for(var i in this.ItemCodeData){
+          if(item === this.ItemCodeData[i].ItemCode){
+            itemCode.push(this.ItemCodeData[i]);
+          }
+        }
+      }
+     
       if(itemCode.length>0){
         this.ItemDesc = itemCode[0].ItemName;
         this.ItemValue = itemCode[0].ItemCode;
@@ -343,6 +359,8 @@
 
    GetExplosion() {
 
+    document.getElementById('chart-container').innerHTML = ""; 
+    
     if(this.DistNumFrom.trim() != "" && this.DistNumTo.trim() == ""){
       this.toastrService.danger(this.language.error_enter_lot_to);
       return;
@@ -362,8 +380,13 @@
      this.explodeLevel = 'Single';
     else
      this.explodeLevel = 'Multi';
+
+     let ExplosionBasedOn = '';
+     if(this.vendor)
+     ExplosionBasedOn = 'VENDOR';
+    
   
-     this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.DfltWarehouse, this.DistNumFrom, this.DistNumTo, this.explodeDirection, this.explodeLevel, this.trackName).subscribe(
+     this.dash.GetLotExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.DfltWarehouse, this.DistNumFrom, this.DistNumTo, this.explodeDirection, this.explodeLevel, this.trackName,ExplosionBasedOn).subscribe(
      data => {
      if(!data){
        this.loading = false;
@@ -371,7 +394,7 @@
        this.AnalysisData = [];
        this.nodes1 = [];
        this.nodes2 = [];
-       document.getElementById('chart-container').innerHTML = "";
+       //document.getElementById('chart-container').innerHTML = "";
      }else{     
 
       if(data.length <= 0){
@@ -380,7 +403,7 @@
         this.AnalysisData = [];
         this.nodes1 = [];
         this.nodes2 = []; 
-        document.getElementById('chart-container').innerHTML = ""; 
+       // document.getElementById('chart-container').innerHTML = ""; 
         return;
       }
       
@@ -424,8 +447,14 @@
      this.trackName = 'Serial'
     }
    } else if (this.LotFrom) {
+     if(this.vendor)
+     this.DistNumFrom = evt.selectedRows[0].dataItem.MnfSerial;
+     else
     this.DistNumFrom = evt.selectedRows[0].dataItem.DistNumber;
    } else if (this.LotTo) {
+    if(this.vendor)
+    this.DistNumTo = evt.selectedRows[0].dataItem.MnfSerial;
+    else
     this.DistNumTo = evt.selectedRows[0].dataItem.DistNumber;
    } else {
     this.DfltWarehouse = evt.selectedRows[0].dataItem.WhsCode;
@@ -478,7 +507,12 @@
    else
     this.explodeTransaction = 'ImmediateLot';
 
-   this.dash.GetTransaction(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.NodeName,this.DfltWarehouse,this.explodeTransaction).subscribe(
+    if (this.radioExplode == 'Lot Explosion')
+     this.explodeDirection = 'DOWN';
+    else
+     this.explodeDirection = 'UP';
+
+   this.dash.GetTransaction(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.NodeName,this.DfltWarehouse,this.explodeTransaction,this.explodeDirection).subscribe(
     data => {
     if(data){
      this.loading = false;
@@ -732,9 +766,9 @@
    if (test == "" || test == undefined) {
     return;
    } else {
-    if (test.indexOf("-") > -1) {
+    if (test.indexOf(">") > -1) {
      this.loading = true;
-     test = test.split("-")[test.split("-").length - 1];
+     test = test.split(">")[test.split(">").length - 1];
      if (test != '' && test != " " && test != undefined && test != null) {
       test = test.trim();
      } else {
@@ -755,11 +789,11 @@
     return;
    } else {
     this.Analysisloading = true; 
-    if (dt.indexOf("-") > -1) {
+    if (dt.indexOf(">") > -1) {
      if (dt.indexOf(":") > -1)
-      dcentry = dt.split("-")[0].trim();
+      dcentry = dt.split(">")[0].trim();
      else
-      dcentry = dt.split("-")[1].trim();
+      dcentry = dt.split(">")[1].trim();
     } else {
      dcentry = dt;
     }

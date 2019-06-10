@@ -228,8 +228,10 @@
                 </ng-template>
             </kendo-grid-checkbox-column>
 
-            <kendo-grid-column field="DistNumber" title="{{language.serial_batch_no}}" width="80">
+            <kendo-grid-column *ngIf="!vendor" field="DistNumber" title="{{language.serial_batch_no}}" width="80">
             </kendo-grid-column>
+            <kendo-grid-column *ngIf="vendor" field="MnfSerial" title="{{language.vendor_serial_batch_no}}" width="80">
+              </kendo-grid-column>
             <kendo-grid-column field="ItemCode" title="{{language.item_code}}" width="80">
             </kendo-grid-column>
           </kendo-grid>
@@ -263,12 +265,12 @@
                         <div class="node-content-wrapper" *ngIf="explodeDirection == 'DOWN'" [class.node-content-wrapper-active]="isActive"
                         [class.node-content-wrapper-focused]="node.isFocused"
                         (click)="node.toggleActivated(true)">
-                          <span>{{node.data.OPTM_ITEMCODE}} - {{node.data.OPTM_BTCHSERNO }}</span>
+                          <span>{{node.data.OPTM_ITEMCODE}} > {{node.data.OPTM_BTCHSERNO }}</span>
                         </div>
                         <div class="node-content-wrapper" *ngIf="explodeDirection == 'UP'" [class.node-content-wrapper-active]="isActive"
                         [class.node-content-wrapper-focused]="node.isFocused"
                         (click)="node.toggleActivated(true)">
-                            <span>{{node.data.OPTM_ITEMCODE}} - {{node.data.OPTM_PARENTBTCHSERNO }}</span>
+                            <span>{{node.data.OPTM_ITEMCODE}} > {{node.data.OPTM_PARENTBTCHSERNO }}</span>
                           </div>
                       <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
                     </div>
@@ -301,13 +303,13 @@
                           <div class="node-content-wrapper" *ngIf="node.data.ObjectTypeDesc == null" [class.node-content-wrapper-active]="isActive"
                           [class.node-content-wrapper-focused]="node.isFocused"
                           (click)="node.toggleActivated(true)">
-                            <span>{{node.data.ItemCode}} - {{node.data.DistNumber}}</span>
+                            <span>{{node.data.ItemCode}} > {{node.data.DistNumber}}</span>
                           </div>
 
                           <div class="node-content-wrapper"  *ngIf="node.data.ObjectTypeDesc != null" [class.node-content-wrapper-active]="isActive"
                           [class.node-content-wrapper-focused]="node.isFocused"
                           (click)="node.toggleActivated(true)">
-                            <span>({{node.data.DistNumber}}) Doc Entry:{{node.data.DocEntry}} - {{node.data.ObjectTypeDesc}}</span>
+                            <span>({{node.data.DistNumber}}) Doc Entry:{{node.data.DocEntry}} > {{node.data.ObjectTypeDesc}}</span>
                           </div>
                         <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
                       </div>
