@@ -392,7 +392,6 @@ export class GenealogyComponent implements OnInit {
       this.AnalysisData = [];
       this.nodes1 = [];
       this.nodes2 = [];
-      document.getElementById('chart-container').innerHTML = "";
     }else{     
 
      if(data.length <= 0){
@@ -401,7 +400,6 @@ export class GenealogyComponent implements OnInit {
        this.AnalysisData = [];
        this.nodes1 = [];
        this.nodes2 = []; 
-       document.getElementById('chart-container').innerHTML = ""; 
        return;
      }
      
@@ -445,13 +443,11 @@ export class GenealogyComponent implements OnInit {
     this.trackName = 'Serial'
    }
   } else if (this.LotFrom) {
-   //this.DistNumFrom = evt.selectedRows[0].dataItem.DistNumber;
    if(this.vendor)
    this.DistNumFrom = evt.selectedRows[0].dataItem.MnfSerial;
    else
   this.DistNumFrom = evt.selectedRows[0].dataItem.DistNumber;
   } else if (this.LotTo) {
-   //this.DistNumTo = evt.selectedRows[0].dataItem.DistNumber;
    if(this.vendor)
    this.DistNumTo = evt.selectedRows[0].dataItem.MnfSerial;
    else
