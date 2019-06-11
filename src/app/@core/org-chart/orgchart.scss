@@ -139,7 +139,7 @@
 }
 
 .orgchart>table:first-child{
-  margin: 20px auto;
+  margin: 10px 5px;
 }
 
 .orgchart td {
@@ -501,11 +501,3 @@
   left: -40px;
 }
 
-//top and bottom clip disabled
-
-i.edge.horizontalEdge.leftEdge.fa {
-  display: none;
-}
-i.edge.horizontalEdge.rightEdge.fa {
-  display: none;
-}

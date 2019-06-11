@@ -10,12 +10,13 @@
                  
 
                   <div class="opti_fullwidth text-center opti_signin-logo">
-                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        <!-- <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">
                    <path d="M53,41.069V29H31V19h7V3H22v16h7v10H7v12.069C3.06,41.564,0,44.928,0,49c0,4.411,3.589,8,8,8s8-3.589,8-8
                        c0-4.072-3.06-7.436-7-7.931V31h20v10.069c-3.94,0.495-7,3.859-7,7.931c0,4.411,3.589,8,8,8s8-3.589,8-8c0-4.072-3.06-7.436-7-7.931
                        V31h20v10.069c-3.94,0.495-7,3.859-7,7.931c0,4.411,3.589,8,8,8s8-3.589,8-8C60,44.928,56.94,41.564,53,41.069z"/></svg>
-                       {{language.optiprodashboard}}
+                       {{language.optiprodashboard}} -->
+                       <img src="assets/images/large-logo-alt.png" alt="{{language.optiprodashboard}}" width="100%"/>
                   </div>
   
                   <form class="k-form" #signInForm="ngForm">
@@ -42,7 +43,7 @@
                     </div>
                       
                      
-                      <div class="text-right w-100 mt-4 mb-2">
+                      <div class="text-right w-100 mt-4 mb-0">
                           <button type="submit" (click)="OnSignIn()" [disabled]="!signInForm.form.valid  || clickSignIn" id=connectbtn class="btn btn-primary opti_fullwidth"  size="xsmall" nbButton>{{language.login}}</button>
                       </div>
                   </form>

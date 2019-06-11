@@ -3,19 +3,34 @@
 $icomoon-font-family: "optipro-icon" !default;
 $icomoon-font-path: "../../../assets/fonts" !default;
 
-$optipro-icon-box-return: "\e900";
-$optipro-icon-memo: "\e901";
-$optipro-icon-truck: "\e902";
-$optipro-icon-purchase-return: "\e903";
-$optipro-icon-packing: "\e904";
-$optipro-icon-warehouse-transfer-in: "\e905";
-$optipro-icon-warehouse-transfer-out: "\e906";
-$optipro-icon-bill: "\e907";
-$optipro-icon-warehouse-alt: "\e908";
-$optipro-icon-welder: "\e909";
-$optipro-icon-production-issue: "\e90a";
-$optipro-icon-warehouse: "\e90b";
-$optipro-icon-inventory: "\e90c";
+$optipro-icon-APCreditMemo: "\e900";
+$optipro-icon-APDownPaymentInvoice: "\e901";
+$optipro-icon-APInvoice: "\e902";
+$optipro-icon-ARCreditMemo: "\e903";
+$optipro-icon-ARDownPayment: "\e904";
+$optipro-icon-ARInvoice: "\e905";
+$optipro-icon-Delivery: "\e906";
+$optipro-icon-Deposit: "\e907";
+$optipro-icon-GoodsIssue: "\e908";
+$optipro-icon-GoodsReceipt: "\e909";
+$optipro-icon-GoodsReceiptPO: "\e90a";
+$optipro-icon-GoodsReturn: "\e90b";
+$optipro-icon-GoodsReturnRequest: "\e90c";
+$optipro-icon-InventoryRevaluation: "\e93f";
+$optipro-icon-InventoryTransfer: "\e940";
+$optipro-icon-InventoryTransferRequest: "\e941";
+$optipro-icon-IssueForProduction: "\e942";
+$optipro-icon-JournalEntry: "\e943";
+$optipro-icon-OutgoingPayment: "\e944";
+$optipro-icon-ProductionOrder: "\e945";
+$optipro-icon-PurchaseOrder: "\e946";
+$optipro-icon-PurchaseQuotation: "\e947";
+$optipro-icon-PurchaseRequest: "\e948";
+$optipro-icon-ReceiptFromProduction: "\e949";
+$optipro-icon-Return: "\e94a";
+$optipro-icon-ReturnRequest: "\e94b";
+$optipro-icon-SalesOrder: "\e94c";
+$optipro-icon-SalesQuotation: "\e94d";
 $optipro-icon-sub-menu-alt: "\e90d";
 $optipro-icon-sub-menu: "\e90e";
 $optipro-icon-flow-chart-alt: "\e90f";
@@ -94,69 +109,144 @@ $optipro-icon-reload: "\e93e";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.optipro-icon-box-return {
+.optipro-icon-APCreditMemo {
   &:before {
-    content: $optipro-icon-box-return; 
+    content: $optipro-icon-APCreditMemo; 
   }
 }
-.optipro-icon-memo {
+.optipro-icon-APDownPaymentInvoice {
   &:before {
-    content: $optipro-icon-memo; 
+    content: $optipro-icon-APDownPaymentInvoice; 
   }
 }
-.optipro-icon-truck {
+.optipro-icon-APInvoice {
   &:before {
-    content: $optipro-icon-truck; 
+    content: $optipro-icon-APInvoice; 
   }
 }
-.optipro-icon-purchase-return {
+.optipro-icon-ARCreditMemo {
   &:before {
-    content: $optipro-icon-purchase-return; 
+    content: $optipro-icon-ARCreditMemo; 
   }
 }
-.optipro-icon-packing {
+.optipro-icon-ARDownPayment {
   &:before {
-    content: $optipro-icon-packing; 
+    content: $optipro-icon-ARDownPayment; 
   }
 }
-.optipro-icon-warehouse-transfer-in {
+.optipro-icon-ARInvoice {
   &:before {
-    content: $optipro-icon-warehouse-transfer-in; 
+    content: $optipro-icon-ARInvoice; 
   }
 }
-.optipro-icon-warehouse-transfer-out {
+.optipro-icon-Delivery {
   &:before {
-    content: $optipro-icon-warehouse-transfer-out; 
+    content: $optipro-icon-Delivery; 
   }
 }
-.optipro-icon-bill {
+.optipro-icon-Deposit {
   &:before {
-    content: $optipro-icon-bill; 
+    content: $optipro-icon-Deposit; 
   }
 }
-.optipro-icon-warehouse-alt {
+.optipro-icon-GoodsIssue {
   &:before {
-    content: $optipro-icon-warehouse-alt; 
+    content: $optipro-icon-GoodsIssue; 
   }
 }
-.optipro-icon-welder {
+.optipro-icon-GoodsReceipt {
   &:before {
-    content: $optipro-icon-welder; 
+    content: $optipro-icon-GoodsReceipt; 
   }
 }
-.optipro-icon-production-issue {
+.optipro-icon-GoodsReceiptPO {
   &:before {
-    content: $optipro-icon-production-issue; 
+    content: $optipro-icon-GoodsReceiptPO; 
   }
 }
-.optipro-icon-warehouse {
+.optipro-icon-GoodsReturn {
   &:before {
-    content: $optipro-icon-warehouse; 
+    content: $optipro-icon-GoodsReturn; 
   }
 }
-.optipro-icon-inventory {
+.optipro-icon-GoodsReturnRequest {
   &:before {
-    content: $optipro-icon-inventory; 
+    content: $optipro-icon-GoodsReturnRequest; 
+  }
+}
+.optipro-icon-InventoryRevaluation {
+  &:before {
+    content: $optipro-icon-InventoryRevaluation; 
+  }
+}
+.optipro-icon-InventoryTransfer {
+  &:before {
+    content: $optipro-icon-InventoryTransfer; 
+  }
+}
+.optipro-icon-InventoryTransferRequest {
+  &:before {
+    content: $optipro-icon-InventoryTransferRequest; 
+  }
+}
+.optipro-icon-IssueForProduction {
+  &:before {
+    content: $optipro-icon-IssueForProduction; 
+  }
+}
+.optipro-icon-JournalEntry {
+  &:before {
+    content: $optipro-icon-JournalEntry; 
+  }
+}
+.optipro-icon-OutgoingPayment {
+  &:before {
+    content: $optipro-icon-OutgoingPayment; 
+  }
+}
+.optipro-icon-ProductionOrder {
+  &:before {
+    content: $optipro-icon-ProductionOrder; 
+  }
+}
+.optipro-icon-PurchaseOrder {
+  &:before {
+    content: $optipro-icon-PurchaseOrder; 
+  }
+}
+.optipro-icon-PurchaseQuotation {
+  &:before {
+    content: $optipro-icon-PurchaseQuotation; 
+  }
+}
+.optipro-icon-PurchaseRequest {
+  &:before {
+    content: $optipro-icon-PurchaseRequest; 
+  }
+}
+.optipro-icon-ReceiptFromProduction {
+  &:before {
+    content: $optipro-icon-ReceiptFromProduction; 
+  }
+}
+.optipro-icon-Return {
+  &:before {
+    content: $optipro-icon-Return; 
+  }
+}
+.optipro-icon-ReturnRequest {
+  &:before {
+    content: $optipro-icon-ReturnRequest; 
+  }
+}
+.optipro-icon-SalesOrder {
+  &:before {
+    content: $optipro-icon-SalesOrder; 
+  }
+}
+.optipro-icon-SalesQuotation {
+  &:before {
+    content: $optipro-icon-SalesQuotation; 
   }
 }
 .optipro-icon-sub-menu-alt {

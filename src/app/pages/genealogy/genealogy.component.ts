@@ -392,7 +392,6 @@ export class GenealogyComponent implements OnInit {
       this.AnalysisData = [];
       this.nodes1 = [];
       this.nodes2 = [];
-      document.getElementById('chart-container').innerHTML = "";
     }else{     
 
      if(data.length <= 0){
@@ -401,7 +400,6 @@ export class GenealogyComponent implements OnInit {
        this.AnalysisData = [];
        this.nodes1 = [];
        this.nodes2 = []; 
-       document.getElementById('chart-container').innerHTML = ""; 
        return;
      }
      
@@ -445,13 +443,11 @@ export class GenealogyComponent implements OnInit {
     this.trackName = 'Serial'
    }
   } else if (this.LotFrom) {
-   //this.DistNumFrom = evt.selectedRows[0].dataItem.DistNumber;
    if(this.vendor)
    this.DistNumFrom = evt.selectedRows[0].dataItem.MnfSerial;
    else
   this.DistNumFrom = evt.selectedRows[0].dataItem.DistNumber;
   } else if (this.LotTo) {
-   //this.DistNumTo = evt.selectedRows[0].dataItem.DistNumber;
    if(this.vendor)
    this.DistNumTo = evt.selectedRows[0].dataItem.MnfSerial;
    else
@@ -555,7 +551,7 @@ export class GenealogyComponent implements OnInit {
         let desc = '';
         desc =  cd.ObjectTypeDesc.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '')
        desc = desc.replace(/\s/g, '');
-       cd["className"] = desc.toUpperCase();
+       cd["className"] = desc;
       }       
       else{
        cd["className"] = cd.ObjectTypeDesc;
@@ -630,12 +626,13 @@ export class GenealogyComponent implements OnInit {
     for (var i=0; i<this.nodes3.length; i++) {
        result = this.nodes3[i];
     }
-
+    console.log(data);
     this.orgchart = new OrgChart({
      'chartContainer': '#chart-container',
      'data' : result,
      'depth': 1,
      'direction': 'l2r',
+     
      // 'chartClass':'ItemCode',
      // 'nodeID': 'id',
      'createNode': function(node, data) {
@@ -647,7 +644,7 @@ export class GenealogyComponent implements OnInit {
        secondMenu.innerHTML = `
          <div class="node-content">
            <div class="node-img">
-             <img class="node-avatar" src="./assets/images/images.png">
+             <i class="optipro-icon-${data.className}"></i>
            </div>
            <div class="node-data">
              <div class="data-column">
@@ -738,7 +735,9 @@ export class GenealogyComponent implements OnInit {
        `;
        // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
        node.appendChild(secondMenu);
-     }
+     },
+     'exportButton': true,
+     'exportFilename': 'Analysis View'   
    });
    } 
   else{
@@ -822,13 +821,6 @@ export class GenealogyComponent implements OnInit {
    this.searchCriteria = true;
   }
  }
- searchCriteriaExpand() {
-  if (this.searchCriteria && document.getElementById("dashboard-left").classList.contains('shrink')) {
-   document.getElementById("dashboard-left").classList.remove('shrink');
-   document.getElementById("selection-criteria-body").style.height = '100%';
-   document.getElementById("selection-criteria-body").style.display = 'flex';
-  }
- }
 
 
  onCheckboxClick(checked: any, index: number) {
@@ -868,34 +860,34 @@ export class GenealogyComponent implements OnInit {
    };
  }
  //Custom accordian function
- customAccordianGrid(e) {
-  if (document.getElementById("grid-accordian").classList.contains('expanded')) {
-   this.hideAcordian(e);
-   document.getElementById("custom-accordian").classList.remove('grid-accordian-open');
-  } else {
-   this.expandAcordian(e);
-   document.getElementById("custom-accordian").classList.add('grid-accordian-open');
-  }
- }
- customAccordianAnalysis(e) {
-  if (document.getElementById("analysis-accordian").classList.contains('expanded')) {
-   this.hideAcordian(e);
-   document.getElementById("custom-accordian").classList.remove('analysis-accordian-open');
-  } else {
-   this.expandAcordian(e);
-   document.getElementById("custom-accordian").classList.add('analysis-accordian-open');
-  }
- }
- hideAcordian(e: any) {
-  e.currentTarget.parentElement.parentElement.classList.remove('expanded')
-  e.currentTarget.nextSibling.style.height = '0';
-  e.currentTarget.nextSibling.style.display = 'none';
- }
- expandAcordian(e: any) {
-  e.currentTarget.parentElement.parentElement.classList.add('expanded')
-  e.currentTarget.nextSibling.style.height = '100%';
-  e.currentTarget.nextSibling.style.display = 'flex';
- }
+//  customAccordianGrid(e) {
+//   if (document.getElementById("grid-accordian").classList.contains('expanded')) {
+//    this.hideAcordian(e);
+//    document.getElementById("custom-accordian").classList.remove('grid-accordian-open');
+//   } else {
+//    this.expandAcordian(e);
+//    document.getElementById("custom-accordian").classList.add('grid-accordian-open');
+//   }
+//  }
+//  customAccordianAnalysis(e) {
+//   if (document.getElementById("analysis-accordian").classList.contains('expanded')) {
+//    this.hideAcordian(e);
+//    document.getElementById("custom-accordian").classList.remove('analysis-accordian-open');
+//   } else {
+//    this.expandAcordian(e);
+//    document.getElementById("custom-accordian").classList.add('analysis-accordian-open');
+//   }
+//  }
+//  hideAcordian(e: any) {
+//   e.currentTarget.parentElement.parentElement.classList.remove('expanded')
+//   e.currentTarget.nextSibling.style.height = '0';
+//   e.currentTarget.nextSibling.style.display = 'none';
+//  }
+//  expandAcordian(e: any) {
+//   e.currentTarget.parentElement.parentElement.classList.add('expanded')
+//   e.currentTarget.nextSibling.style.height = '100%';
+//   e.currentTarget.nextSibling.style.display = 'flex';
+//  }
  toggleNodeClass(e: any){
    e.currentTarget.classList.toggle("shrink");    
  }

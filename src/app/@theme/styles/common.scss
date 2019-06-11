@@ -16,8 +16,8 @@ body.opti_account-module {
         content: "";
         left: 0;
         z-index: -1;
-        -webkit-filter: blur(5px);
-        filter: blur(5px);
+        -webkit-filter: blur(3px);
+        filter: blur(3px);
         height: 100%;
     }
     // &:after {
@@ -63,8 +63,8 @@ body.opti_account-module {
         top: 0;
         left: 0;
         z-index: 1;
-        -webkit-filter: blur(5px);
-        filter: blur(5px);
+        -webkit-filter: blur(3px);
+        filter: blur(3px);
     }
     // &:after {
     //     content: '';
@@ -79,7 +79,7 @@ body.opti_account-module {
     // }
 }
 
-.opti_signin-logo{
+.opti-logo{
     color:#fff;
     font-family: Exo;
     font-size: 3rem;
