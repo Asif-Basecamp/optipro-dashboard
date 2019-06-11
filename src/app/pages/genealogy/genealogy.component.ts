@@ -618,7 +618,7 @@ export class GenealogyComponent implements OnInit {
  this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DC, ObjType, node,this.DfltWarehouse).subscribe(
    data => {
    if(data){ 
-    document.getElementById('chart-container').innerHTML = "";
+    //document.getElementById('chart-container').innerHTML = "";
     this.Analysisloading = false; 
     this.AnalysisData = data;
     this.nodes3 = this.getAnalysisHierarchy(this.AnalysisData, '-1');

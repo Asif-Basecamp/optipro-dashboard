@@ -100,14 +100,14 @@ export class LookupComponent implements OnInit {
       },
       {
         field: 'OPTM_QUANTITY',
-        title: 'Quantity Accept',
+        title: 'Quantity Accepted',
         type: 'text',
         width: '100',
         class: 'text-right'
       },
       {
         field: 'REJECTEDQTY',
-        title: 'Quantity Reject',
+        title: 'Quantity Rejected',
         type: 'text',
         width: '100',
         class: 'text-right'
@@ -232,7 +232,7 @@ export class LookupComponent implements OnInit {
       },
       {
         field: 'ORDERED_QTY',
-        title: 'Quantity Order',
+        title: 'Quantity Ordered',
         type: 'text',
         width: '100',
         class: 'text-right'
