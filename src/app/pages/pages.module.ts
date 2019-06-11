@@ -14,6 +14,8 @@ import { LookupComponent } from './lookup/lookup.component';
 import { GridModule } from '@progress/kendo-angular-grid';
 import { CountdownModule } from 'ngx-countdown';
 import { AngularSplitModule } from 'angular-split';
+import { IntlModule } from '@progress/kendo-angular-intl';
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -35,7 +37,9 @@ const PAGES_COMPONENTS = [
     NbTabsetModule,
     TreeModule.forRoot(),
     CountdownModule,
-    AngularSplitModule.forRoot()  
+    AngularSplitModule.forRoot(),
+    IntlModule, 
+    DateInputsModule  
   ],
   providers: [...PAGES_COMPONENTS,]
 })
