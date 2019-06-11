@@ -2350,7 +2350,12 @@ div.tree>tree-node>div>.node-wrapper>tree-node-expander>.toggle-children-wrapper
   overflow: auto;
   position: relative
 }
-
+.restrictedHeight{
+  & .ui-treetable-scrollable-body{
+      max-height: calc(100vh - 150px) !important;
+      height: calc(100vh - 150px) !important;
+  }
+}
 .ui-treetable-scrollable-body>table>.ui-treetable-tbody>tr:first-child>td {
   border-top: 0
 }
@@ -2488,6 +2493,8 @@ body .ui-treetable .ui-editable-column input:focus {
 }
 body .ui-treetable-scrollable-header-box{
   background-color: nb-theme(color-primary);
+  border-radius: 0.375rem 0.375rem 0 0;
+  overflow: hidden;
 }
 body .ui-treetable .ui-treetable-tbody > tr {
   background-color: #ffffff;
@@ -2506,8 +2513,7 @@ body .ui-treetable .ui-treetable-tbody > tr > td .ui-treetable-chkbox {
   margin-right: 0.5em;
 }
 body .ui-treetable .ui-treetable-tbody > tr.ui-state-highlight {
-  background-color: nb-theme(color-primary);
-  color: #ffffff;
+  background-color: lighten($color: nb-theme(color-primary), $amount: 30%);
 }
 body .ui-treetable .ui-treetable-tbody > tr.ui-state-highlight > td {
   background-color: inherit;
