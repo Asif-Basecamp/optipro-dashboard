@@ -1,13 +1,14 @@
 <!-- selection criteria -->
 
 <div class="dashboard-left" id="dashboard-left">
-  <nb-card accent="primary" id="selection-criteria-section" (click)="searchCriteriaExpand()">
+  <nb-card accent="primary" id="selection-criteria-section">
 
     <nb-card-header class="border-bottom d-flex" [ngClass]="times > 0?'timerActive':''">
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" class="mr-2" fill="#2a2a2a"><rect width="24" height="24" opacity="0"></rect><path d="M20.71 19.29l-3.4-3.39A7.92 7.92 0 0 0 19 11a8 8 0 1 0-8 8 7.92 7.92 0 0 0 4.9-1.69l3.39 3.4a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM5 11a6 6 0 1 1 6 6 6 6 0 0 1-6-6z"></path></svg>
       <span>{{language.selection_criteria}}</span>
-      <span *ngIf="times" class="ml-auto">
-        <countdown #countdown  [config]="{leftTime: times}">$!m!:$!s!</countdown>
+      <span class="ml-auto d-flex justify-content-center align-items-center">
+        <span class="optipro-icon-arrow-left cursor-pointer mr-1 d-flex" (click)="searchCriteriaToggle($event)"></span>
+        <span *ngIf="times" ><countdown #countdown  [config]="{leftTime: times}">$!m!:$!s!</countdown></span>
       </span>
     </nb-card-header>
 
@@ -186,11 +187,11 @@
         <as-split direction="horizontal" restrictMove="true" gutterSize="1">
           <as-split-area size="25" minSize="15">
             <div class="overflow-auto h-100">
-                <div class="View pt-3" *ngIf="showView == 'simple'">
+                <div class="View pt-3 px-2" *ngIf="showView == 'simple'">
                   <kendo-grid [kendoGridBinding]="gridViewData" 
                     [groupable]=isColumnGroup [selectable]="true" [rowSelected]="GridViewSelected" [sort]="state.sort" [resizable]="true"
-                    (selectionChange)="gridRowSelectFG($event)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
-                            
+                    (selectionChange)="gridRowSelectFG($event)" [ngStyle]="{ 'cursor': 'pointer', 'max-height': 'calc(100vh - 128px)','height': 'calc(100vh - 128px)'}">
+        
                     <kendo-grid-column field="ItemCode" title="{{language.item}}" width="80">
                     </kendo-grid-column>      
                     <kendo-grid-column field="OnHand" title="{{language.in_stock}}" width="80" class="text-right" headerClass="text-right">
@@ -199,23 +200,24 @@
                     </kendo-grid-column>
                     <kendo-grid-column field="OnOrder" title="{{language.on_order}}" width="80" class="text-right" headerClass="text-right">
                     </kendo-grid-column>
-                    <kendo-grid-column field="AVAILABLE" title="{{language.available_qty}}" width="80" class="text-right" headerClass="text-right">
+                    <kendo-grid-column field="AVAILABLE" title="{{language.available_qty}}" width="120" class="text-right" headerClass="text-right">
                     </kendo-grid-column>                  
                     <kendo-grid-column field="U_O_UOM" title="{{language.uom}}" width="80" class="text-right" headerClass="text-right">
                     </kendo-grid-column>
                   </kendo-grid>
                 </div>
   
-                <div class="tree-wrapper pt-3" *ngIf="showView == 'detail'">
-                  <div class="content-section implementation">  
-                    <p-treeTable [value]="files2" selectionMode="single" [scrollable]="true" scrollHeight="200px" [resizableColumns]="true" columnResizeMode="expand">
+                <div class="tree-wrapper pt-3 px-2" *ngIf="showView == 'detail'">
+                  <div class="content-section implementation restrictedHeight">  
+                    <p-treeTable [value]="files2" selectionMode="single" [scrollable]="true" scrollHeight="100%" [resizableColumns]="true" columnResizeMode="expand">
                       <ng-template pTemplate="colgroup">
                         <colgroup>
-                          <col>
-                          <col>
-                          <col>
-                          <col>
-                          <col>
+                          <col style="width: 120px;">
+                          <col style="width: 65px;">
+                          <col style="width: 81px;">
+                          <col style="width: 71px;">
+                          <col style="width: 120px;">
+                          <col style="width: 50px;">
                         </colgroup>
                       </ng-template>
                       <ng-template pTemplate="header">
@@ -352,54 +354,54 @@
                     </kendo-excelexport>   
                     <!--Export to excel code end-->                                   
   
-                    <kendo-grid-column field="DocEntry" title="{{language.doc_entry}}" width="54" class="text-right" headerClass="text-right">
+                    <kendo-grid-column field="DocEntry" title="{{language.doc_entry}}" width="70" class="text-right" headerClass="text-right">
                     </kendo-grid-column> 
-                    <kendo-grid-column field="U_OPTM_PRIORITY" title="{{language.priority}}" width="54" class="text-right" headerClass="text-right">
+                    <kendo-grid-column field="U_OPTM_PRIORITY" title="{{language.priority}}" width="55" class="text-right" headerClass="text-right">
                     </kendo-grid-column>      
-                    <kendo-grid-column field="U_O_ORDRNO" title="{{language.wo}}" width="44" class="text-right" headerClass="text-right">
+                    <kendo-grid-column field="U_O_ORDRNO" title="{{language.wo}}" width="90" class="text-right" headerClass="text-right">
                     </kendo-grid-column>
-                    <kendo-grid-column field="WO_STATUS" title="{{language.wo_status}}" width="70" class="text-right" headerClass="text-right">
+                    <kendo-grid-column field="WO_STATUS" title="{{language.wo_status}}" width="80" class="text-right" headerClass="text-right">
                       </kendo-grid-column>
                     <kendo-grid-column field="U_O_PRODID" title="{{language.product_no}}" width="81">
                     </kendo-grid-column>
-                    <kendo-grid-column field="U_O_PRODDESC" title="{{language.product_desc}}" width="89">
+                    <kendo-grid-column field="U_O_PRODDESC" title="{{language.product_desc}}" width="125">
                     </kendo-grid-column>
                     <kendo-grid-column field="U_O_SONO" title="{{language.so_no}}" width="54" class="text-right" headerClass="text-right">
                     </kendo-grid-column>      
                     <kendo-grid-column field="U_O_CUSTCODE" title="{{language.customer}}" width="70">
                     </kendo-grid-column>
-                    <kendo-grid-column field="U_O_STARTDATE" title="{{language.sch_start_date}}" width="97">
+                    <kendo-grid-column field="U_O_STARTDATE" title="{{language.sch_start_date}}" width="127">
                         <ng-template kendoGridCellTemplate let-dataItem>
                             {{dataItem.U_O_STARTDATE | date: 'MM/dd/yyyy'}}
                         </ng-template>
                     </kendo-grid-column>
-                    <kendo-grid-column field="U_O_ENDDATE" title="{{language.sch_end_date}}" width="97">
+                    <kendo-grid-column field="U_O_ENDDATE" title="{{language.sch_end_date}}" width="117">
                         <ng-template kendoGridCellTemplate let-dataItem>
                             {{dataItem.U_O_ENDDATE | date: 'MM/dd/yyyy'}}
                         </ng-template>
                     </kendo-grid-column>
                     <kendo-grid-column field="U_O_UOM" title="{{language.uom}}" width="44">
                     </kendo-grid-column>
-                    <kendo-grid-column field="U_O_ORDRQTY" title="{{language.qty_ord}}" width="57" class="text-right" headerClass="text-right">
+                    <kendo-grid-column field="U_O_ORDRQTY" title="{{language.qty_ord}}" width="97" class="text-right" headerClass="text-right">
                     </kendo-grid-column>      
-                    <kendo-grid-column field="U_O_POSTEDQTY" title="{{language.qty_complete}}" width="90" class="text-right" headerClass="text-right">
+                    <kendo-grid-column field="U_O_POSTEDQTY" title="{{language.qty_complete}}" width="120" class="text-right" headerClass="text-right">
                         <ng-template kendoGridCellTemplate let-dataItem>
                             <a class="cursor-pointer text-primary" (click)="showDetailCompleteLookup(dataItem)">{{dataItem.U_O_POSTEDQTY}}</a>
                         </ng-template>
                     </kendo-grid-column>
-                    <kendo-grid-column field="U_O_PASSEDQTY" title="{{language.qty_accept}}" width="65" class="text-right" headerClass="text-right">
+                    <kendo-grid-column field="U_O_PASSEDQTY" title="{{language.qty_accept}}" width="105" class="text-right" headerClass="text-right">
                     </kendo-grid-column>
-                    <kendo-grid-column field="U_O_REJQTY" title="{{language.qty_reject}}" width="71" class="text-right" headerClass="text-right">
+                    <kendo-grid-column field="U_O_REJQTY" title="{{language.qty_reject}}" width="101" class="text-right" headerClass="text-right">
                     </kendo-grid-column>
-                    <kendo-grid-column field="BALANCE_QTY" title="{{language.qty_bal}}" width="55" class="text-right" headerClass="text-right">
+                    <kendo-grid-column field="BALANCE_QTY" title="{{language.qty_bal}}" width="111" class="text-right" headerClass="text-right">
                     </kendo-grid-column>
-                    <kendo-grid-column field="COMPLETEPERCENT" title="{{language.percent_complete}}" width="68" class="text-right" headerClass="text-right">
+                    <kendo-grid-column field="COMPLETEPERCENT" title="{{language.percent_complete}}" width="82" class="text-right" headerClass="text-right">
                     </kendo-grid-column>      
-                    <kendo-grid-column field="U_O_FGWHSEID" title="{{language.warehouse}}" width="40" class="text-right" headerClass="text-right">
+                    <kendo-grid-column field="U_O_FGWHSEID" title="{{language.warehouse}}" width="80" class="text-right" headerClass="text-right">
                     </kendo-grid-column>
-                    <kendo-grid-column field="U_O_BOMSEQ" title="{{language.bom_seq}}" width="67" class="text-right" headerClass="text-right">
+                    <kendo-grid-column field="U_O_BOMSEQ" title="{{language.bom_seq}}" width="99" class="text-right" headerClass="text-right">
                     </kendo-grid-column>
-                    <kendo-grid-column field="U_O_RUTNGSEQ" title="{{language.rout_seq}}" width="66" class="text-right" headerClass="text-right">
+                    <kendo-grid-column field="U_O_RUTNGSEQ" title="{{language.rout_seq}}" width="106" class="text-right" headerClass="text-right">
                     </kendo-grid-column>
                     <kendo-grid-column field="ComponentCost" title="{{language.component_cost}}" width="107" class="text-right" headerClass="text-right">
                     </kendo-grid-column>
@@ -525,56 +527,56 @@
                               </kendo-grid-column>
                               <kendo-grid-column field="REQ_QTY" title="{{language.qty_per_bom_unit}}" width="59" class="text-right" headerClass="text-right">
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_ACTISSQTY" title="{{language.qty_issued}}" width="74" class="text-right" headerClass="text-right">
+                              <kendo-grid-column field="U_O_ACTISSQTY" title="{{language.qty_issued}}" width="94" class="text-right" headerClass="text-right">
                                   <ng-template kendoGridCellTemplate let-dataItem>
                                       <a class="cursor-pointer text-primary" (click)="showDetailsIssuedLookup(dataItem)">{{dataItem.ISSUED_QTY}}</a>
                                   </ng-template>
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_BALQTY" title="{{language.qty_bal}}" width="55" class="text-right" headerClass="text-right">
+                              <kendo-grid-column field="U_O_BALQTY" title="{{language.qty_bal}}" width="108" class="text-right" headerClass="text-right">
                               </kendo-grid-column>      
-                              <kendo-grid-column field="U_O_ISSUEDATE" title="{{language.issue_date}}" width="74">
+                              <kendo-grid-column field="U_O_ISSUEDATE" title="{{language.issue_date}}" width="82">
                                   <ng-template kendoGridCellTemplate let-dataItem>
                                       {{dataItem.U_O_ISSUEDATE | date: 'MM/dd/yyyy'}}
                                   </ng-template>
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_ISSWH" title="{{language.issue_wh}}" width="68" class="text-right" headerClass="text-right">
+                              <kendo-grid-column field="U_O_ISSWH" title="{{language.issue_wh}}" width="109" class="text-right" headerClass="text-right">
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_ISSBIN" title="{{language.issue_bin}}" width="66">
+                              <kendo-grid-column field="U_O_ISSBIN" title="{{language.issue_bin}}" width="181">
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_ISSTYPE" title="{{language.issue_mth}}" width="70">
+                              <kendo-grid-column field="U_O_ISSTYPE" title="{{language.issue_mth}}" width="100">
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_ISSTOOPER" title="{{language.opn}}" width="46" class="text-right" headerClass="text-right">
+                              <kendo-grid-column field="U_O_ISSTOOPER" title="{{language.opn}}" width="77" class="text-right" headerClass="text-right">
                               </kendo-grid-column>                            
                               <kendo-grid-column-group headerClass="text-center"  title="{{language.qty_wh_xxxx}}" [width]="300">
-                                  <kendo-grid-column field="WH_INSTOCK_QTY" title="{{language.qty_in_stock}}" [width]="81" class="text-right" headerClass="text-right">  
+                                  <kendo-grid-column field="WH_INSTOCK_QTY" title="{{language.qty_in_stock}}" [width]="108" class="text-right" headerClass="text-right">  
                                       <ng-template kendoGridCellTemplate let-dataItem>
                                           <a class="cursor-pointer text-primary" (click)="showDetailsInStockLookup(dataItem,'WH')">{{dataItem.WH_INSTOCK_QTY}}</a>
                                       </ng-template>                                  
                                   </kendo-grid-column>
-                                  <kendo-grid-column field="WH_COMMITED_QTY" title="{{language.qty_commit}}" [width]="81" class="text-right" headerClass="text-right">
+                                  <kendo-grid-column field="WH_COMMITED_QTY" title="{{language.qty_commit}}" [width]="121" class="text-right" headerClass="text-right">
                                   </kendo-grid-column>
-                                  <kendo-grid-column field="WH_ONORDER_QTY" title="{{language.qty_on_order}}" [width]="86" [locked]="false" class="text-right" headerClass="text-right">
+                                  <kendo-grid-column field="WH_ONORDER_QTY" title="{{language.qty_on_order}}" [width]="112" [locked]="false" class="text-right" headerClass="text-right">
                                       <ng-template kendoGridCellTemplate let-dataItem>
                                           <a class="cursor-pointer text-primary" (click)="showDetailsOnOrderLookup(dataItem,'WH')" >{{dataItem.WH_ONORDER_QTY}}</a>
                                       </ng-template>
                                   </kendo-grid-column>
-                                  <kendo-grid-column field="WH_AVAILABLE_QTY" title="{{language.qty_aval}}" [width]="61" [locked]="false" class="text-right" headerClass="text-right">
+                                  <kendo-grid-column field="WH_AVAILABLE_QTY" title="{{language.qty_aval}}" [width]="113" [locked]="false" class="text-right" headerClass="text-right">
                                   </kendo-grid-column>
                               </kendo-grid-column-group>
                               <kendo-grid-column-group headerClass="text-center" title="{{language.qty_company_lvl}}" [width]="300">
-                                  <kendo-grid-column field="COM_INSTOCK_QTY" title="{{language.qty_in_stock}}" [width]="81" class="text-right" headerClass="text-right">    
+                                  <kendo-grid-column field="COM_INSTOCK_QTY" title="{{language.qty_in_stock}}" [width]="108" class="text-right" headerClass="text-right">    
                                       <ng-template kendoGridCellTemplate let-dataItem>
                                           <a class="cursor-pointer text-primary" (click)="showDetailsInStockLookup(dataItem,'CP')">{{dataItem.COM_INSTOCK_QTY}}</a>
                                       </ng-template>                                 
                                   </kendo-grid-column>
-                                  <kendo-grid-column field="COM_COMMITED_QTY" title="{{language.qty_commit}}" [width]="81" class="text-right" headerClass="text-right">
+                                  <kendo-grid-column field="COM_COMMITED_QTY" title="{{language.qty_commit}}" [width]="121" class="text-right" headerClass="text-right">
                                   </kendo-grid-column>
-                                  <kendo-grid-column field="COM_ONORDER_QTY" title="{{language.qty_on_order}}" [width]="86" [locked]="false" class="text-right" headerClass="text-right">
+                                  <kendo-grid-column field="COM_ONORDER_QTY" title="{{language.qty_on_order}}" [width]="112" [locked]="false" class="text-right" headerClass="text-right">
                                       <ng-template kendoGridCellTemplate let-dataItem>
                                           <a class="cursor-pointer text-primary" (click)="showDetailsOnOrderLookup(dataItem,'CP')">{{dataItem.COM_ONORDER_QTY}}</a>
                                       </ng-template>
                                   </kendo-grid-column>
-                                  <kendo-grid-column field="COM_AVAILABLE_QTY" title="{{language.qty_aval}}" [width]="61" [locked]="false" class="text-right" headerClass="text-right">
+                                  <kendo-grid-column field="COM_AVAILABLE_QTY" title="{{language.qty_aval}}" [width]="113" [locked]="false" class="text-right" headerClass="text-right">
                                   </kendo-grid-column>
                               </kendo-grid-column-group>          
                           </kendo-grid>
@@ -689,56 +691,56 @@
                                 </kendo-grid-column>      
                                 <kendo-grid-column field="REQ_QTY" title="{{language.qty_per_bom_unit}}" width="59">
                                 </kendo-grid-column>
-                                <kendo-grid-column field="U_O_ACTISSQTY" title="{{language.qty_issued}}" width="74">
+                                <kendo-grid-column field="U_O_ACTISSQTY" title="{{language.qty_issued}}" width="94">
                                     <ng-template kendoGridCellTemplate let-dataItem>
                                         <a class="cursor-pointer text-primary" (click)="showDetailsIssuedLookup(dataItem)">{{dataItem.ISSUED_QTY}}</a>
                                     </ng-template>
                                 </kendo-grid-column>
-                                <kendo-grid-column field="U_O_BALQTY" title="{{language.qty_bal}}" width="55">
+                                <kendo-grid-column field="U_O_BALQTY" title="{{language.qty_bal}}" width="108">
                                 </kendo-grid-column>
-                                <kendo-grid-column field="U_O_ISSUEDATE" title="{{language.issue_date}}" width="74">
+                                <kendo-grid-column field="U_O_ISSUEDATE" title="{{language.issue_date}}" width="84">
                                     <ng-template kendoGridCellTemplate let-dataItem>
                                         {{dataItem.U_O_ISSUEDATE | date: 'MM/dd/yyyy'}}
                                     </ng-template>
                                 </kendo-grid-column>
-                                <kendo-grid-column field="U_O_ISSWH" title="{{language.issue_wh}}" width="68">
+                                <kendo-grid-column field="U_O_ISSWH" title="{{language.issue_wh}}" width="109">
                                 </kendo-grid-column>   
-                                <kendo-grid-column field="U_O_ISSBIN" title="{{language.issue_bin}}" width="66">
+                                <kendo-grid-column field="U_O_ISSBIN" title="{{language.issue_bin}}" width="186">
                                 </kendo-grid-column> 
-                                <kendo-grid-column field="U_O_ISSTYPE" title="{{language.issue_mth}}" width="70">
+                                <kendo-grid-column field="U_O_ISSTYPE" title="{{language.issue_mth}}" width="100">
                                 </kendo-grid-column>     
                                 <kendo-grid-column field="U_O_ISSTOOPER" title="{{language.Operation}}" width="46">
                                 </kendo-grid-column>                       
                                 <kendo-grid-column-group headerClass="text-center"  title="{{language.qty_wh_xxxx}}" [width]="300">
-                                    <kendo-grid-column field="WH_INSTOCK_QTY" title="{{language.qty_in_stock}}" [width]="81">
+                                    <kendo-grid-column field="WH_INSTOCK_QTY" title="{{language.qty_in_stock}}" [width]="108">
                                         <ng-template kendoGridCellTemplate let-dataItem>
                                             <a class="cursor-pointer text-primary" (click)="showDetailsInStockLookup(dataItem,'WH')">{{dataItem.WH_INSTOCK_QTY}}</a>
                                         </ng-template>                                     
                                     </kendo-grid-column>
-                                    <kendo-grid-column field="WH_COMMITED_QTY" title="{{language.qty_commit}}" [width]="81" >
+                                    <kendo-grid-column field="WH_COMMITED_QTY" title="{{language.qty_commit}}" [width]="121" >
                                     </kendo-grid-column>
-                                    <kendo-grid-column field="WH_ONORDER_QTY" title="{{language.qty_on_order}}" [width]="86" [locked]="false">
+                                    <kendo-grid-column field="WH_ONORDER_QTY" title="{{language.qty_on_order}}" [width]="112" [locked]="false">
                                         <ng-template kendoGridCellTemplate let-dataItem>
                                             <a class="cursor-pointer text-primary" (click)="showDetailsOnOrderLookup(dataItem,'CP')">{{dataItem.WH_ONORDER_QTY}}</a>
                                         </ng-template>
                                     </kendo-grid-column>
-                                    <kendo-grid-column field="WH_AVAILABLE_QTY" title="{{language.qty_aval}}" [width]="61" [locked]="false">
+                                    <kendo-grid-column field="WH_AVAILABLE_QTY" title="{{language.qty_aval}}" [width]="113" [locked]="false">
                                     </kendo-grid-column>
                                 </kendo-grid-column-group>
                                 <kendo-grid-column-group headerClass="text-center" title="{{language.qty_company_lvl}}" [width]="300">
-                                    <kendo-grid-column field="COM_INSTOCK_QTY" title="{{language.qty_in_stock}}" [width]="81">  
+                                    <kendo-grid-column field="COM_INSTOCK_QTY" title="{{language.qty_in_stock}}" [width]="108">  
                                         <ng-template kendoGridCellTemplate let-dataItem>
                                             <a class="cursor-pointer text-primary" (click)="showDetailsInStockLookup(dataItem,'CP')">{{dataItem.COM_INSTOCK_QTY}}</a>
                                         </ng-template>                                  
                                     </kendo-grid-column>
-                                    <kendo-grid-column field="COM_COMMITED_QTY" title="{{language.qty_commit}}" [width]="81" >
+                                    <kendo-grid-column field="COM_COMMITED_QTY" title="{{language.qty_commit}}" [width]="121" >
                                     </kendo-grid-column>
-                                    <kendo-grid-column field="COM_ONORDER_QTY" title="{{language.qty_on_order}}" [width]="86" [locked]="false">
+                                    <kendo-grid-column field="COM_ONORDER_QTY" title="{{language.qty_on_order}}" [width]="116" [locked]="false">
                                         <ng-template kendoGridCellTemplate let-dataItem>
                                             <a class="cursor-pointer text-primary" (click)="showDetailsOnOrderLookup(dataItem,'CP')">{{dataItem.COM_ONORDER_QTY}}</a>
                                         </ng-template>
                                     </kendo-grid-column>
-                                    <kendo-grid-column field="COM_AVAILABLE_QTY" title="{{language.qty_aval}}" [width]="61" [locked]="false">
+                                    <kendo-grid-column field="COM_AVAILABLE_QTY" title="{{language.qty_aval}}" [width]="121" [locked]="false">
                                     </kendo-grid-column>
                                 </kendo-grid-column-group> 
               
@@ -830,47 +832,47 @@
                                </kendo-excelexport>
                                <!--Export to excel code end-->
                   
-                              <kendo-grid-column field="U_O_OPERNO" title="{{language.opn}}" width="45" class="text-right" headerClass="text-right">
+                              <kendo-grid-column field="U_O_OPERNO" title="{{language.opn}}" width="85" class="text-right" headerClass="text-right">
                               </kendo-grid-column>      
-                              <kendo-grid-column field="U_O_OPR_ID" title="{{language.operation_code}}" width="70">
+                              <kendo-grid-column field="U_O_OPR_ID" title="{{language.operation_code}}" width="100">
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_OPR_DESC" title="{{language.operation_description}}" width="69">
+                              <kendo-grid-column field="U_O_OPR_DESC" title="{{language.operation_description}}" width="139">
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_OPERCMPFLG" title="{{language.operation_complete}}" width="81">
+                              <kendo-grid-column field="U_O_OPERCMPFLG" title="{{language.operation_complete}}" width="124">
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_OPTM_OPSDATE" title="{{language.operation_start_date_time}}" width="115">
+                              <kendo-grid-column field="U_OPTM_OPSDATE" title="{{language.operation_start_date_time}}" width="158">
                                 <ng-template kendoGridCellTemplate let-dataItem>
                                     {{dataItem.U_OPTM_OPSDATE | date: 'MM/dd/yyyy'}}
                                 </ng-template>
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_OPTM_OPEDATE" title="{{language.operation_end_date_time}}" width="109">
+                              <kendo-grid-column field="U_OPTM_OPEDATE" title="{{language.operation_end_date_time}}" width="152">
                                 <ng-template kendoGridCellTemplate let-dataItem>
                                     {{dataItem.U_OPTM_OPEDATE | date: 'MM/dd/yyyy'}}
                                 </ng-template>
                               </kendo-grid-column>      
-                              <kendo-grid-column field="U_O_OPR_TYPE" title="{{language.operation_type}}" width="68">
+                              <kendo-grid-column field="U_O_OPR_TYPE" title="{{language.operation_type}}" width="110">
                               </kendo-grid-column>
                               <kendo-grid-column field="U_OPTM_TIME_UOM" title="{{language.uom}}" width="44" class="text-right" headerClass="text-right">
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_BALQTY" title="{{language.qty_bal}}" width="55" class="text-right" headerClass="text-right">
+                              <kendo-grid-column field="U_O_BALQTY" title="{{language.qty_bal}}" width="108" class="text-right" headerClass="text-right">
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_CUMPRDCDQTY" title="{{language.quantity_commited_production}}" width="105" class="text-right" headerClass="text-right">
+                              <kendo-grid-column field="U_O_CUMPRDCDQTY" title="{{language.quantity_commited_production}}" width="185" class="text-right" headerClass="text-right">
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_CUMINSPQTY" title="{{language.quantity_inspection}}" width="61" class="text-right" headerClass="text-right">
+                              <kendo-grid-column field="U_O_CUMINSPQTY" title="{{language.quantity_inspection}}" width="121" class="text-right" headerClass="text-right">
                               </kendo-grid-column>      
-                              <kendo-grid-column field="U_O_CUMPASSEDQTY" title="{{language.quantity_passed}}" width="65" class="text-right" headerClass="text-right">
+                              <kendo-grid-column field="U_O_CUMPASSEDQTY" title="{{language.quantity_passed}}" width="105" class="text-right" headerClass="text-right">
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_CUMREJQTY" title="{{language.quantity_reject}}" width="71" class="text-right" headerClass="text-right">
+                              <kendo-grid-column field="U_O_CUMREJQTY" title="{{language.quantity_reject}}" width="101" class="text-right" headerClass="text-right">
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_CUMNCQTY" title="{{language.quantity_commited_nc}}" width="96" class="text-right" headerClass="text-right">
+                              <kendo-grid-column field="U_O_CUMNCQTY" title="{{language.quantity_commited_nc}}" width="140" class="text-right" headerClass="text-right">
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_REWORKQTY" title="{{language.quantity_commited_rework}}" width="120" class="text-right" headerClass="text-right">
+                              <kendo-grid-column field="U_O_REWORKQTY" title="{{language.quantity_commited_rework}}" width="165" class="text-right" headerClass="text-right">
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_OPTM_SCQTY" title="{{language.quantity_commited_sc}}" width="95" class="text-right" headerClass="text-right">
+                              <kendo-grid-column field="U_OPTM_SCQTY" title="{{language.quantity_commited_sc}}" width="140" class="text-right" headerClass="text-right">
                               </kendo-grid-column>      
-                              <kendo-grid-column field="U_OPTM_SCCOST" title="{{language.subcontracting_cost}}" width="60" class="text-right" headerClass="text-right">
+                              <kendo-grid-column field="U_OPTM_SCCOST" title="{{language.subcontracting_cost}}" width="135" class="text-right" headerClass="text-right">
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_OPTM_WC_ID" title="{{language.work_center}}" width="36">
+                              <kendo-grid-column field="U_OPTM_WC_ID" title="{{language.work_center}}" width="86">
                               </kendo-grid-column>          
                             </kendo-grid>
                           </div>
@@ -952,9 +954,9 @@
                               </kendo-grid-column>
                               <kendo-grid-column field="RESOURCE_TYPE" title="{{language.resource_type}}" width="96">
                               </kendo-grid-column>
-                              <kendo-grid-column field="NO_OF_RESOURCES" title="{{language.no_of_resource}}" width="100" class="text-right" headerClass="text-right">
+                              <kendo-grid-column field="NO_OF_RESOURCES" title="{{language.no_of_resource}}" width="110" class="text-right" headerClass="text-right">
                               </kendo-grid-column>
-                              <kendo-grid-column field="USAGE_PER_BOM_QTY" title="{{language.usage_per_bom_qty}}" width="124" class="text-right" headerClass="text-right">
+                              <kendo-grid-column field="USAGE_PER_BOM_QTY" title="{{language.usage_per_bom_qty}}" width="154" class="text-right" headerClass="text-right">
                               </kendo-grid-column>
                               <kendo-grid-column field="USAGE_BASIS" title="{{language.usage_basis}}" width="83">
                               </kendo-grid-column>      
@@ -994,7 +996,7 @@
  
   <nb-card class="h-100 w-100 overflow-hidden mb-0" *ngIf="!gridViewData">
     <div class="default-page-bg">
-      <div class="text-center opti_signin-logo">
+      <div class="text-center opti-logo">
         <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
           x="0px" y="0px" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">
           <path

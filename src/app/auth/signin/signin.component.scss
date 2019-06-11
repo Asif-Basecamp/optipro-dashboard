@@ -65,7 +65,7 @@
 }
 
 .opti_signin-logo {
-    padding: 15px 20px 0 20px;
+    padding: 20px 20px 0 20px;
     font-size: 24px;
     font-family: Exo;
     display: flex;
@@ -74,13 +74,13 @@
     color:nb-theme(color-primary);  
     font-weight: nb-theme(font-weight-bolder);  
 }
-.opti_signin-logo svg {
-    width: 50px;
-    margin-right: 10px;
-    path{
-        fill: nb-theme(color-primary);
-    }
-}
+// .opti_signin-logo svg {
+//     width: 50px;
+//     margin-right: 10px;
+//     path{
+//         fill: nb-theme(color-primary);
+//     }
+// }
 form.k-form {
     display: block;
     font-size: 1rem;
