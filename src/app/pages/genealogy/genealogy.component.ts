@@ -7,7 +7,6 @@ import { GridComponent } from '@progress/kendo-angular-grid';
 import { State } from '@progress/kendo-data-query';
 import OrgChart from '../../@core/org-chart/orgchart.js';
 import { RowArgs } from '@progress/kendo-angular-grid';
-import * as html2canvas from 'html2canvas';
 
 @Component({
  selector: 'ngx-genealogy',
@@ -552,7 +551,7 @@ export class GenealogyComponent implements OnInit {
         let desc = '';
         desc =  cd.ObjectTypeDesc.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '')
        desc = desc.replace(/\s/g, '');
-       cd["className"] = desc.toUpperCase();
+       cd["className"] = desc;
       }       
       else{
        cd["className"] = cd.ObjectTypeDesc;
@@ -619,7 +618,7 @@ export class GenealogyComponent implements OnInit {
  this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DC, ObjType, node,this.DfltWarehouse).subscribe(
    data => {
    if(data){ 
-    //document.getElementById('chart-container').innerHTML = "";
+    document.getElementById('chart-container').innerHTML = "";
     this.Analysisloading = false; 
     this.AnalysisData = data;
     this.nodes3 = this.getAnalysisHierarchy(this.AnalysisData, '-1');
@@ -637,9 +636,7 @@ export class GenealogyComponent implements OnInit {
      // 'chartClass':'ItemCode',
      // 'nodeID': 'id',
      'createNode': function(node, data) {
-       node.getElementsByClassName('title')[0].addEventListener('click', () => {
-         node.classList.toggle("expanded");   
-       });
+       
        let secondMenu = document.createElement('div');
        secondMenu.setAttribute('class', 'second-menu');
        secondMenu.innerHTML = `

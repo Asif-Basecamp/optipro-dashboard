@@ -90,6 +90,8 @@
         & .grid-accordian.expanded, & .analysis-accordian.expanded {
             box-shadow: 0 2px 12px 0 #b3b5b9;
             border-radius: 0.375rem;
+            min-height: 34px;
+            max-height: calc(100vh - 110px);
             & > nb-card{
                 box-shadow: none;
                 & > nb-card-header{
