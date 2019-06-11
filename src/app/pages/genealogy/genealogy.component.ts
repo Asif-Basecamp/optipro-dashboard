@@ -551,7 +551,7 @@ export class GenealogyComponent implements OnInit {
         let desc = '';
         desc =  cd.ObjectTypeDesc.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '')
        desc = desc.replace(/\s/g, '');
-       cd["className"] = desc.toUpperCase();
+       cd["className"] = desc;
       }       
       else{
        cd["className"] = cd.ObjectTypeDesc;
@@ -632,8 +632,9 @@ export class GenealogyComponent implements OnInit {
      'data' : result,
      'depth': 1,
      'direction': 'l2r',
-     // 'chartClass':'ItemCode',
-     // 'nodeID': 'id',
+     'chartClass':'ItemCode',
+     'nodeID': 'id',
+     'toggleSiblingsResp': false,
      'createNode': function(node, data) {
        node.getElementsByClassName('title')[0].addEventListener('click', () => {
          node.classList.toggle("expanded");   

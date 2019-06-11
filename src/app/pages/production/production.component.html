@@ -17,14 +17,14 @@
         <div class="col-sm-12">
           <form #criteriaForm="ngForm">
 
-            <fieldset class="form-group px-0 mb-2">
+            <fieldset class="form-group px-0 mb-0">
               <nb-radio-group class="d-flex" name="radioExplode" [(ngModel)]="viewOption">
                 <nb-radio *ngFor="let viewOption of viewOptions" [value]="viewOption.value"> {{ viewOption.label }}
                 </nb-radio>
               </nb-radio-group>
             </fieldset>
 
-            <h6 class="border-bottom pb-1 mb-3 ">{{language.select}}</h6>
+            <h6 class="border-bottom pb-1 mb-2 ">{{language.select}}</h6>
 
             <div class="form-group">
               <label for="ItemFrom" class="form-label">{{language.item_from}}</label>
@@ -359,7 +359,7 @@
                                 <nb-radio [value]="'all'">{{language.show_subassemblies_components}}</nb-radio>
                               </nb-radio-group>
                           </div>
-                          <div class="mt-4" *ngIf="showMaterialView == 'immediate'">
+                          <div class="mt-2" *ngIf="showMaterialView == 'immediate'">
                             <kendo-grid [kendoGridBinding]="gridMaterial" [selectable]="selectableSettings" [filterable]=isColumnFilter3
                               [groupable]=isColumnGroup [pageable]="showgridMaterialPage" [pageSize]="5" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                               [ngStyle]="{ 'max-height':'490px'}">
@@ -447,7 +447,7 @@
                               </kendo-grid-column-group>          
                           </kendo-grid>
                           </div>
-                          <div class="mt-4" *ngIf="showMaterialView == 'all'">
+                          <div class="mt-2" *ngIf="showMaterialView == 'all'">
                               <kendo-grid [kendoGridBinding]="gridMaterial" [selectable]="selectableSettings" [filterable]=isColumnFilter4
                                 [groupable]=isColumnGroup [pageable]="showgridMaterialPage" [pageSize]="5" [selectable]="true" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                                 (selectionChange)="gridRowSelectionChange($event,ref)"

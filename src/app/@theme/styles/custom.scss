@@ -1569,8 +1569,6 @@ col.k-sorted,th.k-sorted {
     height:24px;
     background-color: #fff;
     border-radius: 25px;
-    background-color: #fff;
-    border-radius: 25px;
     border: 2px solid #999;
     left: 50%;
     transform: translateX(-50%);
@@ -1925,43 +1923,35 @@ i.edge.horizontalEdge.rightEdge.fa {
   .chart-arrow-up{
     font-style: normal;
     &:after{
-        content:'';
+        content: "\e92e";
         width:20px;
         height:20px;
-        background-color:#000;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius:4px;
-        font-size: 2rem;
-        line-height: 1;        
-        font-family: sans-serif;
-        -webkit-mask: url('/assets/images/arrow-right-circle.svg') no-repeat 50% 50%;
-        mask: url('/assets/images/arrow-right-circle.svg') no-repeat 50% 50%;
-        -webkit-mask-size: cover;
-        mask-size: cover;
+        border-radius:100px;
+        font-size: 13px;
+        line-height: 1;    
+        font-family: "optipro-icon";    
         background-color: nb-theme(color-primary);
         transform: rotateZ(-90deg);
+        color:#fff;
     }
   }
   .chart-arrow-down{
       font-style: normal;
         &:after{
-            content:'';
+            content: "\e92f";
             width:20px;
             height:20px;
-            background-color:#000;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius:4px;            
-            font-size: 2rem;
-            line-height: 1;            
-            font-family: sans-serif;
-            -webkit-mask: url(/assets/images/arrow-right-circle.svg) no-repeat 50% 50%;
-            mask: url(/assets/images/arrow-right-circle.svg) no-repeat 50% 50%;
-            -webkit-mask-size: cover;
-            mask-size: cover;
+            border-radius:100px;            
+            font-size: 13px;
+            line-height: 1;   
+            color:#fff;         
+            font-family: "optipro-icon";   
             background-color: nb-theme(color-primary);
             transform: rotateZ(90deg);
         }
@@ -2519,9 +2509,7 @@ body .ui-treetable .ui-treetable-tbody > tr.ui-state-highlight > td {
   background-color: inherit;
   border: 1px solid rgba(0, 0, 0, 0.08);
 }
-body .ui-treetable .ui-treetable-tbody > tr.ui-state-highlight > td .ui-treetable-toggler {
-  color: #ffffff;
-}
+
 body .ui-treetable .ui-treetable-tbody > tr.ui-contextmenu-selected {
   background-color: nb-theme(color-primary);
   color: #ffffff;
@@ -2553,18 +2541,26 @@ body .ui-treetable .ui-column-resizer-helper {
     -moz-osx-font-smoothing: grayscale;
 }
 .pi-chevron-right:before{
-  content: "";
+  content: "\e92f";
   width:16px;
-  height:16px;
+  height:14px;
   display: inline-block;
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='inherit'%3E%3Cg data-name='Layer 2'%3E%3Cg data-name='arrow-ios-forward'%3E%3Crect width='24' height='24' transform='rotate(-90 12 12)' opacity='0'%3E%3C/rect%3E%3Cpath d='M10 19a1 1 0 0 1-.64-.23 1 1 0 0 1-.13-1.41L13.71 12 9.39 6.63a1 1 0 0 1 .15-1.41 1 1 0 0 1 1.46.15l4.83 6a1 1 0 0 1 0 1.27l-5 6A1 1 0 0 1 10 19z'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  font-family: "optipro-icon";
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .pi-chevron-down:before{
-  content: '';
   width:16px;
-  height:16px;
+  height:14px;
   display: inline-block;
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='%23000'%3E%3Cg data-name='Layer 2'%3E%3Cg data-name='arrow-ios-downward'%3E%3Crect width='24' height='24' opacity='0'%3E%3C/rect%3E%3Cpath d='M12 16a1 1 0 0 1-.64-.23l-6-5a1 1 0 1 1 1.28-1.54L12 13.71l5.36-4.32a1 1 0 0 1 1.41.15 1 1 0 0 1-.14 1.46l-6 4.83A1 1 0 0 1 12 16z'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  content: "\e92d";
+  font-family: "optipro-icon";
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 @media screen and (max-width: 40em) {
   .ui-treetable-responsive .ui-treetable-tfoot>tr>td,.ui-treetable-responsive .ui-treetable-thead>tr>th {
