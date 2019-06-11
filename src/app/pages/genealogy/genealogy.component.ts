@@ -7,6 +7,7 @@ import { GridComponent } from '@progress/kendo-angular-grid';
 import { State } from '@progress/kendo-data-query';
 import OrgChart from '../../@core/org-chart/orgchart.js';
 import { RowArgs } from '@progress/kendo-angular-grid';
+import * as html2canvas from 'html2canvas';
 
 @Component({
  selector: 'ngx-genealogy',
@@ -632,6 +633,7 @@ export class GenealogyComponent implements OnInit {
      'data' : result,
      'depth': 1,
      'direction': 'l2r',
+     
      // 'chartClass':'ItemCode',
      // 'nodeID': 'id',
      'createNode': function(node, data) {
@@ -734,7 +736,9 @@ export class GenealogyComponent implements OnInit {
        `;
        // secondMenu.innerHTML = `<img class="avatar" src="../img/avatar/${data.id}.jpg">`;
        node.appendChild(secondMenu);
-     }
+     },
+     'exportButton': true,
+     'exportFilename': 'Analysis View'   
    });
    } 
   else{
