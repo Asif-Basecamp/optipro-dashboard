@@ -822,13 +822,6 @@ export class GenealogyComponent implements OnInit {
    this.searchCriteria = true;
   }
  }
- searchCriteriaExpand() {
-  if (this.searchCriteria && document.getElementById("dashboard-left").classList.contains('shrink')) {
-   document.getElementById("dashboard-left").classList.remove('shrink');
-   document.getElementById("selection-criteria-body").style.height = '100%';
-   document.getElementById("selection-criteria-body").style.display = 'flex';
-  }
- }
 
 
  onCheckboxClick(checked: any, index: number) {
@@ -868,34 +861,34 @@ export class GenealogyComponent implements OnInit {
    };
  }
  //Custom accordian function
- customAccordianGrid(e) {
-  if (document.getElementById("grid-accordian").classList.contains('expanded')) {
-   this.hideAcordian(e);
-   document.getElementById("custom-accordian").classList.remove('grid-accordian-open');
-  } else {
-   this.expandAcordian(e);
-   document.getElementById("custom-accordian").classList.add('grid-accordian-open');
-  }
- }
- customAccordianAnalysis(e) {
-  if (document.getElementById("analysis-accordian").classList.contains('expanded')) {
-   this.hideAcordian(e);
-   document.getElementById("custom-accordian").classList.remove('analysis-accordian-open');
-  } else {
-   this.expandAcordian(e);
-   document.getElementById("custom-accordian").classList.add('analysis-accordian-open');
-  }
- }
- hideAcordian(e: any) {
-  e.currentTarget.parentElement.parentElement.classList.remove('expanded')
-  e.currentTarget.nextSibling.style.height = '0';
-  e.currentTarget.nextSibling.style.display = 'none';
- }
- expandAcordian(e: any) {
-  e.currentTarget.parentElement.parentElement.classList.add('expanded')
-  e.currentTarget.nextSibling.style.height = '100%';
-  e.currentTarget.nextSibling.style.display = 'flex';
- }
+//  customAccordianGrid(e) {
+//   if (document.getElementById("grid-accordian").classList.contains('expanded')) {
+//    this.hideAcordian(e);
+//    document.getElementById("custom-accordian").classList.remove('grid-accordian-open');
+//   } else {
+//    this.expandAcordian(e);
+//    document.getElementById("custom-accordian").classList.add('grid-accordian-open');
+//   }
+//  }
+//  customAccordianAnalysis(e) {
+//   if (document.getElementById("analysis-accordian").classList.contains('expanded')) {
+//    this.hideAcordian(e);
+//    document.getElementById("custom-accordian").classList.remove('analysis-accordian-open');
+//   } else {
+//    this.expandAcordian(e);
+//    document.getElementById("custom-accordian").classList.add('analysis-accordian-open');
+//   }
+//  }
+//  hideAcordian(e: any) {
+//   e.currentTarget.parentElement.parentElement.classList.remove('expanded')
+//   e.currentTarget.nextSibling.style.height = '0';
+//   e.currentTarget.nextSibling.style.display = 'none';
+//  }
+//  expandAcordian(e: any) {
+//   e.currentTarget.parentElement.parentElement.classList.add('expanded')
+//   e.currentTarget.nextSibling.style.height = '100%';
+//   e.currentTarget.nextSibling.style.display = 'flex';
+//  }
  toggleNodeClass(e: any){
    e.currentTarget.classList.toggle("shrink");    
  }
