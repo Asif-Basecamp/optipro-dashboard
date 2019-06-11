@@ -11,9 +11,11 @@ import { DefaultComponent } from './default/default.component';
 import { ProductionComponent } from './production/production.component';
 import { TreeTableModule } from 'primeng/components/treetable/treetable';
 import { LookupComponent } from './lookup/lookup.component';
-import { GridModule } from '@progress/kendo-angular-grid';
+import { GridModule, PDFModule } from '@progress/kendo-angular-grid';
+import { ExcelExportModule } from '@progress/kendo-angular-excel-export';
 import { CountdownModule } from 'ngx-countdown';
 import { AngularSplitModule } from 'angular-split';
+
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -24,6 +26,8 @@ const PAGES_COMPONENTS = [
   imports: [
     CommonModule,
     GridModule,
+    PDFModule ,
+    ExcelExportModule,
     PagesRoutingModule,
     NbLayoutModule,
     ThemeModule,
