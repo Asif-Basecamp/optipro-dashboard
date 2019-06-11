@@ -1407,7 +1407,7 @@ col.k-sorted,th.k-sorted {
   }
   
   .orgchart>table:first-child{
-    margin: 20px auto;
+    margin: 15px 10px;
   }
   
   .orgchart td {
@@ -1788,9 +1788,6 @@ col.k-sorted,th.k-sorted {
   }
   &.ARCreditMemo{
     background-color: #9cff9c;
-  }
-  &.ARInvoice{
-    background-color: #ffb3b3;
   }
   &.PurchaseRequest{
     background-color: #c8d087;
