@@ -1756,15 +1756,108 @@ col.k-sorted,th.k-sorted {
 }
 .orgchart .node .second-menu .node-footer .column-content {
   font-weight: 600;
-  color: #0064ff;
   font-size: 0.78rem;
-  text-decoration: underline;
 }
 
 .orgchart.l2r .node {
   width: 108px;
   height: 170px;
-
+  &.Delivery{
+    background-color: #aec3f3;
+  }
+  &.JournalEntry{
+    background-color: #d49de2;
+  }
+  &.SalesQuotation{
+    background-color: #ffb1b1;
+  }
+  &.SalesOrder{
+    background-color: #cbb1ff;
+  }
+  &.ReturnRequest{
+    background-color: #ffb8c6;
+  }
+  &.Return{
+    background-color: #f7ed90;
+  }
+  &.ARDownPayment{
+    background-color: #b1fff4;
+  }
+  &.ARInvoice{
+    background-color: #a6e09b;
+  }
+  &.ARCreditMemo{
+    background-color: #9cff9c;
+  }
+  &.ARInvoice{
+    background-color: #ffb3b3;
+  }
+  &.PurchaseRequest{
+    background-color: #c8d087;
+  }
+  &.PurchaseReceipt{
+    background-color: #b4f4f4;
+  }
+  &.PurchaseReturn{
+    background-color: #ffdebd;
+  }
+  &.PurchaseInvoice{
+    background-color: #e5bd8b;
+  }
+  &.PurchaseQuotation{
+    background-color: #c0f97d;
+  }
+  &.PurchaseOrder{
+    background-color: #c0c2ce;
+  }
+  &.GoodsReceiptPO{
+    background-color: #ff8b94;
+  }
+  &.GoodsReturnRequest{
+    background-color: #a8e6cf;
+  }
+  &.GoodsReturn{  
+    background-color: #cbdadb;
+  } 
+  &.APDownPaymentInvoice{
+    background-color: #f78484;
+  }
+  &.APInvoice{
+    background-color: #ffb96f;
+  }
+  &.APCreditMemo{
+    background-color: #1fb8b0;
+  }
+  &.Deposit{
+    background-color: #cc737a;;
+  }
+  &.OutgoingPayment{
+    background-color: #fd8b69;
+  }
+  &.GoodsReceipt{
+    background-color: #ffffdb;
+  }
+  &.GoodsIssue{
+    background-color: #80ffda;
+  }
+  &.InventoryTransferRequest {
+    background-color: #c5b6a8;
+  }
+  &.InventoryTransfer{
+    background-color: #6da9ab;
+  }
+  &.InventoryRevaluation{
+    background-color: #5beaf9;
+  }
+  &.ProductionOrder{
+    background-color: #bfaa72;
+  }
+  &.IssueForProduction{
+    background-color: #ffebe7;
+  }
+  &.ReceiptFromProduction{
+    background-color: #f9e5b7;
+  }
   & *{
     -webkit-font-smoothing: antialiased;
   }
@@ -1773,14 +1866,21 @@ col.k-sorted,th.k-sorted {
     width: 164px;
     transform-origin: 0 0;
   }
-  & .node-avatar {
-    width: 30px;
-    height: 30px;
-    
+  & .node-img i{
+    font-size: 33px;
+    color: rgba(0,0,0,0.5);
+    &.optipro-icon-null{
+      &:before{
+        content: "\e93a";
+      }
+    }
   }
   & .node-footer{
     display: none;
     
+  }
+  & .node-data {
+    max-width: calc(100% - 40px);
   }
   & .second-menu {
     transform:rotate(-90deg) translate(-61px, -63px) rotateY(180deg);
@@ -1799,9 +1899,12 @@ col.k-sorted,th.k-sorted {
   &.expanded {
     width: 170px;
     height: 250px;
-    & .node-avatar {
-      width: 60px;
-      height: 60px;
+    & .node-data {
+      max-width: calc(100% - 70px);
+    }    
+    & .node-img i{
+      font-size: 60px;
+      color: rgba(0,0,0,0.5);
     }
     & .title{
       transform:rotate(-90deg) translate(1px, -1px) rotateY(180deg);
@@ -1934,7 +2037,7 @@ i.edge.horizontalEdge.rightEdge.fa {
         line-height: 1;    
         font-family: "optipro-icon";    
         background-color: nb-theme(color-primary);
-        transform: rotateZ(-90deg);
+        transform: rotateZ(90deg);
         color:#fff;
     }
   }
