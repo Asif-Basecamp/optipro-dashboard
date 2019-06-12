@@ -3,6 +3,7 @@
 $icomoon-font-family: "optipro-icon" !default;
 $icomoon-font-path: "../../../assets/fonts" !default;
 
+$optipro-icon-clock: "\e94e";
 $optipro-icon-APCreditMemo: "\e900";
 $optipro-icon-APDownPaymentInvoice: "\e901";
 $optipro-icon-APInvoice: "\e902";
@@ -108,6 +109,12 @@ $optipro-icon-reload: "\e93e";
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.optipro-icon-clock, .k-i-clock {
+  &:before {
+    content: $optipro-icon-clock; 
+  }
 }
 .optipro-icon-APCreditMemo {
   &:before {
