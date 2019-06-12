@@ -626,7 +626,7 @@ export class GenealogyComponent implements OnInit {
     for (var i=0; i<this.nodes3.length; i++) {
        result = this.nodes3[i];
     }
-
+    console.log(data);
     this.orgchart = new OrgChart({
      'chartContainer': '#chart-container',
      'data' : result,
@@ -636,13 +636,15 @@ export class GenealogyComponent implements OnInit {
      // 'chartClass':'ItemCode',
      // 'nodeID': 'id',
      'createNode': function(node, data) {
-       
+       node.getElementsByClassName('title')[0].addEventListener('click', () => {
+         node.classList.toggle("expanded");   
+       });
        let secondMenu = document.createElement('div');
        secondMenu.setAttribute('class', 'second-menu');
        secondMenu.innerHTML = `
          <div class="node-content">
            <div class="node-img">
-             <img class="node-avatar" src="./assets/images/images.png">
+             <i class="optipro-icon-${data.className}"></i>
            </div>
            <div class="node-data">
              <div class="data-column">

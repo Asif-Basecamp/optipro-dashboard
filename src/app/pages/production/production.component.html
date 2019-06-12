@@ -2,13 +2,14 @@
 
 <div class="dashboard-left" id="dashboard-left">
   <nb-card accent="primary" id="selection-criteria-section">
-
-    <nb-card-header class="border-bottom d-flex" [ngClass]="times > 0?'timerActive':''">
+    <nb-card-header class="border-bottom d-flex">
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" class="mr-2" fill="#2a2a2a"><rect width="24" height="24" opacity="0"></rect><path d="M20.71 19.29l-3.4-3.39A7.92 7.92 0 0 0 19 11a8 8 0 1 0-8 8 7.92 7.92 0 0 0 4.9-1.69l3.39 3.4a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM5 11a6 6 0 1 1 6 6 6 6 0 0 1-6-6z"></path></svg>
       <span>{{language.selection_criteria}}</span>
-      <span class="ml-auto d-flex justify-content-center align-items-center">
+      <span class="ml-auto  d-flex justify-content-center align-items-center">
+          <span id="hours"></span> 
+          <span id="minutes"></span> 
+          <span id="seconds"></span> 
         <span class="optipro-icon-arrow-left cursor-pointer mr-1 d-flex" (click)="searchCriteriaToggle($event)"></span>
-        <span *ngIf="times" ><countdown #countdown  [config]="{leftTime: times}">$!m!:$!s!</countdown></span>
       </span>
     </nb-card-header>
 
@@ -88,17 +89,19 @@
         </div>
       </div>
 
-      <!-- <div class="row ">
+       <div class="row ">
         <div class="col-12 d-flex justify-content-between align-items-center">
             <div class="k-form-field d-flex align-items-center">
               <input type="checkbox" class="k-checkbox" id="autorefreshTime" name="autorefreshTime" [(ngModel)]="refreshCheck" (click)="refreshEvent($event)"/>
               <label class="k-checkbox-label d-flex align-items-center" for="autorefreshTime">Auto refresh time 
-                <input type="number" min="0" name="Hour" [(ngModel)]="hour" id="Hour" fieldSize="small" nbInput class="form-control w-auto text-center" style="padding: 0 2px;max-width: 35px;height: 20px;margin: 0 5px;" [disabled]="!refreshStatus">Hour
-                <input type="number" min="0" name="customTime" [(ngModel)]="time" id="customTime" fieldSize="small" nbInput class="form-control w-auto text-center" style="padding: 0 2px;max-width: 35px;height: 20px;margin: 0 5px;" [disabled]="!refreshStatus">Minute</label>
+               <!-- <input type="number" min="0" name="Hour" [(ngModel)]="hour" id="Hour" fieldSize="small" nbInput class="form-control w-auto text-center" style="padding: 0 2px;max-width: 35px;height: 20px;margin: 0 5px;" [disabled]="!refreshStatus">Hour
+                <input type="number" min="0" name="customTime" [(ngModel)]="time" id="customTime" fieldSize="small" nbInput class="form-control w-auto text-center" style="padding: 0 2px;max-width: 35px;height: 20px;margin: 0 5px;" [disabled]="!refreshStatus">Minute-->
+                <kendo-timepicker [disabled]="!refreshStatus" [(value)]="value"></kendo-timepicker>
+              </label>
             </div>
-            <button class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Manual Refresh" (click)="autoRefresh();" [disabled]="!time"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#212529" viewBox="0 0 24 24"><g data-name="Layer 2"><g data-name="sync"><rect width="24" height="24" opacity="0"></rect><path d="M21.66 10.37a.62.62 0 0 0 .07-.19l.75-4a1 1 0 0 0-2-.36l-.37 2a9.22 9.22 0 0 0-16.58.84 1 1 0 0 0 .55 1.3 1 1 0 0 0 1.31-.55A7.08 7.08 0 0 1 12.07 5a7.17 7.17 0 0 1 6.24 3.58l-1.65-.27a1 1 0 1 0-.32 2l4.25.71h.16a.93.93 0 0 0 .34-.06.33.33 0 0 0 .1-.06.78.78 0 0 0 .2-.11l.08-.1a1.07 1.07 0 0 0 .14-.16.58.58 0 0 0 .05-.16z"></path><path d="M19.88 14.07a1 1 0 0 0-1.31.56A7.08 7.08 0 0 1 11.93 19a7.17 7.17 0 0 1-6.24-3.58l1.65.27h.16a1 1 0 0 0 .16-2L3.41 13a.91.91 0 0 0-.33 0H3a1.15 1.15 0 0 0-.32.14 1 1 0 0 0-.18.18l-.09.1a.84.84 0 0 0-.07.19.44.44 0 0 0-.07.17l-.75 4a1 1 0 0 0 .8 1.22h.18a1 1 0 0 0 1-.82l.37-2a9.22 9.22 0 0 0 16.58-.83 1 1 0 0 0-.57-1.28z"></path></g></g></svg></button>
+            <button class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Manual Refresh" (click)="autoRefresh();" [disabled]="!refreshStatus"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#212529" viewBox="0 0 24 24"><g data-name="Layer 2"><g data-name="sync"><rect width="24" height="24" opacity="0"></rect><path d="M21.66 10.37a.62.62 0 0 0 .07-.19l.75-4a1 1 0 0 0-2-.36l-.37 2a9.22 9.22 0 0 0-16.58.84 1 1 0 0 0 .55 1.3 1 1 0 0 0 1.31-.55A7.08 7.08 0 0 1 12.07 5a7.17 7.17 0 0 1 6.24 3.58l-1.65-.27a1 1 0 1 0-.32 2l4.25.71h.16a.93.93 0 0 0 .34-.06.33.33 0 0 0 .1-.06.78.78 0 0 0 .2-.11l.08-.1a1.07 1.07 0 0 0 .14-.16.58.58 0 0 0 .05-.16z"></path><path d="M19.88 14.07a1 1 0 0 0-1.31.56A7.08 7.08 0 0 1 11.93 19a7.17 7.17 0 0 1-6.24-3.58l1.65.27h.16a1 1 0 0 0 .16-2L3.41 13a.91.91 0 0 0-.33 0H3a1.15 1.15 0 0 0-.32.14 1 1 0 0 0-.18.18l-.09.1a.84.84 0 0 0-.07.19.44.44 0 0 0-.07.17l-.75 4a1 1 0 0 0 .8 1.22h.18a1 1 0 0 0 1-.82l.37-2a9.22 9.22 0 0 0 16.58-.83 1 1 0 0 0-.57-1.28z"></path></g></g></svg></button>
         </div>
-      </div> -->
+      </div> 
 
 
     </nb-card-body>
