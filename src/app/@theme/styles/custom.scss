@@ -2023,9 +2023,9 @@ i.edge.horizontalEdge.rightEdge.fa {
   .chart-arrow-up{
     font-style: normal;
     &:after{
-        content: "\e92e";
-        width:20px;
-        height:20px;
+        content: "\e92c";
+        width: 100%;
+        height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -2034,16 +2034,15 @@ i.edge.horizontalEdge.rightEdge.fa {
         line-height: 1;    
         font-family: "optipro-icon";    
         background-color: nb-theme(color-primary);
-        transform: rotateZ(90deg);
         color:#fff;
     }
   }
   .chart-arrow-down{
       font-style: normal;
         &:after{
-            content: "\e92f";
-            width:20px;
-            height:20px;
+            content: "\e92d";
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2053,7 +2052,6 @@ i.edge.horizontalEdge.rightEdge.fa {
             color:#fff;         
             font-family: "optipro-icon";   
             background-color: nb-theme(color-primary);
-            transform: rotateZ(90deg);
         }
   }
 
