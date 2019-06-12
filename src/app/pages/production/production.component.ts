@@ -93,7 +93,7 @@ export interface TreeNode {
    public value: Date = new Date();
    public hour: any;
    public myVar: any;
-
+   
   constructor(private intl: IntlService, private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
     { value: 'SIMPLE', label: 'Simple View' },
@@ -691,8 +691,7 @@ countdown(endDate) {
     return;
     }
 
-  this.myVar = setInterval(calculate, 1000);
-  
+  this.myVar = setInterval(calculate, 1000); 
   function calculate() {
     let startDate = new Date().getTime();
     // @ts-ignore
@@ -713,9 +712,9 @@ countdown(endDate) {
       timeRemaining = (timeRemaining % 60);
       // @ts-ignore
       let seconds = parseInt(timeRemaining);
-      document.getElementById("hours").innerHTML = ("0" + hours).slice(-2);
-      document.getElementById("minutes").innerHTML = ("0" + minutes).slice(-2);
-      document.getElementById("seconds").innerHTML = ("0" + seconds).slice(-2); 
+      document.getElementById("hours").innerHTML = ("0" + hours).slice(-2)+":";
+      document.getElementById("minutes").innerHTML = ("0" + minutes).slice(-2)+":";
+      document.getElementById("seconds").innerHTML = ("0" + seconds).slice(-2);
     }
   }
 } 
