@@ -140,7 +140,9 @@ export class GenealogyComponent implements OnInit {
 
  onItemCodeBlur(){
    let item = this.ItemValue;
-   this.showValidation = true;
+   if(this.DfltWarehouse){
+      this.showValidation = true;
+   }
    let itemCode = [];
    if(item){
     if(this.vendor){
