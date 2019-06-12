@@ -111,8 +111,6 @@
             <input type="checkbox" class="k-checkbox" id="autorefreshTime" name="autorefreshTime"
               [(ngModel)]="refreshCheck" (click)="refreshEvent($event)" />
             <label class="k-checkbox-label d-flex align-items-center" for="autorefreshTime">Auto refresh time
-              <!-- <input type="number" min="0" name="Hour" [(ngModel)]="hour" id="Hour" fieldSize="small" nbInput class="form-control w-auto text-center" style="padding: 0 2px;max-width: 35px;height: 20px;margin: 0 5px;" [disabled]="!refreshStatus">Hour
-                <input type="number" min="0" name="customTime" [(ngModel)]="time" id="customTime" fieldSize="small" nbInput class="form-control w-auto text-center" style="padding: 0 2px;max-width: 35px;height: 20px;margin: 0 5px;" [disabled]="!refreshStatus">Minute-->
               <kendo-timepicker class="ml-2" [disabled]="!refreshStatus" [(value)]="value"></kendo-timepicker>
             </label>
           </div>
@@ -941,7 +939,8 @@
     </div>
 
 
-    <nb-card class="h-100 w-100 overflow-hidden mb-0" *ngIf="!gridViewData">
+    <nb-card class="h-100 w-100 overflow-hidden mb-0" *ngIf="!gridViewData" accent="primary" size="xsmall" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="xlarge"
+    nbSpinnerMessage="Please Wait">
       <div class="default-page-bg">
         <div class="text-center opti-logo">
           <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"

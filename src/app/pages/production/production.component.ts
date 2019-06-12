@@ -281,20 +281,31 @@ export interface TreeNode {
     this.prod.GetWorkOrderFG(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemName, this.RadioBtnWO, this.checkedList.toString(), this.FromDate, this.ToDate).subscribe(
       data => {
           if(!data){
-            this.loading = false;
+              this.gridMaterial = [];
+              this.gridOperation = [];
+              this.gridResource = [];
            }else{
-            this.loading = false;
             this.gridWOFG = data; 
             if(this.gridWOFG.length > 10)
             this.showgridWOPage = true;
             else
             this.showgridWOPage = false;
+
+            if(this.gridWOFG.length > 0){
             this.getMaterials(this.gridWOFG[0].DocEntry,this.gridWOFG[0].U_O_PRODID);
             this.getOperations(this.gridWOFG[0].DocEntry);
             this.getResources(this.gridWOFG[0].DocEntry);
-           }
+            }
+            else{
+              this.gridMaterial = [];
+              this.gridOperation = [];
+              this.gridResource = [];
+            }
+          }
+         this.loading = false;
       },
       error => {
+        this.loading = false;
         this.toastrService.danger(this.language.no_record_found);    
      })
     }
@@ -503,7 +514,7 @@ export interface TreeNode {
    }
 
    getOperations(DocEntry){
-      this.loading = true; 
+      this.loading = true;
       this.prod.GetOperationData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
         data => {
             this.gridOperation = data; 
@@ -584,7 +595,7 @@ export interface TreeNode {
     }  
     this.prod.GetItemExplosionData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemCodeFrom, this.ItemCodeTo, this.viewOption, this.FromDate, this.ToDate).subscribe(
       data => {
-         if(!data){
+         if(data.length == 0){
             this.loading = false;
             this.toastrService.danger('No Record Found');
           }else{
@@ -636,7 +647,6 @@ export interface TreeNode {
       this.selectedValues.push(servivceItem);
     }
     else {
-      // let rixd: number= this.selectedValues.findIndex(i => i.LOTNO == servivceItem.LOTNO && i.LOTNO == servivceItem.BINNO)
       this.selectedValues = this.selectedValues.splice(index, 1);
     }
   }
@@ -666,26 +676,6 @@ export interface TreeNode {
      filters: []
    };
  }
- //Custom accordian function
-//  customAccordianGrid(e) {
-//   if (document.getElementById("grid-accordian").classList.contains('expanded')) {
-//    this.hideAcordian(e);
-//    document.getElementById("custom-accordian").classList.remove('grid-accordian-open');
-//   } else {
-//    this.expandAcordian(e);
-//    document.getElementById("custom-accordian").classList.add('grid-accordian-open');
-//   }
-//  }
- 
-//  hideAcordian(e: any) {
-//   e.currentTarget.parentElement.parentElement.classList.remove('expanded')
-//   e.currentTarget.nextSibling.style.height = '0';
-//   e.currentTarget.nextSibling.style.display = 'none';
-//  }
-//  expandAcordian(e: any) {
-//   e.currentTarget.parentElement.parentElement.classList.add('expanded')
-//   e.currentTarget.nextSibling.style = '';
-//  }
 
  toggleLoadingAnimation() {
   this.Tabloading = true;
@@ -749,26 +739,6 @@ autoRefresh(){
   }else{
      this.countdown(this.hour); 
   }
- 
- // this.countdown(this.hour); 
-
-   //alert(this.value);
-    //  this.Hours = this.Hour;
-     // this.times = this.time*60;
-     // setTimeout(() => {
-       /* this.ItemCodeFrom = '';
-        this.itemFromStatus = false;
-        this.ItemCodeTo = '';
-        this.itemToStatus = false;
-        this.FromDate = new Date();
-        this.ToDate = new Date();
-        this.times = '';
-        this.time = '';
-        this.refreshCheck = '';
-        this.viewOption = 'SIMPLE'; 
-        this.ngOnInit();*/
-      //  window.location.reload();
-    //  },this.times*1000);  
  }
 
  getWoRadioClick(evt){    

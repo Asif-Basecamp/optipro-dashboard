@@ -73,6 +73,9 @@ export class GenealogyComponent implements OnInit {
  public NodeName:any = '';
  public vendor: boolean = false;
  public vendorData: any = [];
+ public gridViewShow: boolean = false;
+ public analysisViewShow: boolean = false;
+ public transactionViewShow: boolean = false;
 
  constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
 
@@ -357,8 +360,8 @@ export class GenealogyComponent implements OnInit {
   /*-- get data on grid view after click on process --*/
 
   GetExplosion() {
+    document.getElementById('chart-container').innerHTML = ""; 
 
-   document.getElementById('chart-container').innerHTML = ""; 
    if(this.DistNumFrom.trim() != "" && this.DistNumTo.trim() == ""){
      this.toastrService.danger(this.language.error_enter_lot_to);
      return;
@@ -388,6 +391,7 @@ export class GenealogyComponent implements OnInit {
     data => {
     if(!data){
       this.loading = false;
+      this.gridViewShow = false;
       this.toastrService.danger(this.language.no_record_found);
       this.AnalysisData = [];
       this.nodes1 = [];
@@ -396,6 +400,7 @@ export class GenealogyComponent implements OnInit {
 
      if(data.length <= 0){
        this.loading = false;
+       this.gridViewShow = false;
        this.toastrService.danger(this.language.no_record_found);  
        this.AnalysisData = [];
        this.nodes1 = [];
@@ -404,6 +409,7 @@ export class GenealogyComponent implements OnInit {
      }
      
      this.data = data;
+     this.gridViewShow = true;
      let Arr = [];
      for (var i = 0; i < this.data.length; i++) {
       if (this.data[i].GroupId == '') {
@@ -517,17 +523,19 @@ export class GenealogyComponent implements OnInit {
     this.DocEntryArrNode = [];
     this.nodes1 = [];
     this.transactions = data;
-
+    this.transactionViewShow = true;
    this.setTransactionDetailParam(this.transactions.Table);
    this.nodes1 =  this.getHierarchyTransaction(data.Table,'-1');
    } 
    else{
     this.loading = false;
+    this.transactionViewShow = false;
     this.toastrService.danger(this.language.no_record_found);  
    }
    },
    error => {
     this.loading = false;
+    this.transactionViewShow = false;
     this.toastrService.danger(this.language.no_record_found);    
    }
   )
@@ -618,6 +626,7 @@ export class GenealogyComponent implements OnInit {
  this.dash.GetTransactionDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DC, ObjType, node,this.DfltWarehouse).subscribe(
    data => {
    if(data){ 
+    this.analysisViewShow = true; 
     document.getElementById('chart-container').innerHTML = "";
     this.Analysisloading = false; 
     this.AnalysisData = data;
@@ -626,7 +635,6 @@ export class GenealogyComponent implements OnInit {
     for (var i=0; i<this.nodes3.length; i++) {
        result = this.nodes3[i];
     }
-    console.log(data);
     this.orgchart = new OrgChart({
      'chartContainer': '#chart-container',
      'data' : result,
@@ -742,11 +750,13 @@ export class GenealogyComponent implements OnInit {
    } 
   else{
    this.Analysisloading = false;
+   this.analysisViewShow = false;
    this.toastrService.danger(this.language.no_record_found); 
   }
  },
  error => {
     this.Analysisloading = false;
+    this.analysisViewShow = false;
     this.toastrService.danger(this.language.no_record_found);    
    }
   )
@@ -762,7 +772,6 @@ export class GenealogyComponent implements OnInit {
 
  clickTransaction(evt) {
   let test = evt.srcElement.textContent;
- // let name = evt.srcElement.textContent;
   if (test == "" || test == undefined) {
    return;
   } else {
