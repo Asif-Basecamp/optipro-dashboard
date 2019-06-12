@@ -327,7 +327,7 @@
                     <nb-radio [value]="'all'">{{language.show_Wo_subassemblies}}</nb-radio>
                   </nb-radio-group>
 
-                  <button type="button" (click)="getInventshortRadioClick()">Inventory Shortage</button>
+                  <button type="button" (click)="getInventshortRadioClick()" class="btn btn-primary" nbButton size="xsmall">Inventory Shortage</button>
                   <nb-radio-group class="d-flex flex-wrap" [(ngModel)]="RadioBtnInventShort" name="RadioBtnInventShort">
                     <nb-radio [value]="'Warehouse'">Warehouse Level</nb-radio>
                     <nb-radio [value]="'Company'">Company Level</nb-radio>
@@ -342,26 +342,30 @@
                     (selectionChange)="gridRowSelectDocEntry($event)"
                     [ngStyle]="{ 'cursor': 'pointer', 'max-height':'490px'}">
                     <ng-template kendoGridToolbarTemplate>
-                      <button type="button" kendoGridPDFCommand>Export to PDF</button>
-                      <button type="button" kendoGridExcelCommand>Export To Excel</button>
+                      <div class="d-flex align-items-center w-100">
+                        <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
+                          <div class="k-form-field d-flex">
+                            <input #chkFilter2 type="checkbox" (change)="onFilterChange(chkFilter2,gridWOFG)"
+                              id="opti_SalesOrderListColumnFilterID2" [(ngModel)]="isColumnFilter2" class="k-checkbox"
+                              name="columnfilter" />
+                            <label class="k-checkbox-label"
+                              for="opti_SalesOrderListColumnFilterID2">{{language.enable_filter}}</label>
+                          </div>
+                        </form>
+                        <span class="ml-auto d-flex align-items-center flex-wrap">
+                          <button type="button" kendoGridPDFCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export to PDF">
+                            <i class="optipro-icon-pdf-file"></i><span>Export to PDF</span>
+                          </button>
+                          <button type="button" kendoGridExcelCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export To Excel">
+                            <i class="optipro-icon-xls-file"></i><span>Export To Excel</span>
+                          </button>
+                        </span>
+                      </div>
                     </ng-template>
 
-                    <kendo-grid-pdf fileName="WorkOrderGrid.pdf">
-                    </kendo-grid-pdf>
+                    <kendo-grid-pdf fileName="WorkOrderGrid.pdf"></kendo-grid-pdf>
                     <kendo-grid-excel fileName="WorkOrderGrid.xlsx"></kendo-grid-excel>
 
-                    <ng-template kendoGridToolbarTemplate>
-                      <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
-                        <div class="k-form-field d-flex">
-                          <input #chkFilter2 type="checkbox" (change)="onFilterChange(chkFilter2,gridWOFG)"
-                            id="opti_SalesOrderListColumnFilterID2" [(ngModel)]="isColumnFilter2" class="k-checkbox"
-                            name="columnfilter" />
-                          <label class="k-checkbox-label"
-                            for="opti_SalesOrderListColumnFilterID2">{{language.enable_filter}}</label>
-                        </div>
-                      </form>
-
-                    </ng-template>
                     <kendo-grid-checkbox-column *ngIf="showSelection==true" title="Select" [width]="25">
                       <ng-template kendoGridCellTemplate let-idx='rowIndex' let-di='dataItem'>
                         <div class="k-form-field d-flex center-checkbox">
@@ -473,28 +477,34 @@
                               [filterable]=isColumnFilter3 [groupable]=isColumnGroup [pageable]="showgridMaterialPage"
                               [pageSize]="5" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                               [ngStyle]="{ 'max-height':'490px'}">
+
+
                               <ng-template kendoGridToolbarTemplate>
-                                <button kendoGridPDFCommand type="button">Export to PDF</button>
-                                <button type="button" kendoGridExcelCommand>Export To Excel</button>
+                                <div class="d-flex align-items-center w-100">
+                                  <form
+                                    class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
+                                    <div class="k-form-field d-flex">
+                                      <input #chkFilter3 type="checkbox"
+                                        (change)="onFilterChange(chkFilter3,gridMaterial)"
+                                        id="opti_SalesOrderListColumnFilterID3" [(ngModel)]="isColumnFilter3"
+                                        class="k-checkbox" name="columnfilter" />
+                                      <label class="k-checkbox-label"
+                                        for="opti_SalesOrderListColumnFilterID3">{{language.enable_filter}}</label>
+                                    </div>
+                                  </form>
+                                  <span class="ml-auto d-flex align-items-center flex-wrap">
+                                    <button type="button" kendoGridPDFCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export to PDF">
+                                      <i class="optipro-icon-pdf-file"></i><span>Export to PDF</span>
+                                    </button>
+                                    <button type="button" kendoGridExcelCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export To Excel">
+                                      <i class="optipro-icon-xls-file"></i><span>Export To Excel</span>
+                                    </button>
+                                  </span>
+                                </div>
                               </ng-template>
-                              <kendo-grid-pdf fileName="MaterialGrid.pdf">
-                              </kendo-grid-pdf>
+                              
+                              <kendo-grid-pdf fileName="MaterialGrid.pdf"></kendo-grid-pdf>
                               <kendo-grid-excel fileName="MaterialGrid.xlsx"></kendo-grid-excel>
-
-                              <ng-template kendoGridToolbarTemplate>
-                                <form
-                                  class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
-                                  <div class="k-form-field d-flex">
-                                    <input #chkFilter3 type="checkbox"
-                                      (change)="onFilterChange(chkFilter3,gridMaterial)"
-                                      id="opti_SalesOrderListColumnFilterID3" [(ngModel)]="isColumnFilter3"
-                                      class="k-checkbox" name="columnfilter" />
-                                    <label class="k-checkbox-label"
-                                      for="opti_SalesOrderListColumnFilterID3">{{language.enable_filter}}</label>
-                                  </div>
-                                </form>
-                              </ng-template>
-
                               <kendo-grid-checkbox-column *ngIf="showSelection==true" title="{{language.select}}"
                                 [width]="25">
                                 <ng-template kendoGridCellTemplate let-idx='rowIndex' let-di='dataItem'>
