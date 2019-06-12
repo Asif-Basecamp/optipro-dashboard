@@ -1660,9 +1660,6 @@ col.k-sorted,th.k-sorted {
   color: #fff;
   background-color:  nb-theme(color-primary);
 }
-.k-dateinput-wrap .k-input, .k-dropdown-wrap .k-input, .k-picker-wrap .k-input, .k-numeric-wrap .k-input {
-  width: 100%;
-}
 .k-dateinput-wrap .k-input{
   border:1px solid #dadfe6;
   border-right:none;
@@ -1672,7 +1669,8 @@ col.k-sorted,th.k-sorted {
     border-color: nb-theme(color-primary);
   }
 }
-.k-autocomplete .k-input, .k-dateinput-wrap .k-input, .k-dropdown-wrap .k-input, .k-picker-wrap .k-input, .k-multiselect-wrap .k-input, .k-numeric-wrap .k-input {
+.k-picker-wrap .k-input {
+  width: 100%;
   padding: 4px 4px;
   height: 26px;
   box-sizing: border-box;
@@ -1690,6 +1688,21 @@ col.k-sorted,th.k-sorted {
 .k-state-disabled .k-dateinput-wrap, 
 .k-state-disabled .k-select{
   opacity: 0.5;
+}
+.k-grid-pdf, .k-grid-excel{
+  color: nb-theme(color-fg-heading) !important;
+  font-size: 17px !important;
+  border: 1px solid #d5dbe0 !important;
+  padding: 3px 5px !important;
+  &>span{
+    font-size: 11px;
+    text-transform: none;
+    margin-left: 5px;
+  }
+  &:hover, &:focus, &:active{
+    color: nb-theme(color-primary) !important;
+    border-color: nb-theme(color-primary) !important;
+  }
 }
 //orgchart css
 .orgchart {
