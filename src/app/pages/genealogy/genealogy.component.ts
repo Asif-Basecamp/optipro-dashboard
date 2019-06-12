@@ -240,8 +240,7 @@ export class GenealogyComponent implements OnInit {
      data => {
       let DistNum = '';
       let LotFromCode = [];
-       DistNum = this.DistNumFrom.trim();  
- 
+      DistNum = this.DistNumFrom.trim();  
        if(DistNum){
          for(var i in data){
            if(DistNum == data[i].DistNumber){
@@ -257,6 +256,8 @@ export class GenealogyComponent implements OnInit {
           this.LotFromStatus = false;
        }
      });
+   }else{
+    this.LotFromStatus = false;
    }  
  }
 
@@ -284,7 +285,9 @@ export class GenealogyComponent implements OnInit {
          this.LotToStatus = false;
       }
     });
-   }
+   }else{
+    this.LotToStatus = false;
+   }  
   }
 
  /*-- open Lot From lookup on click --*/ 
