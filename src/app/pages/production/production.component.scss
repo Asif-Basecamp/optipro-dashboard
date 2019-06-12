@@ -7,7 +7,7 @@
         height:100%;
         & > nb-card-header{
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             & > span{
                 &:first-of-type{
                     line-height: 1px;
@@ -101,11 +101,9 @@
                 }
             }
         }
-        // & .grid-accordian{
-        //     & > nb-card{
-        //         margin-bottom: 5px;
-        //     }
-        // }
+        & .grid-accordian{
+            margin-bottom: 0;
+        }
         &.grid-accordian-open{
             & .grid-accordian.expanded {
                 max-height:100%;
