@@ -207,7 +207,7 @@ export class LookupComponent implements OnInit {
   showOnOrderLookup() {
     this.table_head = [
       {
-        field: 'OPTM_BTCHSERNO',
+        field: 'DOCNUM',
         title: 'PO#',
         type: 'text',
         width: '100'

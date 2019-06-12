@@ -93,7 +93,10 @@ export interface TreeNode {
    public value: Date = new Date();
    public hour: any;
    public myVar: any;
-
+   public RadioBtnInventShort: any = 'Warehouse';
+   public WHInventShort: boolean = false;
+   public CmpInventShort: boolean = false;
+   
   constructor(private intl: IntlService, private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
     { value: 'SIMPLE', label: 'Simple View' },
@@ -179,17 +182,17 @@ export interface TreeNode {
     })
  }
 
- showDetailsInStockLookup(data,check){
+ showDetailsInStockLookup(Inputdata,check,allGrid){
    let ItemType = '';
-   if(data.ISSERIALTRACKED == 'Y'){
+   if(Inputdata.ISSERIALTRACKED == 'Y'){
      ItemType = 'serial';
    }
-   else if(data.ISBATCHTRACKED == 'Y'){
+   else if(Inputdata.ISBATCHTRACKED == 'Y'){
      ItemType = 'batch';
    }
 
    if(check == 'WH'){
-     this.prod.GetWarehouseWiseInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID, data.U_O_ISSWH,ItemType).subscribe(
+     this.prod.GetWarehouseWiseInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, Inputdata.U_O_COMPID, Inputdata.U_O_ISSWH,ItemType).subscribe(
        data => {
           if(data != undefined && data != null){
            if(data.length > 0){
@@ -211,7 +214,14 @@ export interface TreeNode {
       })
    }
    else  if(check == 'CP'){
-     this.prod.GetInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID,ItemType).subscribe(
+
+    let itemCode = '';
+    if(allGrid == true)
+    itemCode = Inputdata.ItemCode;
+     else
+    itemCode = Inputdata.U_O_COMPID;
+
+     this.prod.GetInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemCode, ItemType).subscribe(
        data => {         
          if(data != undefined && data != null){
            if(data.length > 0){
@@ -289,10 +299,10 @@ export interface TreeNode {
      })
     }
 
- showDetailsOnOrderLookup(data,check){
+ showDetailsOnOrderLookup(Inputdata,check,allGrid){
    if(check == 'WH'){
      
-     this.prod.GetWarehouseWiseOnOrderQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID, data.U_O_ISSWH).subscribe(
+     this.prod.GetWarehouseWiseOnOrderQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, Inputdata.U_O_COMPID, Inputdata.U_O_ISSWH).subscribe(
        data => {
         if(data != undefined && data != null){
           if(data.length > 0){
@@ -315,7 +325,13 @@ export interface TreeNode {
 
    }
    else if(check == 'CP'){
-     this.prod.GetOnOrderQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_COMPID).subscribe(
+     let itemCode = '';
+     if(allGrid == true)
+     itemCode = Inputdata.ItemCode;
+      else
+     itemCode = Inputdata.U_O_COMPID;
+
+     this.prod.GetOnOrderQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemCode).subscribe(
        data => {
         if(data != undefined && data != null){
           if(data.length > 0){
@@ -476,6 +492,7 @@ export interface TreeNode {
               else
               this.showgridMaterialPage = false;             
             } 
+
             this.loading = false;         
             
         },
@@ -540,6 +557,8 @@ export interface TreeNode {
   }
 
    GetExplosionData() {
+    this.hour = '';
+    this.countdown(this.hour); 
     let gridItemSelect = [];
     this.GridViewSelected = (e: RowArgs) => gridItemSelect.indexOf(e.dataItem.Code) >=0 ;
     
@@ -683,16 +702,20 @@ export interface TreeNode {
  }
 
 countdown(endDate) {
-    let hours, minutes, seconds;
-    clearInterval(this.myVar);
-    endDate = new Date(endDate).getTime();
-    
-    if (isNaN(endDate)) {
-    return;
-    }
-
-  this.myVar = setInterval(calculate, 1000);
+  if(endDate == ''){
+    document.getElementById("hours").innerHTML = '';
+    document.getElementById("minutes").innerHTML = '';
+    document.getElementById("seconds").innerHTML = '';
+  }
+  let hours, minutes, seconds;
+  clearInterval(this.myVar);
+  endDate = new Date(endDate).getTime();
   
+  if (isNaN(endDate)) {
+  return;
+  }
+
+  this.myVar = setInterval(calculate, 1000); 
   function calculate() {
     let startDate = new Date().getTime();
     // @ts-ignore
@@ -713,9 +736,9 @@ countdown(endDate) {
       timeRemaining = (timeRemaining % 60);
       // @ts-ignore
       let seconds = parseInt(timeRemaining);
-      document.getElementById("hours").innerHTML = ("0" + hours).slice(-2);
-      document.getElementById("minutes").innerHTML = ("0" + minutes).slice(-2);
-      document.getElementById("seconds").innerHTML = ("0" + seconds).slice(-2); 
+      document.getElementById("hours").innerHTML = ("0" + hours).slice(-2)+":";
+      document.getElementById("minutes").innerHTML = ("0" + minutes).slice(-2)+":";
+      document.getElementById("seconds").innerHTML = ("0" + seconds).slice(-2);
     }
   }
 } 
@@ -763,6 +786,16 @@ getMaterialRadioClick(evt){
   }  
  }
 
+ getInventshortRadioClick(){
+  if(this.RadioBtnInventShort == 'Warehouse'){
+    this.WHInventShort = true;
+    this.CmpInventShort = false;
+  }
+  else if(this.RadioBtnInventShort == 'Company'){
+    this.CmpInventShort = true;
+    this.WHInventShort = false;
+  }
+ }
 
 }
 
