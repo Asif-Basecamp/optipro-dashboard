@@ -251,6 +251,7 @@
 <div class="dashboard-right">
   <div class="custom-accordian analysis-accordian-open grid-accordian-open" id="custom-accordian">
     <as-split direction="vertical" restrictMove="true" gutterSize="1">
+
       <as-split-area class="grid-accordian expanded" size="1" minSize="10px" id="grid-accordian"  [hidden]="!gridViewShow">
         <nb-card accent="primary" size="xsmall" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="xlarge" nbSpinnerMessage="{{language.please_wait}}">
           <nb-card-header class="border-bottom d-flex" id="grid-accordian-trigger">
@@ -284,7 +285,7 @@
                 </div>
               </as-split-area>
               <as-split-area size="75" minSize="25" [hidden]="!transactionViewShow">
-                <div class="p-2 overflow-auto h-100 d-flex flex-column">
+                <div class="p-2 overflow-auto h-100 d-flex flex-column" >
                   <div class="clearfix mb-2">
                     <div class="col-12 p-0">
                       <nb-radio-group class="d-flex flex-wrap" [(ngModel)]="radioTransaction" name="radioTransaction" (valueChange)="getTransactionRadioClick($event)" >
@@ -325,16 +326,20 @@
                   </nb-card>
                 </div>
               </as-split-area>
+                 
+              <div *ngIf="!transactionViewShow && gridViewShow">
+                  <p>TranSaction Image</p>
+              </div>
             </as-split>
           </nb-card-body>
         </nb-card>
       </as-split-area>
+
       <as-split-area size="50" minSize="1" class="analysis-accordian expanded" id="analysis-accordian" [hidden]="!analysisViewShow">
         <nb-card accent="primary" size="xsmall" [nbSpinner]="Analysisloading" nbSpinnerStatus="primary" nbSpinnerSize="xlarge" nbSpinnerMessage="{{language.please_wait}}">
           <nb-card-header class="border-bottom d-flex" id="analysis-accordian-trigger">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" class="mr-2" fill="#2a2a2a"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"></rect><path d="M3.24 7.29l8.52 4.63a.51.51 0 0 0 .48 0l8.52-4.63a.44.44 0 0 0-.05-.81L12.19 3a.5.5 0 0 0-.38 0L3.29 6.48a.44.44 0 0 0-.05.81z"></path><path d="M20.71 10.66l-1.83-.78-6.64 3.61a.51.51 0 0 1-.48 0L5.12 9.88l-1.83.78a.48.48 0 0 0 0 .85l8.52 4.9a.46.46 0 0 0 .48 0l8.52-4.9a.48.48 0 0 0-.1-.85z"></path><path d="M20.71 15.1l-1.56-.68-6.91 3.76a.51.51 0 0 1-.48 0l-6.91-3.76-1.56.68a.49.49 0 0 0 0 .87l8.52 5a.51.51 0 0 0 .48 0l8.52-5a.49.49 0 0 0-.1-.87z"></path></svg>
             <span>{{language.analysis_view}}</span>
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" class="eva-arrow-ios-downward ml-auto cursor-pointer"fill="#2a2a2a"><rect width="24" height="24" opacity="0"></rect><path d="M12 16a1 1 0 0 1-.64-.23l-6-5a1 1 0 1 1 1.28-1.54L12 13.71l5.36-4.32a1 1 0 0 1 1.41.15 1 1 0 0 1-.14 1.46l-6 4.83A1 1 0 0 1 12 16z"></path></svg> -->
           </nb-card-header>
           <nb-card-body id="analysis-accordian-body" class="p-0">
             <div id="chart-container" class="overflow-auto h-100 w-100 d-flex position-relative"></div>
@@ -461,6 +466,14 @@
           </nb-card-body>
         </nb-card>
       </as-split-area>
+
+      <div *ngIf="!analysisViewShow && transactionViewShow">
+          <p>Analysis Image</p>
+      </div>
+
+      <div *ngIf="!gridViewShow">
+        <p>Full width Image for grid view</p>
+      </div>
     </as-split> 
   </div>
 </div>

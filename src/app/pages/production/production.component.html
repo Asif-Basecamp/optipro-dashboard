@@ -111,8 +111,6 @@
             <input type="checkbox" class="k-checkbox" id="autorefreshTime" name="autorefreshTime"
               [(ngModel)]="refreshCheck" (click)="refreshEvent($event)" />
             <label class="k-checkbox-label d-flex align-items-center" for="autorefreshTime">Auto refresh time
-              <!-- <input type="number" min="0" name="Hour" [(ngModel)]="hour" id="Hour" fieldSize="small" nbInput class="form-control w-auto text-center" style="padding: 0 2px;max-width: 35px;height: 20px;margin: 0 5px;" [disabled]="!refreshStatus">Hour
-                <input type="number" min="0" name="customTime" [(ngModel)]="time" id="customTime" fieldSize="small" nbInput class="form-control w-auto text-center" style="padding: 0 2px;max-width: 35px;height: 20px;margin: 0 5px;" [disabled]="!refreshStatus">Minute-->
               <kendo-timepicker class="ml-2" [disabled]="!refreshStatus" [(value)]="value"></kendo-timepicker>
             </label>
           </div>
@@ -930,26 +928,15 @@
       </nb-card>
     </div>
 
-<<<<<<< HEAD
- 
-  <nb-card class="h-100 w-100 overflow-hidden mb-0" *ngIf="!gridViewData" accent="primary" size="xsmall" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="xlarge"
-  nbSpinnerMessage="Please Wait">
-    <div class="default-page-bg">
-      <div class="text-center opti-logo">
-        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-          x="0px" y="0px" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">
-          <path
-            d="M53,41.069V29H31V19h7V3H22v16h7v10H7v12.069C3.06,41.564,0,44.928,0,49c0,4.411,3.589,8,8,8s8-3.589,8-8
-=======
 
-    <nb-card class="h-100 w-100 overflow-hidden mb-0" *ngIf="!gridViewData">
+    <nb-card class="h-100 w-100 overflow-hidden mb-0" *ngIf="!gridViewData" accent="primary" size="xsmall" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="xlarge"
+    nbSpinnerMessage="Please Wait">
       <div class="default-page-bg">
         <div class="text-center opti-logo">
           <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
             x="0px" y="0px" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">
             <path
               d="M53,41.069V29H31V19h7V3H22v16h7v10H7v12.069C3.06,41.564,0,44.928,0,49c0,4.411,3.589,8,8,8s8-3.589,8-8
->>>>>>> aee84b5af2e92a8c644389525904c2cdcfb89053
             c0-4.072-3.06-7.436-7-7.931V31h20v10.069c-3.94,0.495-7,3.859-7,7.931c0,4.411,3.589,8,8,8s8-3.589,8-8c0-4.072-3.06-7.436-7-7.931
             V31h20v10.069c-3.94,0.495-7,3.859-7,7.931c0,4.411,3.589,8,8,8s8-3.589,8-8C60,44.928,56.94,41.564,53,41.069z" />
           </svg>
