@@ -540,6 +540,8 @@ export interface TreeNode {
   }
 
    GetExplosionData() {
+    this.hour = '';
+    this.countdown(this.hour); 
     let gridItemSelect = [];
     this.GridViewSelected = (e: RowArgs) => gridItemSelect.indexOf(e.dataItem.Code) >=0 ;
     
@@ -683,13 +685,18 @@ export interface TreeNode {
  }
 
 countdown(endDate) {
-    let hours, minutes, seconds;
-    clearInterval(this.myVar);
-    endDate = new Date(endDate).getTime();
-    
-    if (isNaN(endDate)) {
-    return;
-    }
+  if(endDate == ''){
+    document.getElementById("hours").innerHTML = '';
+    document.getElementById("minutes").innerHTML = '';
+    document.getElementById("seconds").innerHTML = '';
+  }
+  let hours, minutes, seconds;
+  clearInterval(this.myVar);
+  endDate = new Date(endDate).getTime();
+  
+  if (isNaN(endDate)) {
+  return;
+  }
 
   this.myVar = setInterval(calculate, 1000); 
   function calculate() {
