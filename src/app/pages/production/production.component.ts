@@ -281,20 +281,31 @@ export interface TreeNode {
     this.prod.GetWorkOrderFG(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemName, this.RadioBtnWO, this.checkedList.toString(), this.FromDate, this.ToDate).subscribe(
       data => {
           if(!data){
-            this.loading = false;
+              this.gridMaterial = [];
+              this.gridOperation = [];
+              this.gridResource = [];
            }else{
-            this.loading = false;
             this.gridWOFG = data; 
             if(this.gridWOFG.length > 10)
             this.showgridWOPage = true;
             else
             this.showgridWOPage = false;
+
+            if(this.gridWOFG.length > 0){
             this.getMaterials(this.gridWOFG[0].DocEntry,this.gridWOFG[0].U_O_PRODID);
             this.getOperations(this.gridWOFG[0].DocEntry);
             this.getResources(this.gridWOFG[0].DocEntry);
-           }
+            }
+            else{
+              this.gridMaterial = [];
+              this.gridOperation = [];
+              this.gridResource = [];
+            }
+          }
+         this.loading = false;
       },
       error => {
+        this.loading = false;
         this.toastrService.danger(this.language.no_record_found);    
      })
     }
@@ -503,7 +514,7 @@ export interface TreeNode {
    }
 
    getOperations(DocEntry){
-      this.loading = true; 
+      this.loading = true;
       this.prod.GetOperationData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, DocEntry).subscribe(
         data => {
             this.gridOperation = data; 

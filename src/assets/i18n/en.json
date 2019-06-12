@@ -142,10 +142,7 @@
     "work_center_code": "Work Center Code",
     "resources": "Resources",
     "material": "Material",
-    "operations": "Operations"
-
-
-
-
-
+    "operations": "Operations",
+    "vendor_lot_from": "Vendor Lot From",
+    "vendor_lot_to": "Vendor Lot To"
  }

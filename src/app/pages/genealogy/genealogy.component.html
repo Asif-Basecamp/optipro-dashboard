@@ -74,7 +74,7 @@
 
             <div class="form-group">
               <label for="inputPassword3" class="form-label" *ngIf="!vendor">{{language.lot_from}}</label>
-              <label for="inputPassword3" class="form-label" *ngIf="vendor">{{language.lot_from}}</label>
+              <label for="inputPassword3" class="form-label" *ngIf="vendor">{{language.vendor_lot_from}}</label>
               <div class="w-100">
                 <div class="input-group">
                   <input fieldSize="small" nbInput type="text" class="form-control" placeholder="{{language.select_lot_from}}"
@@ -89,7 +89,8 @@
             </div>
             
             <div class="form-group">
-              <label for="inputPassword3" class="form-label">{{language.lot_to}}</label>
+              <label for="inputPassword3" class="form-label" *ngIf="!vendor">{{language.lot_to}}</label>
+              <label for="inputPassword3" class="form-label" *ngIf="vendor">{{language.vendor_lot_to}}</label>
               <div class="w-100">
                 <div class="input-group">
                   <input fieldSize="small"  nbInput type="text" class="form-control" placeholder="{{language.select_lot_to}}"
