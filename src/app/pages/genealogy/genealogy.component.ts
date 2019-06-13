@@ -205,6 +205,10 @@ export class GenealogyComponent implements OnInit {
 
  openWarehouseLookup(dialog: TemplateRef<any>){
    let warehouse = [];
+   if(this.isColumnFilter == true){
+    this.isColumnFilter = !this.isColumnFilter;
+   }
+   this.clearFilters();
    if(this.DfltWarehouse){
      warehouse.push(this.DfltWarehouse);
      this.wareHouseSelected = (e: RowArgs) => warehouse.indexOf(e.dataItem.WhsCode) >=0 ;
@@ -305,6 +309,10 @@ export class GenealogyComponent implements OnInit {
 
  openLotFromLookup(dialog: TemplateRef < any > ) {
    let LotFromSelect = [];
+   if(this.isColumnFilter == true){
+    this.isColumnFilter = !this.isColumnFilter;
+   }
+   this.clearFilters();
    if(this.DistNumFrom){
      LotFromSelect.push(this.DistNumFrom);
      this.lotSelected = (e: RowArgs) => LotFromSelect.indexOf(e.dataItem.DistNumber) >=0 ;
@@ -331,6 +339,10 @@ export class GenealogyComponent implements OnInit {
 
  openLotToLookup(dialog: TemplateRef < any > ) {
    let LotToSelect = [];
+   if(this.isColumnFilter == true){
+    this.isColumnFilter = !this.isColumnFilter;
+   }
+   this.clearFilters();
    if(this.DistNumTo){
      LotToSelect.push(this.DistNumTo);
      this.lotSelected = (e: RowArgs) => LotToSelect.indexOf(e.dataItem.DistNumber) >=0 ;

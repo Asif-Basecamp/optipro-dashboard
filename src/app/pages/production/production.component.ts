@@ -96,6 +96,7 @@ export interface TreeNode {
    public RadioBtnInventShort: any = 'Warehouse';
    public WHInventShort: boolean = false;
    public CmpInventShort: boolean = false;
+   isColumnFilter1 = true;
    
   constructor(private intl: IntlService, private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
@@ -368,6 +369,10 @@ export interface TreeNode {
 
   openItemFromLookup(dialog: TemplateRef<any>){ 
     let itemFromSelect = [];
+    if(this.isColumnFilter1 == true){
+      this.isColumnFilter1 = !this.isColumnFilter1;
+    }
+     this.clearFilters();
     if(this.ItemCodeFrom){
       itemFromSelect.push(this.ItemCodeFrom);
       this.ItemCodeSelected = (e: RowArgs) => itemFromSelect.indexOf(e.dataItem.ItemCode) >=0 ;
@@ -405,6 +410,10 @@ export interface TreeNode {
 
  openItemToLookup(dialog: TemplateRef<any>){
   let itemToSelect = [];
+  if(this.isColumnFilter1 == true){
+    this.isColumnFilter1 = !this.isColumnFilter1;
+  }
+   this.clearFilters();
   if(this.ItemCodeTo){
     itemToSelect.push(this.ItemCodeTo);
     this.ItemCodeSelected = (e: RowArgs) => itemToSelect.indexOf(e.dataItem.ItemCode) >=0 ;
