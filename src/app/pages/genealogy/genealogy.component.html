@@ -202,7 +202,7 @@
 </div>
 
 <div class="dashboard-right">
-  <div class="custom-accordian analysis-accordian-open grid-accordian-open" id="custom-accordian">
+  <div class="custom-accordian analysis-accordian-open grid-accordian-open " [ngClass]="{'default-screen':!gridViewShow}" id="custom-accordian">
     <as-split direction="vertical" restrictMove="true" gutterSize="1">
 
       <as-split-area class="grid-accordian expanded" size="1" minSize="10px" id="grid-accordian"  [hidden]="!gridViewShow">
@@ -405,8 +405,8 @@
                     <span class="color-type">Production Order</span>
                   </li>
                   <li>
-                    <span class="color-code IssueForProduction"></span>
-                    <span class="color-type">Issue for Production</span>
+                    <span class="color-code IssueFromProduction"></span>
+                    <span class="color-type">Issue from Production</span>
                   </li>
                   <li>
                     <span class="color-code ReceiptFromProduction"></span>
