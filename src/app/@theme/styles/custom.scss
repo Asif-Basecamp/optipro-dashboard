@@ -1844,6 +1844,9 @@ col.k-sorted,th.k-sorted {
     border: 2px dashed transparent;
     text-align: center;
     width: 130px;
+    transition: all 0.1s;   
+    top: 0;
+    left: 0;
   }
   
   .orgchart.l2r .node {
