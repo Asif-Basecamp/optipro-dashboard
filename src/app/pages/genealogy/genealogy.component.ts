@@ -76,6 +76,7 @@ export class GenealogyComponent implements OnInit {
  public gridViewShow: boolean = false;
  public analysisViewShow: boolean = false;
  public transactionViewShow: boolean = false;
+ public showValidation: boolean = false;
 
  constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
 
@@ -139,6 +140,9 @@ export class GenealogyComponent implements OnInit {
 
  onItemCodeBlur(){
    let item = this.ItemValue;
+   if(this.DfltWarehouse){
+      this.showValidation = true;
+   }
    let itemCode = [];
    if(item){
     if(this.vendor){
@@ -214,6 +218,7 @@ export class GenealogyComponent implements OnInit {
 
  onWarehouseBlur(){
    let warehouse = this.DfltWarehouse;
+   this.showValidation = false;
    let warehouseCode = [];
    if(warehouse){
      for(var i in this.WarehouseData){
@@ -446,6 +451,7 @@ export class GenealogyComponent implements OnInit {
    this.DistNumFrom = '';
    this.DistNumTo = '';
    this.DfltWarehouse = '';
+   this.showValidation = true;
    if (evt.selectedRows[0].dataItem.ManBtchNum == 'Y') {
     this.trackName = 'Batch'
    } else {

@@ -68,8 +68,8 @@
                   </div>
                 </div>
               </div>
-              <small id="emalHelp" class="form-text text-muted text-right opti_error-msg" *ngIf="Whse.errors?.required && !WarehouseStatus && Whse.touched">{{language.warehouse_code_req}}</small>
-              <small id="emailHelp" class="form-text text-muted text-right opti_error-msg" *ngIf="WarehouseStatus && Whse.touched">{{language.correct_warehouse_code}}</small>
+              <small id="emalHelp" class="form-text text-muted text-right opti_error-msg" *ngIf="Whse.errors?.required && !WarehouseStatus && Whse.touched && !showValidation">{{language.warehouse_code_req}}</small>
+              <small id="emailHelp" class="form-text text-muted text-right opti_error-msg" *ngIf="WarehouseStatus && Whse.touched && !showValidation">{{language.correct_warehouse_code}}</small>
             </div>
 
             <div class="form-group">
