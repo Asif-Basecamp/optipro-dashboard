@@ -136,19 +136,19 @@
       </nb-card-header>
       <nb-card-body>
         <div *ngIf="Item">
-          <kendo-grid [data]="gridData" [filterable]=isColumnFilter [groupable]=isColumnGroup [selectable]="true" [rowSelected]=" " [sort]="state.sort"
+          <kendo-grid [kendoGridBinding]="gridData" [filterable]=isColumnFilter [groupable]=isColumnGroup [selectable]="true" [rowSelected]="isItemCodeSelected" [sort]="state.sort"
           [filter]="state.filter" [resizable]="true" (selectionChange)="gridRowSelectionChange($event, ref)" [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
             <ng-template kendoGridToolbarTemplate>
                 <form class="k-form opti_show-hide-grid-column-filter float-left opti_hide-in-mobile pl-0 pt-0">
                     <div class="k-form-field d-flex">
-                        <input #chkFilter  type="checkbox" (change)="onFilterChange(chkFilter,gridItem)" id="opti_SalesOrderListColumnFilterID"
-                            [(ngModel)]="isColumnFilter" class="k-checkbox" name="columnfilter" />
+                        <input #chkFilter  type="checkbox" (change)="onFilterChange(chkFilter,gridData)" id="opti_SalesOrderListColumnFilterID"
+                            [(ngModel)]="isColumnFilter" class="k-checkbox" name="columnfilter"/>
                         <label class="k-checkbox-label" for="opti_SalesOrderListColumnFilterID">{{language.enable_filter}}</label>
                     </div>
                 </form>
 
             </ng-template>
-            <kendo-grid-checkbox-column *ngIf="showSelection==true" title="Select" [width]="25">
+            <!--<kendo-grid-checkbox-column *ngIf="showSelection==true" title="Select" [width]="25">
                 <ng-template  kendoGridCellTemplate let-idx='rowIndex' let-di='dataItem'>
                     <div class="k-form-field d-flex center-checkbox">
                         <input #chkSelection type="checkbox" [disabled]='di.OldData' [checked]='di.OldData' (change)="onCheckboxClick(chkSelection.checked,idx)" id="chkbox-{{idx}}" class="k-checkbox"
@@ -157,7 +157,7 @@
                         <label class="k-checkbox-label" for="chkbox-{{idx}}"></label>
                     </div>
                 </ng-template>
-            </kendo-grid-checkbox-column>
+            </kendo-grid-checkbox-column>-->
 
             <kendo-grid-column field="ItemCode" title="{{language.item_code}}" width="80">
             </kendo-grid-column>
@@ -262,8 +262,9 @@
             <as-split direction="horizontal" restrictMove="true" gutterSize="1">
               <as-split-area size="25" minSize="15">
                 <div class="overflow-auto h-100 px-2">
-                  <div class="tree-wrapper pt-3">  
-                    <tree-root id="tree2" [focused]="true" [nodes]="nodes2" (click)="clickTransaction($event)">
+                  <div class="tree-wrapper pt-3">
+
+                   <!--<tree-root id="tree2" [focused]="true" [nodes]="nodes2" (click)="clickTransaction($event)">
                       <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
                         <div class="tree-node">
                           <tree-node-expander [node]="node"></tree-node-expander>
@@ -280,7 +281,21 @@
                           <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
                         </div>
                       </ng-template>
-                    </tree-root>                        
+                    </tree-root>-->
+
+                    <tree-root [nodes]="nodes2" id="tree2" [focused]="true" [nodes]="nodes2" (click)="clickTransaction($event)">
+                      <ng-template #treeNodeTemplate let-node let-index="index">
+                          <div class="tree-node">
+                          <div class="node-content-wrapper" *ngIf="explodeDirection == 'DOWN'">
+                            <span>{{node.data.OPTM_ITEMCODE}} > {{node.data.OPTM_BTCHSERNO }}</span>
+                          </div>
+                          <div class="node-content-wrapper" *ngIf="explodeDirection == 'UP'">
+                            <span>{{node.data.OPTM_ITEMCODE}} > {{node.data.OPTM_PARENTBTCHSERNO }}</span>
+                          </div>
+                          </div>
+                      </ng-template>
+                    </tree-root>
+
                   </div>
                 </div>
               </as-split-area>
@@ -302,22 +317,16 @@
                   <nb-card class="mb-0 no-shadow-card flex-100 card-min-85">
                     <nb-card-header>{{language.transaction_type}}</nb-card-header>
                     <nb-card-body class="p-2">
+                      
                       <tree-root id="tree2" [focused]="true" [nodes]="nodes1" (click)="clickTransactionDetails($event)">
-                        <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
+                        <ng-template #treeNodeTemplate let-node let-index="index">
                           <div class="tree-node">
-                            <tree-node-expander [node]="node"></tree-node-expander>
-                              <div class="node-content-wrapper" *ngIf="node.data.ObjectTypeDesc == null" [class.node-content-wrapper-active]="isActive"
-                              [class.node-content-wrapper-focused]="node.isFocused"
-                              (click)="node.toggleActivated(true)">
+                              <div class="node-content-wrapper" *ngIf="node.data.ObjectTypeDesc == null">
                                 <span>{{node.data.ItemCode}} > {{node.data.DistNumber}}</span>
                               </div>
-    
-                              <div class="node-content-wrapper"  *ngIf="node.data.ObjectTypeDesc != null" [class.node-content-wrapper-active]="isActive"
-                              [class.node-content-wrapper-focused]="node.isFocused"
-                              (click)="node.toggleActivated(true)">
+                              <div class="node-content-wrapper" *ngIf="node.data.ObjectTypeDesc != null">
                                 <span>({{node.data.DistNumber}}) Doc Entry:{{node.data.DocEntry}} > {{node.data.ObjectTypeDesc}}</span>
                               </div>
-                            <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
                           </div>
                         </ng-template>
                       </tree-root>

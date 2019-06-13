@@ -77,6 +77,7 @@ export class GenealogyComponent implements OnInit {
  public analysisViewShow: boolean = false;
  public transactionViewShow: boolean = false;
  public showValidation: boolean = false;
+ isColumnFilter = true;
 
  constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
 
@@ -105,7 +106,7 @@ export class GenealogyComponent implements OnInit {
  }
 
  setParamItemLookup(gridData,dialog){
-  this.Item = true;
+       this.Item = true;
        this.whse = false;
        this.LotTo = false;
        this.LotFrom = false;
@@ -113,9 +114,14 @@ export class GenealogyComponent implements OnInit {
        this.gridData = gridData;
        this.dialogService.open(dialog);
  } 
+ 
 
  openItemLookup(dialog: TemplateRef<any>){
    let select = [];
+   if(this.isColumnFilter == true){
+    this.isColumnFilter = !this.isColumnFilter;
+   }
+   this.clearFilters();
    if(this.ItemValue){
      select.push(this.ItemValue);
      this.isItemCodeSelected = (e: RowArgs) => select.indexOf(e.dataItem.ItemCode) >=0 ;
@@ -333,7 +339,6 @@ export class GenealogyComponent implements OnInit {
    } 
   this.dash.GetLotNumber(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.trackName).subscribe(
    data => {
-    this.gridData = data;
     this.gridData = data;
     this.Item = false;
     this.whse = false;
@@ -854,13 +859,11 @@ export class GenealogyComponent implements OnInit {
  }
 
  onFilterChange(checkBox: any, grid: GridComponent) {
-   if (checkBox.checked == false) {
-     this.clearFilter(grid);
+    if(checkBox.checked == false) {
+     this.clearFilters();
    }
  }
- clearFilter(grid: GridComponent) {
-   this.clearFilters()
- }
+
  public state: State = {
    skip: 0,
    take: 5,
@@ -869,43 +872,16 @@ export class GenealogyComponent implements OnInit {
    filter: {
      logic: 'and',
      filters: []
-   }
+   },
  };
- public clearFilters() {
+
+ clearFilters() {
    this.state.filter = {
      logic: 'and',
      filters: []
    };
  }
- //Custom accordian function
-//  customAccordianGrid(e) {
-//   if (document.getElementById("grid-accordian").classList.contains('expanded')) {
-//    this.hideAcordian(e);
-//    document.getElementById("custom-accordian").classList.remove('grid-accordian-open');
-//   } else {
-//    this.expandAcordian(e);
-//    document.getElementById("custom-accordian").classList.add('grid-accordian-open');
-//   }
-//  }
-//  customAccordianAnalysis(e) {
-//   if (document.getElementById("analysis-accordian").classList.contains('expanded')) {
-//    this.hideAcordian(e);
-//    document.getElementById("custom-accordian").classList.remove('analysis-accordian-open');
-//   } else {
-//    this.expandAcordian(e);
-//    document.getElementById("custom-accordian").classList.add('analysis-accordian-open');
-//   }
-//  }
-//  hideAcordian(e: any) {
-//   e.currentTarget.parentElement.parentElement.classList.remove('expanded')
-//   e.currentTarget.nextSibling.style.height = '0';
-//   e.currentTarget.nextSibling.style.display = 'none';
-//  }
-//  expandAcordian(e: any) {
-//   e.currentTarget.parentElement.parentElement.classList.add('expanded')
-//   e.currentTarget.nextSibling.style.height = '100%';
-//   e.currentTarget.nextSibling.style.display = 'flex';
-//  }
+ 
  toggleNodeClass(e: any){
    e.currentTarget.classList.toggle("shrink");    
  }
