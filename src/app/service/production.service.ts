@@ -132,4 +132,13 @@ GetInStockQtyDetails(optiProDashboardAPIURL:string,CompanyDBID:string,ItemCode:s
 return this.httpClient.post(optiProDashboardAPIURL +"ProductionDashboard/GetInStockQtyDetails",jObject,this.httpOptions);
 }
 
+GetCommittedQtyDetails(optiProDashboardAPIURL:string,CompanyDBID:string,ItemCode:string):Observable<any>{
+  let jObject:any={ GetData: JSON.stringify([{ 
+    CompanyDBID: CompanyDBID,
+    ItemCode: ItemCode
+      
+}]) };
+return this.httpClient.post(optiProDashboardAPIURL +"ProductionDashboard/GetCommittedQtyDetails",jObject,this.httpOptions);
+}
+
 }
