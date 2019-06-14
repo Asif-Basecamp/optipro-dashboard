@@ -7,7 +7,7 @@ import { ProductionService } from 'src/app/service/production.service';
 import {NbToastrService} from '@nebular/theme';
 import { CountdownComponent } from 'ngx-countdown';
 import { RowArgs } from '@progress/kendo-angular-grid';
-import { IntlService } from '@progress/kendo-angular-intl';
+import { DatePipe } from '@angular/common';
 
 export interface TreeNode {
  label?: string;
@@ -98,7 +98,7 @@ export interface TreeNode {
    public CmpInventShort: boolean = false;
    isColumnFilter1 = true;
    
-  constructor(private intl: IntlService, private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
+  constructor(private datePipe: DatePipe, private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
     { value: 'SIMPLE', label: 'Simple View' },
     { value: 'Multi', label: 'Detailed View' },
@@ -577,8 +577,12 @@ export interface TreeNode {
   }
 
    GetExplosionData() {
-    this.hour = '';
-    this.countdown(this.hour); 
+    document.getElementById("hours").innerHTML = '';
+    document.getElementById("minutes").innerHTML = '';
+    document.getElementById("seconds").innerHTML = '';
+    if(this.myVar){
+      clearInterval(this.myVar);
+    }
     let gridItemSelect = [];
     this.GridViewSelected = (e: RowArgs) => gridItemSelect.indexOf(e.dataItem.Code) >=0 ;
     
@@ -701,54 +705,36 @@ export interface TreeNode {
  }
 
 countdown(endDate) {
-  if(endDate == ''){
-    document.getElementById("hours").innerHTML = '';
-    document.getElementById("minutes").innerHTML = '';
-    document.getElementById("seconds").innerHTML = '';
-  }
-  let hours, minutes, seconds;
-  clearInterval(this.myVar);
-  endDate = new Date(endDate).getTime();
-  
-  if (isNaN(endDate)) {
-  return;
-  }
-
-  this.myVar = setInterval(calculate, 1000); 
-  function calculate() {
-    let startDate = new Date().getTime();
-    // @ts-ignore
-    let timeRemaining = parseInt((endDate - startDate) / 1000);
-    let stop = timeRemaining.toString().substr(-2);
-    // @ts-ignore
-    if(stop == '00'){
-      window.location.reload();
-    }else{
-      // @ts-ignore
-      let days = parseInt(timeRemaining / 86400);
-      timeRemaining = (timeRemaining % 86400);
-      // @ts-ignore
-      let hours = parseInt(timeRemaining / 3600);
-      timeRemaining = (timeRemaining % 3600);
-      // @ts-ignore
-      let minutes = parseInt(timeRemaining / 60);
-      timeRemaining = (timeRemaining % 60);
-      // @ts-ignore
-      let seconds = parseInt(timeRemaining);
-      document.getElementById("hours").innerHTML = ("0" + hours).slice(-2)+":";
-      document.getElementById("minutes").innerHTML = ("0" + minutes).slice(-2)+":";
-      document.getElementById("seconds").innerHTML = ("0" + seconds).slice(-2);
+    clearInterval(this.myVar);
+    var countDownDate = new Date(endDate).getTime();
+    this.myVar = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.getElementById("hours").innerHTML = ("0" + hours).slice(-2)+":";
+    document.getElementById("minutes").innerHTML = ("0" + minutes).slice(-2)+":";
+    document.getElementById("seconds").innerHTML = ("0" + seconds).slice(-2);
+    if (distance < 0) {
+     document.getElementById("hours").innerHTML = '';
+     document.getElementById("minutes").innerHTML = '';
+     document.getElementById("seconds").innerHTML = '';
+     clearInterval(this.myVar);
+     window.location.reload();
     }
-  }
-} 
+    }, 1000);
+}
+
 autoRefresh(){
-  this.hour = this.intl.formatDate(this.value, 'dd/MM/yyyy hh:mm:ss a');
+  this.hour = this.datePipe.transform(this.value, 'medium');
   if(this.value <= new Date()){
     this.toastrService.danger('Please select greater than current time'); 
   }else{
-     this.countdown(this.hour); 
+    this.countdown(this.hour); 
   }
- }
+}
 
  getWoRadioClick(evt){    
   if(this.itemName != ''){

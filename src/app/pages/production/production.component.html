@@ -111,7 +111,7 @@
             <input type="checkbox" class="k-checkbox" id="autorefreshTime" name="autorefreshTime"
               [(ngModel)]="refreshCheck" (click)="refreshEvent($event)" />
             <label class="k-checkbox-label d-flex align-items-center" for="autorefreshTime">Auto refresh time
-              <kendo-timepicker class="ml-2" [disabled]="!refreshStatus" [(value)]="value"></kendo-timepicker>
+              <kendo-timepicker class="ml-2" [(value)]="value" [disabled]="!refreshStatus"></kendo-timepicker>
             </label>
           </div>
           <button class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Manual Refresh"
