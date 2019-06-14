@@ -80,6 +80,9 @@ export class LookupComponent implements OnInit {
     else if(this.lookupfor == "showInStockLookup"){
       this.showInStockLookup();
     }
+    else if(this.lookupfor == "showCommittedLookup"){
+      this.showCommittedLookup();
+    }
     this.clearFilters();
     this.isColumnFilter = false
   }
@@ -254,6 +257,43 @@ export class LookupComponent implements OnInit {
       
     ];
     this.lookupTitle = 'Quantity On Order';
+    if (this.serviceData !== undefined) {
+      if (this.serviceData.length > 0) {
+        this.dialogOpened = true;
+      }
+    }
+  }
+
+  showCommittedLookup() {
+    this.table_head = [
+      {
+        field: 'ORDERED_QTY',
+        title: 'Ordered Quantity',
+        type: 'text',
+        width: '100'
+      },
+      {
+        field: 'RECEIVE_QTY',
+        title: 'Received Quantity',
+        type: 'text',
+        width: '100'
+      },
+      {
+        field: 'VENDOR',
+        title: 'Vendor',
+        type: 'text',
+        width: '100',
+        class: 'text-right'
+      },
+      {
+        field: 'UOM',
+        title: 'UOM',
+        type: 'text',
+        width: '100',
+        class: 'text-right'
+      }      
+    ];
+    this.lookupTitle = 'Quantity Committed';
     if (this.serviceData !== undefined) {
       if (this.serviceData.length > 0) {
         this.dialogOpened = true;

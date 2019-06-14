@@ -767,6 +767,29 @@ getMaterialRadioClick(evt){
   }
  }
 
+ showDetailsCommittedLookup(dataItem){
+  this.prod.GetCommittedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, dataItem.ItemCode).subscribe(
+    data => {
+       if(data != undefined && data != null){
+        if(data.length > 0){
+         this.showLookup = true;
+         this.serviceApiData = data;
+         this.lookupfor = "showCommittedLookup";
+        }
+        else {
+         this.toastrService.danger(this.language.no_record_found);    
+        }
+      
+      }
+      else {
+       this.toastrService.danger(this.language.no_record_found);    
+      }
+    },
+    error => {
+      this.toastrService.danger(this.language.no_record_found);    
+   })
+}
+
 }
 
 

@@ -165,7 +165,7 @@
       <nb-card-body>
         <div>
           <kendo-grid [kendoGridBinding]="gridData" [filterable]=isColumnFilter1 [groupable]=isColumnGroup
-            [selectable]="true" [rowSelected]="ItemCodeSelected" [sort]="state.sort" [filter]="state.filter"
+            [selectable]="true" [rowSelected]="ItemCodeSelected" [sort]="state.sort" [filter]="filter"
             [resizable]="true" (selectionChange)="gridRowSelectionChange($event,ref)"
             [ngStyle]="{ 'cursor': 'pointer', 'max-height':'290px'}">
 
@@ -180,6 +180,7 @@
                   <label class="k-checkbox-label"
                     for="opti_SalesOrderListColumnFilterID1">{{language.enable_filter}}</label>
                 </div>
+                
               </form>
             </ng-template>
 
@@ -253,6 +254,10 @@
                     </kendo-grid-column>
                     <kendo-grid-column field="IsCommited" title="{{language.commited}}" width="80" class="text-right"
                       headerClass="text-right">
+                      <ng-template kendoGridCellTemplate let-dataItem>
+                      <a class="cursor-pointer text-primary"
+                          (click)="showDetailsCommittedLookup(dataItem)">{{dataItem.IsCommited}}</a>
+                      </ng-template>
                     </kendo-grid-column>
                     <kendo-grid-column field="OnOrder" title="{{language.on_order}}" width="80" class="text-right"
                       headerClass="text-right">
@@ -305,9 +310,18 @@
                             <p-treeTableToggler [rowNode]="rowNode" class="cursor-pointer"></p-treeTableToggler>
                             <span class="cursor-pointer">{{rowData.ItemCode}}</span>
                           </td>
-                          <td class="text-right" headerClass="text-right">{{rowData.OnHand}}</td>
-                          <td class="text-right" headerClass="text-right">{{rowData.IsCommited}}</td>
-                          <td class="text-right" headerClass="text-right">{{rowData.OnOrder}}</td>
+                          <td class="text-right" headerClass="text-right">
+                              <a class="cursor-pointer text-primary"
+                              (click)="showDetailsInStockLookup(rowData,'CP',true)">{{rowData.OnHand}}</a>
+                          </td>
+                          <td class="text-right" headerClass="text-right">
+                              <a class="cursor-pointer text-primary"
+                              (click)="showDetailsCommittedLookup(rowData)">{{rowData.IsCommited}}</a>
+                          </td>
+                          <td class="text-right" headerClass="text-right">
+                              <a class="cursor-pointer text-primary"
+                              (click)="showDetailsOnOrderLookup(rowData,'CP',true)">{{rowData.OnOrder}}</a>
+                          </td>
                           <td class="text-right" headerClass="text-right">{{rowData.AVAILABLE}}</td>
                           <td class="text-right" headerClass="text-right">{{rowData.U_O_UOM}}</td>
                         </tr>
@@ -940,7 +954,7 @@
             c0-4.072-3.06-7.436-7-7.931V31h20v10.069c-3.94,0.495-7,3.859-7,7.931c0,4.411,3.589,8,8,8s8-3.589,8-8c0-4.072-3.06-7.436-7-7.931
             V31h20v10.069c-3.94,0.495-7,3.859-7,7.931c0,4.411,3.589,8,8,8s8-3.589,8-8C60,44.928,56.94,41.564,53,41.069z" />
           </svg>
-          OptiPro Dashboard
+          OptiProERP Dashboard
           <div class="text-center opti_version-info w-100">
             Version <span></span>
 
