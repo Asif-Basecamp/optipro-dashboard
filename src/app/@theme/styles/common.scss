@@ -58,13 +58,14 @@ body.opti_account-module {
         background-position: left center;
         content: '';
         position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
+        top:50%;
+        left: 50%;
         z-index: 1;
         -webkit-filter: blur(3px);
         filter: blur(3px);
+        width: calc(100% + 10px);
+        height: calc(100% + 10px);
+        transform: translateX(-50%)translateY(-50%);
     }
     // &:after {
     //     content: '';

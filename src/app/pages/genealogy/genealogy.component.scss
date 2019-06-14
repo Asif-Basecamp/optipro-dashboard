@@ -65,6 +65,9 @@
         flex: 1;
         display: flex;
         height: calc(100vh - 75px);
+        &.default-screen{
+            height: calc(100vh - 65px);
+        }
         & as-split{
             overflow: visible;
         }
@@ -385,7 +388,7 @@
                     &.ProductionOrder{
                         background-color: #bfaa72;
                     }
-                    &.IssueForProduction{
+                    &.IssueFromProduction{
                         background-color: #ffebe7;
                     }
                     &.ReceiptFromProduction{

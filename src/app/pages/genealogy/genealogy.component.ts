@@ -76,6 +76,8 @@ export class GenealogyComponent implements OnInit {
  public gridViewShow: boolean = false;
  public analysisViewShow: boolean = false;
  public transactionViewShow: boolean = false;
+ public showValidation: boolean = false;
+ isColumnFilter = true;
 
  constructor(private dialogService: NbDialogService, private dash: DashboardService, private router: Router, private toastrService: NbToastrService) {}
 
@@ -104,7 +106,7 @@ export class GenealogyComponent implements OnInit {
  }
 
  setParamItemLookup(gridData,dialog){
-  this.Item = true;
+       this.Item = true;
        this.whse = false;
        this.LotTo = false;
        this.LotFrom = false;
@@ -112,9 +114,14 @@ export class GenealogyComponent implements OnInit {
        this.gridData = gridData;
        this.dialogService.open(dialog);
  } 
+ 
 
  openItemLookup(dialog: TemplateRef<any>){
    let select = [];
+   if(this.isColumnFilter == true){
+    this.isColumnFilter = !this.isColumnFilter;
+   }
+   this.clearFilters();
    if(this.ItemValue){
      select.push(this.ItemValue);
      this.isItemCodeSelected = (e: RowArgs) => select.indexOf(e.dataItem.ItemCode) >=0 ;
@@ -139,6 +146,9 @@ export class GenealogyComponent implements OnInit {
 
  onItemCodeBlur(){
    let item = this.ItemValue;
+   if(this.DfltWarehouse){
+      this.showValidation = true;
+   }
    let itemCode = [];
    if(item){
     if(this.vendor){
@@ -195,6 +205,10 @@ export class GenealogyComponent implements OnInit {
 
  openWarehouseLookup(dialog: TemplateRef<any>){
    let warehouse = [];
+   if(this.isColumnFilter == true){
+    this.isColumnFilter = !this.isColumnFilter;
+   }
+   this.clearFilters();
    if(this.DfltWarehouse){
      warehouse.push(this.DfltWarehouse);
      this.wareHouseSelected = (e: RowArgs) => warehouse.indexOf(e.dataItem.WhsCode) >=0 ;
@@ -214,6 +228,7 @@ export class GenealogyComponent implements OnInit {
 
  onWarehouseBlur(){
    let warehouse = this.DfltWarehouse;
+   this.showValidation = false;
    let warehouseCode = [];
    if(warehouse){
      for(var i in this.WarehouseData){
@@ -240,8 +255,7 @@ export class GenealogyComponent implements OnInit {
      data => {
       let DistNum = '';
       let LotFromCode = [];
-       DistNum = this.DistNumFrom.trim();  
- 
+      DistNum = this.DistNumFrom.trim();  
        if(DistNum){
          for(var i in data){
            if(DistNum == data[i].DistNumber){
@@ -257,6 +271,8 @@ export class GenealogyComponent implements OnInit {
           this.LotFromStatus = false;
        }
      });
+   }else{
+    this.LotFromStatus = false;
    }  
  }
 
@@ -284,13 +300,19 @@ export class GenealogyComponent implements OnInit {
          this.LotToStatus = false;
       }
     });
-   }
+   }else{
+    this.LotToStatus = false;
+   }  
   }
 
  /*-- open Lot From lookup on click --*/ 
 
  openLotFromLookup(dialog: TemplateRef < any > ) {
    let LotFromSelect = [];
+   if(this.isColumnFilter == true){
+    this.isColumnFilter = !this.isColumnFilter;
+   }
+   this.clearFilters();
    if(this.DistNumFrom){
      LotFromSelect.push(this.DistNumFrom);
      this.lotSelected = (e: RowArgs) => LotFromSelect.indexOf(e.dataItem.DistNumber) >=0 ;
@@ -317,6 +339,10 @@ export class GenealogyComponent implements OnInit {
 
  openLotToLookup(dialog: TemplateRef < any > ) {
    let LotToSelect = [];
+   if(this.isColumnFilter == true){
+    this.isColumnFilter = !this.isColumnFilter;
+   }
+   this.clearFilters();
    if(this.DistNumTo){
      LotToSelect.push(this.DistNumTo);
      this.lotSelected = (e: RowArgs) => LotToSelect.indexOf(e.dataItem.DistNumber) >=0 ;
@@ -325,7 +351,6 @@ export class GenealogyComponent implements OnInit {
    } 
   this.dash.GetLotNumber(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, this.ItemValue, this.trackName).subscribe(
    data => {
-    this.gridData = data;
     this.gridData = data;
     this.Item = false;
     this.whse = false;
@@ -443,6 +468,7 @@ export class GenealogyComponent implements OnInit {
    this.DistNumFrom = '';
    this.DistNumTo = '';
    this.DfltWarehouse = '';
+   this.showValidation = true;
    if (evt.selectedRows[0].dataItem.ManBtchNum == 'Y') {
     this.trackName = 'Batch'
    } else {
@@ -845,13 +871,11 @@ export class GenealogyComponent implements OnInit {
  }
 
  onFilterChange(checkBox: any, grid: GridComponent) {
-   if (checkBox.checked == false) {
-     this.clearFilter(grid);
+    if(checkBox.checked == false) {
+     this.clearFilters();
    }
  }
- clearFilter(grid: GridComponent) {
-   this.clearFilters()
- }
+
  public state: State = {
    skip: 0,
    take: 5,
@@ -860,43 +884,16 @@ export class GenealogyComponent implements OnInit {
    filter: {
      logic: 'and',
      filters: []
-   }
+   },
  };
- public clearFilters() {
+
+ clearFilters() {
    this.state.filter = {
      logic: 'and',
      filters: []
    };
  }
- //Custom accordian function
-//  customAccordianGrid(e) {
-//   if (document.getElementById("grid-accordian").classList.contains('expanded')) {
-//    this.hideAcordian(e);
-//    document.getElementById("custom-accordian").classList.remove('grid-accordian-open');
-//   } else {
-//    this.expandAcordian(e);
-//    document.getElementById("custom-accordian").classList.add('grid-accordian-open');
-//   }
-//  }
-//  customAccordianAnalysis(e) {
-//   if (document.getElementById("analysis-accordian").classList.contains('expanded')) {
-//    this.hideAcordian(e);
-//    document.getElementById("custom-accordian").classList.remove('analysis-accordian-open');
-//   } else {
-//    this.expandAcordian(e);
-//    document.getElementById("custom-accordian").classList.add('analysis-accordian-open');
-//   }
-//  }
-//  hideAcordian(e: any) {
-//   e.currentTarget.parentElement.parentElement.classList.remove('expanded')
-//   e.currentTarget.nextSibling.style.height = '0';
-//   e.currentTarget.nextSibling.style.display = 'none';
-//  }
-//  expandAcordian(e: any) {
-//   e.currentTarget.parentElement.parentElement.classList.add('expanded')
-//   e.currentTarget.nextSibling.style.height = '100%';
-//   e.currentTarget.nextSibling.style.display = 'flex';
-//  }
+ 
  toggleNodeClass(e: any){
    e.currentTarget.classList.toggle("shrink");    
  }
