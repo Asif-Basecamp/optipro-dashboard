@@ -58,9 +58,9 @@
       align-items: center;
       justify-content: center; 
       svg{
-        width: 25px;
+        height: 32px;
         margin-right: 10px;
-        path{
+        path, polygon{
           fill: nb-theme(color-white);
         }
       }

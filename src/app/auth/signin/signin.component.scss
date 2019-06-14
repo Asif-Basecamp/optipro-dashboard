@@ -73,14 +73,10 @@
     justify-content: center;
     color:nb-theme(color-primary);  
     font-weight: nb-theme(font-weight-bolder);  
+    &> svg{
+        width:100%;
+    }
 }
-// .opti_signin-logo svg {
-//     width: 50px;
-//     margin-right: 10px;
-//     path{
-//         fill: nb-theme(color-primary);
-//     }
-// }
 form.k-form {
     display: block;
     font-size: 1rem;
