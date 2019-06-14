@@ -22,7 +22,7 @@ $optipro-icon-GoodsReturnRequest: "\e90c";
 $optipro-icon-InventoryRevaluation: "\e93f";
 $optipro-icon-InventoryTransfer: "\e940";
 $optipro-icon-InventoryTransferRequest: "\e941";
-$optipro-icon-IssueForProduction: "\e942";
+$optipro-icon-IssueFromProduction: "\e942";
 $optipro-icon-JournalEntry: "\e943";
 $optipro-icon-OutgoingPayment: "\e944";
 $optipro-icon-ProductionOrder: "\e945";
@@ -207,9 +207,9 @@ $optipro-icon-reload: "\e93e";
     content: $optipro-icon-InventoryTransferRequest; 
   }
 }
-.optipro-icon-IssueForProduction {
+.optipro-icon-IssueFromProduction {
   &:before {
-    content: $optipro-icon-IssueForProduction; 
+    content: $optipro-icon-IssueFromProduction; 
   }
 }
 .optipro-icon-JournalEntry {
