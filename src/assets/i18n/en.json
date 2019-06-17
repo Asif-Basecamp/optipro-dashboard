@@ -144,5 +144,8 @@
     "material": "Material",
     "operations": "Operations",
     "vendor_lot_from": "Vendor Lot From",
-    "vendor_lot_to": "Vendor Lot To"
+    "vendor_lot_to": "Vendor Lot To",
+    "time_msg": "Please select greater than current time",
+    "Log_Out": "Log Out",
+    "logout_msg": "You have been logged out"
  }

@@ -610,7 +610,7 @@ export interface TreeNode {
       data => {
          if(data.length == 0){
             this.loading = false;
-            this.toastrService.danger('No Record Found');
+            this.toastrService.danger(this.language.no_record_found);
           }else{
             this.gridViewData = data;
             this.loading = false;
@@ -730,7 +730,7 @@ countdown(endDate) {
 autoRefresh(){
   this.hour = this.datePipe.transform(this.value, 'medium');
   if(this.value <= new Date()){
-    this.toastrService.danger('Please select greater than current time'); 
+    this.toastrService.danger(this.language.time_msg); 
   }else{
     this.countdown(this.hour); 
   }
