@@ -640,6 +640,12 @@ export interface TreeNode {
   //Search criteria expand-shrink function  
   searchCriteriaToggle(event) {
    event.stopPropagation();
+   document.getElementById("hours").innerHTML = '';
+   document.getElementById("minutes").innerHTML = '';
+   document.getElementById("seconds").innerHTML = '';
+   if(this.myVar){
+     clearInterval(this.myVar);
+   }
    if (document.getElementById("dashboard-left").classList.contains('shrink')) {
     document.getElementById("dashboard-left").classList.remove('shrink');
     document.getElementById("selection-criteria-body").style.height = '100%';
