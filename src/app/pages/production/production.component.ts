@@ -610,7 +610,7 @@ export interface TreeNode {
       data => {
          if(data.length == 0){
             this.loading = false;
-            this.toastrService.danger('No Record Found');
+            this.toastrService.danger(this.language.no_record_found);
           }else{
             this.gridViewData = data;
             this.loading = false;
@@ -640,6 +640,12 @@ export interface TreeNode {
   //Search criteria expand-shrink function  
   searchCriteriaToggle(event) {
    event.stopPropagation();
+   document.getElementById("hours").innerHTML = '';
+   document.getElementById("minutes").innerHTML = '';
+   document.getElementById("seconds").innerHTML = '';
+   if(this.myVar){
+     clearInterval(this.myVar);
+   }
    if (document.getElementById("dashboard-left").classList.contains('shrink')) {
     document.getElementById("dashboard-left").classList.remove('shrink');
     document.getElementById("selection-criteria-body").style.height = '100%';
@@ -730,7 +736,7 @@ countdown(endDate) {
 autoRefresh(){
   this.hour = this.datePipe.transform(this.value, 'medium');
   if(this.value <= new Date()){
-    this.toastrService.danger('Please select greater than current time'); 
+    this.toastrService.danger(this.language.time_msg); 
   }else{
     this.countdown(this.hour); 
   }

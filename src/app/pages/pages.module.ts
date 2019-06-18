@@ -17,7 +17,6 @@ import { AngularSplitModule } from 'angular-split';
 import { IntlModule } from '@progress/kendo-angular-intl';
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
 
-
 const PAGES_COMPONENTS = [
   PagesComponent,
 ];
