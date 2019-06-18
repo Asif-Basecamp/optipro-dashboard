@@ -325,8 +325,8 @@
                   </nb-radio-group>
 
                   <button type="button" (click)="getInventshortRadioClick()" class="btn btn-primary ml-auto" nbButton size="xsmall">Inventory Shortage</button>
-                  <nb-radio-group class="d-flex flex-wrap w-100" [(ngModel)]="RadioBtnInventShort" name="RadioBtnInventShort">
-                    <nb-radio [value]="'Warehouse'">Warehouse Level</nb-radio>
+                  <nb-radio-group class="d-flex flex-wrap w-100 mt-2" [(ngModel)]="RadioBtnInventShort" name="RadioBtnInventShort">
+                    <nb-radio [value]="'Warehouse'" class="ml-auto">Warehouse Level</nb-radio>
                     <nb-radio [value]="'Company'">Company Level</nb-radio>
                   </nb-radio-group>
 
