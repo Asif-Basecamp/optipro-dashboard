@@ -216,7 +216,11 @@
               <as-split-area size="25" minSize="15">
                 <div class="overflow-auto h-100 px-2">
                   <div class="tree-wrapper pt-3">
-                    <tree-root id="tree2" [focused]="true" [nodes]="nodes2" (click)="clickTransaction($event)">
+                    <div class="d-flex w-100 mb-2">
+                        <span nbButton size="xsmall" class="cursor-pointer mr-2 btn btn-primary btn-icon-with-input ml-auto" (click)="diffTree.treeModel.expandAll()" title="Expand All"><i class="optipro-icon-expand"></i></span>
+                        <span nbButton size="xsmall" class="cursor-pointer btn btn-primary btn-icon-with-input" (click)="diffTree.treeModel.collapseAll()"  title="Collapse All"><i class="optipro-icon-collapse"></i></span>
+                    </div>
+                    <tree-root id="tree2" #diffTree [focused]="true" [nodes]="nodes2" (click)="clickTransaction($event)">
                       <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
                         <div class="tree-node">
                           <tree-node-expander [node]="node"></tree-node-expander>
