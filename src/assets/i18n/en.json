@@ -149,5 +149,6 @@
     "Log_Out": "Log Out",
     "logout_msg": "You have been logged out",
     "item_code_from_msg": "Please select Item Code From",
-    "item_code_to_msg": "Please select Item Code To"
+    "item_code_to_msg": "Please select Item Code To",
+    "Manual_Refresh": "Manual Refresh"
  }

@@ -133,7 +133,7 @@
           </button>
         </div>
 
-        <button type="submit" nbButton class="btn btn-primary btn-with-icon-right"  (click)="GetExplosionData($event)" id="process" size="small">Manual Refresh</button>
+        <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" id="process" size="small" (click)="GetExplosionData($event)" [disabled]="!criteriaForm.form.valid || (itemFromStatus || itemToStatus)">{{language.Manual_Refresh}}</button>
       </div>
 
 
