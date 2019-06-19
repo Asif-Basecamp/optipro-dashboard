@@ -8,6 +8,7 @@ import {NbToastrService} from '@nebular/theme';
 import { CountdownComponent } from 'ngx-countdown';
 import { RowArgs } from '@progress/kendo-angular-grid';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 export interface TreeNode {
  label?: string;
@@ -98,7 +99,7 @@ export interface TreeNode {
    public CmpInventShort: boolean = false;
    isColumnFilter1 = true;
    
-  constructor(private datePipe: DatePipe, private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
+  constructor(private router: Router, private datePipe: DatePipe, private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
     { value: 'SIMPLE', label: 'Simple View' },
     { value: 'Multi', label: 'Detailed View' },
@@ -121,9 +122,13 @@ export interface TreeNode {
    this.getCheckedItemList();
    this.checkUncheckAll();
    this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);  
-  
    let WoSelect = [];
    this.WOSelected = (e: RowArgs) => WoSelect.indexOf(e.dataItem.DocEntry) >=0 ;
+   if(this.router.url === '/pages/production'){
+    document.getElementById("hours").innerHTML = '';
+    document.getElementById("minutes").innerHTML = '';
+    document.getElementById("seconds").innerHTML = '';
+   }
   }
  
   open(dialog: TemplateRef < any > ) {
