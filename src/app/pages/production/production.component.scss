@@ -34,17 +34,20 @@
                     justify-content: center;
                     &:first-of-type{
                         margin-right: 10px;
-                    }
-                    & > .optipro-icon-arrow-left{
-                        margin-right: 0;
-                        transform: rotateZ(270deg);
-                        display: block;
-                        margin-left: 0 !important;
-                    } 
+                    }                    
                 }
+                & > .optipro-icon-arrow-left{
+                    margin-right: 0;
+                    transform: rotateZ(270deg);
+                    display: block;
+                    margin-left: 0 !important;
+                } 
                 & > svg{
                     order:2;
                     transform: rotateZ(90deg);
+                }
+                & > .timer-wrapper{
+                    display: none !important;
                 }
             }
             & > nb-card-footer{
