@@ -11,11 +11,11 @@
       </svg>
       <span>{{language.selection_criteria}}</span>
       <span class="ml-auto  d-flex justify-content-center align-items-center">
-        <span id="hours"></span>
-        <span id="minutes"></span>
-        <span id="seconds"></span>
-        <span class="optipro-icon-arrow-left cursor-pointer mr-1 ml-3 d-flex" (click)="searchCriteriaToggle($event)"></span>
+        <span id="hours">{{hours}}</span>
+        <span id="minutes">{{minutes}}</span>
+        <span id="seconds">{{seconds}}</span>       
       </span>
+      <span class="optipro-icon-arrow-left cursor-pointer mr-1 ml-3 d-flex" (click)="searchCriteriaToggle($event)"></span>
     </nb-card-header>
 
     <nb-card-body id="selection-criteria-body" class="pt-0 justify-content-between flex-direction-column flex-box">
@@ -111,10 +111,10 @@
             <input type="checkbox" class="k-checkbox" id="autorefreshTime" name="autorefreshTime"
               [(ngModel)]="refreshCheck" (click)="refreshEvent($event)" />
             <label class="k-checkbox-label d-flex align-items-center" for="autorefreshTime">Auto refresh time
-              <kendo-timepicker class="ml-2" [(value)]="value" [disabled]="!refreshStatus"></kendo-timepicker>
+              <kendo-timepicker class="ml-2" format="HH:mm" formatPlaceholder="formatPattern" [(value)]="value" [disabled]="!refreshStatus"></kendo-timepicker>
             </label>
           </div>
-          <button class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Manual Refresh"
+          <button class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" id="start" title="Manual Refresh"
             (click)="autoRefresh();" [disabled]="!refreshStatus">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#212529" viewBox="0 0 24 24">
               <g data-name="Layer 2">
@@ -136,7 +136,7 @@
 
     </nb-card-body>
     <nb-card-footer class="text-center py-2">
-      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" size="small"
+      <button type="submit" nbButton class="btn btn-primary btn-with-icon-right" id="process" size="small"
         (click)="GetExplosionData($event)"
         [disabled]="!criteriaForm.form.valid || (itemFromStatus || itemToStatus)">{{language.process}} <svg
           xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" class="ml-2" fill="#fff">

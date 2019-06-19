@@ -90,7 +90,7 @@ export interface TreeNode {
    public WOSelected: any;
    public Hour: any;
    Hours: any;
-   public value: Date = new Date();
+   public value: any;
    public hour: any;
    public myVar: any;
    public RadioBtnInventShort: any = 'Warehouse';
@@ -577,12 +577,6 @@ export interface TreeNode {
   }
 
    GetExplosionData() {
-    document.getElementById("hours").innerHTML = '';
-    document.getElementById("minutes").innerHTML = '';
-    document.getElementById("seconds").innerHTML = '';
-    if(this.myVar){
-      clearInterval(this.myVar);
-    }
     let gridItemSelect = [];
     this.GridViewSelected = (e: RowArgs) => gridItemSelect.indexOf(e.dataItem.Code) >=0 ;
     
@@ -640,12 +634,6 @@ export interface TreeNode {
   //Search criteria expand-shrink function  
   searchCriteriaToggle(event) {
    event.stopPropagation();
-   document.getElementById("hours").innerHTML = '';
-   document.getElementById("minutes").innerHTML = '';
-   document.getElementById("seconds").innerHTML = '';
-   if(this.myVar){
-     clearInterval(this.myVar);
-   }
    if (document.getElementById("dashboard-left").classList.contains('shrink')) {
     document.getElementById("dashboard-left").classList.remove('shrink');
     document.getElementById("selection-criteria-body").style.height = '100%';
@@ -707,6 +695,11 @@ export interface TreeNode {
   }else{
     this.refreshStatus = false;
     this.time = '';
+    this.value = '';
+    document.getElementById("hours").innerHTML = '';
+    document.getElementById("minutes").innerHTML = '';
+    document.getElementById("seconds").innerHTML = '';
+    clearInterval(this.myVar);
   }
  }
 
@@ -728,16 +721,23 @@ countdown(endDate) {
      document.getElementById("minutes").innerHTML = '';
      document.getElementById("seconds").innerHTML = '';
      clearInterval(this.myVar);
-     window.location.reload();
+     var processButton = document.getElementById("process");
+     processButton.click(); 
+     var autoRefreshButton = document.getElementById("start");
+     autoRefreshButton.click(); 
     }
-    }, 1000);
+    }, 1000);   
 }
 
 autoRefresh(){
-  this.hour = this.datePipe.transform(this.value, 'medium');
-  if(this.value <= new Date()){
-    this.toastrService.danger(this.language.time_msg); 
-  }else{
+  var selectTime = new Date(this.value);
+  var minute = selectTime.getMinutes();
+  var hour = selectTime.getHours();
+  var currentTime = new Date();
+  currentTime.setHours( currentTime.getHours() + hour );
+  currentTime.setMinutes( currentTime.getMinutes() + minute );
+  this.hour = this.datePipe.transform(currentTime, 'medium');
+  if(this.hour){
     this.countdown(this.hour); 
   }
 }
