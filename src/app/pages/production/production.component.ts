@@ -580,6 +580,11 @@ export interface TreeNode {
   }
 
    GetExplosionData() {
+    if(this.ItemCodeFrom && !this.ItemCodeTo){
+      this.toastrService.danger(this.language.item_code_to_msg);
+    }else if(!this.ItemCodeFrom && this.ItemCodeTo){
+      this.toastrService.danger(this.language.item_code_from_msg);
+    }else{
     let gridItemSelect = [];
     this.GridViewSelected = (e: RowArgs) => gridItemSelect.indexOf(e.dataItem.Code) >=0 ;
     
@@ -631,6 +636,7 @@ export interface TreeNode {
         this.toastrService.danger(this.language.no_record_found);    
       })
       this.searchCriteriaToggle(event);
+    }
     } 
     }
 
@@ -699,9 +705,9 @@ export interface TreeNode {
     this.refreshStatus = false;
     this.time = '';
     this.value = '';
-    document.getElementById("hours").innerHTML = '';
-    document.getElementById("minutes").innerHTML = '';
-    document.getElementById("seconds").innerHTML = '';
+    this.hours = '';
+    this.minutes = '';
+    this.seconds = '';
     clearInterval(this.myVar);
   }
  }

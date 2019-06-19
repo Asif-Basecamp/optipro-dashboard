@@ -11,9 +11,6 @@
       </svg>
       <span>{{language.selection_criteria}}</span>
       <span class="ml-auto mr-3 d-flex justify-content-center align-items-center timer-wrapper ">
-        <!--<span id="hours"></span>
-        <span id="minutes"></span>
-        <span id="seconds"></span>-->
         <span>{{hours}}</span>
         <span>{{minutes}}</span>
         <span>{{seconds}}</span>       
@@ -48,8 +45,9 @@
                   </div>
                 </div>
               </div>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="itemFromStatus && ItemCF.touched"
-                class="float-right opti_error-msg">{{language.correct_item_code}}</small>
+              <small id="emailHelp" class="form-text text-muted float-right opti_error-msg" *ngIf="itemFromStatus && ItemCF.touched"
+               >{{language.correct_item_code}}</small>
+              <small id="emailHelp" class="form-text text-muted opti_error-msg"></small>  
             </div>
 
             <div class="form-group">
@@ -65,8 +63,8 @@
                   </div>
                 </div>
               </div>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="itemToStatus && ItemCT.touched"
-                class="float-right opti_error-msg">{{language.correct_item_code}}</small>
+              <small id="emailHelp" class="form-text text-muted float-right opti_error-msg" *ngIf="itemToStatus && ItemCT.touched"
+              >{{language.correct_item_code}}</small>
             </div>
 
             <div class="form-group">
@@ -101,8 +99,8 @@
 
                 <label class="k-checkbox-label" for="{{item.id}}">{{item.name}}</label>
               </div>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="checkboxStatus"
-                class="float-right opti_error-msg">{{language.select_one_wo}}</small>
+              <small id="emailHelp" class="form-text text-muted float-right opti_error-msg" *ngIf="checkboxStatus"
+             >{{language.select_one_wo}}</small>
             </div>
           </form>
         </div>
@@ -134,6 +132,8 @@
             </svg>
           </button>
         </div>
+
+        <button type="submit" nbButton class="btn btn-primary btn-with-icon-right"  (click)="GetExplosionData($event)" id="process" size="small">Manual Refresh</button>
       </div>
 
 
