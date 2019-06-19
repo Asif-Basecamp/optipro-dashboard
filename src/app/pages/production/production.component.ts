@@ -98,6 +98,9 @@ export interface TreeNode {
    public WHInventShort: boolean = false;
    public CmpInventShort: boolean = false;
    isColumnFilter1 = true;
+   public hours: any;
+   public minutes: any;
+   public seconds: any;
    
   constructor(private router: Router, private datePipe: DatePipe, private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
@@ -124,13 +127,8 @@ export interface TreeNode {
    this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);  
    let WoSelect = [];
    this.WOSelected = (e: RowArgs) => WoSelect.indexOf(e.dataItem.DocEntry) >=0 ;
-   if(this.router.url === '/pages/production'){
-    document.getElementById("hours").innerHTML = '';
-    document.getElementById("minutes").innerHTML = '';
-    document.getElementById("seconds").innerHTML = '';
-   }
   }
- 
+
   open(dialog: TemplateRef < any > ) {
    this.dialogService.open(dialog);
   }
@@ -710,26 +708,26 @@ export interface TreeNode {
 
 countdown(endDate) {
     clearInterval(this.myVar);
-    var countDownDate = new Date(endDate).getTime();
-    this.myVar = setInterval(function() {
-    var now = new Date().getTime();
-    var distance = countDownDate - now;
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    document.getElementById("hours").innerHTML = ("0" + hours).slice(-2)+":";
-    document.getElementById("minutes").innerHTML = ("0" + minutes).slice(-2)+":";
-    document.getElementById("seconds").innerHTML = ("0" + seconds).slice(-2);
+    let countDownDate = new Date(endDate).getTime();
+    this.myVar = setInterval(() => {
+    let now = new Date().getTime();
+    let distance = countDownDate - now;
+    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    this.hours = ("0" + hours).slice(-2)+":";
+    this.minutes = ("0" + minutes).slice(-2)+":";
+    this.seconds = ("0" + seconds).slice(-2);
     if (distance < 0) {
-     document.getElementById("hours").innerHTML = '';
-     document.getElementById("minutes").innerHTML = '';
-     document.getElementById("seconds").innerHTML = '';
-     clearInterval(this.myVar);
-     var processButton = document.getElementById("process");
-     processButton.click(); 
-     var autoRefreshButton = document.getElementById("start");
-     autoRefreshButton.click(); 
+      this.hours = "";
+      this.minutes = "";
+      this.seconds = "";
+      clearInterval(this.myVar);
+      var processButton = document.getElementById("process");
+      processButton.click(); 
+      var autoRefreshButton = document.getElementById("start");
+      autoRefreshButton.click(); 
     }
     }, 1000);   
 }
