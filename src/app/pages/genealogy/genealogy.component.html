@@ -215,8 +215,12 @@
             <as-split direction="horizontal" restrictMove="true" gutterSize="1">
               <as-split-area size="25" minSize="15">
                 <div class="overflow-auto h-100 px-2">
-                  <div class="tree-wrapper pt-3">
-                    <tree-root id="tree2" [focused]="true" [nodes]="nodes2" (click)="clickTransaction($event)">
+                  <div class="tree-wrapper pt-2">
+                    <div class="d-flex w-100 mb-2">
+                        <span nbButton size="xsmall" class="cursor-pointer mr-2 btn btn-primary btn-icon-with-input ml-auto" (click)="diffTree.treeModel.expandAll()" title="Expand All"><i class="optipro-icon-expand"></i></span>
+                        <span nbButton size="xsmall" class="cursor-pointer btn btn-primary btn-icon-with-input" (click)="diffTree.treeModel.collapseAll()"  title="Collapse All"><i class="optipro-icon-collapse"></i></span>
+                    </div>
+                    <tree-root id="tree2" #diffTree [focused]="true" [nodes]="nodes2" (click)="clickTransaction($event)">
                       <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
                         <div class="tree-node">
                           <tree-node-expander [node]="node"></tree-node-expander>
@@ -256,7 +260,11 @@
                   <nb-card class="mb-0 no-shadow-card flex-100 card-min-85">
                     <nb-card-header>{{language.transaction_type}}</nb-card-header>
                     <nb-card-body class="p-2">
-                      <tree-root id="tree2" [focused]="true" [nodes]="nodes1" (click)="clickTransactionDetails($event)">
+                      <div class="d-flex w-100 mb-2">
+                          <span nbButton size="xsmall" class="cursor-pointer mr-2 btn btn-primary btn-icon-with-input ml-auto" (click)="diffTree2.treeModel.expandAll()" title="Expand All"><i class="optipro-icon-expand"></i></span>
+                          <span nbButton size="xsmall" class="cursor-pointer btn btn-primary btn-icon-with-input" (click)="diffTree2.treeModel.collapseAll()"  title="Collapse All"><i class="optipro-icon-collapse"></i></span>
+                      </div>
+                      <tree-root id="tree2" #diffTree2 [focused]="true" [nodes]="nodes1" (click)="clickTransactionDetails($event)">
                           <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
                             <div class="tree-node">
                               <tree-node-expander [node]="node"></tree-node-expander>

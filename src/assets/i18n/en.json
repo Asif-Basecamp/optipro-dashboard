@@ -1,8 +1,8 @@
 {
     "optiprodashboard": "OptiProERP Dashboard",
-    "username": "Username",
-    "username_required": "Username Required",
-    "username_placeholder": "Enter username",
+    "username": "User ID",
+    "username_required": "User ID Required",
+    "username_placeholder": "Enter User ID",
     "password": "Password",
     "password_required":"Password required",
     "password_activeuser": "You are not active user",
