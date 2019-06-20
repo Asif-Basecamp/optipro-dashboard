@@ -69,7 +69,7 @@ export class SigninComponent implements OnInit {
 			data => {
 				if (data != null) {
 					// this.psURL = data;
-					this.psURL = 'http://172.16.6.140/OptiADMINHANA';
+					this.psURL = 'http://172.16.6.147/OptiProAdmin';
 				}
 			},
 			error => {

@@ -334,7 +334,7 @@
 
                 <div class="mt-2">
                   <kendo-grid [kendoGridBinding]="gridWOFG" [filterable]=isColumnFilter2 [groupable]=isColumnGroup
-                    [pageable]="showgridWOPage" [pageSize]="5" [selectable]="true" [rowSelected]="WOSelected"
+                    [pageable]="showgridWOPage" [pageSize]="10" [selectable]="true" [rowSelected]="WOSelected"
                     [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                     (selectionChange)="gridRowSelectDocEntry($event)"
                     [ngStyle]="{ 'cursor': 'pointer', 'max-height':'490px'}">
@@ -472,7 +472,7 @@
                           <div class="mt-2" *ngIf="showMaterialView == 'immediate'">
                             <kendo-grid [kendoGridBinding]="gridMaterial" [selectable]="selectableSettings"
                               [filterable]=isColumnFilter3 [groupable]=isColumnGroup [pageable]="showgridMaterialPage"
-                              [pageSize]="5" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
+                              [pageSize]="10" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                               [ngStyle]="{ 'max-height':'490px'}">
 
 
@@ -606,7 +606,7 @@
                           <div class="mt-2" *ngIf="showMaterialView == 'all'">
                             <kendo-grid [kendoGridBinding]="gridMaterial" [selectable]="selectableSettings"
                               [filterable]=isColumnFilter4 [groupable]=isColumnGroup [pageable]="showgridMaterialPage"
-                              [pageSize]="5" [selectable]="true" [sort]="state.sort" [filter]="state.filter"
+                              [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter"
                               [resizable]="true" (selectionChange)="gridRowSelectionChange($event,ref)"
                               [ngStyle]="{ 'max-height':'490px'}">
                               
@@ -747,7 +747,7 @@
                           <div class="">
                             <kendo-grid [kendoGridBinding]="gridOperation" [selectable]="selectableSettings"
                               [filterable]=isColumnFilter5 [groupable]=isColumnGroup [pageable]="showgridOperationPage"
-                              [pageSize]="5" [selectable]="true" [sort]="state.sort" [filter]="state.filter"
+                              [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter"
                               [resizable]="true" (selectionChange)="gridRowSelectionChange($event,ref)"
                               [ngStyle]="{ 'max-height':'490px'}">                              
                               
@@ -858,7 +858,7 @@
                           <div class="">
                             <kendo-grid [kendoGridBinding]="gridResource" [selectable]="selectableSettings"
                               [filterable]=isColumnFilter6 [groupable]=isColumnGroup [pageable]="showgridResourcePage"
-                              [pageSize]="5" [selectable]="true" [sort]="state.sort" [filter]="state.filter"
+                              [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter"
                               [resizable]="true" (selectionChange)="gridRowSelectionChange($event,ref)"
                               [ngStyle]="{ 'max-height':'490px'}">                              
                               <ng-template kendoGridToolbarTemplate>                                
