@@ -111,7 +111,7 @@
           <div class="k-form-field d-flex align-items-center">
             <input type="checkbox" class="k-checkbox" id="autorefreshTime" name="autorefreshTime"
               [(ngModel)]="refreshCheck" (click)="refreshEvent($event)" />
-            <label class="k-checkbox-label d-flex align-items-center" for="autorefreshTime">Auto refresh time
+            <label class="k-checkbox-label d-flex align-items-center" for="autorefreshTime">{{language.auto_refresh_time}}
               <kendo-timepicker class="ml-2" format="HH:mm" formatPlaceholder="formatPattern" [(value)]="value" [disabled]="!refreshStatus"></kendo-timepicker>
             </label>
           </div>
@@ -327,10 +327,10 @@
                     <nb-radio [value]="'all'">{{language.show_Wo_subassemblies}}</nb-radio>
                   </nb-radio-group>
 
-                  <button type="button" (click)="getInventshortRadioClick()" class="btn btn-primary ml-auto" nbButton size="xsmall">Inventory Shortage</button>
+                  <button type="button" (click)="getInventshortRadioClick()" class="btn btn-primary ml-auto" nbButton size="xsmall">{{language.Inventory_Shortage}}</button>
                   <nb-radio-group class="d-flex flex-wrap w-100 mt-2" [(ngModel)]="RadioBtnInventShort" name="RadioBtnInventShort">
-                    <nb-radio [value]="'Warehouse'" class="ml-auto">Warehouse Level</nb-radio>
-                    <nb-radio [value]="'Company'">Company Level</nb-radio>
+                    <nb-radio [value]="'Warehouse'" class="ml-auto">{{language.Warehouse_Level}}</nb-radio>
+                    <nb-radio [value]="'Company'">{{language.Company_Level}}</nb-radio>
                   </nb-radio-group>
 
                 </div>
@@ -353,11 +353,11 @@
                           </div>
                         </form>
                         <span class="ml-auto d-flex align-items-center flex-wrap">
-                          <button type="button" kendoGridPDFCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export to PDF">
-                            <i class="optipro-icon-pdf-file"></i><span>Export to PDF</span>
+                          <button type="button" kendoGridPDFCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export To PDF">
+                            <i class="optipro-icon-pdf-file"></i><span>{{language.Export_To_PDF}}</span>
                           </button>
                           <button type="button" kendoGridExcelCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export To Excel">
-                            <i class="optipro-icon-xls-file"></i><span>Export To Excel</span>
+                            <i class="optipro-icon-xls-file"></i><span>{{language.Export_To_Excel}}</span>
                           </button>
                         </span>
                       </div>
@@ -494,10 +494,10 @@
                                   </form>
                                   <span class="ml-auto d-flex align-items-center flex-wrap">
                                     <button type="button" kendoGridPDFCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export to PDF">
-                                      <i class="optipro-icon-pdf-file"></i><span>Export to PDF</span>
+                                      <i class="optipro-icon-pdf-file"></i><span>{{language.Export_To_PDF}}</span>
                                     </button>
                                     <button type="button" kendoGridExcelCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export To Excel">
-                                      <i class="optipro-icon-xls-file"></i><span>Export To Excel</span>
+                                      <i class="optipro-icon-xls-file"></i><span>{{language.Export_To_Excel}}</span>
                                     </button>
                                   </span>
                                 </div>
@@ -627,10 +627,10 @@
                                   </form>
                                   <span class="ml-auto d-flex align-items-center flex-wrap">
                                     <button type="button" kendoGridPDFCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export to PDF">
-                                      <i class="optipro-icon-pdf-file"></i><span>Export to PDF</span>
+                                      <i class="optipro-icon-pdf-file"></i><span>{{language.Export_To_PDF}}</span>
                                     </button>
                                     <button type="button" kendoGridExcelCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export To Excel">
-                                      <i class="optipro-icon-xls-file"></i><span>Export To Excel</span>
+                                      <i class="optipro-icon-xls-file"></i><span>{{language.Export_To_Excel}}</span>
                                     </button>
                                   </span>
                                 </div>
@@ -768,10 +768,10 @@
                                   </form>
                                   <span class="ml-auto d-flex align-items-center flex-wrap">
                                     <button type="button" kendoGridPDFCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export to PDF">
-                                      <i class="optipro-icon-pdf-file"></i><span>Export to PDF</span>
+                                      <i class="optipro-icon-pdf-file"></i><span>{{language.Export_To_PDF}}</span>
                                     </button>
                                     <button type="button" kendoGridExcelCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export To Excel">
-                                      <i class="optipro-icon-xls-file"></i><span>Export To Excel</span>
+                                      <i class="optipro-icon-xls-file"></i><span>{{language.Export_To_Excel}}</span>
                                     </button>
                                   </span>
                                 </div>
@@ -878,10 +878,10 @@
                                   </form>
                                   <span class="ml-auto d-flex align-items-center flex-wrap">
                                     <button type="button" kendoGridPDFCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export to PDF">
-                                      <i class="optipro-icon-pdf-file"></i><span>Export to PDF</span>
+                                      <i class="optipro-icon-pdf-file"></i><span>{{language.Export_To_PDF}}</span>
                                     </button>
                                     <button type="button" kendoGridExcelCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export To Excel">
-                                      <i class="optipro-icon-xls-file"></i><span>Export To Excel</span>
+                                      <i class="optipro-icon-xls-file"></i><span>{{language.Export_To_Excel}}</span>
                                     </button>
                                   </span>
                                 </div>
