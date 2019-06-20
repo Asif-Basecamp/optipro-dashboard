@@ -2779,6 +2779,15 @@ div.tree>tree-node>div>.node-wrapper>tree-node-expander>.toggle-children-wrapper
   top: 50%;
   margin-top: -.5em
 }
+.ui-treetable .ui-treetable-toggler i{
+  border: 1px solid #00b3ff;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+}
 
 .ui-treetable .ui-sortable-column {
   cursor: pointer
@@ -3025,38 +3034,39 @@ body .ui-treetable.ui-treetable-hoverable-rows .ui-treetable-tbody > tr:not(.ui-
 body .ui-treetable .ui-column-resizer-helper {
   background-color: nb-theme(color-primary);
 }
-.pi-chevron-right, .pi-chevron-down{
-  font-family: nebular;
-    speak: none;
+.ui-treetable .ui-treetable-toggler i{
+  border: 1px solid nb-theme(color-primary);
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  margin-right: 5px;
+  &:before{
+    content: "-";
+    width: 16px;
+    height: 16px;
+    font-size: 23px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    line-height: 14px;
+    font-family: Roboto;
     font-style: normal;
-    font-weight: 400;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  }
+  &.pi-chevron-right{
+    &:before{
+      content: "+";
+      line-height: 16px;
+      font-size: 16px;
+    }
+  }
 }
-.pi-chevron-right:before{
-  content: "\e92f";
-  width:16px;
-  height:14px;
+p-treetabletoggler:empty {
+  min-width: 23px;
   display: inline-block;
-  font-family: "optipro-icon";
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.pi-chevron-down:before{
-  width:16px;
-  height:14px;
-  display: inline-block;
-  content: "\e92d";
-  font-family: "optipro-icon";
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  cursor: initial !important;
 }
 @media screen and (max-width: 40em) {
   .ui-treetable-responsive .ui-treetable-tfoot>tr>td,.ui-treetable-responsive .ui-treetable-thead>tr>th {

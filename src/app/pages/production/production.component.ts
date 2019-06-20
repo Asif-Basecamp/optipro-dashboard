@@ -8,6 +8,7 @@ import {NbToastrService} from '@nebular/theme';
 import { CountdownComponent } from 'ngx-countdown';
 import { RowArgs } from '@progress/kendo-angular-grid';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 export interface TreeNode {
  label?: string;
@@ -90,15 +91,18 @@ export interface TreeNode {
    public WOSelected: any;
    public Hour: any;
    Hours: any;
-   public value: Date = new Date();
+   public value: any;
    public hour: any;
    public myVar: any;
    public RadioBtnInventShort: any = 'Warehouse';
    public WHInventShort: boolean = false;
    public CmpInventShort: boolean = false;
    isColumnFilter1 = true;
+   public hours: any;
+   public minutes: any;
+   public seconds: any;
    
-  constructor(private datePipe: DatePipe, private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
+  constructor(private router: Router, private datePipe: DatePipe, private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
   viewOptions = [
     { value: 'SIMPLE', label: 'Simple View' },
     { value: 'Multi', label: 'Detailed View' },
@@ -121,11 +125,10 @@ export interface TreeNode {
    this.getCheckedItemList();
    this.checkUncheckAll();
    this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);  
-  
    let WoSelect = [];
    this.WOSelected = (e: RowArgs) => WoSelect.indexOf(e.dataItem.DocEntry) >=0 ;
   }
- 
+
   open(dialog: TemplateRef < any > ) {
    this.dialogService.open(dialog);
   }
@@ -577,12 +580,11 @@ export interface TreeNode {
   }
 
    GetExplosionData() {
-    document.getElementById("hours").innerHTML = '';
-    document.getElementById("minutes").innerHTML = '';
-    document.getElementById("seconds").innerHTML = '';
-    if(this.myVar){
-      clearInterval(this.myVar);
-    }
+    if(this.ItemCodeFrom && !this.ItemCodeTo){
+      this.toastrService.danger(this.language.item_code_to_msg);
+    }else if(!this.ItemCodeFrom && this.ItemCodeTo){
+      this.toastrService.danger(this.language.item_code_from_msg);
+    }else{
     let gridItemSelect = [];
     this.GridViewSelected = (e: RowArgs) => gridItemSelect.indexOf(e.dataItem.Code) >=0 ;
     
@@ -634,18 +636,13 @@ export interface TreeNode {
         this.toastrService.danger(this.language.no_record_found);    
       })
       this.searchCriteriaToggle(event);
+    }
     } 
     }
 
   //Search criteria expand-shrink function  
   searchCriteriaToggle(event) {
    event.stopPropagation();
-   document.getElementById("hours").innerHTML = '';
-   document.getElementById("minutes").innerHTML = '';
-   document.getElementById("seconds").innerHTML = '';
-   if(this.myVar){
-     clearInterval(this.myVar);
-   }
    if (document.getElementById("dashboard-left").classList.contains('shrink')) {
     document.getElementById("dashboard-left").classList.remove('shrink');
     document.getElementById("selection-criteria-body").style.height = '100%';
@@ -707,37 +704,49 @@ export interface TreeNode {
   }else{
     this.refreshStatus = false;
     this.time = '';
+    this.value = '';
+    this.hours = '';
+    this.minutes = '';
+    this.seconds = '';
+    clearInterval(this.myVar);
   }
  }
 
 countdown(endDate) {
     clearInterval(this.myVar);
-    var countDownDate = new Date(endDate).getTime();
-    this.myVar = setInterval(function() {
-    var now = new Date().getTime();
-    var distance = countDownDate - now;
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    document.getElementById("hours").innerHTML = ("0" + hours).slice(-2)+":";
-    document.getElementById("minutes").innerHTML = ("0" + minutes).slice(-2)+":";
-    document.getElementById("seconds").innerHTML = ("0" + seconds).slice(-2);
+    let countDownDate = new Date(endDate).getTime();
+    this.myVar = setInterval(() => {
+    let now = new Date().getTime();
+    let distance = countDownDate - now;
+    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    this.hours = ("0" + hours).slice(-2)+":";
+    this.minutes = ("0" + minutes).slice(-2)+":";
+    this.seconds = ("0" + seconds).slice(-2);
     if (distance < 0) {
-     document.getElementById("hours").innerHTML = '';
-     document.getElementById("minutes").innerHTML = '';
-     document.getElementById("seconds").innerHTML = '';
-     clearInterval(this.myVar);
-     window.location.reload();
+      this.hours = "";
+      this.minutes = "";
+      this.seconds = "";
+      clearInterval(this.myVar);
+      var processButton = document.getElementById("process");
+      processButton.click(); 
+      var autoRefreshButton = document.getElementById("start");
+      autoRefreshButton.click(); 
     }
-    }, 1000);
+    }, 1000);   
 }
 
 autoRefresh(){
-  this.hour = this.datePipe.transform(this.value, 'medium');
-  if(this.value <= new Date()){
-    this.toastrService.danger(this.language.time_msg); 
-  }else{
+  var selectTime = new Date(this.value);
+  var minute = selectTime.getMinutes();
+  var hour = selectTime.getHours();
+  var currentTime = new Date();
+  currentTime.setHours( currentTime.getHours() + hour );
+  currentTime.setMinutes( currentTime.getMinutes() + minute );
+  this.hour = this.datePipe.transform(currentTime, 'medium');
+  if(this.hour){
     this.countdown(this.hour); 
   }
 }
