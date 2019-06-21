@@ -210,5 +210,9 @@
     "Production_Order": "Production Order",
     "Issue_from_Production": "Issue from Production",
     "Receipt_from_Production": "Receipt from Production",
-    "Item_Code": "Item Code"
+    "Item_Code": "Item Code",
+    "In_Process": "In Process",
+    "New": "New",
+    "Close": "Close",
+    "Cancel": "Cancel"
  }

@@ -35,8 +35,11 @@ export class LookupComponent implements OnInit {
   showSelection: boolean = false;
   selectedValues: Array<any> = [];
   public mySelection: number[] = [];
+  public language: any;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    this.language = JSON.parse(window.localStorage.getItem('language'));
+  }
 
   close_dialog() {
     this.dialogOpened = false;
@@ -65,6 +68,7 @@ export class LookupComponent implements OnInit {
     this.clearFilters()
   }
   ngOnInit() {
+   
   }
 
 
@@ -97,27 +101,27 @@ export class LookupComponent implements OnInit {
       },
       {
         field: 'OPTM_BTCHSERNO',
-        title: 'Serial/Batch No.',
+        title: this.language.serial_Batch_number,
         type: 'text',
         width: '100'
       },
       {
         field: 'OPTM_QUANTITY',
-        title: 'Quantity Accepted',
+        title: this.language.quantity_accept,
         type: 'text',
         width: '100',
         class: 'text-right'
       },
       {
         field: 'REJECTEDQTY',
-        title: 'Quantity Rejected',
+        title: this.language.quantity_rejected,
         type: 'text',
         width: '100',
         class: 'text-right'
       }
       
     ];
-    this.lookupTitle = 'Quantity Complete';
+    this.lookupTitle = this.language.quantity_completed;
     if (this.serviceData !== undefined) {
       if (this.serviceData.length > 0) {
         this.dialogOpened = true;
@@ -135,27 +139,27 @@ export class LookupComponent implements OnInit {
       },
       {
         field: 'BATCHSERNO',
-        title: 'Serial/Batch No.',
+        title: this.language.serial_Batch_number,
         type: 'text',
         width: '100'
       },
       {
         field: 'WhsCode',
-        title: 'Issue Warehouse',
+        title: this.language.issue_warehouse,
         type: 'text',
         width: '100'
       },
       
       {
         field: 'QUANTITY',
-        title: 'Quantity',
+        title: this.language.Quantity,
         type: 'text',
         width: '100',
         class: 'text-right'
       }
       
     ];
-    this.lookupTitle = 'In Stock';
+    this.lookupTitle = this.language.In_Stock;
     if (this.serviceData !== undefined) {
       if (this.serviceData.length > 0) {
         this.dialogOpened = true;
@@ -174,32 +178,32 @@ export class LookupComponent implements OnInit {
       },
       {
         field: 'DistNumber',
-        title: 'Serial/Batch No.',
+        title: this.language.serial_Batch_number,
         type: 'text',
         width: '100'
       },
       {
         field: 'Warehouse',
-        title: 'Issue Warehouse',
+        title: this.language.issue_warehouse,
         type: 'text',
         width: '100'
       },
       {
         field: 'BinCode',
-        title: 'Issue Bin',
+        title: this.language.Issue_bin,
         type: 'text',
         width: '100'
       },
       {
         field: 'Quantity',
-        title: 'Issue Quantity',
+        title: this.language.Issue_Quantity,
         type: 'text',
         width: '100',
         class: 'text-right'
       }
       
     ];
-    this.lookupTitle = 'Quantity Issued';
+    this.lookupTitle = this.language.Quantity_Issued;
     if (this.serviceData !== undefined) {
       if (this.serviceData.length > 0) {
         this.dialogOpened = true;
@@ -217,46 +221,44 @@ export class LookupComponent implements OnInit {
       },
       {
         field: 'VENDOR',
-        title: 'Vendor',
+        title: this.language.Vendor,
         type: 'text',
         width: '100'
       },
       {
         field: 'WHCODE',
-        title: 'Warehouse',
+        title: this.language.Warehouse,
         type: 'text',
         width: '100'
       },
       {
         field: 'UOM',
-        title: 'UOM',
+        title: this.language.UOM,
         type: 'text',
         width: '100'
       },
       {
         field: 'ORDERED_QTY',
-        title: 'Quantity Ordered',
+        title: this.language.Quantity_Ordered,
         type: 'text',
         width: '100',
         class: 'text-right'
       },
       {
         field: 'RECEIVE_QTY',
-        title: 'Quantity Received',
+        title: this.language.Quantity_Received,
         type: 'text',
         width: '100',
         class: 'text-right'
       },
       {
         field: 'RECV_DATE',
-        title: 'Receive Date',
+        title: this.language.Receive_Date,
         type: 'text',
-        width: '100'
-        //format: '{0: MM/dd/yyyy}'
-      }
-      
-    ];
-    this.lookupTitle = 'Quantity On Order';
+        width: '100',
+        format: '{0: MM/dd/yyyy}'
+      }];
+    this.lookupTitle = this.language.Quantity_On_Order;
     if (this.serviceData !== undefined) {
       if (this.serviceData.length > 0) {
         this.dialogOpened = true;
@@ -268,32 +270,32 @@ export class LookupComponent implements OnInit {
     this.table_head = [
       {
         field: 'ORDERED_QTY',
-        title: 'Ordered Quantity',
+        title: this.language.Ordered_Quantity,
         type: 'text',
         width: '100'
       },
       {
         field: 'RECEIVE_QTY',
-        title: 'Received Quantity',
+        title: this.language.Received_Quantity,
         type: 'text',
         width: '100'
       },
       {
         field: 'VENDOR',
-        title: 'Vendor',
+        title: this.language.Vendor,
         type: 'text',
         width: '100',
         class: 'text-right'
       },
       {
         field: 'UOM',
-        title: 'UOM',
+        title: this.language.UOM,
         type: 'text',
         width: '100',
         class: 'text-right'
       }      
     ];
-    this.lookupTitle = 'Quantity Committed';
+    this.lookupTitle = this.language.Quantity_Committed;
     if (this.serviceData !== undefined) {
       if (this.serviceData.length > 0) {
         this.dialogOpened = true;
@@ -305,11 +307,8 @@ export class LookupComponent implements OnInit {
   on_item_select(selection) {
     if (!this.showSelection) {
       const lookup_key = selection.selectedRows[0].dataItem;
-      //console.log("lookup_key - " + lookup_key);
-      // console.log(lookup_key);
       this.lookupkey.emit(lookup_key);
       this.lookupvalue.emit(Object.values(lookup_key));
-      //  console.log(selection);
       selection.selectedRows = [];
       selection.index = 0;
       selection.selected = false;

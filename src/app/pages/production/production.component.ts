@@ -114,10 +114,10 @@ export interface TreeNode {
    this.ToDate = new Date();
    this.masterSelected = true;
    this.checklist = [
-     {id:1, name:'In Process', value: '6', isSelected:false},
-     {id:2, name:'New', value: '1', isSelected:false},
-     {id:3, name:'Close', value: '4', isSelected:false},
-     {id:4, name:'Cancel', value: '3', isSelected:false}
+     {id:1, name:this.language.In_Process, value: '6', isSelected:false},
+     {id:2, name:this.language.New, value: '1', isSelected:false},
+     {id:3, name:this.language.Close, value: '4', isSelected:false},
+     {id:4, name:this.language.Cancel, value: '3', isSelected:false}
    ];
    this.getCheckedItemList();
    this.checkUncheckAll();
