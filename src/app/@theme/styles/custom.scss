@@ -2276,7 +2276,7 @@ col.k-sorted,th.k-sorted {
   & .second-menu {
     transform:rotate(-90deg) translate(-61px, -63px) rotateY(180deg);
     width: 164px;
-    
+    padding-right: 11px;
     & .node-data .data-column{
       display: none;
       
@@ -2407,7 +2407,7 @@ i.edge.horizontalEdge.rightEdge.fa {
   font-size: 0.78rem;
   color: #333;
 }
-.single-node.node .second-menu .node-footer .column-content {
+.node .second-menu .node-footer .column-content {
   font-weight: 600;
   color: #0064ff;
   font-size: 0.78rem;
