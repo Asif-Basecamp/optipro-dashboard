@@ -101,13 +101,10 @@ export interface TreeNode {
    public hours: any;
    public minutes: any;
    public seconds: any;
-   
+   public viewOptions: any;
+   public viewOption: any;
+
   constructor(private router: Router, private datePipe: DatePipe, private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
-  viewOptions = [
-    { value: 'SIMPLE', label: 'Simple View' },
-    { value: 'Multi', label: 'Detailed View' },
-  ];
-  viewOption = 'SIMPLE';   
   
   ngOnInit() { 
    this.language = JSON.parse(window.localStorage.getItem('language'));
@@ -117,16 +114,22 @@ export interface TreeNode {
    this.ToDate = new Date();
    this.masterSelected = true;
    this.checklist = [
-     {id:1, name:'In Process', value: '6', isSelected:false},
-     {id:2, name:'New', value: '1', isSelected:false},
-     {id:3, name:'Close', value: '4', isSelected:false},
-     {id:4, name:'Cancel', value: '3', isSelected:false}
+     {id:1, name:this.language.In_Process, value: '6', isSelected:false},
+     {id:2, name:this.language.New, value: '1', isSelected:false},
+     {id:3, name:this.language.Close, value: '4', isSelected:false},
+     {id:4, name:this.language.Cancel, value: '3', isSelected:false}
    ];
    this.getCheckedItemList();
    this.checkUncheckAll();
    this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);  
    let WoSelect = [];
    this.WOSelected = (e: RowArgs) => WoSelect.indexOf(e.dataItem.DocEntry) >=0 ;
+
+  this.viewOptions = [
+    { value: 'SIMPLE', label: this.language.simple_View },
+    { value: 'Multi', label: this.language.detail_view },
+  ];
+  this.viewOption = 'SIMPLE';  
   }
 
   open(dialog: TemplateRef < any > ) {
@@ -138,8 +141,7 @@ export interface TreeNode {
   }
 
   getItemData(api, companyDB){
-    let PrcrmntMtd = "'B','M'";
-    this.dash.GetItemList(api, companyDB,PrcrmntMtd).subscribe(
+    this.prod.GetItemList(api, companyDB).subscribe(
       data => {
         this.ItemData = data;
       });    
@@ -149,9 +151,14 @@ export interface TreeNode {
    this.prod.GetCompletedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_ORDRNO).subscribe(
      data => {
        if(data != undefined && data != null){
-        this.showLookup = true;
-        this.serviceApiData = data;
-        this.lookupfor = "showCompleteLookup";
+         if(data.length > 0){
+          this.showLookup = true;
+          this.serviceApiData = data;
+          this.lookupfor = "showCompleteLookup";
+         }
+         else {
+          this.toastrService.danger(this.language.no_record_found);    
+         }       
        }
        else {
         this.toastrService.danger(this.language.no_record_found);    
@@ -187,16 +194,9 @@ export interface TreeNode {
  }
 
  showDetailsInStockLookup(Inputdata,check,allGrid){
-   let ItemType = '';
-   if(Inputdata.ISSERIALTRACKED == 'Y'){
-     ItemType = 'serial';
-   }
-   else if(Inputdata.ISBATCHTRACKED == 'Y'){
-     ItemType = 'batch';
-   }
-
+   
    if(check == 'WH'){
-     this.prod.GetWarehouseWiseInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, Inputdata.U_O_COMPID, Inputdata.U_O_ISSWH,ItemType).subscribe(
+     this.prod.GetWarehouseWiseInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, Inputdata.U_O_COMPID, Inputdata.U_O_ISSWH).subscribe(
        data => {
           if(data != undefined && data != null){
            if(data.length > 0){
@@ -225,7 +225,7 @@ export interface TreeNode {
      else
     itemCode = Inputdata.U_O_COMPID;
 
-     this.prod.GetInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemCode, ItemType).subscribe(
+     this.prod.GetInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemCode).subscribe(
        data => {         
          if(data != undefined && data != null){
            if(data.length > 0){
@@ -580,6 +580,11 @@ export interface TreeNode {
   }
 
    GetExplosionData() {
+    if(this.ItemCodeFrom && !this.ItemCodeTo){
+      this.toastrService.danger(this.language.item_code_to_msg);
+    }else if(!this.ItemCodeFrom && this.ItemCodeTo){
+      this.toastrService.danger(this.language.item_code_from_msg);
+    }else{
     let gridItemSelect = [];
     this.GridViewSelected = (e: RowArgs) => gridItemSelect.indexOf(e.dataItem.Code) >=0 ;
     
@@ -631,6 +636,7 @@ export interface TreeNode {
         this.toastrService.danger(this.language.no_record_found);    
       })
       this.searchCriteriaToggle(event);
+    }
     } 
     }
 
@@ -699,9 +705,9 @@ export interface TreeNode {
     this.refreshStatus = false;
     this.time = '';
     this.value = '';
-    document.getElementById("hours").innerHTML = '';
-    document.getElementById("minutes").innerHTML = '';
-    document.getElementById("seconds").innerHTML = '';
+    this.hours = '';
+    this.minutes = '';
+    this.seconds = '';
     clearInterval(this.myVar);
   }
  }

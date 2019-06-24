@@ -11,9 +11,6 @@
       </svg>
       <span>{{language.selection_criteria}}</span>
       <span class="ml-auto mr-3 d-flex justify-content-center align-items-center timer-wrapper ">
-        <!--<span id="hours"></span>
-        <span id="minutes"></span>
-        <span id="seconds"></span>-->
         <span>{{hours}}</span>
         <span>{{minutes}}</span>
         <span>{{seconds}}</span>       
@@ -48,8 +45,9 @@
                   </div>
                 </div>
               </div>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="itemFromStatus && ItemCF.touched"
-                class="float-right opti_error-msg">{{language.correct_item_code}}</small>
+              <small id="emailHelp" class="form-text text-muted float-right opti_error-msg" *ngIf="itemFromStatus && ItemCF.touched"
+               >{{language.correct_item_code}}</small>
+              <small id="emailHelp" class="form-text text-muted opti_error-msg"></small>  
             </div>
 
             <div class="form-group">
@@ -65,8 +63,8 @@
                   </div>
                 </div>
               </div>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="itemToStatus && ItemCT.touched"
-                class="float-right opti_error-msg">{{language.correct_item_code}}</small>
+              <small id="emailHelp" class="form-text text-muted float-right opti_error-msg" *ngIf="itemToStatus && ItemCT.touched"
+              >{{language.correct_item_code}}</small>
             </div>
 
             <div class="form-group">
@@ -101,8 +99,8 @@
 
                 <label class="k-checkbox-label" for="{{item.id}}">{{item.name}}</label>
               </div>
-              <small id="emailHelp" class="form-text text-muted opti_error-msg" *ngIf="checkboxStatus"
-                class="float-right opti_error-msg">{{language.select_one_wo}}</small>
+              <small id="emailHelp" class="form-text text-muted float-right opti_error-msg" *ngIf="checkboxStatus"
+             >{{language.select_one_wo}}</small>
             </div>
           </form>
         </div>
@@ -113,9 +111,11 @@
           <div class="k-form-field d-flex align-items-center">
             <input type="checkbox" class="k-checkbox" id="autorefreshTime" name="autorefreshTime"
               [(ngModel)]="refreshCheck" (click)="refreshEvent($event)" />
-            <label class="k-checkbox-label d-flex align-items-center" for="autorefreshTime">Auto refresh time
-              <kendo-timepicker class="ml-2" format="HH:mm" formatPlaceholder="formatPattern" [(value)]="value" [disabled]="!refreshStatus"></kendo-timepicker>
+            <label class="k-checkbox-label d-flex align-items-center" for="autorefreshTime">{{language.auto_refresh_time}}
             </label>
+
+            <kendo-timepicker class="ml-2" format="HH:mm" formatPlaceholder="formatPattern" [(value)]="value" [disabled]="!refreshStatus"></kendo-timepicker>
+
           </div>
           <button class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" id="start" title="Manual Refresh"
             (click)="autoRefresh();" [disabled]="!refreshStatus">
@@ -134,7 +134,10 @@
             </svg>
           </button>
         </div>
-      </div>
+
+        <button type="submit" class="btn btn-primary ml-auto" nbButton size="xsmall" style="text-transform: none;text-align: center;
+        margin-right: 55px;
+        margin-top: 4px;" (click)="GetExplosionData($event)" [disabled]="!criteriaForm.form.valid || (itemFromStatus || itemToStatus)">{{language.Manual_Refresh}}</button>      </div>
 
 
     </nb-card-body>
@@ -231,6 +234,9 @@
 
                     <kendo-grid-column field="ItemCode" title="{{language.item}}" width="80">
                     </kendo-grid-column>
+                    <kendo-grid-column field="U_O_BOM_SEQ" title="{{language.bom_seq}}" width="80" class="text-right"
+                      headerClass="text-right">
+                    </kendo-grid-column>
                     <kendo-grid-column field="OnHand" title="{{language.in_stock}}" width="80" class="text-right"
                       headerClass="text-right">
                       <ng-template kendoGridCellTemplate let-dataItem>
@@ -283,6 +289,7 @@
                       <ng-template pTemplate="header">
                         <tr>
                           <th ttResizableColumn>{{language.item}}</th>
+                          <th ttResizableColumn>{{language.bom_seq}}</th>
                           <th ttResizableColumn>{{language.in_stock}}</th>
                           <th ttResizableColumn>{{language.commited}}</th>
                           <th ttResizableColumn>{{language.on_order}}</th>
@@ -296,6 +303,7 @@
                             <p-treeTableToggler [rowNode]="rowNode" class="cursor-pointer"></p-treeTableToggler>
                             <span class="cursor-pointer">{{rowData.ItemCode}}</span>
                           </td>
+                          <td class="text-right" headerClass="text-right">{{rowData.U_O_BOM_SEQ}}</td>
                           <td class="text-right" headerClass="text-right">
                               <a class="cursor-pointer text-primary"
                               (click)="showDetailsInStockLookup(rowData,'CP',true)">{{rowData.OnHand}}</a>
@@ -327,17 +335,17 @@
                     <nb-radio [value]="'all'">{{language.show_Wo_subassemblies}}</nb-radio>
                   </nb-radio-group>
 
-                  <button type="button" (click)="getInventshortRadioClick()" class="btn btn-primary ml-auto" nbButton size="xsmall">Inventory Shortage</button>
+                  <button type="button" (click)="getInventshortRadioClick()" class="btn btn-primary ml-auto" nbButton size="xsmall" style="text-transform: none;">{{language.Inventory_Shortage}}</button>
                   <nb-radio-group class="d-flex flex-wrap w-100 mt-2" [(ngModel)]="RadioBtnInventShort" name="RadioBtnInventShort">
-                    <nb-radio [value]="'Warehouse'" class="ml-auto">Warehouse Level</nb-radio>
-                    <nb-radio [value]="'Company'">Company Level</nb-radio>
+                    <nb-radio [value]="'Warehouse'" class="ml-auto">{{language.Warehouse_Level}}</nb-radio>
+                    <nb-radio [value]="'Company'">{{language.Company_Level}}</nb-radio>
                   </nb-radio-group>
 
                 </div>
 
                 <div class="mt-2">
                   <kendo-grid [kendoGridBinding]="gridWOFG" [filterable]=isColumnFilter2 [groupable]=isColumnGroup
-                    [pageable]="showgridWOPage" [pageSize]="5" [selectable]="true" [rowSelected]="WOSelected"
+                    [pageable]="showgridWOPage" [pageSize]="10" [selectable]="true" [rowSelected]="WOSelected"
                     [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                     (selectionChange)="gridRowSelectDocEntry($event)"
                     [ngStyle]="{ 'cursor': 'pointer', 'max-height':'490px'}">
@@ -353,11 +361,11 @@
                           </div>
                         </form>
                         <span class="ml-auto d-flex align-items-center flex-wrap">
-                          <button type="button" kendoGridPDFCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export to PDF">
-                            <i class="optipro-icon-pdf-file"></i><span>Export to PDF</span>
+                          <button type="button" kendoGridPDFCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export To PDF">
+                            <i class="optipro-icon-pdf-file"></i><span>{{language.Export_To_PDF}}</span>
                           </button>
                           <button type="button" kendoGridExcelCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export To Excel">
-                            <i class="optipro-icon-xls-file"></i><span>Export To Excel</span>
+                            <i class="optipro-icon-xls-file"></i><span>{{language.Export_To_Excel}}</span>
                           </button>
                         </span>
                       </div>
@@ -475,7 +483,7 @@
                           <div class="mt-2" *ngIf="showMaterialView == 'immediate'">
                             <kendo-grid [kendoGridBinding]="gridMaterial" [selectable]="selectableSettings"
                               [filterable]=isColumnFilter3 [groupable]=isColumnGroup [pageable]="showgridMaterialPage"
-                              [pageSize]="5" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
+                              [pageSize]="10" [sort]="state.sort" [filter]="state.filter" [resizable]="true"
                               [ngStyle]="{ 'max-height':'490px'}">
 
 
@@ -494,10 +502,10 @@
                                   </form>
                                   <span class="ml-auto d-flex align-items-center flex-wrap">
                                     <button type="button" kendoGridPDFCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export to PDF">
-                                      <i class="optipro-icon-pdf-file"></i><span>Export to PDF</span>
+                                      <i class="optipro-icon-pdf-file"></i><span>{{language.Export_To_PDF}}</span>
                                     </button>
                                     <button type="button" kendoGridExcelCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export To Excel">
-                                      <i class="optipro-icon-xls-file"></i><span>Export To Excel</span>
+                                      <i class="optipro-icon-xls-file"></i><span>{{language.Export_To_Excel}}</span>
                                     </button>
                                   </span>
                                 </div>
@@ -609,7 +617,7 @@
                           <div class="mt-2" *ngIf="showMaterialView == 'all'">
                             <kendo-grid [kendoGridBinding]="gridMaterial" [selectable]="selectableSettings"
                               [filterable]=isColumnFilter4 [groupable]=isColumnGroup [pageable]="showgridMaterialPage"
-                              [pageSize]="5" [selectable]="true" [sort]="state.sort" [filter]="state.filter"
+                              [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter"
                               [resizable]="true" (selectionChange)="gridRowSelectionChange($event,ref)"
                               [ngStyle]="{ 'max-height':'490px'}">
                               
@@ -627,10 +635,10 @@
                                   </form>
                                   <span class="ml-auto d-flex align-items-center flex-wrap">
                                     <button type="button" kendoGridPDFCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export to PDF">
-                                      <i class="optipro-icon-pdf-file"></i><span>Export to PDF</span>
+                                      <i class="optipro-icon-pdf-file"></i><span>{{language.Export_To_PDF}}</span>
                                     </button>
                                     <button type="button" kendoGridExcelCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export To Excel">
-                                      <i class="optipro-icon-xls-file"></i><span>Export To Excel</span>
+                                      <i class="optipro-icon-xls-file"></i><span>{{language.Export_To_Excel}}</span>
                                     </button>
                                   </span>
                                 </div>
@@ -750,7 +758,7 @@
                           <div class="">
                             <kendo-grid [kendoGridBinding]="gridOperation" [selectable]="selectableSettings"
                               [filterable]=isColumnFilter5 [groupable]=isColumnGroup [pageable]="showgridOperationPage"
-                              [pageSize]="5" [selectable]="true" [sort]="state.sort" [filter]="state.filter"
+                              [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter"
                               [resizable]="true" (selectionChange)="gridRowSelectionChange($event,ref)"
                               [ngStyle]="{ 'max-height':'490px'}">                              
                               
@@ -768,10 +776,10 @@
                                   </form>
                                   <span class="ml-auto d-flex align-items-center flex-wrap">
                                     <button type="button" kendoGridPDFCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export to PDF">
-                                      <i class="optipro-icon-pdf-file"></i><span>Export to PDF</span>
+                                      <i class="optipro-icon-pdf-file"></i><span>{{language.Export_To_PDF}}</span>
                                     </button>
                                     <button type="button" kendoGridExcelCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export To Excel">
-                                      <i class="optipro-icon-xls-file"></i><span>Export To Excel</span>
+                                      <i class="optipro-icon-xls-file"></i><span>{{language.Export_To_Excel}}</span>
                                     </button>
                                   </span>
                                 </div>
@@ -800,9 +808,39 @@
                               <kendo-grid-column field="U_O_OPR_DESC" title="{{language.operation_description}}"
                                 width="139">
                               </kendo-grid-column>
+                              <kendo-grid-column field="U_O_OPR_TYPE" title="{{language.operation_type}}" width="110">
+                              </kendo-grid-column>
+                              <kendo-grid-column field="U_O_BALQTY" title="{{language.qty_bal}}" width="108"
+                                class="text-right" headerClass="text-right">
+                              </kendo-grid-column>
+                            <kendo-grid-column field="U_O_CUMPRDCDQTY"
+                                title="{{language.quantity_commited_production}}" width="185" class="text-right"
+                                headerClass="text-right">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="U_O_CUMINSPQTY" title="{{language.quantity_inspection}}"
+                              width="121" class="text-right" headerClass="text-right">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="U_O_CUMPASSEDQTY" title="{{language.quantity_passed}}"
+                              width="105" class="text-right" headerClass="text-right">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="U_O_CUMREJQTY" title="{{language.quantity_reject}}" width="101"
+                              class="text-right" headerClass="text-right">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="U_O_CUMNCQTY" title="{{language.quantity_commited_nc}}"
+                              width="140" class="text-right" headerClass="text-right">
+                            </kendo-grid-column>
+                              <kendo-grid-column field="U_O_REWORKQTY" title="{{language.quantity_commited_rework}}"
+                                width="165" class="text-right" headerClass="text-right">
+                              </kendo-grid-column>
                               <kendo-grid-column field="U_O_OPERCMPFLG" title="{{language.operation_complete}}"
                                 width="124">
                               </kendo-grid-column>
+                              <kendo-grid-column field="U_OPTM_SCQTY" title="{{language.quantity_commited_sc}}"
+                                width="140" class="text-right" headerClass="text-right">
+                              </kendo-grid-column>
+                              <kendo-grid-column field="U_OPTM_SCCOST" title="{{language.subcontracting_cost}}"
+                                width="135" class="text-right" headerClass="text-right">
+                              </kendo-grid-column>                              
                               <kendo-grid-column field="U_OPTM_OPSDATE" title="{{language.operation_start_date_time}}"
                                 width="158">
                                 <ng-template kendoGridCellTemplate let-dataItem>
@@ -814,39 +852,9 @@
                                 <ng-template kendoGridCellTemplate let-dataItem>
                                   {{dataItem.U_OPTM_OPEDATE | date: 'MM/dd/yyyy'}}
                                 </ng-template>
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_O_OPR_TYPE" title="{{language.operation_type}}" width="110">
-                              </kendo-grid-column>
+                              </kendo-grid-column>                              
                               <kendo-grid-column field="U_OPTM_TIME_UOM" title="{{language.uom}}" width="44"
                                 class="text-right" headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_O_BALQTY" title="{{language.qty_bal}}" width="108"
-                                class="text-right" headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_O_CUMPRDCDQTY"
-                                title="{{language.quantity_commited_production}}" width="185" class="text-right"
-                                headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_O_CUMINSPQTY" title="{{language.quantity_inspection}}"
-                                width="121" class="text-right" headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_O_CUMPASSEDQTY" title="{{language.quantity_passed}}"
-                                width="105" class="text-right" headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_O_CUMREJQTY" title="{{language.quantity_reject}}" width="101"
-                                class="text-right" headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_O_CUMNCQTY" title="{{language.quantity_commited_nc}}"
-                                width="140" class="text-right" headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_O_REWORKQTY" title="{{language.quantity_commited_rework}}"
-                                width="165" class="text-right" headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_OPTM_SCQTY" title="{{language.quantity_commited_sc}}"
-                                width="140" class="text-right" headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_OPTM_SCCOST" title="{{language.subcontracting_cost}}"
-                                width="135" class="text-right" headerClass="text-right">
                               </kendo-grid-column>
                               <kendo-grid-column field="U_OPTM_WC_ID" title="{{language.work_center}}" width="86">
                               </kendo-grid-column>
@@ -861,7 +869,7 @@
                           <div class="">
                             <kendo-grid [kendoGridBinding]="gridResource" [selectable]="selectableSettings"
                               [filterable]=isColumnFilter6 [groupable]=isColumnGroup [pageable]="showgridResourcePage"
-                              [pageSize]="5" [selectable]="true" [sort]="state.sort" [filter]="state.filter"
+                              [pageSize]="10" [selectable]="true" [sort]="state.sort" [filter]="state.filter"
                               [resizable]="true" (selectionChange)="gridRowSelectionChange($event,ref)"
                               [ngStyle]="{ 'max-height':'490px'}">                              
                               <ng-template kendoGridToolbarTemplate>                                
@@ -878,10 +886,10 @@
                                   </form>
                                   <span class="ml-auto d-flex align-items-center flex-wrap">
                                     <button type="button" kendoGridPDFCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export to PDF">
-                                      <i class="optipro-icon-pdf-file"></i><span>Export to PDF</span>
+                                      <i class="optipro-icon-pdf-file"></i><span>{{language.Export_To_PDF}}</span>
                                     </button>
                                     <button type="button" kendoGridExcelCommand class="btn btn-default btn-icon btn-sm p-0 btn-icon-only" title="Export To Excel">
-                                      <i class="optipro-icon-xls-file"></i><span>Export To Excel</span>
+                                      <i class="optipro-icon-xls-file"></i><span>{{language.Export_To_Excel}}</span>
                                     </button>
                                   </span>
                                 </div>
