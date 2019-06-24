@@ -138,8 +138,7 @@ export interface TreeNode {
   }
 
   getItemData(api, companyDB){
-    let PrcrmntMtd = "'B','M'";
-    this.dash.GetItemList(api, companyDB,PrcrmntMtd).subscribe(
+    this.prod.GetItemList(api, companyDB).subscribe(
       data => {
         this.ItemData = data;
       });    
@@ -149,9 +148,14 @@ export interface TreeNode {
    this.prod.GetCompletedQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, data.U_O_ORDRNO).subscribe(
      data => {
        if(data != undefined && data != null){
-        this.showLookup = true;
-        this.serviceApiData = data;
-        this.lookupfor = "showCompleteLookup";
+         if(data.length > 0){
+          this.showLookup = true;
+          this.serviceApiData = data;
+          this.lookupfor = "showCompleteLookup";
+         }
+         else {
+          this.toastrService.danger(this.language.no_record_found);    
+         }       
        }
        else {
         this.toastrService.danger(this.language.no_record_found);    
@@ -187,16 +191,9 @@ export interface TreeNode {
  }
 
  showDetailsInStockLookup(Inputdata,check,allGrid){
-   let ItemType = '';
-   if(Inputdata.ISSERIALTRACKED == 'Y'){
-     ItemType = 'serial';
-   }
-   else if(Inputdata.ISBATCHTRACKED == 'Y'){
-     ItemType = 'batch';
-   }
-
+   
    if(check == 'WH'){
-     this.prod.GetWarehouseWiseInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, Inputdata.U_O_COMPID, Inputdata.U_O_ISSWH,ItemType).subscribe(
+     this.prod.GetWarehouseWiseInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, Inputdata.U_O_COMPID, Inputdata.U_O_ISSWH).subscribe(
        data => {
           if(data != undefined && data != null){
            if(data.length > 0){
@@ -225,7 +222,7 @@ export interface TreeNode {
      else
     itemCode = Inputdata.U_O_COMPID;
 
-     this.prod.GetInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemCode, ItemType).subscribe(
+     this.prod.GetInStockQtyDetails(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB, itemCode).subscribe(
        data => {         
          if(data != undefined && data != null){
            if(data.length > 0){

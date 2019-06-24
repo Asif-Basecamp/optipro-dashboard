@@ -577,10 +577,14 @@ export class GenealogyComponent implements OnInit {
       }
      }).forEach(function(d) {
       var cd = d;
-      if(cd.DocEntry != null)
-      cd["name"] = cd.DistNumber + ` ( ${cd.ObjectTypeDesc} (${cd.DocEntry})  )`;
-      else
-      cd["name"] = cd.DistNumber;
+      if(cd.DocEntry != null){
+        cd["name"] = cd.DistNumber + ` ( ${cd.ObjectTypeDesc} (${cd.DocEntry})  )`;
+        cd["IsNode"] = true;
+      }      
+      else {
+        cd["name"] = cd.DistNumber;
+        cd["IsNode"] = false;
+      }
       if(cd.ObjectTypeDesc != null){
         let desc = '';
         desc =  cd.ObjectTypeDesc.replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '')
@@ -691,7 +695,7 @@ export class GenealogyComponent implements OnInit {
              </div>
              <div class="data-column">
                <div class="data-heading">
-                 Warehouse 
+               ${data.IsNode ? 'Warehouse' : ''} 
                </div>
                <div class="data-content">
                  ${data.Warehouse ? data.Warehouse : ''}
@@ -707,7 +711,7 @@ export class GenealogyComponent implements OnInit {
              </div>
              <div class="data-column">
                <div class="data-heading">
-                 Expiry Date
+                 ${data.IsNode ? 'Expiry Date' : ''} 
                </div>
                <div class="data-content">
                  ${data.EXPDATE ? data.EXPDATE : ''}
@@ -715,7 +719,7 @@ export class GenealogyComponent implements OnInit {
              </div>
              <div class="data-column">
                <div class="data-heading">
-                 Receipt Date
+                 ${data.IsNode ? 'Receipt Date' : ''} 
                </div>
                <div class="data-content">
                  ${data.CREATEDATE ? data.CREATEDATE : ''}
@@ -723,7 +727,7 @@ export class GenealogyComponent implements OnInit {
              </div>
              <div class="data-column">
                <div class="data-heading">
-                 Lot Status
+                 ${data.IsNode ? 'Lot Status' : ''} 
                </div>
                <div class="data-content">
                  ${data.Status ? data.Status : ''}
@@ -731,7 +735,7 @@ export class GenealogyComponent implements OnInit {
              </div>
              <div class="data-column">
                <div class="data-heading">
-                 Quantity
+                 ${data.IsNode ? 'Quantity' : ''} 
                </div>
                <div class="data-content">
                  ${data.Quantity ? data.Quantity : ''}
@@ -742,7 +746,7 @@ export class GenealogyComponent implements OnInit {
          <div class="node-footer">
            <div class="footer-column">
              <div class="column-heading">
-               Total Received
+               ${data.IsNode ? 'Total Received' : ''} 
              </div>
              <div class="column-content">
                ${data.TOTALRECEIVE ? data.TOTALRECEIVE : ''}
@@ -750,7 +754,7 @@ export class GenealogyComponent implements OnInit {
            </div>
            <div class="footer-column">
              <div class="column-heading">
-               Total Issued
+               ${data.IsNode ? 'Total Issued' : ''} 
              </div>
              <div class="column-content">
                ${data.TOTALISSUE ? data.TOTALISSUE : ''}
@@ -758,7 +762,7 @@ export class GenealogyComponent implements OnInit {
            </div>
            <div class="footer-column">
              <div class="column-heading">
-               Onhand
+              ${data.IsNode ? 'Onhand' : ''} 
              </div>
              <div class="column-content">
                ${data.ONHAND ? data.ONHAND : ''}

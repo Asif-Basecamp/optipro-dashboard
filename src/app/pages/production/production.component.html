@@ -231,6 +231,9 @@
 
                     <kendo-grid-column field="ItemCode" title="{{language.item}}" width="80">
                     </kendo-grid-column>
+                    <kendo-grid-column field="U_O_BOM_SEQ" title="{{language.bom_seq}}" width="80" class="text-right"
+                      headerClass="text-right">
+                    </kendo-grid-column>
                     <kendo-grid-column field="OnHand" title="{{language.in_stock}}" width="80" class="text-right"
                       headerClass="text-right">
                       <ng-template kendoGridCellTemplate let-dataItem>
@@ -283,6 +286,7 @@
                       <ng-template pTemplate="header">
                         <tr>
                           <th ttResizableColumn>{{language.item}}</th>
+                          <th ttResizableColumn>{{language.bom_seq}}</th>
                           <th ttResizableColumn>{{language.in_stock}}</th>
                           <th ttResizableColumn>{{language.commited}}</th>
                           <th ttResizableColumn>{{language.on_order}}</th>
@@ -296,6 +300,7 @@
                             <p-treeTableToggler [rowNode]="rowNode" class="cursor-pointer"></p-treeTableToggler>
                             <span class="cursor-pointer">{{rowData.ItemCode}}</span>
                           </td>
+                          <td class="text-right" headerClass="text-right">{{rowData.U_O_BOM_SEQ}}</td>
                           <td class="text-right" headerClass="text-right">
                               <a class="cursor-pointer text-primary"
                               (click)="showDetailsInStockLookup(rowData,'CP',true)">{{rowData.OnHand}}</a>
@@ -800,9 +805,39 @@
                               <kendo-grid-column field="U_O_OPR_DESC" title="{{language.operation_description}}"
                                 width="139">
                               </kendo-grid-column>
+                              <kendo-grid-column field="U_O_OPR_TYPE" title="{{language.operation_type}}" width="110">
+                              </kendo-grid-column>
+                              <kendo-grid-column field="U_O_BALQTY" title="{{language.qty_bal}}" width="108"
+                                class="text-right" headerClass="text-right">
+                              </kendo-grid-column>
+                            <kendo-grid-column field="U_O_CUMPRDCDQTY"
+                                title="{{language.quantity_commited_production}}" width="185" class="text-right"
+                                headerClass="text-right">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="U_O_CUMINSPQTY" title="{{language.quantity_inspection}}"
+                              width="121" class="text-right" headerClass="text-right">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="U_O_CUMPASSEDQTY" title="{{language.quantity_passed}}"
+                              width="105" class="text-right" headerClass="text-right">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="U_O_CUMREJQTY" title="{{language.quantity_reject}}" width="101"
+                              class="text-right" headerClass="text-right">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="U_O_CUMNCQTY" title="{{language.quantity_commited_nc}}"
+                              width="140" class="text-right" headerClass="text-right">
+                            </kendo-grid-column>
+                              <kendo-grid-column field="U_O_REWORKQTY" title="{{language.quantity_commited_rework}}"
+                                width="165" class="text-right" headerClass="text-right">
+                              </kendo-grid-column>
                               <kendo-grid-column field="U_O_OPERCMPFLG" title="{{language.operation_complete}}"
                                 width="124">
                               </kendo-grid-column>
+                              <kendo-grid-column field="U_OPTM_SCQTY" title="{{language.quantity_commited_sc}}"
+                                width="140" class="text-right" headerClass="text-right">
+                              </kendo-grid-column>
+                              <kendo-grid-column field="U_OPTM_SCCOST" title="{{language.subcontracting_cost}}"
+                                width="135" class="text-right" headerClass="text-right">
+                              </kendo-grid-column>                              
                               <kendo-grid-column field="U_OPTM_OPSDATE" title="{{language.operation_start_date_time}}"
                                 width="158">
                                 <ng-template kendoGridCellTemplate let-dataItem>
@@ -814,39 +849,9 @@
                                 <ng-template kendoGridCellTemplate let-dataItem>
                                   {{dataItem.U_OPTM_OPEDATE | date: 'MM/dd/yyyy'}}
                                 </ng-template>
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_O_OPR_TYPE" title="{{language.operation_type}}" width="110">
-                              </kendo-grid-column>
+                              </kendo-grid-column>                              
                               <kendo-grid-column field="U_OPTM_TIME_UOM" title="{{language.uom}}" width="44"
                                 class="text-right" headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_O_BALQTY" title="{{language.qty_bal}}" width="108"
-                                class="text-right" headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_O_CUMPRDCDQTY"
-                                title="{{language.quantity_commited_production}}" width="185" class="text-right"
-                                headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_O_CUMINSPQTY" title="{{language.quantity_inspection}}"
-                                width="121" class="text-right" headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_O_CUMPASSEDQTY" title="{{language.quantity_passed}}"
-                                width="105" class="text-right" headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_O_CUMREJQTY" title="{{language.quantity_reject}}" width="101"
-                                class="text-right" headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_O_CUMNCQTY" title="{{language.quantity_commited_nc}}"
-                                width="140" class="text-right" headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_O_REWORKQTY" title="{{language.quantity_commited_rework}}"
-                                width="165" class="text-right" headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_OPTM_SCQTY" title="{{language.quantity_commited_sc}}"
-                                width="140" class="text-right" headerClass="text-right">
-                              </kendo-grid-column>
-                              <kendo-grid-column field="U_OPTM_SCCOST" title="{{language.subcontracting_cost}}"
-                                width="135" class="text-right" headerClass="text-right">
                               </kendo-grid-column>
                               <kendo-grid-column field="U_OPTM_WC_ID" title="{{language.work_center}}" width="86">
                               </kendo-grid-column>
