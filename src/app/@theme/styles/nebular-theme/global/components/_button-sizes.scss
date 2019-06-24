@@ -9,6 +9,7 @@
   font-size: $font-size;
   line-height: $line-height;
   border-radius: $border-radius;
+  text-transform: capitalize !important;
 }
 
 @mixin btn-large() {
