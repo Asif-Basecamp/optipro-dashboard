@@ -738,7 +738,7 @@ countdown(endDate) {
     }, 1000);   
 }
 
-/*autoRefresh(){
+autoRefresh(){
   var selectTime = new Date(this.value);
   var minute = selectTime.getMinutes();
   var hour = selectTime.getHours();
@@ -749,20 +749,8 @@ countdown(endDate) {
   if(this.hour){
     this.countdown(this.hour); 
   }
-}*/
-
-onChange(e){
-  var selectTime = new Date(e);
-  var minute = selectTime.getMinutes();
-  var hour = selectTime.getHours();
-  var currentTime = new Date();
-  currentTime.setHours( currentTime.getHours() + hour );
-  currentTime.setMinutes( currentTime.getMinutes() + minute );
-  this.hour = this.datePipe.transform(currentTime, 'medium');
-  if(this.hour){
-    this.countdown(this.hour); 
-  }
 }
+
 
  getWoRadioClick(evt){    
   if(this.itemName != ''){
