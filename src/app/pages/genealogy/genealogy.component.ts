@@ -110,7 +110,7 @@ export class GenealogyComponent implements OnInit {
        this.whse = false;
        this.LotTo = false;
        this.LotFrom = false;
-       this.lookUpHeading = 'Item Code';
+       this.lookUpHeading = this.language.Item_Code;
        this.gridData = gridData;
        this.dialogService.open(dialog);
  } 
@@ -221,7 +221,7 @@ export class GenealogyComponent implements OnInit {
      this.whse = true;
      this.LotFrom = false;
      this.LotTo = false;
-     this.lookUpHeading = 'Warehouse';
+     this.lookUpHeading = this.language.warehouse;
      this.dialogService.open(dialog);
    }
  }
@@ -326,7 +326,7 @@ export class GenealogyComponent implements OnInit {
     this.whse = false;
     this.LotFrom = true;
     this.LotTo = false;
-    this.lookUpHeading = 'Lot From';
+    this.lookUpHeading = this.language.lot_from;
     this.dialogService.open(dialog);
    },
    error => {
@@ -356,7 +356,7 @@ export class GenealogyComponent implements OnInit {
     this.whse = false;
     this.LotFrom = false;
     this.LotTo = true;
-    this.lookUpHeading = 'Lot To';
+    this.lookUpHeading = this.language.lot_to;
     this.dialogService.open(dialog);
    },
    error => {
@@ -920,11 +920,7 @@ export class GenealogyComponent implements OnInit {
 
    }
  }
-
  colorCodeWrapperToggle(e){
   document.getElementById('color-code-wrapper').classList.toggle('open');
  }
-
- 
-
 }

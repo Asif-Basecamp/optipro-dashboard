@@ -2,7 +2,7 @@
   <nb-card accent="primary" id="selection-criteria-section">
     <nb-card-header class="border-bottom d-flex">
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" class="mr-2" fill="#2a2a2a"><rect width="24" height="24" opacity="0"></rect><path d="M20.71 19.29l-3.4-3.39A7.92 7.92 0 0 0 19 11a8 8 0 1 0-8 8 7.92 7.92 0 0 0 4.9-1.69l3.39 3.4a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM5 11a6 6 0 1 1 6 6 6 6 0 0 1-6-6z"></path></svg>
-      <span>Selection Criteria</span>
+      <span>{{language.Selection_Criteria}}</span>
       <span class="ml-auto  d-flex justify-content-center align-items-center">
         <span class="optipro-icon-arrow-left cursor-pointer mr-1 d-flex" (click)="searchCriteriaToggle($event)"></span>
       </span>
@@ -23,7 +23,7 @@
               <span>{{language.select}}</span>
               <span class="ml-auto">
                   <input class="k-checkbox" type="checkbox" id="vendor" name="vendor" [(ngModel)]="vendor" (change)="VendorCheck($event)"/>
-                  <label class="k-checkbox-label" for="vendor">Vendor</label>
+                  <label class="k-checkbox-label" for="vendor">{{language.Vendor}}</label>
               </span>
             </h6>
             
@@ -278,7 +278,7 @@
                                 [class.node-content-wrapper-focused]="node.isFocused"
                                 (click)="node.mouseAction('click', $event)"
                                 (dblclick)="node.mouseAction('dblClick', $event)">
-                                  <span>({{node.data.DistNumber}}) Doc Entry:{{node.data.DocEntry}} > {{node.data.ObjectTypeDesc}}</span>
+                                  <span>({{node.data.DistNumber}}) {{language.Doc_Entry}}:{{node.data.DocEntry}} > {{node.data.ObjectTypeDesc}}</span>
                                 </div>
                               <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
                             </div>
@@ -306,119 +306,119 @@
             <div class="color-code-wrapper" id="color-code-wrapper">
               <div class="color-code-content">
                 <div class="color-code-toggle"><button (click)="colorCodeWrapperToggle($event)" type="button"><i class="optipro-icon-chevron-left"></i></button></div>
-                <div class="color-code-heading">Color Scheme</div>
+                <div class="color-code-heading">{{language.Color_Scheme}}</div>
                 <ul class="list-unstyled">
                   <li>
                     <span class="color-code JournalEntry"></span>
-                    <span class="color-type">Journal Entry</span>
+                    <span class="color-type">{{language.Journal_Entry}}</span>
                   </li>
                   <li>
                     <span class="color-code SalesQuotation"></span>
-                    <span class="color-type">Sales Quotation</span>
+                    <span class="color-type">{{language.Sales_Quotation}}</span>
                   </li>
                   <li>
                     <span class="color-code SalesOrder"></span>
-                    <span class="color-type">Sales Order</span>
+                    <span class="color-type">{{language.Sales_Order}}</span>
                   </li>
                   <li>
                     <span class="color-code Delivery"></span>
-                    <span class="color-type">Delivery </span>
+                    <span class="color-type">{{language.Delivery}} </span>
                   </li>
                   <li>
                     <span class="color-code ReturnRequest"></span>
-                    <span class="color-type">Return Request</span>
+                    <span class="color-type">{{language.Return_Request}}</span>
                   </li>
                   <li>
                     <span class="color-code Return"></span>
-                    <span class="color-type">Return</span>
+                    <span class="color-type">{{language.Return}}</span>
                   </li>
                   <li>
                     <span class="color-code ARDownPayment"></span>
-                    <span class="color-type">A/R Down Payment</span>
+                    <span class="color-type">{{language.AR_Down_Payment}}</span>
                   </li>
                   <li>
                     <span class="color-code ARCreditMemo"></span>
-                    <span class="color-type">A/R Credit Memo</span>
+                    <span class="color-type">{{language.AR_Credit_Memo}}</span>
                   </li>
                   <li>
                     <span class="color-code ARInvoice"></span>
-                    <span class="color-type">A/R Invoice</span>
+                    <span class="color-type">{{language.AR_Invoice}}</span>
                   </li>
                   <li>
                     <span class="color-code PurchaseRequest"></span>
-                    <span class="color-type">Purchase Request</span>
+                    <span class="color-type">{{language.Purchase_Request}}</span>
                   </li>
                   <li>
                     <span class="color-code PurchaseQuotation"></span>
-                    <span class="color-type">Purchase Quotation</span>
+                    <span class="color-type">{{language.Purchase_Quotation}}</span>
                   </li>
                   <li>
                     <span class="color-code PurchaseOrder"></span>
-                    <span class="color-type">Purchase Order</span>
+                    <span class="color-type">{{language.Purchase_Order}}</span>
                   </li>
                   <li>
                     <span class="color-code GoodsReceiptPO"></span>
-                    <span class="color-type">Goods Receipt PO</span>
+                    <span class="color-type">{{language.Goods_Receipt_PO}}</span>
                   </li>
                   <li>
                     <span class="color-code GoodsReturnRequest"></span>
-                    <span class="color-type">Goods Return Request</span>
+                    <span class="color-type">{{language.Goods_Return_Request}}</span>
                   </li>
                   <li>
                     <span class="color-code GoodsReturn"></span>
-                    <span class="color-type">Goods Return</span>
+                    <span class="color-type">{{language.Goods_Return}}</span>
                   </li>
                   <li>
                     <span class="color-code APDownPaymentInvoice"></span>
-                    <span class="color-type">A/P DownPayment Invoice</span>
+                    <span class="color-type">{{language.AP_DownPayment_Invoice}}</span>
                   </li>
                   <li>
                     <span class="color-code APInvoice"></span>
-                    <span class="color-type">A/P Invoice</span>
+                    <span class="color-type">{{language.AP_Invoice}}</span>
                   </li>
                   <li>
                     <span class="color-code APCreditMemo"></span>
-                    <span class="color-type">A/P Credit Memo</span>
+                    <span class="color-type">{{language.AP_Credit_Memo}}</span>
                   </li>
                   <li>
                     <span class="color-code Deposit"></span>
-                    <span class="color-type">Deposit</span>
+                    <span class="color-type">{{language.Deposit}}</span>
                   </li>
                   <li>
                     <span class="color-code OutgoingPayment"></span>
-                    <span class="color-type">Outgoing Payment</span>
+                    <span class="color-type">{{language.Outgoing_Payment}}</span>
                   </li>
                   <li>
                     <span class="color-code GoodsReceipt"></span>
-                    <span class="color-type">Goods Receipt</span>
+                    <span class="color-type">{{language.Goods_Receipt}}</span>
                   </li>
                   <li>
                     <span class="color-code GoodsIssue"></span>
-                    <span class="color-type">Goods Issue</span>
+                    <span class="color-type">{{language.Goods_Issue}}</span>
                   </li>
                   <li>
                     <span class="color-code InventoryTransferRequest"></span>
-                    <span class="color-type">Inventory Transfer Request</span>
+                    <span class="color-type">{{language.Inventory_Transfer_Request}}</span>
                   </li>
                   <li>
                     <span class="color-code InventoryTransfer"></span>
-                    <span class="color-type">Inventory Transfer</span>
+                    <span class="color-type">{{language.Inventory_Transfer}}</span>
                   </li>
                   <li>
                     <span class="color-code InventoryRevaluation"></span>
-                    <span class="color-type">Inventory Revaluation</span>
+                    <span class="color-type">{{language.Inventory_Revaluation}}</span>
                   </li>
                   <li>
                     <span class="color-code ProductionOrder"></span>
-                    <span class="color-type">Production Order</span>
+                    <span class="color-type">{{language.Production_Order}}</span>
                   </li>
                   <li>
                     <span class="color-code IssueFromProduction"></span>
-                    <span class="color-type">Issue from Production</span>
+                    <span class="color-type">{{language.Issue_from_Production}}</span>
                   </li>
                   <li>
                     <span class="color-code ReceiptFromProduction"></span>
-                    <span class="color-type">Receipt from Production</span>
+                    <span class="color-type">{{language.Receipt_from_Production}}</span>
                   </li>
                 </ul>
               </div>

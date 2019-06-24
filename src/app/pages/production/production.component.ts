@@ -101,13 +101,10 @@ export interface TreeNode {
    public hours: any;
    public minutes: any;
    public seconds: any;
-   
+   public viewOptions: any;
+   public viewOption: any;
+
   constructor(private router: Router, private datePipe: DatePipe, private dialogService: NbDialogService,private dash: DashboardService,private prod: ProductionService,private toastrService: NbToastrService) {}
-  viewOptions = [
-    { value: 'SIMPLE', label: 'Simple View' },
-    { value: 'Multi', label: 'Detailed View' },
-  ];
-  viewOption = 'SIMPLE';   
   
   ngOnInit() { 
    this.language = JSON.parse(window.localStorage.getItem('language'));
@@ -117,16 +114,22 @@ export interface TreeNode {
    this.ToDate = new Date();
    this.masterSelected = true;
    this.checklist = [
-     {id:1, name:'In Process', value: '6', isSelected:false},
-     {id:2, name:'New', value: '1', isSelected:false},
-     {id:3, name:'Close', value: '4', isSelected:false},
-     {id:4, name:'Cancel', value: '3', isSelected:false}
+     {id:1, name:this.language.In_Process, value: '6', isSelected:false},
+     {id:2, name:this.language.New, value: '1', isSelected:false},
+     {id:3, name:this.language.Close, value: '4', isSelected:false},
+     {id:4, name:this.language.Cancel, value: '3', isSelected:false}
    ];
    this.getCheckedItemList();
    this.checkUncheckAll();
    this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);  
    let WoSelect = [];
    this.WOSelected = (e: RowArgs) => WoSelect.indexOf(e.dataItem.DocEntry) >=0 ;
+
+  this.viewOptions = [
+    { value: 'SIMPLE', label: this.language.simple_View },
+    { value: 'Multi', label: this.language.detail_view },
+  ];
+  this.viewOption = 'SIMPLE';  
   }
 
   open(dialog: TemplateRef < any > ) {
