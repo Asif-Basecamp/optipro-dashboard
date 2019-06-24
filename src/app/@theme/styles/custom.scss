@@ -2134,11 +2134,18 @@ col.k-sorted,th.k-sorted {
   text-align: left;
   font-size: 0.78rem;
   color: #333;
+  white-space: nowrap;
+  padding-right: 5px;
 }
 
 .orgchart .node .second-menu .node-data  .data-column .data-content {
   font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 0.78rem;
+  flex: 1 1 100%;
+  text-align: right;
 }
 .orgchart .node .second-menu .node-footer{
   flex-direction: row;
@@ -2409,9 +2416,7 @@ i.edge.horizontalEdge.rightEdge.fa {
 }
 .node .second-menu .node-footer .column-content {
   font-weight: 600;
-  color: #0064ff;
   font-size: 0.78rem;
-  text-decoration: underline;
   min-height: 13px;
 }
 
