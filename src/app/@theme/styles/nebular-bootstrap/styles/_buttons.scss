@@ -20,6 +20,7 @@
     font-family: nb-theme(btn-font-family);
     border: 1px solid transparent;
     transition: none;
+    text-transform: capitalize !important;
     cursor: nb-theme(btn-cursor);
 
     &:focus, .focus,
