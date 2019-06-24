@@ -2152,10 +2152,6 @@ col.k-sorted,th.k-sorted {
   color: #000;
   font-size: 0.78rem;
 }
-.orgchart .node .second-menu .node-footer .column-content {
-  font-weight: 600;
-  font-size: 0.78rem;
-}
 
 .orgchart.l2r .node {
   width: 108px;
@@ -2416,6 +2412,7 @@ i.edge.horizontalEdge.rightEdge.fa {
   color: #0064ff;
   font-size: 0.78rem;
   text-decoration: underline;
+  min-height: 13px;
 }
 
   .chart-arrow-up{
