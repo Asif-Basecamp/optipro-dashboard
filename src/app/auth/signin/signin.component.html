@@ -132,8 +132,8 @@
                          <div class="form-group">
                               <label for="">{{language.company}}</label>
                               <nb-select placeholder="{{language.company_placeholder}}" [(ngModel)]="selectedItemNgModel" size="small" outline name="NgModel" required>
-                                  <nb-option *ngFor="let cmp of listItems" value="{{cmp.OPTM_COMPID}}">{{cmp.cmpName}}
-                                          ({{cmp.OPTM_COMPID}})</nb-option> 
+                                  <nb-option *ngFor="let cmp of listItems" value="{{cmp.OPTM_COMPID}}">
+                                          {{cmp.OPTM_COMPID}}</nb-option> 
                               </nb-select>
                           </div>
                             

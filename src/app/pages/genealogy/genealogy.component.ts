@@ -476,15 +476,16 @@ export class GenealogyComponent implements OnInit {
    }
   } else if (this.LotFrom) {
    if(this.vendor)
-   this.DistNumFrom = evt.selectedRows[0].dataItem.MnfSerial;
-   else
+  this.DistNumFrom = evt.selectedRows[0].dataItem.MnfSerial;
+else
   this.DistNumFrom = evt.selectedRows[0].dataItem.DistNumber;
   } else if (this.LotTo) {
    if(this.vendor)
-   this.DistNumTo = evt.selectedRows[0].dataItem.MnfSerial;
-   else
+  this.DistNumTo = evt.selectedRows[0].dataItem.MnfSerial;
+else
    this.DistNumTo = evt.selectedRows[0].dataItem.DistNumber;
-  } else {
+  } 
+  else {
    this.DfltWarehouse = evt.selectedRows[0].dataItem.WhsCode;
   }
   ref.close();
@@ -805,9 +806,9 @@ export class GenealogyComponent implements OnInit {
   if (test == "" || test == undefined) {
    return;
   } else {
-   if (test.indexOf(">") > -1) {
+   if (test.indexOf("~") > -1) {
     this.loading = true;
-    test = test.split(">")[test.split(">").length - 1];
+    test = test.split("~")[test.split("~").length - 1];
     if (test != '' && test != " " && test != undefined && test != null) {
      test = test.trim();
     } else {
@@ -828,11 +829,11 @@ export class GenealogyComponent implements OnInit {
    return;
   } else {
    this.Analysisloading = true; 
-   if (dt.indexOf(">") > -1) {
+   if (dt.indexOf("~") > -1) {
     if (dt.indexOf(":") > -1)
-     dcentry = dt.split(">")[0].trim();
+     dcentry = dt.split("~")[0].trim();
     else
-     dcentry = dt.split(">")[1].trim();
+     dcentry = dt.split("~")[1].trim();
    } else {
     dcentry = dt;
    }

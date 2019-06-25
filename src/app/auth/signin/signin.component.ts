@@ -68,7 +68,8 @@ export class SigninComponent implements OnInit {
 		this.auth.getPSURL(this.arrConfigData[0].optiProDashboardAPIURL, this.adminDBName).subscribe(
 			data => {
 				if (data != null) {
-				  this.psURL = 'http://172.16.6.147/OptiProAdmin';
+				// this.psURL = 'http://172.16.6.147/OptiProAdmin';
+				 this.psURL = data;
 				}
 			},
 			error => {

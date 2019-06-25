@@ -228,12 +228,12 @@
                             [class.node-content-wrapper-focused]="node.isFocused"
                             (click)="node.mouseAction('click', $event)"
                             (dblclick)="node.mouseAction('dblClick', $event)">
-                              <span>{{node.data.OPTM_ITEMCODE}} > {{node.data.OPTM_BTCHSERNO }}</span>
+                              <span>{{node.data.OPTM_ITEMCODE}} ~ {{node.data.OPTM_BTCHSERNO }}</span>
                             </div>
                             <div class="node-content-wrapper" *ngIf="explodeDirection == 'UP'" [class.node-content-wrapper-active]="node.isActive"
                             [class.node-content-wrapper-focused]="node.isFocused"
                             (click)="node.mouseAction('click', $event)" (dblclick)="node.mouseAction('dblClick', $event)">
-                                <span>{{node.data.OPTM_ITEMCODE}} > {{node.data.OPTM_PARENTBTCHSERNO }}</span>
+                                <span>{{node.data.OPTM_ITEMCODE}} ~ {{node.data.OPTM_PARENTBTCHSERNO }}</span>
                               </div>
                           <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
                         </div>
@@ -272,13 +272,13 @@
                               [class.node-content-wrapper-focused]="node.isFocused"
                               (click)="node.mouseAction('click', $event)"
                               (dblclick)="node.mouseAction('dblClick', $event)">
-                                  <span>{{node.data.ItemCode}} > {{node.data.DistNumber}}</span>
+                                  <span>{{node.data.ItemCode}} ~ {{node.data.DistNumber}}</span>
                                 </div>
                                 <div class="node-content-wrapper" *ngIf="node.data.ObjectTypeDesc != null" [class.node-content-wrapper-active]="node.isActive"
                                 [class.node-content-wrapper-focused]="node.isFocused"
                                 (click)="node.mouseAction('click', $event)"
                                 (dblclick)="node.mouseAction('dblClick', $event)">
-                                  <span>({{node.data.DistNumber}}) {{language.Doc_Entry}}:{{node.data.DocEntry}} > {{node.data.ObjectTypeDesc}}</span>
+                                  <span>({{node.data.DistNumber}}) {{language.Doc_Entry}}:{{node.data.DocEntry}} ~ {{node.data.ObjectTypeDesc}}</span>
                                 </div>
                               <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
                             </div>
