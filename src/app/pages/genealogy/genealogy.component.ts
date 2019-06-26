@@ -326,7 +326,10 @@ export class GenealogyComponent implements OnInit {
     this.whse = false;
     this.LotFrom = true;
     this.LotTo = false;
-    this.lookUpHeading = this.language.lot_from;
+    if(this.vendor)
+    this.lookUpHeading = this.language.vendor_lot_from;
+    else
+    this.lookUpHeading = this.language.lot_from;   
     this.dialogService.open(dialog);
    },
    error => {
@@ -356,6 +359,10 @@ export class GenealogyComponent implements OnInit {
     this.whse = false;
     this.LotFrom = false;
     this.LotTo = true;
+    
+    if(this.vendor)
+    this.lookUpHeading = this.language.vendor_lot_to;
+    else
     this.lookUpHeading = this.language.lot_to;
     this.dialogService.open(dialog);
    },
