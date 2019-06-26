@@ -917,9 +917,11 @@ else
    if(this.vendor){
      this.radioExplode = 'Where Used';
      this.ItemValue = '';
+     this.DfltWarehouse = ''; this.DistNumFrom = ''; this.DistNumTo = '';
    }
    else {
-
+    this.ItemValue = '';
+    this.DfltWarehouse = ''; this.DistNumFrom = ''; this.DistNumTo = '';
    }
  }
  colorCodeWrapperToggle(e){

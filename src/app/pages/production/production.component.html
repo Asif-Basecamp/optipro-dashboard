@@ -260,7 +260,7 @@
                     <kendo-grid-column field="AVAILABLE" title="{{language.available_qty}}" width="120"
                       class="text-right" headerClass="text-right">
                       <ng-template kendoGridCellTemplate let-dataItem>
-                        <span *ngIf="!CmpInventShort && (dataItem.AVAILABLE > 0)">{{dataItem.AVAILABLE}}</span>
+                        <span *ngIf="!CmpInventShort || (dataItem.AVAILABLE > 0)">{{dataItem.AVAILABLE}}</span>
                         <span *ngIf="CmpInventShort && (dataItem.AVAILABLE <= 0)"
                           class="text-danger">{{dataItem.AVAILABLE}}</span>
                       </ng-template>
@@ -315,7 +315,11 @@
                               <a class="cursor-pointer text-primary"
                               (click)="showDetailsOnOrderLookup(rowData,'CP',true)">{{rowData.OnOrder}}</a>
                           </td>
-                          <td class="text-right" headerClass="text-right">{{rowData.AVAILABLE}}</td>
+                          <td class="text-right" headerClass="text-right">
+                           <span *ngIf="!CmpInventShort || (rowData.AVAILABLE > 0)">{{rowData.AVAILABLE}}</span>
+                           <span *ngIf="CmpInventShort && (rowData.AVAILABLE <= 0)"
+                            class="text-danger">{{rowData.AVAILABLE}}</span>
+                          </td>
                           <td class="text-right" headerClass="text-right">{{rowData.U_O_UOM}}</td>
                         </tr>
                       </ng-template>
@@ -609,6 +613,12 @@
                                 </kendo-grid-column>
                                 <kendo-grid-column field="COM_AVAILABLE_QTY" title="{{language.qty_aval}}" [width]="113"
                                   [locked]="false" class="text-right" headerClass="text-right">
+                                  <ng-template kendoGridCellTemplate let-dataItem>
+                                    <span
+                                      *ngIf="!CmpInventShort || (dataItem.COM_AVAILABLE_QTY > 0)">{{dataItem.COM_AVAILABLE_QTY}}</span>
+                                    <span *ngIf="CmpInventShort && (dataItem.COM_AVAILABLE_QTY <= 0)"
+                                      class="text-danger">{{dataItem.COM_AVAILABLE_QTY}}</span>
+                                  </ng-template>
                                 </kendo-grid-column>
                               </kendo-grid-column-group>
                             </kendo-grid>
@@ -670,54 +680,59 @@
                               </kendo-grid-column>
                               <kendo-grid-column field="U_O_UOM" title="{{language.uom}}" width="44">
                               </kendo-grid-column>
-                              <kendo-grid-column field="REQ_QTY" title="{{language.qty_per_bom_unit}}" width="59">
+                              <kendo-grid-column field="REQ_QTY" title="{{language.qty_per_bom_unit}}" width="59"
+                              class="text-right" headerClass="text-right">
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_ACTISSQTY" title="{{language.qty_issued}}" width="94">
+                              <kendo-grid-column field="U_O_ACTISSQTY" title="{{language.qty_issued}}" width="94"
+                              class="text-right" headerClass="text-right">
                                 <ng-template kendoGridCellTemplate let-dataItem>
                                   <a class="cursor-pointer text-primary"
                                     (click)="showDetailsIssuedLookup(dataItem)">{{dataItem.ISSUED_QTY}}</a>
                                 </ng-template>
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_BALQTY" title="{{language.qty_bal}}" width="108">
+                              <kendo-grid-column field="U_O_BALQTY" title="{{language.qty_bal}}" width="108"
+                              class="text-right" headerClass="text-right">
                               </kendo-grid-column>
                               <kendo-grid-column field="U_O_ISSUEDATE" title="{{language.issue_date}}" width="84">
                                 <ng-template kendoGridCellTemplate let-dataItem>
                                   {{dataItem.U_O_ISSUEDATE | date: 'MM/dd/yyyy'}}
                                 </ng-template>
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_ISSWH" title="{{language.issue_wh}}" width="109">
+                              <kendo-grid-column field="U_O_ISSWH" title="{{language.issue_wh}}" width="109"
+                              class="text-right" headerClass="text-right">
                               </kendo-grid-column>
                               <kendo-grid-column field="U_O_ISSBIN" title="{{language.issue_bin}}" width="186">
                               </kendo-grid-column>
                               <kendo-grid-column field="U_O_ISSTYPE" title="{{language.issue_mth}}" width="100">
                               </kendo-grid-column>
-                              <kendo-grid-column field="U_O_ISSTOOPER" title="{{language.Operation}}" width="46">
+                              <kendo-grid-column field="U_O_ISSTOOPER" title="{{language.opn}}" width="46"
+                              class="text-right" headerClass="text-right">
                               </kendo-grid-column>
                               <kendo-grid-column-group headerClass="text-center" title="{{language.qty_wh_xxxx}}"
                                 [width]="300">
                                 <kendo-grid-column field="WH_INSTOCK_QTY" title="{{language.qty_in_stock}}"
-                                  [width]="108">
+                                  [width]="108" class="text-right" headerClass="text-right">
                                   <ng-template kendoGridCellTemplate let-dataItem>
                                     <a class="cursor-pointer text-primary"
                                       (click)="showDetailsInStockLookup(dataItem,'WH',false)">{{dataItem.WH_INSTOCK_QTY}}</a>
                                   </ng-template>
                                 </kendo-grid-column>
                                 <kendo-grid-column field="WH_COMMITED_QTY" title="{{language.qty_commit}}"
-                                  [width]="121">
+                                  [width]="121" class="text-right" headerClass="text-right">
                                 </kendo-grid-column>
                                 <kendo-grid-column field="WH_ONORDER_QTY" title="{{language.qty_on_order}}"
-                                  [width]="112" [locked]="false">
+                                  [width]="112" [locked]="false" class="text-right" headerClass="text-right">
                                   <ng-template kendoGridCellTemplate let-dataItem>
                                     <a class="cursor-pointer text-primary"
                                       (click)="showDetailsOnOrderLookup(dataItem,'CP')">{{dataItem.WH_ONORDER_QTY}}</a>
                                   </ng-template>
                                 </kendo-grid-column>
                                 <kendo-grid-column field="WH_AVAILABLE_QTY" title="{{language.qty_aval}}" [width]="113"
-                                  [locked]="false">
+                                  [locked]="false" class="text-right" headerClass="text-right">
                                   <ng-template kendoGridCellTemplate let-dataItem>
                                     <span
-                                      *ngIf="!CmpInventShort || (dataItem.WH_AVAILABLE_QTY > 0)">{{dataItem.WH_AVAILABLE_QTY}}</span>
-                                    <span *ngIf="CmpInventShort && (dataItem.WH_AVAILABLE_QTY <= 0)"
+                                      *ngIf="!WHInventShort || (dataItem.WH_AVAILABLE_QTY > 0)">{{dataItem.WH_AVAILABLE_QTY}}</span>
+                                    <span *ngIf="WHInventShort && (dataItem.WH_AVAILABLE_QTY <= 0)"
                                       class="text-danger">{{dataItem.WH_AVAILABLE_QTY}}</span>
                                   </ng-template>
                                 </kendo-grid-column>
@@ -725,24 +740,31 @@
                               <kendo-grid-column-group headerClass="text-center" title="{{language.qty_company_lvl}}"
                                 [width]="300">
                                 <kendo-grid-column field="COM_INSTOCK_QTY" title="{{language.qty_in_stock}}"
-                                  [width]="108">
+                                  [width]="108" class="text-right" headerClass="text-right">
                                   <ng-template kendoGridCellTemplate let-dataItem>
                                     <a class="cursor-pointer text-primary"
                                       (click)="showDetailsInStockLookup(dataItem,'CP',false)">{{dataItem.COM_INSTOCK_QTY}}</a>
                                   </ng-template>
                                 </kendo-grid-column>
                                 <kendo-grid-column field="COM_COMMITED_QTY" title="{{language.qty_commit}}"
-                                  [width]="121">
+                                  [width]="121" class="text-right" headerClass="text-right">
                                 </kendo-grid-column>
                                 <kendo-grid-column field="COM_ONORDER_QTY" title="{{language.qty_on_order}}"
-                                  [width]="116" [locked]="false">
+                                  [width]="116" [locked]="false" class="text-right" headerClass="text-right">
                                   <ng-template kendoGridCellTemplate let-dataItem>
                                     <a class="cursor-pointer text-primary"
                                       (click)="showDetailsOnOrderLookup(dataItem,'CP')">{{dataItem.COM_ONORDER_QTY}}</a>
                                   </ng-template>
                                 </kendo-grid-column>
                                 <kendo-grid-column field="COM_AVAILABLE_QTY" title="{{language.qty_aval}}" [width]="121"
-                                  [locked]="false">
+                                  [locked]="false" class="text-right" headerClass="text-right">
+                                  <ng-template kendoGridCellTemplate let-dataItem>
+                                    <span
+                                      *ngIf="!CmpInventShort || (dataItem.COM_AVAILABLE_QTY > 0)">{{dataItem.COM_AVAILABLE_QTY}}</span>
+                                    <span *ngIf="CmpInventShort && (dataItem.COM_AVAILABLE_QTY <= 0)"
+                                      class="text-danger">{{dataItem.COM_AVAILABLE_QTY}}</span>
+                                  </ng-template>
+                                  
                                 </kendo-grid-column>
                               </kendo-grid-column-group>
 
