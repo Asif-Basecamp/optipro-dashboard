@@ -30,7 +30,8 @@ export class SigninComponent implements OnInit {
 	public selectedValue: any = [];
 	public InvalidActiveUser: boolean = false;
 	public loading: boolean = false;
-	public selectedItemNgModel: any;
+	//public selectedItemNgModel: any;
+	public disableDropDown: boolean = true;
 
 	constructor(private auth: AuthenticationService, private httpClientSer: HttpClient, private router: Router, private toastrService: NbToastrService) {}
 
@@ -57,6 +58,9 @@ export class SigninComponent implements OnInit {
 			data => {
 				window.localStorage.setItem('language', JSON.stringify(data));
 				this.language = JSON.parse(window.localStorage.getItem('language'));
+				this.defaultCompnyComboValue = [{ OPTM_COMPID: this.language.company_placeholder }];
+				this.listItems = this.defaultCompnyComboValue;
+       			this.selectedValue = this.listItems[0];
 				this.getPSURL();
 			},
 			error => {
@@ -86,11 +90,12 @@ export class SigninComponent implements OnInit {
 					this.modelSource = data;
 					if (this.modelSource != null && this.modelSource.Table.length > 0 && this.modelSource.Table[0].OPTM_ACTIVE == 1) {
 						this.getCompanies();
+						this.disableDropDown = false;
 					} else {
 						this.listItems = this.defaultCompnyComboValue;
 						this.selectedValue = this.listItems[0];
 						this.toastrService.danger(this.language.password_incorrect);
-					}
+					}					
 				},
 				error => {});
 		}
@@ -117,7 +122,8 @@ export class SigninComponent implements OnInit {
 	OnSignIn() {
 		this.router.navigateByUrl('/pages');
 		this.loading = true;
-		window.localStorage.setItem('CompanyDB', JSON.stringify(this.selectedItemNgModel));
+		//window.localStorage.setItem('CompanyDB', JSON.stringify(this.selectedItemNgModel)); 
+		window.localStorage.setItem('CompanyDB', JSON.stringify(this.selectedValue.OPTM_COMPID));
 		window.localStorage.setItem('Username', JSON.stringify(this.loginId));
 		window.localStorage.setItem('Userpwd', JSON.stringify(this.password));
 	}

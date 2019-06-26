@@ -228,12 +228,14 @@
                             [class.node-content-wrapper-focused]="node.isFocused"
                             (click)="node.mouseAction('click', $event)"
                             (dblclick)="node.mouseAction('dblClick', $event)">
-                              <span>{{node.data.OPTM_ITEMCODE}} ~ {{node.data.OPTM_BTCHSERNO }}</span>
+                              <span *ngIf="node.data.OPTM_BTCHSERNO != null">{{node.data.OPTM_ITEMCODE}} ~ {{node.data.OPTM_BTCHSERNO }}</span>
+                              <span *ngIf="node.data.OPTM_BTCHSERNO == null">{{node.data.OPTM_ITEMCODE}}</span>
                             </div>
                             <div class="node-content-wrapper" *ngIf="explodeDirection == 'UP'" [class.node-content-wrapper-active]="node.isActive"
                             [class.node-content-wrapper-focused]="node.isFocused"
                             (click)="node.mouseAction('click', $event)" (dblclick)="node.mouseAction('dblClick', $event)">
-                                <span>{{node.data.OPTM_ITEMCODE}} ~ {{node.data.OPTM_PARENTBTCHSERNO }}</span>
+                                <span *ngIf="node.data.OPTM_PARENTBTCHSERNO != null">{{node.data.OPTM_ITEMCODE}} ~ {{node.data.OPTM_PARENTBTCHSERNO }}</span>
+                                <span *ngIf="node.data.OPTM_PARENTBTCHSERNO == null">{{node.data.OPTM_ITEMCODE}}</span>
                               </div>
                           <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
                         </div>

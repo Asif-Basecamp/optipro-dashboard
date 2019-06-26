@@ -811,11 +811,12 @@ else
     test = test.split("~")[test.split("~").length - 1];
     if (test != '' && test != " " && test != undefined && test != null) {
      test = test.trim();
-    } else {
-     this.toastrService.danger(this.language.error_item_none_tracked);
-     this.loading = false;
-     return;
-    }
+    } 
+   }
+   else {
+    this.toastrService.danger(this.language.error_item_none_tracked);
+    this.loading = false;
+    return;
    }
    this.GetTransaction(test);
   }
