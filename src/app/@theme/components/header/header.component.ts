@@ -15,19 +15,22 @@ export class HeaderComponent implements OnInit {
   @Input() position = 'normal';
   private index: number = 0;
 
-
+  language: any;
   user: any;
-  userMenu = [{ title: 'Log out' }];
+  userMenu: any;
 
   constructor(private sidebarService: NbSidebarService,private userService: UserData,private router: Router,private toastrService: NbToastrService) {
     if(window.localStorage.getItem('Username') == null || window.localStorage.getItem('Username') == undefined) {
          this.router.navigateByUrl('/auth/signin');
     }
+    this.language = JSON.parse(window.localStorage.getItem('language'));  
+    this.userMenu = [{ title: this.language.Log_Out}];
   }
 
   ngOnInit() {
     this.userService.getUsers()
       .subscribe((users: any) => this.user = users.nick);
+    
   }
 
   toggleSidebar(): boolean {
