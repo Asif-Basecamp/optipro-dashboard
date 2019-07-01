@@ -28,7 +28,48 @@
   width: auto !important;
   height: 5px;
 }
-
+.k-pager-numbers .k-link {
+  color: nb-theme(color-primary);
+  padding: 3px 6px;
+  font-size: 12px;
+}
+ul.k-pager-numbers.k-reset{
+  display: flex;
+  white-space: nowrap;
+  list-style: none;
+  margin:0;
+  padding: 0 !important;
+}
+ul.k-pager-numbers li{
+margin:0 1px;
+}
+.k-pager-nav a {
+  color: nb-theme(color-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.k-pager-numbers .k-state-selected{
+  color: #fff;
+  background-color: nb-theme(color-primary);
+}
+.k-pager-numbers .k-link:hover,.k-pager-numbers .k-link.k-state-hover {
+  color: #fff;
+  background-color: lighten( nb-theme(color-primary), 20% )
+}
+.k-pager-info {
+  font-size: 12px;
+}
+kendo-pager-next-buttons, kendo-pager-info, 
+kendo-pager-numeric-buttons,
+kendo-pager-numeric-buttons .k-link,
+kendo-pager-prev-buttons,
+kendo-pager-prev-buttons .k-link,
+kendo-pager-next-buttons .k-link{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
 .k-grid.k-display-block {
   display: block
 }
