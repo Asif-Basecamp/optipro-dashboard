@@ -385,7 +385,7 @@ export interface TreeNode {
    if(!this.ItemData){
      this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
    }        
-     this.lookUpHeading = 'Item From';
+     this.lookUpHeading = this.language.item_from;
      this.gridData = this.ItemData;
      this.dialogService.open(dialog);
      this.ItemFrom = true;
@@ -426,7 +426,7 @@ export interface TreeNode {
    if(!this.ItemData){
      this.getItemData(this.arrConfigData.optiProDashboardAPIURL, this.CompanyDB);
    }        
-     this.lookUpHeading = 'Item To';
+     this.lookUpHeading = this.language.item_to;
      this.gridData = this.ItemData;
      this.dialogService.open(dialog);
      this.ItemFrom = false;

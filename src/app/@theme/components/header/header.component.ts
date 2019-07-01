@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.userService.getUsers()
       .subscribe((users: any) => this.user = users.nick);
-    
+    this.language = JSON.parse(window.localStorage.getItem('language'));  
   }
 
   toggleSidebar(): boolean {
@@ -47,9 +47,10 @@ export class HeaderComponent implements OnInit {
   }
 
   LogOut(position){
+    this.toastrService.success(this.language.logout_msg,  ``, { position });
+
      if(window.localStorage.getItem('Username') != null || window.localStorage.getItem('Username') != undefined) {
         window.localStorage.clear();
-        this.toastrService.success('You have been logged out',  ``, { position });
         this.router.navigateByUrl('/Login');
       }
   }
