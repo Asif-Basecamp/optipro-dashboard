@@ -21,6 +21,8 @@
 @mixin form-control-sm() {
   font-size: nb-theme(form-control-font-size-sm);
   height:nb-theme(form-control-height);
+  padding: nb-theme(form-control-padding-sm);
+  
 }
 
 @mixin form-control-md() {

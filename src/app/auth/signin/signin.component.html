@@ -136,9 +136,8 @@
                                           {{cmp.OPTM_COMPID}}</nb-option> 
                               </nb-select> -->
 
-                              <select type="company" name="form-company" [(ngModel)]="selectedValue" class="form-username form-control" id="form-company" [disabled]="disableDropDown">                         
-                                <option *ngFor="let cmp of listItems" name="selcompany" [ngValue]="cmp">
-                                 {{cmp.OPTM_COMPID}}</option> 
+                              <select type="company" name="form-company" [(ngModel)]="selectedValue" class="form-username form-control input-sm" id="form-company" [disabled]="disableDropDown">                         
+                                <option *ngFor="let cmp of listItems" name="selcompany" [ngValue]="cmp">{{cmp.OPTM_COMPID}}</option> 
                              </select> 
                          </div>                           
                            

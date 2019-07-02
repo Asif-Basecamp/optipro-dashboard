@@ -85,9 +85,9 @@
       nb-theme(form-control-placeholder-font-size));
   }
 
-  select.form-control:not([size]):not([multiple]) {
-    height: calc(2rem + 20px);
-  }
+  // select.form-control:not([size]):not([multiple]) {
+  //   height: calc(2rem + 20px);
+  // }
 
   .form-control-label {
     color: nb-theme(form-control-text-primary-color);
@@ -242,4 +242,9 @@
   @include form-control-default();
 
   @include custom-forms();
+}
+
+
+select.form-control.input-sm {
+  padding-left:2px !important;
 }
