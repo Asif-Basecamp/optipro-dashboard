@@ -783,7 +783,8 @@ else
        node.appendChild(secondMenu);
      },
      'exportButton': true,
-     'exportFilename': 'Analysis View'   
+     'exportFilename': 'Analysis View' 
+     //'exportFilename': this.language.exportFilename    
    });
    } 
   else{

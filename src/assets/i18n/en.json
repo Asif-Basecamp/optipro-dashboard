@@ -214,5 +214,9 @@
     "In_Process": "In Process",
     "New": "New",
     "Close": "Close",
-    "Cancel": "Cancel"
+    "Cancel": "Cancel",
+    "Version": "Version",
+    "Copyright": "Copyright 2000-2019. All rights reserved.",
+    "OptiPro_Dashboard": "OptiPro Dashboard",
+    "exportFilename": "Analysis View"
  }

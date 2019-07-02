@@ -15,19 +15,22 @@ export class HeaderComponent implements OnInit {
   @Input() position = 'normal';
   private index: number = 0;
 
-
+  language: any;
   user: any;
-  userMenu = [{ title: 'Log out' }];
+  userMenu: any;
 
   constructor(private sidebarService: NbSidebarService,private userService: UserData,private router: Router,private toastrService: NbToastrService) {
     if(window.localStorage.getItem('Username') == null || window.localStorage.getItem('Username') == undefined) {
          this.router.navigateByUrl('/auth/signin');
     }
+    this.language = JSON.parse(window.localStorage.getItem('language'));  
+    this.userMenu = [{ title: this.language.Log_Out}];
   }
 
   ngOnInit() {
     this.userService.getUsers()
       .subscribe((users: any) => this.user = users.nick);
+    this.language = JSON.parse(window.localStorage.getItem('language'));  
   }
 
   toggleSidebar(): boolean {
@@ -44,9 +47,10 @@ export class HeaderComponent implements OnInit {
   }
 
   LogOut(position){
+    this.toastrService.success(this.language.logout_msg,  ``, { position });
+
      if(window.localStorage.getItem('Username') != null || window.localStorage.getItem('Username') != undefined) {
         window.localStorage.clear();
-        this.toastrService.success('You have been logged out',  ``, { position });
         this.router.navigateByUrl('/Login');
       }
   }

@@ -430,7 +430,7 @@
       </as-split-area>
 
       <nb-card class="h-100 w-100 overflow-hidden mb-0 border-0" *ngIf="!gridViewShow" accent="primary" size="xsmall" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="xlarge"
-    nbSpinnerMessage="Please Wait">
+    nbSpinnerMessage="{{language.please_wait}}">
       <div class="default-page-bg">
         <div class="text-center opti-logo">
           <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -536,9 +536,9 @@
         </g>
         </svg>
           <div class="text-center opti_version-info w-100">
-            Version <span></span>
+            {{language.Version}} <span></span>
 
-            <div>Copyright 2000-2019. All rights reserved.</div>
+            <div>{{language.Copyright}}</div>
           </div>
         </div>
       </div>
